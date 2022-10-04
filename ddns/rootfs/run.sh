@@ -45,24 +45,23 @@ do
             --data ${DATA})
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
- #               bashio::log.alert "Failed to update ${DOMAIN} (is ${DOMAIN_IP})"
-                echo -e " -\e[1;31m ${DOMAIN} (${DOMAIN_IP}), failed to update\n"
+                echo -e " -\e[1;31m ${DOMAIN} (${DOMAIN_IP}), failed to update\e[1;37m\n"
             else
- #               bashio::log.info "Updated ${DOMAIN} (was ${DOMAIN_IP})"
-                echo -e " -\e[1;32m ${DOMAIN} (${DOMAIN_IP}), updated\n"
+                echo -e " -\e[1;32m ${DOMAIN} (${DOMAIN_IP}), updated\e[1;37m\n"
             fi
         else
-
             echo -e " - ${DOMAIN}, up-to-date\n"
         fi
+        
     done
-
+    
     if [[ ${INTERVAL} == 1 ]];
     then
         echo -e " \nWaiting 1 minute for next check...\n "
     else
         echo -e " \nWaiting ${INTERVAL} minutes for next check...\n "
     fi
+    
     sleep ${INTERVAL}m
-
+    
 done
