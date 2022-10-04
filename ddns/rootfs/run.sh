@@ -43,6 +43,7 @@ do
             -H "Authorization: Bearer ${TOKEN}" \
             -H "Content-Type: application/json" \
             --data ${DATA})
+            
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
                 echo -e " -\e[1;31m ${DOMAIN} (${DOMAIN_IP}), failed to update\e[1;37m\n"
