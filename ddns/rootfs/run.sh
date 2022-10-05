@@ -24,10 +24,6 @@ elif [[ ${#ZONE} == 0 ]];
 then
     echo -e "\e[1;31mFailed to run due to missing Cloudflare Zone ID\e[1;37m\n"
     exit 1
-elif [[ ${#DOMAINS[*]} == 0 ]];
-then
-    echo -e "\e[1;31mFailed to run due to missing domains\e[1;37m\n"
-    exit 1
 fi
 
 if [[ ${INTERVAL} == 1 ]];
