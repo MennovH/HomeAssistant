@@ -12,6 +12,7 @@ arch:
   - i386
 startup: before
 journald: true
+panel_image: mdi:dns
 options:
   email_address: ""
   cloudflare_zone_id: ""
