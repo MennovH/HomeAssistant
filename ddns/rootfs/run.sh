@@ -12,6 +12,24 @@ ZONE=$(bashio::config 'cloudflare_zone_id')
 DOMAINS=$(bashio::config 'domains')
 INTERVAL=$(bashio::config 'interval')
 
+if ! [[ ${EMAIL} == ?*@?*.?* ]];
+then
+    echo -e "\e[1;31m Failed to start due to invalid email address\e[1;37m\n"
+    exit
+elif [[ ${#TOKEN} == 0 ]];
+then
+    echo -e "\e[1;31m Failed to start due to missing Cloudflare API token\e[1;37m\n"
+    exit
+elif [[ ${#ZONE} == 0 ]];
+then
+    echo -e "\e[1;31m Failed to start due to missing Cloudflare Zone ID\e[1;37m\n"
+    exit
+elif [[ ${#DOMAINS[@]} == 0 ]];
+then
+    echo -e "\e[1;31m Failed to start due to missing domains\e[1;37m\n"
+    exit
+fi
+
 if [[ ${INTERVAL} == 1 ]];
 then
     echo -e "Updating DDNS every minute\n "
