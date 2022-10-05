@@ -45,6 +45,12 @@ do
          -H "Authorization: Bearer ${TOKEN}" \
          -H "Content-Type: application/json")
 
+        if [[ ${DNS_RECORD} == *"\"success\":false"* ]];
+        then
+            echo "\e[1;31mCloudflare: ${DNS_RECORD}\e[1;37m" | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }'
+            exit 0
+        fi
+
         DOMAIN_ID=$(echo ${DNS_RECORD} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_IP=$(echo ${DNS_RECORD} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${DNS_RECORD} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
