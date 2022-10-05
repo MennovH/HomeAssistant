@@ -6,9 +6,9 @@ declare ZONE
 declare DOMAINS
 declare INTERVAL
 
-EMAIL=$(bashio::config 'email_address')
-TOKEN=$(bashio::config 'cloudflare_api_token')     
-ZONE=$(bashio::config 'cloudflare_zone_id')
+EMAIL=$(bashio::config 'email_address' | xargs echo -n)
+TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
+ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 DOMAINS=$(bashio::config 'domains')
 INTERVAL=$(bashio::config 'interval')
 
@@ -24,7 +24,7 @@ elif [[ ${#ZONE} == 0 ]];
 then
     echo -e "\e[1;31mFailed to run due to missing Cloudflare Zone ID\e[1;37m\n"
     exit 1
-elif [[ ${#DOMAINS[@]} == 0 ]];
+elif [[ ${#DOMAINS[*]} == 0 ]];
 then
     echo -e "\e[1;31mFailed to run due to missing domains\e[1;37m\n"
     exit 1
