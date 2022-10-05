@@ -15,19 +15,19 @@ INTERVAL=$(bashio::config 'interval')
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31m Failed to start due to invalid email address\e[1;37m\n"
-    bashio::exit.ok
+    exit 0
 elif [[ ${#TOKEN} == 0 ]];
 then
     echo -e "\e[1;31m Failed to start due to missing Cloudflare API token\e[1;37m\n"
-    bashio::exit.ok
+    exit 0
 elif [[ ${#ZONE} == 0 ]];
 then
     echo -e "\e[1;31m Failed to start due to missing Cloudflare Zone ID\e[1;37m\n"
-    bashio::exit.ok
+    exit 0
 elif [[ ${#DOMAINS[@]} == 0 ]];
 then
     echo -e "\e[1;31m Failed to start due to missing domains\e[1;37m\n"
-    bashio::exit.ok
+    exit 0
 fi
 
 if [[ ${INTERVAL} == 1 ]];
