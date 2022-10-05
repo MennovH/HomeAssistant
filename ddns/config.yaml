@@ -17,7 +17,6 @@ options:
   cloudflare_api_token: ""
   domains: []
   interval: 15
-panel_icon: /addons/cfddns.png
 schema:
   email_address: str
   cloudflare_zone_id: str
