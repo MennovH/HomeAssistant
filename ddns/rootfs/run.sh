@@ -47,7 +47,8 @@ do
 
         if [[ ${DNS_RECORD} == *"\"success\":false"* ]];
         then
-            echo -e "\e[1;31mCloudflare: ${DNS_RECORD}\e[1;37m" | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }'
+            ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
+            echo -e " - \e[1;31mStopped, Cloudflare response: ${ERROR}\e[1;37m"
             exit 0
         fi
 
