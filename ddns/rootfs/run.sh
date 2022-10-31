@@ -67,9 +67,9 @@ do
             
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
-                echo -e " - ${DOMAIN}\e[1;31m (${DOMAIN_IP})\e[1;37m,\e[1;31m failed to update\e[1;37m\n"
+                echo -e " - ${DOMAIN} (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;31m failed to update\e[1;37m\n"
             else
-                echo -e " - ${DOMAIN}\e[1;32m (${DOMAIN_IP})\e[1;37m,\e[1;32m updated\e[1;37m\n"
+                echo -e " - ${DOMAIN} (\e[1;32m${DOMAIN_IP}\e[1;37m),\e[1;32m updated\e[1;37m\n"
             fi
         else
             echo -e " - ${DOMAIN}, up-to-date\n"
