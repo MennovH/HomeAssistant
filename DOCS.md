@@ -23,6 +23,7 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 
 # Configuration
 
+When installed, navigate to the configuration tab of the add-on. Fill in the empty input fields according the instructions below.
 1. `email_address` (required) Enter the e-mail address which is also used for the Cloudflare portal
 2. `cloudflare_zone_id` (required) Enter the ZONE-ID for the zone of which you'd like the DNS records to be updated
 3. `cloudflare_api_token` (required) Enter the API token with which you may read and edit DNS records for the specified zone
