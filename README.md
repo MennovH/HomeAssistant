@@ -32,4 +32,4 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 
 ## Example logging result
 
-![Example logging](https://github.com/MennovH/CloudflareDDNS/blob/main/assets/images/example.png)
+![CloudflareDDNS example logging](images/example.png)
