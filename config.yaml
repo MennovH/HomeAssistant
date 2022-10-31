@@ -1,4 +1,5 @@
 name: "CloudflareDDNS"
+url: https://github.com/MennovH/CloudflareDDNS
 description: "Cloudflare DDNS"
 version: "1.2.1"
 slug: "ddns"
