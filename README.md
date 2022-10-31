@@ -18,4 +18,4 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 
 ![CloudflareDDNS example logging][screenshot]
 
-[screenshot]: https://github.com/MennovH/CloudflareDDNS/blob/main/images/screenshot.png
+[screenshot]: https://raw.githubusercontent.com/MennovH/CloudflareDDNS/main/images/screenshot.png
