@@ -1,8 +1,8 @@
 # CloudflareDDNS
-Home Assistant addon for Cloudflare DDNS.
+Home Assistant add-on for Cloudflare DDNS.
 Automatically update your A records via Home Assistant, every x minutes.
-The addon uses the Cloudflare API possibilities, which are free to use.
-Using this addon as extension to Nginx Proxy Manager, provides an easy way to circumvent the need of add-ons like DuckDNS, so you would be able to use your own domain names. Even for your Home Assistant.
+The add-on uses the Cloudflare API possibilities, which are free to use.
+Using this add-on as extension to Nginx Proxy Manager, provides an easy way to circumvent the need of add-ons like DuckDNS, so you would be able to use your own domain names. Even for your Home Assistant.
 
 ## Prerequisites
 - Home Assistant Supervisor
@@ -29,3 +29,17 @@ Using this addon as extension to Nginx Proxy Manager, provides an easy way to ci
 4. `domains` (required) Add the (sub)domains which should be updatedd
 5. `interval` (required) Enter the interval in minutes in which the (sub)domains should be updated (default: 15)
 6. When ready, start the add-on. The logging will show its results.
+
+## Example logging result
+
+Updating DDNS every 15 minutes
+ 
+Time: 2022-10-31 21:27
+Public IP address: xxx.xxx.xxx.xxx
+Iterating domain list:
+ - (sub)domain-1, up-to-date
+ - (sub)domain-2, up-to-date
+ - (sub)domain-3 (yyy.yyy.yyy.yyy), updated
+ - (sub)domain-4, up-to-date
+ 
+Waiting 15 minutes for next check...
