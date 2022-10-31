@@ -28,9 +28,9 @@ fi
 
 if [[ ${INTERVAL} == 1 ]];
 then
-    echo -e "Updating DDNS every minute\n "
+    echo -e "Updating DNS A records every minute\n "
 else
-    echo -e "Updating DDNS every ${INTERVAL} minutes\n "
+    echo -e "Updating DNS A records every ${INTERVAL} minutes\n "
 fi
 
 while :
