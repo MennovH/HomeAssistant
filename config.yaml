@@ -1,6 +1,6 @@
 name: "CloudflareDDNS"
 description: "Cloudflare DDNS"
-version: "1.2.0"
+version: "1.2.1"
 slug: "ddns"
 ingress: false
 apparmor: true
