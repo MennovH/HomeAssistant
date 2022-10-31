@@ -1,0 +1,29 @@
+name: "CloudflareDDNS"
+description: "Cloudflare DDNS"
+version: "1.2.0"
+slug: "ddns"
+ingress: false
+apparmor: true
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: before
+journald: true
+panel_icon: mdi:cloud-check
+options:
+  email_address: null
+  cloudflare_zone_id: null
+  cloudflare_api_token: null
+  domains: null
+  interval: 15
+schema:
+  email_address: str
+  cloudflare_zone_id: str
+  cloudflare_api_token: password
+  domains:
+    - str
+  interval: int(1,1440)
