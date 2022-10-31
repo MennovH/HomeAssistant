@@ -16,4 +16,4 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 
 ## Example logging result
 
-![CloudflareDDNS example logging](example.svg)
+![CloudflareDDNS example logging](images/example.png)
