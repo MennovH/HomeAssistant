@@ -6,13 +6,13 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 
 ## Prerequisites
 - Home Assistant Supervisor
-- Valid Cloudflare account
+- A valid Cloudflare account
 - Cloudflare managed DNS records
-  The regarding domain name records must be managed via Cloudflare.
+  - The regarding domain name records must be managed via Cloudflare.
 - Cloudflare API token
-  In your online Cloudflare account, create an API token for the regarding zone, which allows the DNS records to be modified.
+  - In your online Cloudflare account, create an API token for the regarding zone, which allows the DNS records to be modified.
 - Cloudflare zone ID
-  The zone ID can be found in the DNS section of the online Cloudflare dashboard
+  - The zone ID can be found in the DNS section of the online Cloudflare dashboard
 
 # Installation
 
