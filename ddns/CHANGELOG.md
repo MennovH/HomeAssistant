@@ -3,3 +3,4 @@
 - Updated logging visuals
 - Added README.md file to add-on
 - Added CHANGELOG.md file to add-on
+- Added logging example to README.md
