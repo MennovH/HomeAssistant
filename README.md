@@ -32,14 +32,4 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 
 ## Example logging result
 
-Updating DDNS every 15 minutes
- 
-Time: 2022-10-31 21:27
-Public IP address: xxx.xxx.xxx.xxx
-Iterating domain list:
- - (sub)domain-1, up-to-date
- - (sub)domain-2, up-to-date
- - (sub)domain-3 (yyy.yyy.yyy.yyy), updated
- - (sub)domain-4, up-to-date
- 
-Waiting 15 minutes for next check...
+![Example logging](https://github.com/MennovH/CloudflareDDNS/blob/main/images/example.png)
