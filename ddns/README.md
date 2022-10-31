@@ -32,4 +32,4 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 
 ## Example logging result
 
-![Example logging](/assets/images/example.png)
+![Example logging](example.png)
