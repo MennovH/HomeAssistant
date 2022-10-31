@@ -14,6 +14,8 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 - Cloudflare zone ID
   - The zone ID can be found in the DNS section of the online Cloudflare dashboard
 
+#### Please consult the documentation for installation and configuration of this add-on
+
 ## Example logging result
 
 ![CloudflareDDNS example logging][screenshot]
