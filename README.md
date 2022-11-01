@@ -18,6 +18,8 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 
 ## Example logging result
 
+The following example shows an output of the add-on, where the A record of (sub)domain-3 pointed to a wrong IP address.
+
 ![CloudflareDDNS example logging][screenshot]
 
 [screenshot]: https://raw.githubusercontent.com/MennovH/CloudflareDDNS/main/images/screenshot.png
