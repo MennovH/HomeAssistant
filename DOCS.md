@@ -33,6 +33,8 @@ When installed, navigate to the configuration tab of the add-on. Fill in the emp
 
 ## Example logging result
 
+The following example shows an output of the add-on, where the A record of (sub)domain-3 pointed to a wrong IP address.
+
 ![CloudflareDDNS example logging][screenshot]
 
 [screenshot]: https://raw.githubusercontent.com/MennovH/CloudflareDDNS/main/images/screenshot.png
