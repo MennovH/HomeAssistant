@@ -20,6 +20,7 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
   - Leave the other options for what they are
   - Click on "Continue to summary"
   - Click on "Create Token" and store this token in a safe place(!), this token needs to be added to the configuration of this add-on later on
+    - NOTE: when you leave this page, you can no longer retrieve this token via the web page. You would then need to create a new token.
 - A Cloudflare Zone ID
   - The Zone ID of the regarding domain, is a long string which can be found in the lower right corner of the Cloudflare online dashboard Overview page, under the heading "API".
 
