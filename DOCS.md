@@ -2,7 +2,7 @@
 Home Assistant add-on for Cloudflare DDNS.
 Automatically update your A records via Home Assistant, every x minutes.
 The add-on uses the Cloudflare API possibilities, which are free to use.
-Using this add-on as extension to Nginx Proxy Manager, provides an easy way to circumvent the need of add-ons like DuckDNS, so you would be able to use your own domain names. Even for your Home Assistant.
+Using this add-on as extension to Nginx Proxy Manager, provides an easy way to circumvent the need of add-ons like DuckDNS, so you would be able to use your own domain. Even for your Home Assistant.
 
 ## Prerequisites
 - Home Assistant Supervisor
