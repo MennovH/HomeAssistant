@@ -7,6 +7,7 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 ## Prerequisites
 - Home Assistant Supervisor
 - A valid Cloudflare account
+  - The email address associated to this account needs to be added in the configuration of this add-on later on
 - Cloudflare managed DNS records
   - The regarding domain name records must be managed via Cloudflare.
 - Cloudflare API token
