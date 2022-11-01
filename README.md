@@ -10,7 +10,7 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
   - The email address associated to this account needs to be added in the configuration of this add-on later on
 - Cloudflare managed DNS records
   - The regarding domain name records must be managed via Cloudflare.
-- Cloudflare API token
+- A valid Cloudflare API token
   - Navigate to your online Cloudflare account (Account → My Profile → {} API Tokens)
   - Create a Custom Token
     - Give the API token a descriptive name
@@ -18,7 +18,7 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
       - "Zone", "DNS", "Edit", respectively
       - Leave the other options as is
     - Create and save(!) the token, this needs to be added to the configuration of this add-on later on
-- Cloudflare Zone ID
+- A Cloudflare Zone ID
   - The Zone ID of the regarding domain, can be found in the lower right corner of the Cloudflare online dashboard Overview page, under the heading "API".
 
 #### Please consult the documentation for installation and configuration of this add-on
