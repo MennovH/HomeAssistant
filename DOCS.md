@@ -7,12 +7,22 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 ## Prerequisites
 - Home Assistant Supervisor
 - A valid Cloudflare account
+  - The email address associated to this account needs to be added in the configuration of this add-on later on
 - Cloudflare managed DNS records
   - The regarding domain name records must be managed via Cloudflare.
-- Cloudflare API token
-  - In your online Cloudflare account, create an API token for the regarding zone, which allows the DNS records to be modified.
-- Cloudflare zone ID
-  - The zone ID can be found in the DNS section of the online Cloudflare dashboard
+- A valid Cloudflare API token
+  - Navigate to your online Cloudflare account (Account → My Profile → {} API Tokens)
+  - Click on "Create Token"
+  - Click on the "Use template" button behind the label "Edit zone DNS"
+    - Optionally: rename the token
+  - Leave the Permissions for what they are
+  - Select the Specific zone(s) for which this token may be used
+  - Leave the other options for what they are
+  - Click on "Continue to summary"
+  - Click on "Create Token" and store this token in a safe place(!), this also needs to be added to the configuration of this add-on later on
+    - NOTE: when you leave this page, you can no longer retrieve this token via the web page. You would then need to create a new token.
+- A Cloudflare Zone ID
+  - The Zone ID of the regarding domain, is a long string which can be found in the lower right corner of the Cloudflare online dashboard Overview page, under the heading "API".
 
 # Installation
 
