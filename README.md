@@ -12,14 +12,16 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
   - The regarding domain name records must be managed via Cloudflare.
 - A valid Cloudflare API token
   - Navigate to your online Cloudflare account (Account → My Profile → {} API Tokens)
-  - Create a Custom Token
-    - Give the API token a descriptive name
-    - Recommended permissions for this API token, select:
-      - "Zone", "DNS", "Edit", respectively
-      - Leave the other options as is
-    - Create and save(!) the token, this needs to be added to the configuration of this add-on later on
+  - Click on "Create Token"
+  - Click on the "Use template" button behind "Edit zone DNS"
+    - Optionally: rename the token
+  - Leave the Permissions for what they are
+  - Select the Specific zone(s) for which this token may be used
+  - Leave the other options for what they are
+  - Click on "Continue to summary"
+  - Click on "Create Token" and store this token in a safe place(!), this token needs to be added to the configuration of this add-on later on
 - A Cloudflare Zone ID
-  - The Zone ID of the regarding domain, can be found in the lower right corner of the Cloudflare online dashboard Overview page, under the heading "API".
+  - The Zone ID of the regarding domain, is a long string which can be found in the lower right corner of the Cloudflare online dashboard Overview page, under the heading "API".
 
 #### Please consult the documentation for installation and configuration of this add-on
 
