@@ -1,4 +1,4 @@
-# CloudflareDDNS
+# CloudflareDDNS Home Assistant add-on
 Home Assistant add-on for Cloudflare DDNS.
 Automatically update your A records via Home Assistant, every x minutes.
 The add-on uses the Cloudflare API possibilities, which are free to use.
