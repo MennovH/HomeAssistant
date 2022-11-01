@@ -18,7 +18,7 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 
 ## Example logging result
 
-The following example shows an output of the add-on, where the A record of (sub)domain-3 pointed to a wrong IP address. The add-on found this record was incorrect, and updated it accordingly.
+The following example shows an output of the add-on, where the A record of (sub)domain-3 pointed to a wrong IP address. The add-on found this record was incorrect, and updated it accordingly. This change is instantly visible in the Cloudflare dashboard.
 
 ![CloudflareDDNS example logging][screenshot]
 
