@@ -1,6 +1,6 @@
 name: "CloudflareDDNS"
 url: https://github.com/MennovH/CloudflareDDNS
-description: "Cloudflare DDNS"
+description: "Cloudflare DDNS add-on for Home Assistant"
 version: "1.2.1"
 slug: "ddns"
 ingress: false
