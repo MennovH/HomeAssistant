@@ -13,7 +13,7 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 - A valid Cloudflare API token
   - Navigate to your online Cloudflare account (Account → My Profile → {} API Tokens)
   - Click on "Create Token"
-  - Click on the "Use template" button behind "Edit zone DNS"
+  - Click on the "Use template" button behind the label "Edit zone DNS"
     - Optionally: rename the token
   - Leave the Permissions for what they are
   - Select the Specific zone(s) for which this token may be used
