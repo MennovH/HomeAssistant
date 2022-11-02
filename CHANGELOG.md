@@ -1,3 +1,6 @@
+# v1.2.2
+- Signed and verified with codenotary
+
 # v1.2.1
 - Changed full directory
 
