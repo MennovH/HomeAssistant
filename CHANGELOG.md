@@ -1,3 +1,7 @@
+# v1.2.2
+- Signed and verified with codenotary
+- Removed unnecessary privileges from apparmor
+
 # v1.2.1
 - Changed full directory
 
