@@ -22,11 +22,10 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
 
   # Bashio
   /usr/lib/bashio/** ix,
-  #/tmp/** rwk,
+  /tmp/** rwk,
 
   # Access to options.json and other files within your addon
-  #/data/** rw,
-  /data/** r,
+  /data/** rw,
 
   # Start new profile for service
   /usr/bin/cloudflareddns cx -> cloudflareddns,
@@ -38,17 +37,16 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
     signal (receive) peer=*_ddns,
 
     # Access to options.json and other files within your addon
-    #/data/** rw,
-    /data/** r,
+    /data/** rw,
 
     # Access to mapped volumes specified in config.json
-    #/share/** rw,
+    /share/** rw,
 
     # Access required for service functionality
     /usr/bin/cloudflareddns r,
     /bin/bash rix,
     /bin/echo ix,
-    #/etc/passwd r,
-    #/dev/tty rw,
+    /etc/passwd r,
+    /dev/tty rw,
   }
 }
