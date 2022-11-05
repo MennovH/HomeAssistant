@@ -54,3 +54,4 @@ profile ddns flags=(attach_disconnected,mediate_deleted,complain) {
     /etc/passwd r,
     /dev/tty rw,
   }
+}
