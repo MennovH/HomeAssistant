@@ -24,8 +24,8 @@ options:
     - domain: null
   interval: 15
 schema:
-  email_address: email
-  cloudflare_zone_id: str
+  email_address: str
+  cloudflare_zone_id: password
   cloudflare_api_token: password
   domains:
     - domain: str
