@@ -14,6 +14,8 @@ FROM ${BUILD_FROM}
 #Launch nginx with debug options.
 #CMD [ "nginx","-g","daemon off;error_log /dev/stdout debug;" ]
 
+CMD [ "/dev/stdout debug;" ]
+
 WORKDIR /
 
 COPY rootfs /
