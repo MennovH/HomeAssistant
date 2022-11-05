@@ -26,39 +26,4 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
 
   # Access to options.json and other files within your addon
   /data/** rw,
-
-  # Start new profile for service
-  /usr/bin/cf_ddns cx -> cf_ddns,
-
-  #profile run.sh flags=(attach_disconnected,mediate_deleted,complain) {
-    #include <abstractions/base>
-
-    # Receive signals from S6-Overlay
-    signal (receive) peer=*_ddns,
-    
-    # Capabilities
-    file,
-    signal (send) set=(kill,term,int,hup,cont),
-
-    # S6-Overlay
-    /init ix,
-    /bin/** ix,
-    /usr/bin/** ix,
-    /run/{s6,s6-rc*,service}/** ix,
-    /package/** ix,
-    /command/** ix,
-    /etc/services.d/** rwix,
-    /etc/cont-init.d/** rwix,
-    /etc/cont-finish.d/** rwix, 
-    /run/{,**} rwk,
-    /dev/tty rw,
-
-    # Bashio
-    /usr/lib/bashio/** ix,
-    /tmp/** rwk,
-
-    # Access to options.json and other files within your addon
-    /data/** rw,
-
-  }
 }
