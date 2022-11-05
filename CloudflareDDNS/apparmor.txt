@@ -28,7 +28,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted,complain) {
   /data/** rw,
 
   # Start new profile for service
-  /usr/bin/ddns.sh cx -> ddns.sh,
+  /cont-init.d/ddns.sh cx -> ddns.sh,
 
   profile ddns.sh flags=(attach_disconnected,mediate_deleted,complain) {
     #include <abstractions/base>
