@@ -23,9 +23,9 @@ ENV \
 WORKDIR /
 
 # Copy root filesystem
-COPY /rootfs /
-RUN chmod a+x /rootfs/run.sh
-#ENTRYPOINT ["/app/run.sh"]
+COPY /rootfs /app/run.sh
+RUN chmod a+x /app/run.sh
+ENTRYPOINT ["/app/run.sh"]
 
 # Set shell
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
