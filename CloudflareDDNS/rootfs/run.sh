@@ -1,4 +1,4 @@
-#!/usr/bin/env bashio
+#!/command/with-contenv bashio
 
 declare EMAIL
 declare TOKEN
