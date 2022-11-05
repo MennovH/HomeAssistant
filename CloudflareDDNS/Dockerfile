@@ -22,6 +22,7 @@ ENV \
 
 # Copy root filesystem
 COPY rootfs /
+RUN chmod a+x rootfs/run.sh
 
 # Set shell
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
