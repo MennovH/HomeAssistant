@@ -43,11 +43,24 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
     /share/** rw,
 
     # Access required for service functionality
-    /run/{s6,s6-rc*,service}/** ix,
     /run.sh r,
     /bin/bash rix,
     /bin/echo ix,
     /etc/passwd r,
     /dev/tty rw,
   }
+  
+  profile nginx flags=(attach_disconnected,mediate_deleted,complain) {
+    #include <abstractions/base>
+
+    # Receive signals from S6-Overlay
+    signal (receive) peer=*_ddns,
+
+    # Access to options.json and other files within your addon
+    /data/** rw,
+
+    # Access required for service functionality
+    /var/lib/nginx/logs/error.log rw,
+    /var/lib/nginx/tmp/client_body rw,
+  }  
 }
