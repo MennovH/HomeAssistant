@@ -88,7 +88,7 @@ RUN \
         /tmp/*
 
 # Entrypoint & CMD
-ENTRYPOINT ["/init"]
+ENTRYPOINT ["/run.sh"]
 
 # Build arugments
 ARG BUILD_DATE
