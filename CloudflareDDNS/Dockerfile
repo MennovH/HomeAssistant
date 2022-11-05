@@ -16,7 +16,7 @@ FROM ${BUILD_FROM}
 
 WORKDIR /
 
-COPY rootfs /
-RUN chmod a+x /rootfs/run.sh
+COPY rootfs/run.sh /
+RUN chmod a+x /run.sh
 
-CMD [ "/rootfs/run.sh","-g","daemon off;error_log /dev/stdout debug;" ]
+CMD [ "/run.sh","-g","daemon off;error_log /dev/stdout debug;" ]
