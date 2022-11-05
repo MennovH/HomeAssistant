@@ -88,7 +88,7 @@ RUN \
         /tmp/*
 
 # Entrypoint & CMD
-#NTRYPOINT ["/init"]
+ENTRYPOINT ["/init"]
 
 # Build arugments
 ARG BUILD_DATE
