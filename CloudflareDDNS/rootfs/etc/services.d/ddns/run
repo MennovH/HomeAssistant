@@ -7,4 +7,4 @@ echo -e 'Starting the CloudflareDDNS...'
 
 # Start the script
 #exec /usr/sbin/ddns
-exec ddns.sh
+exec /usr/bin/ddns
