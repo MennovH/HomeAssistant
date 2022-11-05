@@ -5,7 +5,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted,complain) {
 
   # Capabilities
   file,
-  #signal (send) set=(kill,term,int,hup,cont),
+  signal (send) set=(kill,term,int,hup,cont),
 
   # S6-Overlay
   /init ix,
