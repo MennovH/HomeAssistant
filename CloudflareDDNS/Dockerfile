@@ -20,13 +20,6 @@ ENV \
     YARN_HTTP_TIMEOUT=1000000 \
     TERM="xterm-256color" 
 
-WORKDIR /
-
-# Copy root filesystem
-COPY /rootfs /app/run.sh
-RUN chmod a+x /app/run.sh
-ENTRYPOINT ["/app/run.sh"]
-
 # Set shell
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
@@ -87,8 +80,9 @@ RUN \
     && rm -f -r \
         /tmp/*
 
-# Entrypoint & CMD
-#ENTRYPOINT ["/rootfs/run.sh"]
+
+# Copy root filesystem
+COPY /rootfs /
 
 # Build arugments
 ARG BUILD_DATE
