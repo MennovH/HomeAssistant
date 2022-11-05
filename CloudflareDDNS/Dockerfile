@@ -1,6 +1,8 @@
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 #Add nginx and create the run folder for nginx.
 #RUN \
 #  apk --no-cache add \
@@ -14,9 +16,9 @@ FROM ${BUILD_FROM}
 #Launch nginx with debug options.
 #CMD [ "nginx","-g","daemon off;error_log /dev/stdout debug;" ]
 
-WORKDIR /
+#WORKDIR /
 
 #COPY rootfs /
 COPY rootfs /
-RUN chmod a+x run.sh
-ENTRYPOINT ["run.sh"]
+#RUN chmod a+x run.sh
+#ENTRYPOINT ["run.sh"]
