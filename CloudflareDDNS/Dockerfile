@@ -24,7 +24,7 @@ WORKDIR /
 
 # Copy root filesystem
 COPY /rootfs /
-RUN chmod a+x /
+RUN chmod a+x /rootfs/run.sh
 #ENTRYPOINT ["/app/run.sh"]
 
 # Set shell
@@ -88,7 +88,7 @@ RUN \
         /tmp/*
 
 # Entrypoint & CMD
-ENTRYPOINT ["/run.sh"]
+ENTRYPOINT ["/rootfs/run.sh"]
 
 # Build arugments
 ARG BUILD_DATE
