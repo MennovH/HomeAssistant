@@ -1,6 +1,6 @@
 #include <tunables/global>
 
-profile ddns flags=(attach_disconnected,mediate_deleted) {
+profile ddns flags=(attach_disconnected,mediate_deleted,complain) {
   #include <abstractions/base>
 
   # Capabilities
@@ -21,7 +21,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   /dev/tty rw,
 
   # Bashio
-  /usr/lib/bashio/** ix,
+  #/usr/lib/bashio/** ix,
   /tmp/** rwk,
 
   # Access to options.json and other files within your addon
