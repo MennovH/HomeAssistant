@@ -1,4 +1,4 @@
-#!/usr/bin/env bashio
+#!/bin/bash
 
 declare EMAIL
 declare TOKEN
@@ -6,11 +6,19 @@ declare ZONE
 declare DOMAINS
 declare INTERVAL
 
-EMAIL=$(bashio::config 'email_address' | xargs echo -n)
-TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
-ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
-DOMAINS=$(bashio::config 'domains')
-INTERVAL=$(bashio::config 'interval')
+#EMAIL=$(bashio::config 'email_address' | xargs echo -n)
+#TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
+#ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
+#DOMAINS=$(bashio::config 'domains')
+#INTERVAL=$(bashio::config 'interval')
+
+CONFIG_PATH=/data/options.json
+
+EMAIL=$(jq --raw-output '.email_address // empty' $CONFIG_PATH | xargs echo -n)
+TOKEN=$(jq --raw-output '.cloudflare_api_token // empty' $CONFIG_PATH | xargs echo -n)
+ZONE=$(jq --raw-output '.cloudflare_zone_id // empty' $CONFIG_PATH | xargs echo -n)
+DOMAINS=$(jq --raw-output '.domains // empty' $CONFIG_PATH)
+INTERVAL=$(jq --raw-output '.interval // empty' $CONFIG_PATH)
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
