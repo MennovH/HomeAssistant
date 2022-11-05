@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 
 declare EMAIL
 declare TOKEN
@@ -6,15 +6,11 @@ declare ZONE
 declare DOMAINS
 declare INTERVAL
 
-set -e
-
-CONFIG_PATH=/data/options.json
-
-EMAIL=$(jq --raw-output '.email_address // empty' $CONFIG_PATH | xargs echo -n)
-TOKEN=$(jq --raw-output '.cloudflare_api_token // empty' $CONFIG_PATH | xargs echo -n)
-ZONE=$(jq --raw-output '.cloudflare_zone_id // empty' $CONFIG_PATH | xargs echo -n)
-DOMAINS=$(jq --raw-output '.domains // empty' $CONFIG_PATH)
-INTERVAL=$(jq --raw-output '.interval // empty' $CONFIG_PATH)
+EMAIL=$(bashio::config 'email_address' | xargs echo -n)
+TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
+ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
+DOMAINS=$(bashio::config 'domains')
+INTERVAL=$(bashio::config 'interval')
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -44,7 +40,6 @@ do
 
     for DOMAIN in ${DOMAINS[@]}
     do
-        echo -e "${DOMAIN}\n "
         DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
          -H "X-Auth-Email: ${EMAIL}" \
          -H "Authorization: Bearer ${TOKEN}" \
