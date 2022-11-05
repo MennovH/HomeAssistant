@@ -17,11 +17,12 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   /etc/services.d/** rwix,
   /etc/cont-init.d/** rwix,
   /etc/cont-finish.d/** rwix,
+  /etc/nginx/http.d r,
   /run/{,**} rwk,
   /dev/tty rw,
 
   # Bashio
-  /usr/lib/bashio/** ix,
+  #/usr/lib/bashio/** ix,
   /tmp/** rwk,
 
   # Access to options.json and other files within your addon
@@ -44,6 +45,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
 
     # Access required for service functionality
     /run.sh r,
+    /etc/nginx/http.d r,
     /bin/bash rix,
     /bin/echo ix,
     /etc/passwd r,
