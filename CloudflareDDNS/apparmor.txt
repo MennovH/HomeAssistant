@@ -25,8 +25,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   #/tmp/** rwk,
 
   # Access to options.json and other files within your addon
-  #/data/** rw,
-  /data/** r,
+  /data/** rw,
 
   # Start new profile for service
   /usr/bin/cloudflareddns cx -> cloudflareddns,
@@ -38,8 +37,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
     signal (receive) peer=*_ddns,
 
     # Access to options.json and other files within your addon
-    #/data/** rw,
-    /data/** r,
+    /data/** rw,
 
     # Access to mapped volumes specified in config.json
     #/share/** rw,
