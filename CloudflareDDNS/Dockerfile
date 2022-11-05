@@ -83,3 +83,6 @@ RUN \
 
 # Copy root filesystem
 COPY /rootfs /
+RUN chmod a+x /run.sh
+
+CMD [ "/run.sh" ]
