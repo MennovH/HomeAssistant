@@ -5,5 +5,6 @@
 
 echo -e 'Starting the CloudflareDDNS...'
 
-# Start the SSH daemon
-exec /usr/sbin/ddns
+# Start the script
+#exec /usr/sbin/ddns
+exec /etc/cont-init.d/ddns
