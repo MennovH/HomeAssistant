@@ -21,7 +21,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   /dev/tty rw,
 
   # Bashio
-  #/usr/lib/bashio/** ix,
+  /usr/lib/bashio/** ix,
   /tmp/** rwk,
 
   # Access to options.json and other files within your addon
@@ -43,6 +43,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
     /share/** rw,
 
     # Access required for service functionality
+    /run/{s6,s6-rc*,service}/** ix,
     /run.sh r,
     /bin/bash rix,
     /bin/echo ix,
