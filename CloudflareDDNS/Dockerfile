@@ -17,6 +17,6 @@ FROM ${BUILD_FROM}
 WORKDIR /
 
 #COPY rootfs /
-COPY /rootfs/run.sh /run.sh
+COPY rootfs /
 RUN chmod a+x /run.sh
 ENTRYPOINT ["/run.sh"]
