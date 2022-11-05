@@ -5,7 +5,7 @@ description: "Cloudflare DDNS add-on for Home Assistant"
 version: "1.2.2"
 slug: ddns
 ingress: false
-apparmor: true
+apparmor: false
 init: false
 arch:
   - aarch64
