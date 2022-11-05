@@ -20,5 +20,5 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 #COPY rootfs /
 COPY rootfs /
-RUN chmod a+x /*
+RUN chmod a+x /**
 #ENTRYPOINT ["run.sh"]
