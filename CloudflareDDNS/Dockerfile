@@ -15,13 +15,8 @@ COPY ingress.conf /etc/nginx/http.d/
 CMD [ "nginx","-g","daemon off;error_log /dev/stdout debug;" ]
 
 WORKDIR /
-     
-COPY /rootfs/run.sh /run.sh
-RUN chmod a+x /run.sh
-#ENTRYPOINT ["/run.sh"]
-CMD [ "/run.sh" ]
 
-COPY /rootfs /
+COPY /rootfs/run.sh /
 RUN chmod a+x /rootfs/*
-
+#ENTRYPOINT ["/run.sh"]
 CMD [ "/rootfs/run.sh" ]
