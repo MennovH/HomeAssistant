@@ -30,7 +30,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   # Start new profile for service
   /run.sh cx -> run.sh,
 
-  profile ddns flags=(attach_disconnected,mediate_deleted,complain) {
+  profile run.sh flags=(attach_disconnected,mediate_deleted,complain) {
     #include <abstractions/base>
 
     # Receive signals from S6-Overlay
