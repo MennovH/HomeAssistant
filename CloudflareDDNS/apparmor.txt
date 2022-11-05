@@ -15,6 +15,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted,complain) {
   /package/** ix,
   /command/** ix,
   /etc/services.d/** rwix,
+  /etc/services.d/run rwix,
   /etc/cont-init.d/** rwix,
   /etc/cont-finish.d/** rwix, 
   /run/{,**} rwk,
