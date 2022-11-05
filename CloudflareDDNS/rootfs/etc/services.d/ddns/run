@@ -3,7 +3,7 @@
 # Home Assistant Community Add-on: CloudflareDDNS
 # ==============================================================================
 
-bashio::log.info 'Starting the CloudflareDDNS...'
+echo -e 'Starting the CloudflareDDNS...'
 
 # Start the SSH daemon
 exec /usr/sbin/ddns
