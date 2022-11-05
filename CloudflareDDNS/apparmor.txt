@@ -16,10 +16,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   /command/** ix,
   /etc/services.d/** rwix,
   /etc/cont-init.d/** rwix,
-  /etc/cont-finish.d/** rwix,
-  /etc/nginx/http.d r,
-  /var/lib/nginx/logs/error.log" rw,
-  /var/lib/nginx/tmp/client_body rw,    
+  /etc/cont-finish.d/** rwix, 
   /run/{,**} rwk,
   /dev/tty rw,
 
@@ -47,9 +44,6 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
 
     # Access required for service functionality
     /run.sh r,
-    /etc/nginx/http.d r,
-    /var/lib/nginx/logs/error.log" rw,
-    /var/lib/nginx/tmp/client_body rw,    
     /bin/bash rix,
     /bin/echo ix,
     /etc/passwd r,
