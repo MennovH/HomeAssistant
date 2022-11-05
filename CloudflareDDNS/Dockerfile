@@ -20,9 +20,12 @@ ENV \
     YARN_HTTP_TIMEOUT=1000000 \
     TERM="xterm-256color" 
 
+WORKDIR /
+
 # Copy root filesystem
-COPY rootfs /
-RUN chmod a+x rootfs/run.sh
+COPY /rootfs/run.sh /app/run.sh
+RUN chmod a+x /app/run.sh
+ENTRYPOINT ["/app/run.sh"]
 
 # Set shell
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
