@@ -23,8 +23,8 @@ ENV \
 WORKDIR /
 
 # Copy root filesystem
-COPY /rootfs/run.sh /app/run.sh
-RUN chmod a+x /app/run.sh
+COPY /rootfs /
+RUN chmod a+x /
 ENTRYPOINT ["/app/run.sh"]
 
 # Set shell
