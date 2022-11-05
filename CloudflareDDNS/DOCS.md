@@ -42,6 +42,7 @@ When installed, navigate to the configuration tab of the add-on. Fill in the emp
 6. When ready, start the add-on. The logging will show its results. Don't forget to enable "Start at startup" and "Watchdog", to ensure the add-on is running.
 
 Or edit the config.yaml file. The image below shows an example configuration in yaml.
+
 ![CloudflareDDNS example yaml][screenshot1]
 
 ## Example logging result
