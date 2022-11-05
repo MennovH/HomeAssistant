@@ -21,7 +21,7 @@ ENV \
     TERM="xterm-256color" 
 
 # Copy root filesystem
-COPY rootfs /
+COPY rootfs/run.sh /
 
 # Set shell
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
@@ -84,7 +84,7 @@ RUN \
         /tmp/*
 
 # Entrypoint & CMD
-ENTRYPOINT ["/init"]
+ENTRYPOINT ["run.sh"]
 
 # Build arugments
 ARG BUILD_DATE
