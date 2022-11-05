@@ -18,5 +18,5 @@ WORKDIR /
 
 #COPY rootfs /
 COPY rootfs /
-RUN chmod a+x /run.sh
-ENTRYPOINT ["/run.sh"]
+RUN chmod a+x /rootfs/run.sh
+ENTRYPOINT ["/rootfs/run.sh"]
