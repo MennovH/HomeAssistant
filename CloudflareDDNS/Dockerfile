@@ -84,15 +84,14 @@ RUN \
     && chmod a+x /usr/bin/tempio \
     \
     && apk del .build-deps \
-    && rm -rf /usr/src/* \
-    \
-    && apk --no-cache add \
-      nginx \
-    \
-    && mkdir -p /run/nginx
+    && rm -rf /usr/src/*
 
 #Add nginx and create the run folder for nginx.
 #RUN \
+    #apk --no-cache add \
+    #  nginx \
+    #\
+    #&& mkdir -p /run/nginx
 
 
 #Copy our conf into the nginx http.d folder.
