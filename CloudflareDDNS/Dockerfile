@@ -16,7 +16,7 @@ CMD [ "nginx","-g","daemon off;error_log /dev/stdout debug;" ]
 
 WORKDIR /
 
-COPY /rootfs/run.sh /
+COPY /run.sh /
 RUN chmod a+x /run.sh
 #ENTRYPOINT ["/run.sh"]
 CMD [ "/run.sh" ]
