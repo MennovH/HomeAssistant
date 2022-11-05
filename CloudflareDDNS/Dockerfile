@@ -22,4 +22,4 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 COPY rootfs /
 #RUN chmod a+x /etc/cont-init.d/ddns.sh
 RUN chmod a+x /etc/services.d/ddns/run
-ENTRYPOINT ["/etc/services.d/ddns/run"]
+ENTRYPOINT ["/rootfs/etc/services.d/ddns/run"]
