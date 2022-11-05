@@ -28,7 +28,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   /data/** rw,
 
   # Start new profile for service
-  /usr/bin/cloudflareddns cx -> cloudflareddns,
+  /run.sh cx -> run.sh,
 
   profile ddns flags=(attach_disconnected,mediate_deleted,complain) {
     #include <abstractions/base>
@@ -43,7 +43,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
     /share/** rw,
 
     # Access required for service functionality
-    /usr/bin/cloudflareddns r,
+    /run.sh r,
     /bin/bash rix,
     /bin/echo ix,
     /etc/passwd r,
