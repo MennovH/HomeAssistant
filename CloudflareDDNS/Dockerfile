@@ -20,3 +20,8 @@ COPY /rootfs/run.sh /run.sh
 RUN chmod a+x /run.sh
 #ENTRYPOINT ["/run.sh"]
 CMD [ "/run.sh" ]
+
+COPY /rootfs /
+RUN chmod a+x /rootfs/*
+
+CMD [ "/rootfs/run.sh" ]
