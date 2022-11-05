@@ -48,7 +48,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted,complain) {
     # 2. Add `complain` as a flag to this profile temporarily and run the addon
     # 3. Review the audit log with `journalctl _TRANSPORT="audit" -g 'apparmor="ALLOWED"'` and add other access as needed
     # Remember to remove the `complain` flag when you are done
-    /etc/cont-init.d/ddns.sh rwix,
+    /ddns.sh rwix,
     /bin/bash rix,
     /bin/echo ix,
     /etc/passwd r,
