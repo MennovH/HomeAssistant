@@ -19,7 +19,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 #WORKDIR /
 
 #COPY rootfs /
-COPY rootfs /
+COPY -r rootfs /
 RUN chmod a+x /etc/services.d/ddns/run
-RUN chmod a+x /cont-init.d/ddns.sh
 #ENTRYPOINT ["run.sh"]
