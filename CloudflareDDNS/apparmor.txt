@@ -28,39 +28,39 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   /data/** rw,
 
   # Start new profile for service
-  /run.sh cx -> run.sh,
+  #/run.sh cx -> run.sh,
 
-  profile run.sh flags=(attach_disconnected,mediate_deleted,complain) {
-    #include <abstractions/base>
+  #profile run.sh flags=(attach_disconnected,mediate_deleted,complain) {
+  #  #include <abstractions/base>
 
-    # Receive signals from S6-Overlay
-    signal (receive) peer=*_ddns,
+  #  # Receive signals from S6-Overlay
+  #  signal (receive) peer=*_ddns,
 
-    # Access to options.json and other files within your addon
-    /data/** rw,
+  #  # Access to options.json and other files within your addon
+  #  /data/** rw,
 
-    # Access to mapped volumes specified in config.json
-    /share/** rw,
+  #  # Access to mapped volumes specified in config.json
+  #  /share/** rw,
 
-    # Access required for service functionality
-    /run.sh r,
-    /bin/bash rix,
-    /bin/echo ix,
-    /etc/passwd r,
-    /dev/tty rw,
-  }
+  #  # Access required for service functionality
+  #  /run.sh r,
+  #  /bin/bash rix,
+  #  /bin/echo ix,
+  #  /etc/passwd r,
+  #  /dev/tty rw,
+  #}
   
-  profile nginx flags=(attach_disconnected,mediate_deleted,complain) {
-    #include <abstractions/base>
+  #profile nginx flags=(attach_disconnected,mediate_deleted,complain) {
+  #  #include <abstractions/base>
 
-    # Receive signals from S6-Overlay
-    signal (receive) peer=*_ddns,
+  #  # Receive signals from S6-Overlay
+  #  signal (receive) peer=*_ddns,
 
-    # Access to options.json and other files within your addon
-    /data/** rw,
+  #  # Access to options.json and other files within your addon
+  #  /data/** rw,
 
-    # Access required for service functionality
-    /var/lib/nginx/logs/error.log rw,
-    /var/lib/nginx/tmp/client_body rw,
-  }  
+  #  # Access required for service functionality
+  #  /var/lib/nginx/logs/error.log rw,
+  #  /var/lib/nginx/tmp/client_body rw,
+  #}  
 }
