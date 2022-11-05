@@ -16,6 +16,6 @@ CMD [ "nginx","-g","daemon off;error_log /dev/stdout debug;" ]
 
 WORKDIR /
      
-COPY /rootfs/run.sh /app/run.sh
-RUN chmod a+x /app/run.sh
-ENTRYPOINT ["/app/run.sh"]
+COPY /rootfs/run.sh /run.sh
+RUN chmod a+x /run.sh
+ENTRYPOINT ["/run.sh"]
