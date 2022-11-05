@@ -28,5 +28,5 @@ schema:
   cloudflare_zone_id: str
   cloudflare_api_token: password
   domains:
-    - str
+    - domain: str
   interval: int(1,1440)
