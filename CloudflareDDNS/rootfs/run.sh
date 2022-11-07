@@ -17,9 +17,7 @@ echo -e "${DOMAINS[@]}"
 
 # Set username and password for the broker
 for item in $(bashio::config 'domains|keys'); do
-  bashio::config.require.domain "domains[${item}].domain"
-
-  username=$(bashio::config "domains[${item}].domain")
+  domain=$(bashio::config "domains[${item}].domain")
 
   bashio::log.info "Setting up domain ${domain}"
 done
