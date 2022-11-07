@@ -26,6 +26,5 @@ schema:
   email_address: email
   cloudflare_zone_id: password
   cloudflare_api_token: password
-  domains:
-    - str
+  domains: list
   interval: int(1,1440)
