@@ -14,6 +14,18 @@ INTERVAL=$(bashio::config 'interval')
 
 echo -e "${DOMAINS[@]}"
 
+
+# Set username and password for the broker
+for item in $(bashio::config 'domains|keys'); do
+  bashio::config.require.domain "domains[${item}].domain"
+
+  username=$(bashio::config "domains[${item}].domain")
+
+  bashio::log.info "Setting up domain ${domain}"
+done
+
+
+
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
