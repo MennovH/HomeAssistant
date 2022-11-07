@@ -20,13 +20,12 @@ options:
   email_address: null
   cloudflare_zone_id: null
   cloudflare_api_token: null
-  domains:
-    - domain: null
+  domains: []
   interval: 15
 schema:
   email_address: email
   cloudflare_zone_id: password
   cloudflare_api_token: password
   domains:
-    - domain: str
+    - str
   interval: int(1,1440)
