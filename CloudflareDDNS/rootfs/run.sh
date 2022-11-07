@@ -3,7 +3,7 @@
 declare EMAIL
 declare TOKEN
 declare ZONE
-declare DOMAINS
+declare -A DOMAINS
 declare INTERVAL
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
