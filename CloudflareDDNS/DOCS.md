@@ -37,17 +37,19 @@ When installed, navigate to the configuration tab of the add-on. Fill in the emp
 1. `email_address` (required) Enter the e-mail address which is used for the Cloudflare portal.
 2. `cloudflare_zone_id` (required) Enter the ZONE-ID for the zone of which the DNS records must be kept up-to-date.
 3. `cloudflare_api_token` (required) Enter the API token with which you may edit DNS records for the specified zone.
-4. `domains` (required) Add the (sub)domains of which the A records must be kept up-to-date.
-5. `interval` (required) Enter an integer value between 1 and 1440 (default: 15). This is the interval in minutes in which the (sub)domains will be updated.
-6. When ready, start the add-on. The logging will show its results. Don't forget to enable "Start at startup" and "Watchdog", to ensure the add-on is running.
+4. `domains` (required) Add the (sub)domains of which the A records must be kept up-to-date. Each (sub)domain must be added separately, like so:
+    ![example domain configuration][screenshot1]
+6. `interval` (required) Enter an integer value between 1 and 1440 (default: 15). This is the interval in minutes in which the (sub)domains will be updated.
+7. When ready, start the add-on. The logging will show its results. Don't forget to enable "Start at startup" and "Watchdog", to ensure the add-on is running.
 
 It's also possible to directly configure the add-on via the YAML configurator, as shown in the image below.
-![CloudflareDDNS example YAML configuration][screenshot1]
+![example YAML configuration][screenshot2]
 
 ## Examle CloudflareDDNS logging output
 The following image shows an example output of the add-on, which can be found in the logbook. In this scenario, the A record of (sub)domain-3 pointed to a wrong IP address. The add-on found that this record was incorrect, and updated it accordingly. This change is instantly visible in the Cloudflare dashboard.
 
-![CloudflareDDNS example logging output][screenshot2]
+![example logging output][screenshot3]
 
-[screenshot1]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/example_yaml.png
-[screenshot2]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/example_log.png
+[screenshot1]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/example_domain_list.png
+[screenshot2]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/example_yaml.png
+[screenshot3]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/example_log.png
