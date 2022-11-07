@@ -12,18 +12,6 @@ ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 DOMAINS=$(bashio::config 'domains')
 INTERVAL=$(bashio::config 'interval')
 
-echo -e "${DOMAINS[@]}"
-
-
-# Set username and password for the broker
-for item in $(bashio::config 'domains|keys'); do
-  domain=$(bashio::config "domains[${item}].domain")
-
-  bashio::log.info "Setting up domain ${domain}"
-done
-
-
-
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
@@ -50,10 +38,10 @@ do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M')\nPublic IP address: ${PUBLIC_IP}\nIterating domain list:"
 
-    for DOMAIN in ${DOMAINS[@]}
+    # iterate through listed domains
+    for item in $(bashio::config 'domains|keys');
     do
-        echo -e "${DOMAIN}"
-    
+        DOMAIN=$(bashio::config "domains[${item}].domain")    
         DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
          -H "X-Auth-Email: ${EMAIL}" \
          -H "Authorization: Bearer ${TOKEN}" \
