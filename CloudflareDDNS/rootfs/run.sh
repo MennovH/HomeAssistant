@@ -12,7 +12,7 @@ ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 DOMAINS=$(bashio::config 'domains')
 INTERVAL=$(bashio::config 'interval')
 
-echo -e "${!DOMAINS[@]}"
+echo -e "${DOMAINS[@]}"
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -40,7 +40,7 @@ do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M')\nPublic IP address: ${PUBLIC_IP}\nIterating domain list:"
 
-    for DOMAIN in ${!DOMAINS[@]}
+    for DOMAIN in ${DOMAINS[@]}
     do
         echo -e "${DOMAIN}"
     
