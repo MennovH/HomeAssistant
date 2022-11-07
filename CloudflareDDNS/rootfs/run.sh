@@ -12,6 +12,8 @@ ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 DOMAINS=$(bashio::config 'domains')
 INTERVAL=$(bashio::config 'interval')
 
+echo -e "${DOMAINS[@]}"
+
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
