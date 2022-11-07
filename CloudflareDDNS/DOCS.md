@@ -47,4 +47,4 @@ The following image shows an example output of the add-on, which can be found in
 
 ![CloudflareDDNS example logging][screenshot]
 
-[screenshot]: https://raw.githubusercontent.com/MennovH/CloudflareDDNS/main/images/screenshot.png
+[screenshot]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/screenshot.png
