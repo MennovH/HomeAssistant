@@ -18,7 +18,6 @@ EXPIRED=1
 
 while :
 do
-    $(echo | $USER)
     CURRENT_DATE=$(echo | date +'%s')
     if [[ ${TEST_METHOD} == "Connection" ]];
     then
@@ -92,7 +91,7 @@ do
        echo -e "Rebooting Hassio,..."
 
        # reload Home Assistant
-       $(echo | ha core restart)
+       $(echo | sudo ha core restart)
        echo -e "\\r${CHECK_MARK}\n"
        
     fi
