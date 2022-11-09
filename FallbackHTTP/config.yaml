@@ -21,9 +21,7 @@ panel_icon: mdi:cloud-check
 options:
   internal_ip_or_fqdn: null
   internal_port: null
-  test_method:
-    - "Certificate"
-    - "Connection"
+  test_method: list("Certificate"|"Connection")
   interval: 15
 schema:
   internal_ip: str
