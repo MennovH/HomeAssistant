@@ -16,15 +16,10 @@ FILENAME="/config/configuration.yaml"
 HTTPS=0
 EXPIRED=1
 
-
-
-echo -e "${TEST_METHOD}"
-
-
 while :
 do
 
-    if [[ $(${TEST_METHOD} == "Connection") ]];
+    if [ ${TEST_METHOD} = "Connection" ];
     then
         """ check HTTPS connection """
         # Get the final hostname because this URL might be redirected
@@ -39,7 +34,7 @@ do
             HTTPS=1 #valid HTTPS
         fi
 
-    elif [[ $(${TEST_METHOD} == "Certificate") ]];
+    elif [ ${TEST_METHOD} = "Certificate" ];
     then
         """ check certificate expiration date """
         # use openssl to request certificate and retrieve its expiration date
@@ -85,7 +80,7 @@ do
        done < "$FILENAME"
 
        # reload Home Assistant
-       $(shutdown -r now)
+       $(reboot now)
 
     fi
 
