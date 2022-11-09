@@ -17,7 +17,7 @@ HTTPS=0
 EXPIRED=1
 
 echo -e "${INTERNAL_IP}"
-CURRENT_DATE=$(echo date +"%s")
+CURRENT_DATE=$(echo | date +"%s")
 echo -e "${CURRENT_DATE}"
 
 while :
@@ -49,7 +49,7 @@ do
         TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}:${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10- | sed 's/  / /g')
 
         echo -e "${TEST}"
-        echo -e "${DATE}"
+        echo -e "${CURRENT_DATE}"
 
         if [[ $(date -d "${CURRENT_DATE}" +"%s") < $(date -d "${TEST}" +"%s") ]];
         then
