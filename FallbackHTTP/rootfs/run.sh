@@ -26,7 +26,7 @@ do
         HOST=$(curl "https://${INTERNAL_IP}" -Ls -o /dev/null -w %{url_effective} | awk -F[/:] '{ print $4 }')
 
         # Use openssl to get the status of the host
-        TEST=$(echo | openssl s_client -connect "${HOST}:${INTERNAL_PORT}" </dev/null 2>/dev/null | grep 'Verify return code: 0 (ok)')
+        TEST=$(echo | openssl s_client ${INTERNAL_IP} -connect "${HOST}":"${INTERNAL_PORT}" </dev/null 2>/dev/null | grep 'Verify return code: 0 (ok)')
 
         if [ -n "${TEST}" ];
         then
