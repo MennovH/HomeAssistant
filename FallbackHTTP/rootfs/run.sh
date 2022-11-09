@@ -47,7 +47,7 @@ do
 
         echo -e "${TEST}"...
 
-        if [[ $(date -d "${date}" +"%s") < $(date -d "${TEST}" +"%m %H:%M:%S %Y") ]];
+        if [[ $(date -d "${date}") < $(date -d "${TEST}") ]];
         then
             EXPIRED=0 #valid certificate
         fi
@@ -87,7 +87,7 @@ do
        done < "$FILENAME"
 
        # reload Home Assistant
-       $(reboot now)
+       #$(reboot now)
 
     fi
 
