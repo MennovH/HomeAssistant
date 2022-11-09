@@ -42,7 +42,7 @@ do
         #echo -e $(openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
         TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
 
-        echo -e "${TEST}"
+        echo -e "${TEST} ...."
 
         if [[ $(date -d "${date}" +'%s') < $(date -d "${TEST}" +'%s') ]];
         then
