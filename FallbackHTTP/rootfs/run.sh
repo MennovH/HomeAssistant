@@ -91,7 +91,7 @@ do
        echo -e "Rebooting Hassio,..."
 
        # reload Home Assistant
-       $(echo | sudo ha core restart)
+       $(echo | /usr/bin/ha core restart)
        echo -e "\\r${CHECK_MARK}\n"
        
     fi
