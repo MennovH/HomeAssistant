@@ -92,7 +92,7 @@ do
        echo -e "Rebooting Hassio,..."
 
        # reload Home Assistant
-       $(echo | hassio host reboot)
+       $(echo | ha host reboot)
 
     fi
 
