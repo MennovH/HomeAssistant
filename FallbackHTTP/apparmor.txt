@@ -28,26 +28,26 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   /data/** rw,
 
   # Start new profile for service
-  /usr/bin/fallbackhttp cx -> fallbackhttp,
+#  /usr/bin/fallbackhttp cx -> fallbackhttp,
 
-  profile ddns flags=(attach_disconnected,mediate_deleted) {
+#  profile ddns flags=(attach_disconnected,mediate_deleted) {
     #include <abstractions/base>
 
     # Receive signals from S6-Overlay
-    signal (receive) peer=*_ddns,
+#    signal (receive) peer=*_ddns,
 
     # Access to options.json and other files within your addon
-    /data/** rw,
+#    /data/** rw,
 
     # Access to mapped volumes specified in config.json
     #/share/** rw,
 
     # Access required for service functionality
-    /usr/bin/fallbackhttp r,
-    /bin/bash rix,
-    /config/configuration.yaml rw,
-    /bin/echo ix,
-    /etc/passwd r,
-    /dev/tty rw,
-  }
+#    /usr/bin/fallbackhttp r,
+#    /bin/bash rix,
+#    /config/configuration.yaml rw,
+#    /bin/echo ix,
+#    /etc/passwd r,
+#    /dev/tty rw,
+#  }
 }
