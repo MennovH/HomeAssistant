@@ -17,7 +17,7 @@ EXPIRED=1
 
 while :
 do
-
+    echo -e "${TEST_METHOD}"
     if [[ ${TEST_METHOD} == "Connection" ]];
     then
         # check HTTPS connection
@@ -54,10 +54,11 @@ do
     cert=$(grep -c "ssl_certificate" $FILENAME)
     key=$(grep -c "ssl_key" $FILENAME)
 
-    if [[ ${HTTPS} == 0 || ${EXPIRED} == 1 ]];
+    if [[ ${HTTPS} == 1 || ${EXPIRED} == 0 ]];
     then
        echo "Site ${INTERNAL_IP} with port ${INTERNAL_PORT} is valid https"
-    else
+    elif [[ ${HTTPS} == 0 || ${EXPIRED} == 1 ]];
+    then
        echo "Site ${INTERNAL_IP} with port ${INTERNAL_PORT} is not valid https"
 
        COUNTER=0
