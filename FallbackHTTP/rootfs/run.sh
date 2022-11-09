@@ -15,6 +15,8 @@ FILENAME="/config/configuration.yaml"
 HTTPS=0
 EXPIRED=1
 
+echo -e "${INTERNAL_IP}"
+
 while :
 do
     echo -e "${TEST_METHOD}"
