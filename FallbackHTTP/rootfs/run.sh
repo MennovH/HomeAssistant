@@ -5,7 +5,7 @@ declare INTERNAL_PORT
 declare TEST_METHOD
 declare INTERVAL
 declare FILENAME
-declare DATE
+declare CURRENT_DATE
 
 INTERNAL_IP=$(bashio::config 'internal_ip_or_fqdn' | xargs echo -n)
 INTERNAL_PORT=$(bashio::config 'internal_port')
@@ -17,7 +17,7 @@ HTTPS=0
 EXPIRED=1
 
 echo -e "${INTERNAL_IP}"
-DATE = $(echo date)
+CURRENT_DATE = `date +"%s"`
 
 while :
 do
