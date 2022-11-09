@@ -75,7 +75,7 @@ do
        done < "$FILENAME"
 
        # reload Home Assistant
-       ${shutdown -r now}
+       $(shutdown -r now)
 
     fi
 
