@@ -33,13 +33,16 @@ do
             HTTPS=1 #valid HTTPS
         fi
 
-    elif [[ ${TEST_METHOD} = "Certificate" ]];
+    elif [[ ${TEST_METHOD} == "Certificate" ]];
     then
         # check certificate expiration date
         # use openssl to request certificate and retrieve its expiration date
         EXPIRED=1
-        echo -e $(openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
+        
+        #echo -e $(openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
         TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
+
+        echo -e "${TEST}"
 
         if [[ $(date -d "${date}" +'%s') < $(date -d "${TEST}" +'%s') ]];
         then
