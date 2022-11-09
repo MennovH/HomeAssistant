@@ -2,7 +2,7 @@
 
 declare INTERNAL_IP
 declare INTERNAL_PORT
-declare TEST_METHODhttps://github.com/MennovH/HomeAssistant/blob/main/FallbackHTTP/rootfs/run.sh
+declare TEST_METHOD
 declare INTERVAL
 declare FILENAME
 declare CURRENT_DATE
