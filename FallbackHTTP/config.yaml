@@ -29,6 +29,6 @@ schema:
   internal_ip: str
   internal_port: int
   test_method:
-    - str
-    - str
+    - str?
+    - str?
   interval: int(1,1440)
