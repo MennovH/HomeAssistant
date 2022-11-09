@@ -1,4 +1,5 @@
 #!/usr/bin/env bashio
+#!/usr/bin/ha
 
 declare INTERNAL_IP
 declare INTERNAL_PORT
