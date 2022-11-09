@@ -6,9 +6,6 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   # Capabilities
   file,
   signal (send) set=(kill,term,int,hup,cont),
-
-  # HA
-  /usr/bin/ha/** ix,
   
   # S6-Overlay
   /init ix,
@@ -27,6 +24,9 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   # Bashio
   /usr/lib/bashio/** ix,
   /tmp/** rwk,
+  
+  # HA
+  /usr/lib/ha/** ix,
 
   # Access to options.json and other files within your addon
   /data/** rw,
