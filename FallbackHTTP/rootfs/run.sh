@@ -17,7 +17,7 @@ HTTPS=0
 EXPIRED=1
 
 echo -e "${INTERNAL_IP}"
-CURRENT_DATE = `date +"%s"`
+CURRENT_DATE=$(echo date +"%s")
 echo -e "${CURRENT_DATE}"
 
 while :
