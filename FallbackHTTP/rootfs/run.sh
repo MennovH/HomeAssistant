@@ -41,12 +41,11 @@ do
         
         echo "Testing certificate..."
         #echo -e $(openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
-        #TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
-        TEST=$(echo | openssl s_client -servername ${INTERNAL_IP} -connect "192.168.50.250":"8443" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
+        TEST=$(echo | openssl s_client -servername ${INTERNAL_IP} -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
 
         echo -e "${TEST} ...."
 
-        if [[ $(date -d "${date}" +'%s') < $(date -d ${TEST} +'%s') ]];
+        if [[ $(date -d "${date}" +"%s") < $(date -d "${TEST}" +"%s") ]];
         then
             EXPIRED=0 #valid certificate
         fi
@@ -58,10 +57,10 @@ do
 
     if [[ ${HTTPS} == 1 || ${EXPIRED} == 0 ]];
     then
-       echo "Site ${INTERNAL_IP} with port ${INTERNAL_PORT} is valid https"
+       echo -e "Site ${INTERNAL_IP} with port ${INTERNAL_PORT} is valid https"
     elif [[ ${HTTPS} == 0 || ${EXPIRED} == 1 ]];
     then
-       echo "Site ${INTERNAL_IP} with port ${INTERNAL_PORT} is not valid https"
+       echo -e "Site ${INTERNAL_IP} with port ${INTERNAL_PORT} is not valid https"
 
        COUNTER=0
        HTTP=0
