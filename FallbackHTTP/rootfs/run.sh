@@ -12,7 +12,7 @@ INTERNAL_PORT=$(bashio::config 'internal_port')
 TEST_METHOD=$(bashio::config 'test_method')
 INTERVAL=$(bashio::config 'interval')
 FILENAME="/config/configuration.yaml"
-
+CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 HTTPS=0
 EXPIRED=1
 
@@ -86,13 +86,12 @@ do
                sed -i "${COUNTER}s/^/\#/" $FILENAME
            fi
        done < "$FILENAME"
-       CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 
-       echo -e "\\r${CHECK_MARK} Updated configuration.yaml"
+       echo -e "\\r${CHECK_MARK}"
        echo -e "Rebooting Hassio,..."
 
        # reload Home Assistant
-       $(echo | ha host reboot)
+       $(echo | hassio homeassistent restart)
 
     fi
 
