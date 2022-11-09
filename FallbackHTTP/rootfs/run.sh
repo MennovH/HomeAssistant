@@ -21,7 +21,7 @@ do
 
     if [ ${TEST_METHOD} = "Connection" ];
     then
-        """ check HTTPS connection """
+        # check HTTPS connection
         # Get the final hostname because this URL might be redirected
         HTTPS=0
         HOST=$(curl "https://${INTERNAL_IP}" -Ls -o /dev/null -w %{url_effective} | awk -F[/:] '{ print $4 }')
@@ -36,7 +36,7 @@ do
 
     elif [ ${TEST_METHOD} = "Certificate" ];
     then
-        """ check certificate expiration date """
+        # check certificate expiration date
         # use openssl to request certificate and retrieve its expiration date
         EXPIRED=1
         TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
