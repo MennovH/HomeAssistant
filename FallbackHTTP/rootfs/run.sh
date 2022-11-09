@@ -46,10 +46,10 @@ do
 
         if [[ "${CURRENT_DATE}" < "${EXP_DATE}" ]];
         then
-            echo -e " - \e[1;31mCertificate has expired on: ${TEST}\e[1;37m\n"
             EXPIRED=0 #valid certificate
-        else
             echo -e " - \e[1;32mCertificate is valid until: ${TEST}\e[1;37m\n"
+        else
+            echo -e " - \e[1;31mCertificate has expired on: ${TEST}\e[1;37m\n"
         fi
     fi
     
@@ -59,10 +59,10 @@ do
 
     if [[ ${HTTPS} == 1 || ${EXPIRED} == 0 ]];
     then
-       echo -e "Site ${INTERNAL_IP} with port ${INTERNAL_PORT} is valid https"
+       echo -e "Valid HTTPS"
     elif [[ ${HTTPS} == 0 || ${EXPIRED} == 1 ]];
     then
-       echo -e "Site ${INTERNAL_IP} with port ${INTERNAL_PORT} is not valid https"
+       echo -e "Invalid HTTPS"
 
        COUNTER=0
        HTTP=0
