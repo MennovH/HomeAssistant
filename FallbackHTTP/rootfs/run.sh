@@ -63,7 +63,8 @@ do
     elif [[ ${HTTPS} == 0 || ${EXPIRED} == 1 ]];
     then
        echo -e "Invalid HTTPS"
-
+       echo -n "Updating configuration.yaml,..."
+       
        COUNTER=0
        HTTP=0
        LINES=$(cat ${FILENAME})
@@ -85,9 +86,13 @@ do
                sed -i "${COUNTER}s/^/\#/" $FILENAME
            fi
        done < "$FILENAME"
+       CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
+
+       echo -e "\\r${CHECK_MARK} Updated configuration.yaml"
+       echo -e "Rebooting Hassio,..."
 
        # reload Home Assistant
-       #$(reboot now)
+       $(echo | hassio host reboot)
 
     fi
 
