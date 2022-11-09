@@ -58,7 +58,7 @@ do
     key=$(grep -c "ssl_key" $FILENAME)
 
     #if [[ ${HTTPS} == 1 || ${EXPIRED} == 0 ]];
-    if [[ 1 == 1 ]];
+    if [[ 1 == 2 ]];
     then
        echo -e "Valid HTTPS"
     elif [[ ${HTTPS} == 0 || ${EXPIRED} == 1 ]];
