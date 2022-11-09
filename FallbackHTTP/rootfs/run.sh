@@ -1,4 +1,5 @@
 #!/usr/bin/env bashio
+#!/usr/bin ha
 
 declare INTERNAL_IP
 declare INTERNAL_PORT
@@ -91,7 +92,7 @@ do
        echo -e "Rebooting Hassio,..."
 
        # reload Home Assistant
-       /usr/bin/ha core restart
+       ha core restart
        #$(echo | ha core restart)
        echo -e "\\r${CHECK_MARK}\n"
        
