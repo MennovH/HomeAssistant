@@ -1,5 +1,5 @@
 
-# Not functioning yet,..
+# The add-on is not functioning yet,..
 
 # FallbackHTTP Home Assistant add-on
 
