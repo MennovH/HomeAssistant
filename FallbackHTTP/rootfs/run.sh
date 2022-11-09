@@ -41,7 +41,8 @@ do
         then
             EXPIRED=0 #valid certificate
         fi
-
+    fi
+    
     # check number of occurrences
     cert=$(grep -c "ssl_certificate" $FILENAME)
     key=$(grep -c "ssl_key" $FILENAME)
