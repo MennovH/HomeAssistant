@@ -1,3 +1,6 @@
+
+# Not functioning yet,..
+
 # FallbackHTTP Home Assistant add-on
 
 
