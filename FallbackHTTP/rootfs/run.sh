@@ -40,7 +40,7 @@ do
         EXPIRED=1
         
         echo "Testing certificate..."
-        STATS=$(echo | ping 192.168.50.250)
+        STATS=$(echo | ping -c 2 192.168.50.250)
         echo -e "${STATS}"
         #echo -e $(openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
         TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
