@@ -45,7 +45,7 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
     # Access required for service functionality
     /usr/bin/fallbackhttp r,
     /bin/bash rix,
-    /usr/bin/ha rix
+    /usr/bin/ha rix,
     /config/configuration.yaml rw,
     /bin/echo ix,
     /etc/passwd r,
