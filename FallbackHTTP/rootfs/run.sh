@@ -5,6 +5,7 @@ declare INTERNAL_PORT
 declare TEST_METHOD
 declare INTERVAL
 declare FILENAME
+declare DATE
 
 INTERNAL_IP=$(bashio::config 'internal_ip_or_fqdn' | xargs echo -n)
 INTERNAL_PORT=$(bashio::config 'internal_port')
@@ -16,7 +17,7 @@ HTTPS=0
 EXPIRED=1
 
 echo -e "${INTERNAL_IP}"
-echo -e $(date)
+DATE = $(date)
 
 while :
 do
@@ -44,12 +45,12 @@ do
         
         echo "Testing certificate..."
         #echo -e $(openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
-        TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}:${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
+        TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}:${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10- | sed 's/  / /g')
 
         echo -e "${TEST}"
-        echo `date`
+        echo -e "${DATE}"
 
-        if [[ $(date -d "${date}" +"%s") < $(date -d "${TEST}" +"%s") ]];
+        if [[ $(date -d "${DATE}" +"%s") < $(date -d "${TEST}" +"%s") ]];
         then
             EXPIRED=0 #valid certificate
         fi
