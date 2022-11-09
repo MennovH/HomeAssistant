@@ -1,5 +1,4 @@
 #!/usr/bin/env bashio
-#!/usr/bin ha
 
 declare INTERNAL_IP
 declare INTERNAL_PORT
@@ -17,7 +16,7 @@ CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 HTTPS=0
 EXPIRED=1
 
-$(echo | hostname)
+hostname
 
 while :
 do
