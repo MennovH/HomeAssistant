@@ -47,7 +47,7 @@ do
 
         echo -e "${TEST}"...
 
-        if [[ $(date -d "${date}" +"%s") < $(date -d "${TEST}" +"%s") ]];
+        if [[ $(date -d "${date}" +"%s") < $(date -d "${TEST}" +"%m %H:%M:%S %Y") ]];
         then
             EXPIRED=0 #valid certificate
         fi
