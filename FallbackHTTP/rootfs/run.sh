@@ -19,7 +19,7 @@ EXPIRED=1
 while :
 do
 
-    if [ ${TEST_METHOD} = "Connection" ];
+    if [[ ${TEST_METHOD} == "Connection" ]];
     then
         # check HTTPS connection
         # Get the final hostname because this URL might be redirected
@@ -34,7 +34,7 @@ do
             HTTPS=1 #valid HTTPS
         fi
 
-    elif [ ${TEST_METHOD} = "Certificate" ];
+    elif [[ ${TEST_METHOD} = "Certificate" ]];
     then
         # check certificate expiration date
         # use openssl to request certificate and retrieve its expiration date
@@ -52,7 +52,7 @@ do
     cert=$(grep -c "ssl_certificate" $FILENAME)
     key=$(grep -c "ssl_key" $FILENAME)
 
-    if [[ $(${HTTPS} == 0) || $(${EXPIRED} == 1) ]];
+    if [[ ${HTTPS} == 0 || ${EXPIRED} == 1 ]];
     then
        echo "Site ${INTERNAL_IP} with port ${INTERNAL_PORT} is valid https"
     else
