@@ -51,10 +51,11 @@ do
         echo -e "${TEST}"
         echo -e "${CURRENT_DATE}"
 
-        EXP_DATE=$(echo "$TEST" | sed 's/[^0-9]//g')
+        EXP_DATE=$(date -d "${TEST}" +"%s")
+        #EXP_DATE=$(echo "$TEST" | sed 's/[^0-9]//g')
         echo -e "${EXP_DATE}"
 
-        if [[ "${CURRENT_DATE}" < $(date -d "${TEST}" +"%s") ]];
+        if [[ "${CURRENT_DATE}" < $(date -d "${EXP_DATE}" +"%s") ]];
         then
             EXPIRED=0 #valid certificate
         fi
