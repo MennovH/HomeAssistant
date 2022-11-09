@@ -16,13 +16,9 @@ FILENAME="/config/configuration.yaml"
 HTTPS=0
 EXPIRED=1
 
-echo -e "${INTERNAL_IP}"
-CURRENT_DATE=$(echo | date +'%s')
-echo -e "${CURRENT_DATE}"
-
 while :
-do
-    echo -e "${TEST_METHOD}"
+do    
+    CURRENT_DATE=$(echo | date +'%s')
     if [[ ${TEST_METHOD} == "Connection" ]];
     then
         # check HTTPS connection
@@ -44,20 +40,16 @@ do
         # use openssl to request certificate and retrieve its expiration date
         EXPIRED=1
         
-        echo "Testing certificate..."
-        #echo -e $(openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
+        echo "Testing certificate of host ${INTERNAL_IP}:${INTERNAL_PORT}..."
         TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}:${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10- | sed 's/  / /g' | sed 's/ GMT//g')
-
-        echo -e "${TEST}"
-        echo -e "${CURRENT_DATE}"
-
         EXP_DATE=$(date -d "${TEST}" +"%s")
-        #EXP_DATE=$(echo "$TEST" | sed 's/[^0-9]//g')
-        echo -e "${EXP_DATE}"
 
         if [[ "${CURRENT_DATE}" < "${EXP_DATE}" ]];
         then
+            echo -e " - \e[1;31mCertificate has expired on: ${TEST}\e[1;37m\n"
             EXPIRED=0 #valid certificate
+        else
+            echo -e " - \e[1;32mCertificate is valid until: ${TEST}\e[1;37m\n"
         fi
     fi
     
