@@ -5,12 +5,21 @@ declare INTERNAL_PORT
 declare TEST_METHOD
 declare INTERVAL
 declare FILENAME
+declare 
 
 INTERNAL_IP=$(bashio::config 'internal_ip__or_fqdn' | xargs echo -n)
 INTERNAL_PORT=$(bashio::config 'internal_port')
 TEST_METHOD=$(bashio::config 'test_method')
 INTERVAL=$(bashio::config 'interval')
 FILENAME="/config/configuration.yaml"
+
+HTTPS=0
+EXPIRED=1
+
+
+
+echo -e "${TEST_METHOD}"
+
 
 while :
 do
@@ -20,10 +29,10 @@ do
         """ check HTTPS connection """
         # Get the final hostname because this URL might be redirected
         HTTPS=0
-        host=$(curl "https://${INTERNAL_IP}" -Ls -o /dev/null -w %{url_effective} | awk -F[/:] '{ print $4 }')
+        HOST=$(curl "https://${INTERNAL_IP}" -Ls -o /dev/null -w %{url_effective} | awk -F[/:] '{ print $4 }')
 
         # Use openssl to get the status of the host
-        TEST=$(echo | openssl s_client -connect "${host}:${port}" </dev/null 2>/dev/null | grep 'Verify return code: 0 (ok)')
+        TEST=$(echo | openssl s_client -connect "${HOST}:${INTERNAL_PORT}" </dev/null 2>/dev/null | grep 'Verify return code: 0 (ok)')
 
         if [ -n "${TEST}" ];
         then
@@ -35,7 +44,7 @@ do
         """ check certificate expiration date """
         # use openssl to request certificate and retrieve its expiration date
         EXPIRED=1
-        TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${port}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
+        TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
 
         if [[ $(date -d "${date}" +'%s') < $(date -d "${TEST}" +'%s') ]];
         then
@@ -49,9 +58,9 @@ do
 
     if [[ $(${HTTPS} == 0) || $(${EXPIRED} == 1) ]];
     then
-       echo "Site ${host} with port ${port} is valid https"
+       echo "Site ${INTERNAL_IP} with port ${INTERNAL_PORT} is valid https"
     else
-       echo "Site ${host} with port ${port} is not valid https"
+       echo "Site ${INTERNAL_IP} with port ${INTERNAL_PORT} is not valid https"
 
        COUNTER=0
        HTTP=0
