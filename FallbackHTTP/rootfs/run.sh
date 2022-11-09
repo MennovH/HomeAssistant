@@ -25,7 +25,7 @@ do
         # Use openssl to get the status of the host
         TEST=$(echo | openssl s_client -connect "${host}:${port}" </dev/null 2>/dev/null | grep 'Verify return code: 0 (ok)')
 
-        if [ -n "${TEST" ];
+        if [ -n "${TEST}" ];
         then
             HTTPS=1 #valid HTTPS
         fi
