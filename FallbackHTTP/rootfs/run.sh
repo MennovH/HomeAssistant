@@ -26,7 +26,7 @@ do
         HOST=$(curl "https://${INTERNAL_IP}" -Ls -o /dev/null -w %{url_effective} | awk -F[/:] '{ print $4 }')
 
         # Use openssl to get the status of the host
-        TEST=$(echo | openssl s_client ${INTERNAL_IP} -connect "${HOST}":"${INTERNAL_PORT}" </dev/null 2>/dev/null | grep 'Verify return code: 0 (ok)')
+        TEST=$(echo | openssl s_client "${INTERNAL_IP}" -connect "${HOST}:${INTERNAL_PORT}" </dev/null 2>/dev/null | grep 'Verify return code: 0 (ok)')
 
         if [ -n "${TEST}" ];
         then
@@ -41,7 +41,7 @@ do
         
         echo "Testing certificate..."
         #echo -e $(openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
-        TEST=$(echo | openssl s_client -servername ${INTERNAL_IP} -connect "${INTERNAL_IP}":"${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
+        TEST=$(echo | openssl s_client -servername "${INTERNAL_IP}" -connect "${INTERNAL_IP}:${INTERNAL_PORT}" 2>/dev/null | openssl x509 -noout -dates | grep -i notafter | cut -c 10-)
 
         echo -e "${TEST} ...."
 
