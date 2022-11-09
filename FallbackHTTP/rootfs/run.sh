@@ -2,7 +2,7 @@
 
 declare INTERNAL_IP
 declare INTERNAL_PORT
-declare TEST_METHOD
+declare TEST_METHODhttps://github.com/MennovH/HomeAssistant/blob/main/FallbackHTTP/rootfs/run.sh
 declare INTERVAL
 declare FILENAME
 declare CURRENT_DATE
@@ -17,7 +17,8 @@ HTTPS=0
 EXPIRED=1
 
 while :
-do    
+do
+    $(echo | whoami)
     CURRENT_DATE=$(echo | date +'%s')
     if [[ ${TEST_METHOD} == "Connection" ]];
     then
