@@ -91,8 +91,9 @@ do
        echo -e "Rebooting Hassio,..."
 
        # reload Home Assistant
-       $(echo | hassio homeassistent restart)
-
+       $(echo | ha core restart)
+       echo -e "\\r${CHECK_MARK}\n"
+       
     fi
 
     if [[ ${INTERVAL} == 1 ]];
