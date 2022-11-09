@@ -18,7 +18,7 @@ EXPIRED=1
 
 while :
 do
-    echo -e "${USER}"
+    $(echo | $USER)
     CURRENT_DATE=$(echo | date +'%s')
     if [[ ${TEST_METHOD} == "Connection" ]];
     then
