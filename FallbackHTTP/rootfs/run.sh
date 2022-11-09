@@ -62,7 +62,6 @@ do
        echo -e "Valid HTTPS"
     elif [[ ${HTTPS} == 0 || ${EXPIRED} == 1 ]];
     then
-       echo -e "Invalid HTTPS"
        echo -n "Updating configuration.yaml,..."
        
        COUNTER=0
