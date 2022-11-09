@@ -18,6 +18,7 @@ EXPIRED=1
 
 echo -e "${INTERNAL_IP}"
 CURRENT_DATE = `date +"%s"`
+echo -e "${CURRENT_DATE}"
 
 while :
 do
@@ -50,7 +51,7 @@ do
         echo -e "${TEST}"
         echo -e "${DATE}"
 
-        if [[ $(date -d "${DATE}" +"%s") < $(date -d "${TEST}" +"%s") ]];
+        if [[ $(date -d "${CURRENT_DATE}" +"%s") < $(date -d "${TEST}" +"%s") ]];
         then
             EXPIRED=0 #valid certificate
         fi
