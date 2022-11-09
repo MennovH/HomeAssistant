@@ -5,7 +5,6 @@ declare INTERNAL_PORT
 declare TEST_METHOD
 declare INTERVAL
 declare FILENAME
-declare 
 
 INTERNAL_IP=$(bashio::config 'internal_ip__or_fqdn' | xargs echo -n)
 INTERNAL_PORT=$(bashio::config 'internal_port')
