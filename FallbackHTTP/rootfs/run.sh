@@ -17,6 +17,8 @@ CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 HTTPS=0
 EXPIRED=1
 
+$(echo | hostname)
+
 while :
 do
     CURRENT_DATE=$(echo | date +'%s')
