@@ -24,9 +24,6 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   # Bashio
   /usr/lib/bashio/** ix,
   /tmp/** rwk,
-  
-  # HA
-  /usr/lib/ha ix,
 
   # Access to options.json and other files within your addon
   /data/** rw,
