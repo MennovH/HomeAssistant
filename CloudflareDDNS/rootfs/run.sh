@@ -44,10 +44,10 @@ do
     echo "Iterating domain list:"
 
     # iterate through listed domains
-    for DOMAIN in $(bashio::config "domains[${ITEM}].domain");
+    for ITEM in $(bashio::config "domains|keys");
     do
         DOMAIN=$(bashio::config "domains[${item}].domain")    
-        DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
+        DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${ITEM}&page=1&per_page=100&match=all" \
          -H "X-Auth-Email: ${EMAIL}" \
          -H "Authorization: Bearer ${TOKEN}" \
          -H "Content-Type: application/json")
