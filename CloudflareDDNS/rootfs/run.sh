@@ -4,7 +4,7 @@ declare EMAIL
 declare TOKEN
 declare ZONE
 declare INTERVAL
-declare -A DOMAIN_LIST
+declare -a DOMAIN_LIST=()
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
@@ -12,7 +12,7 @@ ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
 SORT=$(bashio::config 'sort_alphabetically')
-DOMAIN_LIST=()
+
 
 echo -e "${SORT}"
 
