@@ -3,7 +3,7 @@
 declare EMAIL
 declare TOKEN
 declare ZONE
-declare -A DOMAINS
+declare -A DOMAIN_DICTIONARY
 declare DOMAIN_LIST
 declare INTERVAL
 
