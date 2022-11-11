@@ -9,7 +9,6 @@ declare INTERVAL
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
-DOMAINS=$(bashio::config 'domains')
 INTERVAL=$(bashio::config 'interval')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
 SORT=$(bashio::config 'sort_alphabetically')
@@ -33,6 +32,13 @@ then
     echo -e "Updating DNS A records every minute\n "
 else
     echo -e "Updating DNS A records every ${INTERVAL} minutes\n "
+fi
+
+if [[ ${SORT} == 1 ]];
+then
+    DOMAINS=$(bashio::config 'domains|keys' | sort -t : -k 2n)
+else
+    DOMAINS=$(bashio::config 'domains|keys')
 fi
 
 while :
@@ -84,7 +90,7 @@ do
             echo -e " - ${DOMAIN}, up-to-date\n"
         fi
         
-    done if [[ ${SORT} ]]; then | sort -t : -k 2n fi
+    done
     
     if [[ ${INTERVAL} == 1 ]];
     then
