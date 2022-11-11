@@ -4,17 +4,13 @@ declare EMAIL
 declare TOKEN
 declare ZONE
 declare INTERVAL
-declare -a DOMAIN_LIST=()
+declare SHOW_HIDE_PIP
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
-SORT=$(bashio::config 'sort_alphabetically')
-
-
-echo -e "${SORT}"
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -37,25 +33,6 @@ else
     echo -e "Updating DNS A records every ${INTERVAL} minutes\n "
 fi
 
-if [[ ${SORT} ]];
-then
-    for ITEM in $(bashio::config 'domains|keys');
-    do
-        echo -e "${ITEM}"
-        echo -e $(bashio::config "domains[${ITEM}].domain")
-        DOMAIN_LIST[${ITEM}]=$(bashio::config "domains[${ITEM}].domain")
-    done | sort -t : -k 2n
-else
-    for ITEM in $(bashio::config 'domains|keys');
-    do
-        echo -e "${ITEM}"
-        echo -e $(bashio::config "domains[${ITEM}].domain")
-        DOMAIN_LIST[${ITEM}]=$(bashio::config "domains[${ITEM}].domain")
-    done
-fi
-
-echo -e ${DOMAIN_LIST}
-
 while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
@@ -67,9 +44,9 @@ do
     echo "Iterating domain list:"
 
     # iterate through listed domains
-    for DOMAIN in ${DOMAIN_LIST[@]};
+    for DOMAIN in $(bashio::config "domains[${ITEM}].domain");
     do
-        #DOMAIN=$(bashio::config "domains[${item}].domain")    
+        DOMAIN=$(bashio::config "domains[${item}].domain")    
         DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
          -H "X-Auth-Email: ${EMAIL}" \
          -H "Authorization: Bearer ${TOKEN}" \
@@ -105,7 +82,7 @@ do
             echo -e " - ${DOMAIN}, up-to-date\n"
         fi
 
-    done
+    done | if [[ ${SORT} ]]; then "" else sort -t : -k 2n fi
     
     if [[ ${INTERVAL} == 1 ]];
     then
