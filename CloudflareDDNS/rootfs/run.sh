@@ -43,12 +43,14 @@ then
     for ITEM in $(bashio::config 'domains|keys');
     do
         echo -e "${ITEM}"
+        echo -e $(bashio::config "domains[${ITEM}].domain")
         DOMAIN_LIST+=( $(bashio::config "domains[${ITEM}].domain")    )
     done | sort -t : -k 2n
 else
     for ITEM in $(bashio::config 'domains|keys');
     do
         echo -e "${ITEM}"
+        echo -e $(bashio::config "domains[${ITEM}].domain")
         DOMAIN_LIST+=( $(bashio::config "domains[${ITEM}].domain")    )
     done
 fi
