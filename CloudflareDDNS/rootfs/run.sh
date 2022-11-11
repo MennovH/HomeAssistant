@@ -82,7 +82,7 @@ do
             echo -e " - ${DOMAIN}, up-to-date\n"
         fi
 
-    done | if [[ ${SORT} ]]; then "" else sort -t : -k 2n fi
+    done
     
     if [[ ${INTERVAL} == 1 ]];
     then
