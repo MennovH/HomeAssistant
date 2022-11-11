@@ -23,7 +23,7 @@ options:
   domains:
     - domain: null
   interval: 15
-  show_public_ip: true
+  hide_public_ip: true
   sort_alphabetically: true
 schema:
   email_address: email
@@ -32,5 +32,5 @@ schema:
   domains:
     - domain: str
   interval: int(1,1440)
-  show_public_ip: bool
+  hide_public_ip: bool
   sort_alphabetically: bool
