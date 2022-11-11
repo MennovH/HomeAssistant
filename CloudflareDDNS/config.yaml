@@ -17,20 +17,20 @@ startup: before
 journald: true
 panel_icon: mdi:cloud-check
 options:
-  E-mail address: null
-  Cloudflare Zone ID: null
-  Cloudflare API token: null
-  (sub)Domains:
+  email_address: null
+  cloudflare_zone_id: null
+  cloudflare_api_token: null
+  domains:
     - domain: null
-  Time interval: 15
-  Show public IP: true
-  Sort domains alphabetically: true
+  interval: 15
+  show_public_ip: true
+  sort_alphabetically: true
 schema:
-  E-mail address: email
-  Cloudflare Zone ID: password
-  Cloudflare API token: password
-  (sub)Domains:
+  email_address: email
+  cloudflare_zone_id: password
+  cloudflare_api_token: password
+  domains:
     - domain: str
-  Time interval: int(1,1440)
-  Show public IP: bool
-  Sort domains alphabetically: bool
+  interval: int(1,1440)
+  show_public_ip: bool
+  sort_alphabetically: bool
