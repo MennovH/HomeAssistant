@@ -4,15 +4,17 @@ declare EMAIL
 declare TOKEN
 declare ZONE
 declare -A DOMAINS
+declare DOMAIN_LIST
 declare INTERVAL
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
-DOMAINS=$(bashio::config 'domains|keys')
+DOMAIN_DICTIONARY=$(bashio::config 'domains|keys')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
 SORT=$(bashio::config 'sort_alphabetically')
+DOMAIN_LIST=()
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -37,7 +39,15 @@ fi
 
 if [[ ${SORT} == 1 ]];
 then
-    DOMAINS=$(echo | ${DOMAINS} | sort -t : -k 2n)
+    for DICT_ITEM in ${DOMAIN_DICTIONARY};
+    do
+        DOMAIN_LIST+=( ${DICT_ITEM} )
+    done | sort -t : -k 2n)
+else
+    for DICT_ITEM in ${DOMAIN_DICTIONARY};
+    do
+        DOMAIN_LIST+=( ${DICT_ITEM} )
+    done
 fi
 
 while :
@@ -51,7 +61,7 @@ do
     echo "Iterating domain list:"
 
     # iterate through listed domains
-    for item in ${DOMAINS};
+    for item in ${DOMAIN_LIST};
     do
         DOMAIN=$(bashio::config "domains[${item}].domain")    
         DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
@@ -88,7 +98,7 @@ do
         else
             echo -e " - ${DOMAIN}, up-to-date\n"
         fi
-        
+
     done
     
     if [[ ${INTERVAL} == 1 ]];
