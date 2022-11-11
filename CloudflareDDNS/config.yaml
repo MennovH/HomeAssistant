@@ -28,8 +28,8 @@ options:
 schema:
   E-mail address: email
   Cloudflare Zone ID: password
-  cloudflare_api_token: password
-  domains:
+  Cloudflare API token: password
+  (sub)Domains:
     - domain: str
   Time interval: int(1,1440)
   Show public IP: bool
