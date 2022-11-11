@@ -55,6 +55,8 @@ else
     done
 fi
 
+echo -e ${DOMAIN_LIST}
+
 while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
