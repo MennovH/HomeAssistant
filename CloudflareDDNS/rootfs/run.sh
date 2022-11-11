@@ -10,6 +10,7 @@ EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
+DOMAINS=$(bashio::config 'domains|keys')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
 SORT=$(bashio::config 'sort_alphabetically')
 
@@ -36,9 +37,7 @@ fi
 
 if [[ ${SORT} == 1 ]];
 then
-    DOMAINS=$(bashio::config 'domains|keys' | sort -t : -k 2n)
-else
-    DOMAINS=$(bashio::config 'domains|keys')
+    DOMAINS=$(echo | ${DOMAINS} | sort -t : -k 2n)
 fi
 
 while :
