@@ -11,6 +11,7 @@ TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 DOMAINS=$(bashio::config 'domains')
 INTERVAL=$(bashio::config 'interval')
+SHOW_HIDE_PIP=$(bashio::config 'show_public_ip')
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -36,7 +37,12 @@ fi
 while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
-    echo -e "Time: $(date '+%Y-%m-%d %H:%M')\nPublic IP address: ${PUBLIC_IP}\nIterating domain list:"
+    echo -e "Time: $(date '+%Y-%m-%d %H:%M')\n"
+    if [[ ${SHOW_HIDE_PIP} == 1 ]];
+    then
+        Public IP address: ${PUBLIC_IP}\n
+    fi
+    echo "Iterating domain list:"
 
     # iterate through listed domains
     for item in $(bashio::config 'domains|keys');
