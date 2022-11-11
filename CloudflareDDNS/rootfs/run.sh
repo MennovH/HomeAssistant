@@ -42,12 +42,12 @@ if [[ ${SORT} ]];
 then
     for ITEM in $(bashio::config 'domains|keys');
     do
-        DOMAIN_LIST+=( ${ITEM} )
+        DOMAIN_LIST+=( $(bashio::config "domains[${ITEM}].domain")    )
     done | sort -t : -k 2n
 else
     for ITEM in $(bashio::config 'domains|keys');
     do
-        DOMAIN_LIST+=( ${ITEM} )
+        DOMAIN_LIST+=( $(bashio::config "domains[${ITEM}].domain")    )
     done
 fi
 
@@ -62,9 +62,9 @@ do
     echo "Iterating domain list:"
 
     # iterate through listed domains
-    for item in ${DOMAIN_LIST[@]};
+    for DOMAIN in ${DOMAIN_LIST[@]};
     do
-        DOMAIN=$(bashio::config "domains[${item}].domain")    
+        #DOMAIN=$(bashio::config "domains[${item}].domain")    
         DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
          -H "X-Auth-Email: ${EMAIL}" \
          -H "Authorization: Bearer ${TOKEN}" \
