@@ -39,7 +39,7 @@ else
     echo -e "Updating DNS A records every ${INTERVAL} minutes\n "
 fi
 
-if [[ ${SORT} == "true" ]];
+if [[ ${SORT} == true ]];
 then
     for DICT_ITEM in ${DOMAIN_DICTIONARY};
     do
