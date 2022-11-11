@@ -6,12 +6,13 @@ declare ZONE
 declare -A DOMAINS
 declare INTERVAL
 
-EMAIL=$(bashio::config 'email_address' | xargs echo -n)
-TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
-ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
-DOMAINS=$(bashio::config 'domains')
-INTERVAL=$(bashio::config 'interval')
-SHOW_HIDE_PIP=$(bashio::config 'show_public_ip')
+EMAIL=$(bashio::config 'E-mail address' | xargs echo -n)
+TOKEN=$(bashio::config 'Cloudflare API token'| xargs echo -n)     
+ZONE=$(bashio::config 'Cloudflare Zone ID'| xargs echo -n)
+DOMAINS=$(bashio::config '(sub)Domains')
+INTERVAL=$(bashio::config 'Time interval (minutes)')
+SHOW_HIDE_PIP=$(bashio::config 'Show public IP address')
+SORT=$(bashio::config 'Sort domains alphabetically')
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -83,7 +84,7 @@ do
             echo -e " - ${DOMAIN}, up-to-date\n"
         fi
         
-    done | sort -t : -k 2n
+    done if [[ ${SORT} ]]; then | sort -t : -k 2n fi
     
     if [[ ${INTERVAL} == 1 ]];
     then
