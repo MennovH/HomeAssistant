@@ -23,7 +23,3 @@ configuration:
     name: Hide public IP address in logbook
     description: >-
       Don't show the public IP address in the logfile.
-  sort_alphabetically: 
-    name: Sort domains alphabetically
-    description: >-
-      Iterate through domain list alphabetically (somewhat slower)
