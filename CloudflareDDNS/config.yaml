@@ -24,7 +24,7 @@ options:
     - domain: null
   Time interval: 15
   Show public IP: true
-  Sort: true
+  Sort domains alphabetically: true
 schema:
   E-mail address: email
   Cloudflare Zone ID: password
@@ -33,4 +33,4 @@ schema:
     - domain: str
   Time interval: int(1,1440)
   Show public IP: bool
-  Sort: bool
+  Sort domains alphabetically: bool
