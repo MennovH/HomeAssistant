@@ -16,6 +16,8 @@ SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
 SORT=$(bashio::config 'sort_alphabetically')
 DOMAIN_LIST=()
 
+echo -e "${SORT}"
+
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
