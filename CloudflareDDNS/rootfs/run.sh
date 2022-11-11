@@ -3,7 +3,6 @@
 declare EMAIL
 declare TOKEN
 declare ZONE
-declare -A DOMAIN_DICTIONARY
 declare DOMAIN_LIST
 declare INTERVAL
 
@@ -11,7 +10,6 @@ EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
-DOMAIN_DICTIONARY=$(bashio::config 'domains|keys')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
 SORT=$(bashio::config 'sort_alphabetically')
 DOMAIN_LIST=()
@@ -41,12 +39,12 @@ fi
 
 if [[ ${SORT} == true ]];
 then
-    for DICT_ITEM in ${DOMAIN_DICTIONARY};
+    for DICT_ITEM in $(bashio::config 'domains|keys');
     do
         DOMAIN_LIST+=( ${DICT_ITEM} )
     done | sort -t : -k 2n
 else
-    for DICT_ITEM in ${DOMAIN_DICTIONARY};
+    for DICT_ITEM in $(bashio::config 'domains|keys');
     do
         DOMAIN_LIST+=( ${DICT_ITEM} )
     done
