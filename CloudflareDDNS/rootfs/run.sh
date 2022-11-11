@@ -5,6 +5,7 @@ declare TOKEN
 declare ZONE
 declare DOMAIN_LIST
 declare INTERVAL
+declare -A DOMAIN_LIST
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
@@ -37,16 +38,16 @@ else
     echo -e "Updating DNS A records every ${INTERVAL} minutes\n "
 fi
 
-if [[ ${SORT} == true ]];
+if [[ ${SORT} ]];
 then
-    for DICT_ITEM in $(bashio::config 'domains|keys');
+    for ITEM in $(bashio::config 'domains|keys');
     do
-        DOMAIN_LIST+=( ${DICT_ITEM} )
+        DOMAIN_LIST+=( ${ITEM} )
     done | sort -t : -k 2n
 else
-    for DICT_ITEM in $(bashio::config 'domains|keys');
+    for ITEM in $(bashio::config 'domains|keys');
     do
-        DOMAIN_LIST+=( ${DICT_ITEM} )
+        DOMAIN_LIST+=( ${ITEM} )
     done
 fi
 
