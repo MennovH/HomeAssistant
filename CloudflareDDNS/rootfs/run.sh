@@ -39,7 +39,7 @@ do
     echo -e "Time: $(date '+%Y-%m-%d %H:%M')\nPublic IP address: ${PUBLIC_IP}\nIterating domain list:"
 
     # iterate through listed domains
-    for item in $(sort bashio::config 'domains|keys');
+    for item in sort $(bashio::config 'domains|keys');
     do
         DOMAIN=$(bashio::config "domains[${item}].domain")    
         DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
