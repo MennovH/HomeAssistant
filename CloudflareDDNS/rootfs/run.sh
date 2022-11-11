@@ -42,7 +42,7 @@ then
     for DICT_ITEM in ${DOMAIN_DICTIONARY};
     do
         DOMAIN_LIST+=( ${DICT_ITEM} )
-    done | sort -t : -k 2n)
+    done | sort -t : -k 2n
 else
     for DICT_ITEM in ${DOMAIN_DICTIONARY};
     do
