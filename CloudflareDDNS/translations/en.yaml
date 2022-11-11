@@ -1,0 +1,29 @@
+configuration:
+  email_address:
+    name: E-mail address
+	description: >-
+	  Enter the e-mail address which is associated to your Cloudflare account.
+  cloudflare_zone_id:
+    name: Cloudflare Zone ID
+	description: >-
+	  Enter the regarding Zone ID of which the A records should be updated.
+  cloudflare_api_token:
+    name: Cloudflare API token
+	description: >-
+	  Enter the Cloudflare API token with which the A records could be updated.
+  domains:
+    name: (sub)Domains
+	description: >-
+	  Enter the regarding (sub)domains which should be kept up-to-date.
+  interval: 
+    name: Time interval (minutes)
+	description: >-
+	  Enter an integer value between 1 and 1440.
+  hide_public_ip: 
+    name: Hide public IP address in logbook
+	description: >-
+	  Don't show the public IP address in the logfile.
+  sort_alphabetically: 
+    name: Sort domains alphabetically
+	description: >-
+	  Iterate through domain list alphabetically (somewhat slower)
