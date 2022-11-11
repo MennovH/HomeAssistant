@@ -6,13 +6,13 @@ declare ZONE
 declare -A DOMAINS
 declare INTERVAL
 
-EMAIL=$(bashio::config 'E-mail address' | xargs echo -n)
-TOKEN=$(bashio::config 'Cloudflare API token'| xargs echo -n)     
-ZONE=$(bashio::config 'Cloudflare Zone ID'| xargs echo -n)
-DOMAINS=$(bashio::config '(sub)Domains')
-INTERVAL=$(bashio::config 'Time interval (minutes)')
-SHOW_HIDE_PIP=$(bashio::config 'Show public IP address')
-SORT=$(bashio::config 'Sort domains alphabetically')
+EMAIL=$(bashio::config 'email_address' | xargs echo -n)
+TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
+ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
+DOMAINS=$(bashio::config 'domains')
+INTERVAL=$(bashio::config 'interval')
+SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
+SORT=$(bashio::config 'sort_alphabetically')
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
