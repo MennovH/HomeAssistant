@@ -11,6 +11,7 @@ TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
+CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -79,7 +80,7 @@ do
                 echo -e " - ${DOMAIN} (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;32m updated\e[1;37m\n"
             fi
         else
-            echo -e " - ${DOMAIN}, up-to-date\n"
+            echo -e " - ${DOMAIN} ${CHECK_MARK}\n"
         fi
 
     done
