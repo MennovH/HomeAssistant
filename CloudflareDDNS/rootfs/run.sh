@@ -84,7 +84,8 @@ do
 
     done
     
-    echo -e " \nNext check will run at ${date -d "${INTERVAL} minutes" +'%Y-%m-%d %H:%M'}\n"
+    NEXT=$(date -d "${INTERVAL} minutes" +'%Y-%m-%d %H:%M')
+    echo -e " \nNext check will run at ${NEXT}\n"
 
     if [[ ${INTERVAL} == 1 ]];
     then
