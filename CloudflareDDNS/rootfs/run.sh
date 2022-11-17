@@ -84,6 +84,8 @@ do
 
     done
     
+    echo -e " \nNext check will run at ${date -d "${INTERVAL} minutes" +'%Y-%m-%d %H:%M'}\n"
+
     if [[ ${INTERVAL} == 1 ]];
     then
         echo -e " \nWaiting 1 minute for next check...\n "
