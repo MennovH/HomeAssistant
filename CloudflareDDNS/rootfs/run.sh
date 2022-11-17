@@ -39,9 +39,9 @@ do
 
 
     time=0
-    echo `date -d "1970-01-01 00:00:00 UTC $time seconds" +"%H:%M:%S"`
+    echo `date -d "1970-01-01 00:00:00 UTC +$time seconds" +"%H:%M:%S"`
     time=$((time + 600))
-    echo `date -d "1970-01-01 00:00:00 UTC $time seconds" +"%H:%M:%S"`
+    echo `date -d "1970-01-01 00:00:00 UTC +$time seconds" +"%H:%M:%S"`
 
 
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
