@@ -84,7 +84,7 @@ do
 
     done
     
-    NEXT=$(echo | date -d "$(date + ${INTERVAL} min '+%Y-%m-%d %H:%M')" '+%Y-%m-%d %H:%M')
+    NEXT=$(echo | date -d "+ ${INTERVAL} minutes" '+%Y-%m-%d %H:%M')
     echo -e " \nNext check will run at ${NEXT}\n"
 
     if [[ ${INTERVAL} == 1 ]];
