@@ -35,7 +35,7 @@ fi
 
 while :
 do
-    TEST=$(date -d "$(date +"%s" | sed 's/ GMT//g') +1 day" '+%Y-%m-%d %H:%M')
+    TEST=$(date -d "$(date +"%T" | sed 's/ GMT//g') +1 day" '+%Y-%m-%d %H:%M')
     #date +%Y%m%d%H%M%S -d "-5minutes"
     echo -e "${TEST}"
     EXP_DATE=$(date -d "${TEST}" +"%s")
