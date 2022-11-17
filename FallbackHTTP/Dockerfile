@@ -3,14 +3,13 @@ FROM $BUILD_FROM
 
 
 #Add nginx and create the run folder for nginx.
-RUN apk add py3-pip -f \
-  && apk add openssl -f \
+RUN apk add openssl -f \
   && pip3 install homeassistant-cli \
   && apk --no-cache add \
+  && ln -s /usr/bin/ha /usr/lib/ha \
     nginx \
   \
   && mkdir -p /run/nginx \
-  && ln -s /usr/bin/ha /usr/lib/ha
 
 #Copy our conf into the nginx http.d folder.
 COPY ingress.conf /etc/nginx/http.d/
