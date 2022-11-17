@@ -87,12 +87,12 @@ do
     NEXT=busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-d %H:%M"
     echo -e " \nNext check will run at ${NEXT}\n"
 
-    if [[ ${INTERVAL} == 1 ]];
-    then
-        echo -e " \nWaiting 1 minute for next check...\n "
-    else
-        echo -e " \nWaiting ${INTERVAL} minutes for next check...\n "
-    fi
+    #if [[ ${INTERVAL} == 1 ]];
+    #then
+    #    echo -e " \nWaiting 1 minute for next check...\n "
+    #else
+    #    echo -e " \nWaiting ${INTERVAL} minutes for next check...\n "
+    #fi
     
     sleep ${INTERVAL}m
     
