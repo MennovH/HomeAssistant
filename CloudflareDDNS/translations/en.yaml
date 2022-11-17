@@ -22,4 +22,8 @@ configuration:
   hide_public_ip: 
     name: Hide public IP address in logbook
     description: >-
-      Don't show the public IP address in the logfile.
+      Don't show the public IP address in the logbook.
+  sort: 
+    name: Sort domains
+    description: >-
+      Sort domains in logbook output.
