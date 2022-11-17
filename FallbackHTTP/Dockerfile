@@ -3,7 +3,7 @@ FROM $BUILD_FROM
 
 
 #Add nginx and create the run folder for nginx.
-RUN apk add py3-pip \
+RUN apk add py3-pip -f \
   && apk add openssl -f \
   && pip3 install homeassistant-cli \
   && apk --no-cache add \
