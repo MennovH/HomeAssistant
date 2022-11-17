@@ -3,11 +3,7 @@ FROM $BUILD_FROM
 
 
 #Add nginx and create the run folder for nginx.
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        python3 \
-        python3-pip \
-        python3-dev \
+RUN apk add py3-pip \
   && apk add openssl -f \
   && pip3 install homeassistant-cli \
   && apk --no-cache add \
