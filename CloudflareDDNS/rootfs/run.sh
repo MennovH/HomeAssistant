@@ -35,11 +35,13 @@ fi
 
 while :
 do
-    TEST=$(date -d "now +15 minutes" "+%Y-%m-%d %H:%M")
+    a=$(date +%s); a=$(( a-a%(15*60) ))
+    date -d"1970-01-01 $a seconds UTC" 
+    #TEST=$(date -d "now +15 minutes" "+%Y-%m-%d %H:%M")
     #TEST=$(date -d "$(date +"%FMT" | sed 's/ GMT//g') +1 day" '+%Y-%m-%d %H:%M')
     #date +%Y%m%d%H%M%S -d "-5minutes"
-    echo -e "${TEST}"
-    EXP_DATE=$(date -d "${TEST}" +"%s")
+    #echo -e "${TEST}"
+    #EXP_DATE=$(date -d "${TEST}" +"%s")
 
     #time=0
     #echo `date -d "1970-01-01 00:00:00 UTC +$time seconds" +"%H:%M:%S"`
