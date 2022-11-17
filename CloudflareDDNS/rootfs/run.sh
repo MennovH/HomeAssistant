@@ -41,7 +41,7 @@ if [[ ${SORT} ]];
 then
     for key in "${!DOMAINS[@]}"; do
         printf '%s:%s\n' "$key" "${DOMAINS[$key]}"
-    done | sort -t : -k 2n
+    done | sort -k 1n
 fi
 
 while :
