@@ -36,7 +36,7 @@ fi
 while :
 do
     a=$(date +%s); a=$(( a-a%(15*60) ))
-    date -d"1970-01-01 $a seconds UTC" 
+    date -d"1970-01-01 +$a seconds UTC" 
     #TEST=$(date -d "now +15 minutes" "+%Y-%m-%d %H:%M")
     #TEST=$(date -d "$(date +"%FMT" | sed 's/ GMT//g') +1 day" '+%Y-%m-%d %H:%M')
     #date +%Y%m%d%H%M%S -d "-5minutes"
