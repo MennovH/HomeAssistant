@@ -84,7 +84,7 @@ do
 
     done
     
-    date -d "$(date) 10 min" "+%Y-%m-%d %H:%M:%S"
+    date -d "$(date) +10 min" "+%Y-%m-%d %H:%M:%S"
 
     NEXT=$(date -d "$(echo | date '+%H:%M:%S %Y-%m-%d') +${INTERVAL} minutes" '+%Y-%m-%d %H:%M')
     echo -e " \nNext check will run at ${NEXT}\n"
