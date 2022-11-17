@@ -36,7 +36,7 @@ fi
 while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
-    echo -e "Time: $(date '+%Y-%m-%d %H:%M')\n"
+    echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
     if [[ ${SHOW_HIDE_PIP} == 1 ]];
     then
         Public IP address: ${PUBLIC_IP}\n
@@ -84,7 +84,7 @@ do
 
     done
     
-    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-d %H:%M")
+    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check will run at ${NEXT}\n"
 
     #if [[ ${INTERVAL} == 1 ]];
