@@ -4,7 +4,6 @@ FROM $BUILD_FROM
 
 #Add nginx and create the run folder for nginx.
 RUN apk add openssl -f \
-  && pip3 install homeassistant-cli \
   && apk --no-cache add \
   && ln -s /usr/bin/ha /usr/lib/ha \
     nginx \
