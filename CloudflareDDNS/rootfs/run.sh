@@ -35,25 +35,6 @@ fi
 
 while :
 do
-    busybox date -d@"$(( `busybox date +%s`+3*60 ))"
-    #busybox date -d '%s' +"%y%m%d%H%" -d "$(( `busybox date +%s`+3*60 ))"
-    #date --version
-    #date -d "-10min 1999-05-20 23:00:00"
-    #date -d "1999-05-20 00:00:00 1 hour"
-    #a=$(date +%s); a=$(( a-a%(15*60) ))
-    #date -d"1970-01-01 +$a seconds UTC" 
-    #TEST=$(date -d "now +15 minutes" "+%Y-%m-%d %H:%M")
-    #TEST=$(date -d "$(date +"%FMT" | sed 's/ GMT//g') +1 day" '+%Y-%m-%d %H:%M')
-    #date +%Y%m%d%H%M%S -d "-5minutes"
-    #echo -e "${TEST}"
-    #EXP_DATE=$(date -d "${TEST}" +"%s")
-
-    #time=0
-    #echo `date -d "1970-01-01 00:00:00 UTC +$time seconds" +"%H:%M:%S"`
-    #time=$((time + 600))
-    #echo `date -d "1970-01-01 00:00:00 UTC +$time seconds" +"%H:%M:%S"`
-
-
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M')\n"
     if [[ ${SHOW_HIDE_PIP} == 1 ]];
@@ -103,10 +84,8 @@ do
 
     done
     
-    #date -d "$(date)" "+10 minutes" "+%Y-%m-%d %H:%M:%S"
-
-    #NEXT=$(date -d "$(echo | date '+%H:%M:%S %Y-%m-%d') +${INTERVAL} minutes" '+%Y-%m-%d %H:%M')
-    #echo -e " \nNext check will run at ${NEXT}\n"
+    NEXT=busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-d %H:%M"
+    echo -e " \nNext check will run at ${NEXT}\n"
 
     if [[ ${INTERVAL} == 1 ]];
     then
