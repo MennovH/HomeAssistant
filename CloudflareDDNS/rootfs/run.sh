@@ -35,6 +35,15 @@ fi
 
 while :
 do
+
+
+
+    time=0
+    echo `date -d "1970-01-01 00:00:00 UTC $time seconds" +"%H:%M:%S"`
+    time=$((time + 600))
+    echo `date -d "1970-01-01 00:00:00 UTC $time seconds" +"%H:%M:%S"`
+
+
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M')\n"
     if [[ ${SHOW_HIDE_PIP} == 1 ]];
@@ -84,10 +93,10 @@ do
 
     done
     
-    date -d "$(date)" "+10 minutes" "+%Y-%m-%d %H:%M:%S"
+    #date -d "$(date)" "+10 minutes" "+%Y-%m-%d %H:%M:%S"
 
-    NEXT=$(date -d "$(echo | date '+%H:%M:%S %Y-%m-%d') +${INTERVAL} minutes" '+%Y-%m-%d %H:%M')
-    echo -e " \nNext check will run at ${NEXT}\n"
+    #NEXT=$(date -d "$(echo | date '+%H:%M:%S %Y-%m-%d') +${INTERVAL} minutes" '+%Y-%m-%d %H:%M')
+    #echo -e " \nNext check will run at ${NEXT}\n"
 
     if [[ ${INTERVAL} == 1 ]];
     then
