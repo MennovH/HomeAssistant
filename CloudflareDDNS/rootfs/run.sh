@@ -84,7 +84,7 @@ do
 
     done
     
-    NEXT=busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-d %H:%M"
+    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-d %H:%M")
     echo -e " \nNext check will run at ${NEXT}\n"
 
     #if [[ ${INTERVAL} == 1 ]];
