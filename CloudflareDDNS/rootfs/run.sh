@@ -35,7 +35,8 @@ fi
 
 while :
 do
-    busybox date -d '%s' +"%y%m%d%H%" -d "$(( `busybox date +%s`+3*60 ))"
+    busybox date -d@"$(( `busybox date +%s`+3*60 ))"
+    #busybox date -d '%s' +"%y%m%d%H%" -d "$(( `busybox date +%s`+3*60 ))"
     #date --version
     #date -d "-10min 1999-05-20 23:00:00"
     #date -d "1999-05-20 00:00:00 1 hour"
