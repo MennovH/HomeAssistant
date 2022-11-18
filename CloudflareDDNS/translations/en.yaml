@@ -23,3 +23,7 @@ configuration:
     name: Hide public IP address in logbook
     description: >-
       Don't show the public IP address in the logbook.
+  sort: 
+    name: Iterate through domains in alphabetical order
+    description: >-
+      Iterate through domains in alphabetical order.
