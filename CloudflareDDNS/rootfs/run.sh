@@ -9,7 +9,7 @@ declare SHOW_HIDE_PIP
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
-DOMAINS=$(bashio::config "domains|keys")
+#DOMAINS=$(bashio::config "domains|keys")
 INTERVAL=$(bashio::config 'interval')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
 SORT=$(bashio::config 'sort')
