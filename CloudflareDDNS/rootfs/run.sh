@@ -48,7 +48,7 @@ declare -a D
 for ITEM in $(bashio::config "domains|keys");
 do
     D[$ITEM]=$(bashio::config "domains[${ITEM}].domain")
-done | sort -k
+done | sort -k 1
 
 echo -e "${D[@]}"
 
