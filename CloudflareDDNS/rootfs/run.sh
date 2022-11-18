@@ -45,7 +45,7 @@ fi
 #fi
 
 declare -a D
-for ITEM in ${DOMAINS};
+for ITEM in $(bashio::config "domains|keys");
 do
     D+=$(bashio::config "domains[${ITEM}].domain")
 done | sort -k 1n
