@@ -81,16 +81,18 @@ do
     then
         Public IP address: ${PUBLIC_IP}\n
     fi
-    echo "Iterating domain list:"
+    
 
     # iterate through listed domains
-    if [[ "${SORT}" ]];
+    if [[ ${SORT} == true ]];
     then
+        echo "Iterating domain list (sorted):"
         for ITEM in $(bashio::config "domains|keys");
         do
             check $(bashio::config "domains[${ITEM}].domain")    
         done | sort -uk 1 
     else
+        echo "Iterating domain list:"
         for ITEM in $(bashio::config "domains|keys");
         do
             check $(bashio::config "domains[${ITEM}].domain")    
