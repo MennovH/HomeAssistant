@@ -24,6 +24,6 @@ configuration:
     description: >-
       Don't show the public IP address in the logbook.
   sort: 
-    name: Iterate through domains in alphabetical order
+    name: Iterate domains alphabetically
     description: >-
-      Iterate through domains in alphabetical order.
+      Iterate through domains in alphabetical order. Although this option slows down the logging output slightly, it removes any duplicates and improves readability.
