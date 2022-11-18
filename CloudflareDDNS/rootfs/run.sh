@@ -51,7 +51,7 @@ do
     D[$ITEM]=$(bashio::config "domains[${ITEM}].domain")
 done | sort -k 1
 
-echo -e "${#D[@]}"
+echo -e "${!D[@]}"
 
 while :
 do
