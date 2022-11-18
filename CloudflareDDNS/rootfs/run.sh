@@ -51,7 +51,7 @@ do
     D[$ITEM]=$(bashio::config "domains[${ITEM}].domain")
 done | sort -k 1
 
-echo -e "${!D[@]}"
+echo -e "${D[@]}"
 
 while :
 do
@@ -65,8 +65,9 @@ do
 
     # iterate through listed domains
     #for ITEM in ${DOMAINS};
-    for DOMAIN in ${!D[@]};
+    for DOMAIN in ${D[@]};
     do
+        echo -e "${DOMAIN}"
         #DOMAIN=$(bashio::config "domains[${ITEM}].domain")    
         DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
          -H "X-Auth-Email: ${EMAIL}" \
