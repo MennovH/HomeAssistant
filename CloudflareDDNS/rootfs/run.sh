@@ -9,10 +9,8 @@ declare SHOW_HIDE_PIP
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)     
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
-#DOMAINS=$(bashio::config "domains|keys")
 INTERVAL=$(bashio::config 'interval')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
-SORT=$(bashio::config 'sort')
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
@@ -31,27 +29,10 @@ fi
 
 if [[ ${INTERVAL} == 1 ]];
 then
-    echo -e "Updating DNS A records every minute\n "
+    echo -e "Checking A records every minute\n "
 else
-    echo -e "Updating DNS A records every ${INTERVAL} minutes\n "
+    echo -e "Checking A records every ${INTERVAL} minutes\n "
 fi
-
-
-#if [[ ${SORT} ]];
-#then
-#    for key in "${!DOMAINS[@]}"; do
-#        printf '%s:%s\n' "$key" "${DOMAINS[$key]}"
-#    done | sort -k 1n
-#fi
-
-D=()
-for ITEM in $(bashio::config "domains|keys");
-do
-    #$(bashio::config "domains[${ITEM}].domain")
-    D[$ITEM]=$(bashio::config "domains[${ITEM}].domain")
-done | sort -k 1
-
-echo -e "${D[@]}"
 
 while :
 do
@@ -64,11 +45,9 @@ do
     echo "Iterating domain list:"
 
     # iterate through listed domains
-    #for ITEM in ${DOMAINS};
-    for DOMAIN in ${D[@]};
+    for ITEM in $(bashio::config "domains|keys");
     do
-        echo -e "${DOMAIN}"
-        #DOMAIN=$(bashio::config "domains[${ITEM}].domain")    
+        DOMAIN=$(bashio::config "domains[${ITEM}].domain")    
         DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
          -H "X-Auth-Email: ${EMAIL}" \
          -H "Authorization: Bearer ${TOKEN}" \
@@ -108,14 +87,6 @@ do
     
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check will run at ${NEXT}\n"
-
-    #if [[ ${INTERVAL} == 1 ]];
-    #then
-    #    echo -e " \nWaiting 1 minute for next check...\n "
-    #else
-    #    echo -e " \nWaiting ${INTERVAL} minutes for next check...\n "
-    #fi
-    
     sleep ${INTERVAL}m
     
 done
