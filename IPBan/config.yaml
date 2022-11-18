@@ -1,5 +1,5 @@
 name: "IPBan"
-url: https://github.com/MennovH/HomeAssistant/IPBan
+url: https://github.com/MennovH/HomeAssistant/tree/main/IPBan
 description: "IPBan add-on for Home Assistant"
 #codenotary: cas.mennovh@gmail.com
 version: "1.0.0"
