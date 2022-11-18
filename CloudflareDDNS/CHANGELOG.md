@@ -16,12 +16,13 @@
     - domain: <domain2>
     - domain: <...>
 
+- Breaking change: Renamed add-on slug to match the add-on name. This would require to reinstall the add-on. Copy your current YAML file before doing this, to
+  reconfigure the add-on at ease.
 - Added option to hide PIP in logbook, which is true by default.
 - Added sort option to iterate through domains alphabetically. This option is enabled by default, and will also remove any duplicates.
 - Added names and descriptions to the UI configuration menu, to improve its readability and to increase clarity.
 - Added message to logbook, to display the moment on which the next DNS check will be.
 - Removed message which displayed the waiting time (interval).
-- Renamed add-on slug
 - Replaced logbook "up-to-date"-statements with check marks.
 - Reduced privileges
   
