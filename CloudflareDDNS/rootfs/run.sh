@@ -46,8 +46,8 @@ fi
 
 declare -a D
 for ITEM in ${DOMAINS};
-    DMN=$(bashio::config "domains[${ITEM}].domain")
-    echo -e "${DMN}"
+do
+    D+=$(bashio::config "domains[${ITEM}].domain")
 done | sort -k 1n
 
 
