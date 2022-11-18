@@ -1,0 +1,9 @@
+configuration:
+  interval: 
+    name: Time interval (minutes)
+    description: >-
+      Enter an integer value between 1 and 1440.
+  allow: 
+    name: Allow IP
+    description: >-
+      Allow IP address to communicate with HA.
