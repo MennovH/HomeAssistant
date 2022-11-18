@@ -84,7 +84,7 @@ do
     echo "Iterating domain list:"
 
     # iterate through listed domains
-    if [[ ${SORT}" ]];
+    if [[ "${SORT}" ]];
     then
         for ITEM in $(bashio::config "domains|keys");
         do
