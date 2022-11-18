@@ -83,7 +83,7 @@ do
             echo -e " - ${DOMAIN} ${CHECK_MARK}\n"
         fi
 
-    done | sort -k 1 | unique
+    done | sort -uk 1 
     
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check will run at ${NEXT}\n"
