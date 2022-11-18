@@ -98,7 +98,7 @@ do
     fi
 
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
-    echo -e " \nNext check will run at ${NEXT}\n"
+    echo -e " \nNext check is at ${NEXT}\n"
     sleep ${INTERVAL}m
     
 done
