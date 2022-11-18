@@ -94,7 +94,7 @@ do
         for ITEM in $(bashio::config "domains|keys");
         do
             check $(bashio::config "domains[${ITEM}].domain")    
-        done
+        done | uniq
     fi
 
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
