@@ -63,7 +63,7 @@ do
 
     # iterate through listed domains
     #for ITEM in ${DOMAINS};
-    for DOMAIN in ${D};
+    for DOMAIN in "${D[@]}";
     do
         #DOMAIN=$(bashio::config "domains[${ITEM}].domain")    
         DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
