@@ -11,6 +11,7 @@ TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
+SORT=$(bashio::config 'sort')
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
@@ -83,11 +84,19 @@ do
     echo "Iterating domain list:"
 
     # iterate through listed domains
-    for ITEM in $(bashio::config "domains|keys");
-    do
-        check $(bashio::config "domains[${ITEM}].domain")    
-    done | sort -uk 1 
-    
+    if [[ ${SORT}" ]];
+    then
+        for ITEM in $(bashio::config "domains|keys");
+        do
+            check $(bashio::config "domains[${ITEM}].domain")    
+        done | sort -uk 1 
+    else
+        for ITEM in $(bashio::config "domains|keys");
+        do
+            check $(bashio::config "domains[${ITEM}].domain")    
+        done
+    fi
+
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check will run at ${NEXT}\n"
     sleep ${INTERVAL}m
