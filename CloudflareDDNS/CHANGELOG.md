@@ -23,7 +23,8 @@
 - Removed message which displayed the waiting time (interval).
 - Renamed add-on slug
 - Replaced logbook "up-to-date"-statements with check marks.
-
+- Reduced privileges
+  
 # v1.2.0
 - Removed ingress configuration, because it was not functional. This could be the reason why the add-on failed to work since the latest Home Assistant updates.
 - Updated logging visuals
