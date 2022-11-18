@@ -37,16 +37,16 @@ else
 fi
 
 
-if [[ ${SORT} ]];
-then
-    for key in "${!DOMAINS[@]}"; do
-        printf '%s:%s\n' "$key" "${DOMAINS[$key]}"
-    done | sort -k 1n
-fi
+#if [[ ${SORT} ]];
+#then
+#    for key in "${!DOMAINS[@]}"; do
+#        printf '%s:%s\n' "$key" "${DOMAINS[$key]}"
+#    done | sort -k 1n
+#fi
 
 declare -a D
 for ITEM in ${DOMAINS};
-    D+=$(bashio::config "domains[${ITEM}].domain")
+    echo -e $(bashio::config "domains[${ITEM}].domain")
 done | sort -k 1n
 
 
