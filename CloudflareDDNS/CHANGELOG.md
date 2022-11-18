@@ -21,6 +21,8 @@
 - Added names and descriptions to the UI configuration menu, to improve its readability and to increase clarity.
 - Added message to logbook, to display the moment on which the next DNS check will be.
 - Removed message which displayed the waiting time (interval).
+- Renamed add-on slug
+- Replaced logbook "up-to-date"-statements with check marks.
 
 # v1.2.0
 - Removed ingress configuration, because it was not functional. This could be the reason why the add-on failed to work since the latest Home Assistant updates.
