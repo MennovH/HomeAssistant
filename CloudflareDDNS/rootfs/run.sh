@@ -44,6 +44,12 @@ then
     done | sort -k 1n
 fi
 
+declare -a D
+for ITEM in ${DOMAINS};
+    D+=($(bashio::config "domains[${ITEM}].domain"))
+done | sort -k 1n
+
+
 while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
@@ -55,9 +61,10 @@ do
     echo "Iterating domain list:"
 
     # iterate through listed domains
-    for ITEM in ${DOMAINS};
+    #for ITEM in ${DOMAINS};
+    for DOMAIN in ${D};
     do
-        DOMAIN=$(bashio::config "domains[${ITEM}].domain")    
+        #DOMAIN=$(bashio::config "domains[${ITEM}].domain")    
         DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
          -H "X-Auth-Email: ${EMAIL}" \
          -H "Authorization: Bearer ${TOKEN}" \
