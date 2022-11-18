@@ -4,13 +4,13 @@
 
   Update the current YAML config of the add-on like so:
 
-  Old:
+  Old:<br>
   domains:
     - <domain1>
     - <domain2>
     - <...>
 
-  New:
+  New:<br>
   domains:
     - domain: <domain1>
     - domain: <domain2>
