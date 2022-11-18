@@ -44,8 +44,6 @@ fi
 #    done | sort -k 1n
 #fi
 
-dec
-
 D=()
 for ITEM in $(bashio::config "domains|keys");
 do
