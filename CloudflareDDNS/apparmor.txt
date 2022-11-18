@@ -1,6 +1,6 @@
 #include <tunables/global>
 
-profile ddns flags=(attach_disconnected,mediate_deleted) {
+profile cloudflareddns flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
   # Capabilities
@@ -27,26 +27,10 @@ profile ddns flags=(attach_disconnected,mediate_deleted) {
   # Access to options.json and other files within your addon
   /data/** rw,
 
-  # Start new profile for service
-  /usr/bin/cloudflareddns cx -> cloudflareddns,
-
-  profile ddns flags=(attach_disconnected,mediate_deleted) {
-    #include <abstractions/base>
-
-    # Receive signals from S6-Overlay
-    signal (receive) peer=*_ddns,
-
-    # Access to options.json and other files within your addon
-    /data/** rw,
-
-    # Access to mapped volumes specified in config.json
-    #/share/** rw,
-
-    # Access required for service functionality
-    /usr/bin/cloudflareddns r,
-    /bin/bash rix,
-    /bin/echo ix,
-    /etc/passwd r,
-    /dev/tty rw,
-  }
+  # Access required for service functionality
+  /usr/bin/cloudflareddns r,
+  /bin/bash rix,
+  /bin/echo ix,
+  /etc/passwd r,
+  /dev/tty rw,
 }
