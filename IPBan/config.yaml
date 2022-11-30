@@ -9,6 +9,7 @@ apparmor: true
 init: false
 map:
   - config:rw
+  - usr/share/hassio:r
 arch:
   - aarch64
   - amd64
