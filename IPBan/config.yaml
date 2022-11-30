@@ -9,7 +9,6 @@ apparmor: true
 init: false
 map:
   - config:rw
-  - share:r
 arch:
   - aarch64
   - amd64
