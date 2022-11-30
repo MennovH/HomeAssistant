@@ -15,11 +15,13 @@ while :
 do
     CURRENT_DATE=$(echo | date +'%s')
 
-    while IFS= read -r line;
-    do
-        printf '%s\n' "$line"
-        # if should be allowed...
-    done < ${FILENAME}
+    #while IFS= read -r line;
+    #do
+    #    printf '%s\n' "$line"
+    #    # if should be allowed...
+    #done < ${FILENAME}
+
+    cat /usr/share/hassio/observer.json
 
     if [[ ${INTERVAL} == 1 ]];
     then
