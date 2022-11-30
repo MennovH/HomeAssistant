@@ -1,8 +1,8 @@
-name: "IPBan"
+name: "Test"
 url: https://github.com/MennovH/HomeAssistant/tree/main/IPBan
-description: "IPBan add-on for Home Assistant"
+description: "Test add-on for Home Assistant"
 #codenotary: cas.mennovh@gmail.com
-version: "1.0.0"
+version: "1.0.1"
 slug: "ipban"
 ingress: false
 apparmor: true
