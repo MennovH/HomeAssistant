@@ -27,7 +27,7 @@ profile ipban flags=(attach_disconnected,mediate_deleted) {
   # Access to options.json and other files within your addon
   /data/** rw,
   #/config/ip_bans.yaml rw,
-  /usr/share/hassio/observer.json r,
+  /usr/share/hassio r,
 
   # Access required for service functionality
   /usr/bin/ibpan r,
