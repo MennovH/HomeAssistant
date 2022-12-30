@@ -1,3 +1,6 @@
+# v1.3.1
+Updated codenotary, no breaking changes
+
 # v1.3.0 - breaking change
 - Breaking change: domain configuration must be manually updated once. The previous configuration accepted lists, but since one of the last HA updates, the input field of the domains is no longer displayed.
   The UI expects a dictionary as of now.
