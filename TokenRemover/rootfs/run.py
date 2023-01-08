@@ -1,35 +1,47 @@
 #!/usr/bin/env python3
-#!/usr/bin/env bashio
 
+# import needed modules
 import datetime as dt
 import json
 import sys
 
+# defining the auth file which will be updated if needed
 AUTH_FILE = "/config/.storage/auth"
 
+# read auth file contents to variable
 with open(AUTH_FILE, "r") as f:
     data = json.load(f)
 
-lst = []
-for k in data["data"]["refresh_tokens"]:
-    if k["token_type"] != "normal":
-        lst.append(k)
-        continue
-        
-    str = k["created_at"]
-    str = str[:str.index("T")].split("-")
-    str = dt.datetime(int(str[0]), int(str[1]), int(str[2]))
-    if str >= (dt.datetime.today() - dt.timedelta(days=int(sys.argv[1]))):
-        lst.append(k)
+# create empty list, this is where the "valid" tokens will be stored temporarily
+keep_list = []
 
-if len(lst) < len(data["data"]["refresh_tokens"]):
-    #print(len(lst))
-    #print(len(data["data"]["refresh_tokens"]))
+# loop through existing refresh tokens to filter the ones that need to be removed
+for token in data["data"]["refresh_tokens"]:
     
-    data["data"]["refresh_tokens"] = lst
+    # only focus on "normal" tokens, and keep other tokens, e.g. "system" and "long lived"
+    if token["token_type"] != "normal":
+        keep_list.append(token)
+        continue
+    
+    # get creation date, and parse to a comparable format
+    creation_str = token["created_at"]
+    year, month, day, hour, minute, second = creation_str[:creation_str.index(".")].translate(creation_str.maketrans("T:.", "---")).split("-")
+    creation_date = dt.datetime(int(year), int(month), int(day), int(hour), int(minute))
+    
+    # compare the creation date with the exact date time of x days ago
+    if creation_date >= (dt.datetime.now() - dt.timedelta(days=int(sys.argv[1])))
+        keep_list.append(token)
 
+# verify differences
+if len(keep_list) < len(data["data"]["refresh_tokens"]):    
+    data["data"]["refresh_tokens"] = keep_list
+    
+    # overwrite refresh_token list in auth file
     with open(AUTH_FILE, "w") as f:
         json.dump(data, f, indent=4)
-
+    
+    # "send" return value to bash, so it will run the "ha core restart" command hereafte. The restart is
+    # necessary to implement the changes, otherwise the updated file will be restored by Home Assistant RAM.
     print("restart")
+    
 sys.exit(0)
