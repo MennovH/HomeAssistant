@@ -10,7 +10,7 @@ declare RET
 DAY=$(bashio::config 'day' | xargs echo -n)
 
 echo "Running script"
-RET=$(run.py ${DAY})
+RET=$(run.py ${DAY} 2>&1)
 echo -e "${RET}"
 echo "Done"
 
