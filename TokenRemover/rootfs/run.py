@@ -31,5 +31,6 @@ if len(lst) < len(data["data"]["refresh_tokens"]):
 
     with open(AUTH_FILE, "w") as f:
         json.dump(data, f, indent=4)
-bashio::core.restart
+
+print("reboot", file=sys.stdout)
 
