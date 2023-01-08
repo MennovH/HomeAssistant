@@ -12,7 +12,7 @@ while :
 do
 	echo -e "/run.py ${DAY}" | at ${HOUR}:${QUARTER}
 	#at -f /run.py ${DAY} ${HOUR}:${QUARTER}
-	NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+24*3600 ))" "+%Y-%m-%d %H:%M:%S")
+	NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+86400 ))" "+%Y-%m-%d %H:%M:%S")
     	echo -e " \nNext check is at ${NEXT}\n "
-    	sleep ${INTERVAL}m
+    	sleep 86400m
 done
