@@ -13,4 +13,3 @@ if [[ ${RESULT} == *"Restart"* ]];
 then
     bashio::core.restart
 fi
-echo "Done"
