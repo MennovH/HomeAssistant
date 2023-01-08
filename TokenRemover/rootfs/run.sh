@@ -8,7 +8,7 @@ HOUR=$(bashio::config 'hour' | xargs echo -n)
 QUARTER=$(bashio::config 'quarter' | xargs echo -n)
 DAY=$(bashio::config 'day' | xargs echo -n)
 
-python3 run.py
+python3 run.py ${DAY}
 
 #while :
 #do
