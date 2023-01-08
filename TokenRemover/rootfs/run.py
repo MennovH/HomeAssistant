@@ -23,8 +23,8 @@ if len(lst) != len(data["data"]["refresh_tokens"]):
 
     with open(AUTH_FILE, "w") as f:
         json.dump(data, f, indent=4)
-
-    os.system('curl -X POST -H "Authorization: Bearer ${sys.argv[2]}" -H "Content-Type: application/json" http://supervisor/core/restart')
+        
+    os.system(f'curl -X POST -H "Authorization: Bearer {sys.argv[2]}" -H "Content-Type: application/json" http://supervisor/core/restart')
         
    # os.system('ha core restart')
 
