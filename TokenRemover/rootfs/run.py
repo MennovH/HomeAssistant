@@ -13,7 +13,7 @@ with open(AUTH_FILE, "r") as f:
 
 lst = []
 for k in data["data"]["refresh_tokens"]:
-    if k["token_type"] == "long_lived_access_token":
+    if k["token_type"] != "normal":
         lst.append(k)
         continue
         
