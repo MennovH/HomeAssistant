@@ -26,11 +26,13 @@ The following images show example outputs of the add-on, which can be found in t
 Tokens older than 7 days (in this case) were found and removed from the file. It also shows that Home Assistant Core is restarting.
 <br></br>
 ![example logging output][screenshot1]
-
-Home Assistant Core has now restarted, the logging shows the execution is done.
+<br><br>
+<br><br>
+When Home Assistant Core has been restarted, the logging output of TokenRemover shows the execution is done.
 <br></br>
 ![example logging output][screenshot2]
-
+<br><br>
+<br><br>
 Home Assistant Core will not undergo a restart, when no older tokens have been found to be removed.
 <br></br>
 ![example logging output][screenshot3]
