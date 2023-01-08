@@ -9,7 +9,11 @@ declare DAY
 DAY=$(bashio::config 'day' | xargs echo -n)
 
 echo "Running script"
-python3 /run.py ${DAY}
+ret = python3 /run.py ${DAY}
+
+if ret:
+	curl -X POST http://supervisor/core/restart -H "Authorization: Bearer $SUPERVISOR_TOKEN"
+
 echo "Done"
 
 #while :
