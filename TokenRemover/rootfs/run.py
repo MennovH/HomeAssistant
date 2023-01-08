@@ -4,8 +4,6 @@
 import datetime as dt
 import json
 import sys
-import os
-import subprocess as sp
 
 AUTH_FILE = "/config/.storage/auth"
 
@@ -33,7 +31,5 @@ if len(lst) < len(data["data"]["refresh_tokens"]):
     with open(AUTH_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-print("reboot")
+print("restart")
 sys.exit(0)
-#sp.call('/restart.sh')
-#sp.run("ha core restart", shell=1)
