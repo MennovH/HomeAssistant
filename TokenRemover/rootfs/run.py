@@ -5,6 +5,7 @@ import datetime as dt
 import json
 import sys
 import os
+import subprocess as sp
 
 AUTH_FILE = "/config/.storage/auth"
 
@@ -24,13 +25,12 @@ for k in data["data"]["refresh_tokens"]:
         lst.append(k)
 
 if len(lst) < len(data["data"]["refresh_tokens"]):
-    print(len(lst))
-    print(len(data["data"]["refresh_tokens"]))
+    #print(len(lst))
+    #print(len(data["data"]["refresh_tokens"]))
     
     data["data"]["refresh_tokens"] = lst
 
     with open(AUTH_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-print("reboot", file=sys.stdout)
-
+sp.run("bashio::core.restart", shell=1)
