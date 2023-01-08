@@ -24,8 +24,8 @@ for k in data["data"]["refresh_tokens"]:
         lst.append(k)
 
 if len(lst) < len(data["data"]["refresh_tokens"]):
-    print(lst)
-    print(data["data"]["refresh_tokens"])
+    print(len(lst))
+    print(len(data["data"]["refresh_tokens"]))
     
     data["data"]["refresh_tokens"] = lst
 
@@ -37,7 +37,7 @@ if len(lst) < len(data["data"]["refresh_tokens"]):
     
 print(sys.argv[2])
 os.system('curl -sSL http://supervisor/supervisor/ping')
-
+print("\n")
 os.system(f'curl -sSL -H "Authorization: Bearer {sys.argv[2]}" http://supervisor/core/restart')
     #print(sys.argv[2])
 
