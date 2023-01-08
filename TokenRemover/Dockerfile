@@ -12,7 +12,6 @@ RUN \
 RUN pip install requests
 ADD rootfs/run.py  /
 
-ARG BUILD_ARCH
 ARG CLI_VERSION
 RUN curl -Lso /usr/bin/ha \
         "https://github.com/home-assistant/cli/releases/download/${CLI_VERSION}/ha_${BUILD_ARCH}" \
