@@ -5,11 +5,10 @@ WORKDIR /
 
 RUN \
   apk add --no-cache \
-    python3 py3-pip \
-  && apk add --no-cache \
-    at
+    python3
 
-RUN pip install requests
+# py3-pip && apk add --no-cache at
+
 ADD rootfs/run.py  /
 
 COPY /rootfs/run.sh /app/run.sh
