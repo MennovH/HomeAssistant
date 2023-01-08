@@ -33,5 +33,5 @@ if len(lst) < len(data["data"]["refresh_tokens"]):
     with open(AUTH_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-sp.call('./restart.sh')
+sp.call('/restart.sh')
 #sp.run("ha core restart", shell=1)
