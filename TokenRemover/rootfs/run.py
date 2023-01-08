@@ -29,7 +29,7 @@ for token in data["data"]["refresh_tokens"]:
     creation_date = dt.datetime(int(year), int(month), int(day), int(hour), int(minute))
     
     # compare the creation date with the exact date time of x days ago
-    if creation_date >= (dt.datetime.now() - dt.timedelta(days=int(sys.argv[1])))
+    if creation_date >= (dt.datetime.now() - dt.timedelta(days=int(sys.argv[1]))):
         keep_list.append(token)
 
 # verify differences
