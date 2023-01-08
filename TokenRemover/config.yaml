@@ -18,7 +18,6 @@ arch:
   - i386
 map:
   - config:rw
-startup: before
 journald: true
 panel_icon: mdi:update
 options:
