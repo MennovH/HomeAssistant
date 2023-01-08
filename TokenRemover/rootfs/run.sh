@@ -12,7 +12,7 @@ echo "Running script"
 python3 /run.py ${DAY}
 echo "Done"
 #curl -X POST http://supervisor/core/restart -H "Authorization: Bearer $SUPERVISOR_TOKEN"
-bashio::core.restart
+bashio:core.restart
 
 #while :
 #do
