@@ -35,6 +35,6 @@ Home Assistant Core will not undergo a restart, when no older tokens have been f
 <br></br>
 ![example logging output][screenshot3]
 
-[screenshot1]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log1.png
-[screenshot2]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log2.png
-[screenshot3]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log3.png
+[screenshot1]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log1.JPG
+[screenshot2]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log2.JPG
+[screenshot3]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log3.JPG
