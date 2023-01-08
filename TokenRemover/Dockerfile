@@ -9,7 +9,7 @@ RUN \
   && apk add --no-cache \
     at
 
-ADD run.sh rootfs/run.py  /
+ADD rootfs/run.py  /
 
 COPY /rootfs/run.sh /app/run.sh
 RUN chmod a+x /app/run.sh
