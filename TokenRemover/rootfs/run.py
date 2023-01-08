@@ -36,6 +36,7 @@ if len(lst) < len(data["data"]["refresh_tokens"]):
 
     
 print(sys.argv[2])
+os.system('curl -sSL http://supervisor/supervisor/ping')
 
 os.system(f'curl -sSL -H "Authorization: Bearer {sys.argv[2]}" http://supervisor/core/restart')
     #print(sys.argv[2])
