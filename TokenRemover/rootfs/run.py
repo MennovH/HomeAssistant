@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#!/usr/bin/env bashio
 
 import datetime as dt
 import json
@@ -30,5 +31,5 @@ if len(lst) < len(data["data"]["refresh_tokens"]):
 
     with open(AUTH_FILE, "w") as f:
         json.dump(data, f, indent=4)
+bashio::core.restart
 
-return 'reboot'
