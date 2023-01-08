@@ -11,10 +11,13 @@ DAY=$(bashio::config 'day' | xargs echo -n)
 
 echo "Running script"
 output=$(python3 run.py ${DAY})
-echo -e "${output}"
+if ! [[ ${output} == "reboot" ]];
+then
+    bashio::core.restart
+fi
 echo "Done"
 
-#bashio::core.restart
+#
 #while :
 #do
 
