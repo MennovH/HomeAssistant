@@ -13,6 +13,8 @@ arch:
   - armhf
   - armv7
   - i386
+map:
+  - config:rw
 startup: before
 journald: true
 panel_icon: mdi:update
