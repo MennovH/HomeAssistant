@@ -5,7 +5,7 @@ declare RET
 
 DAY=$(bashio::config 'day' | xargs echo -n)
 
-echo -e "Running script\n"
+echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S') > Running TokenRemover\n"
 RESULT=$(python3 run.py ${DAY})
 
 echo -e "${RESULT}\n"
