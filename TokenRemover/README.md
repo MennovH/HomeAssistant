@@ -1,4 +1,4 @@
-# CloudflareDDNS Home Assistant add-on
+# TokenRemover Home Assistant add-on
 Home Assistant add-on to automatically remove refresh tokens.
 
 ## Prerequisites
