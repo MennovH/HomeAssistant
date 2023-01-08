@@ -13,11 +13,12 @@ with open(AUTH_FILE, "r") as f:
 
 lst = []
 for k in data["data"]["refresh_tokens"]:
-    str = k["created_at"]
-    str = str[:str.index("T")].split("-")
-    str = dt.datetime(int(str[0]), int(str[1]), int(str[2]))
-    if str >= (dt.datetime.today() - dt.timedelta(days=int(sys.argv[1]))):
-        lst.append(k)
+    if k["token_type"] != "long_lived_access_token":
+        str = k["created_at"]
+        str = str[:str.index("T")].split("-")
+        str = dt.datetime(int(str[0]), int(str[1]), int(str[2]))
+        if str >= (dt.datetime.today() - dt.timedelta(days=int(sys.argv[1]))):
+            lst.append(k)
 
 if len(lst) != len(data["data"]["refresh_tokens"]):
     data["data"]["refresh_tokens"] = lst
