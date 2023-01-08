@@ -22,7 +22,9 @@ options:
   hour: 00
   quarter: 00
   day: 7
+  longlivedtoken: null
 schema:
   hour: list(00|01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23)
   quarter: list(00|15|30|45)
   day: int(1,365)
+  longlivedtoken: password
