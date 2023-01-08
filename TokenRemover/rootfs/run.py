@@ -5,7 +5,7 @@ import json
 import sys
 import os
 
-AUTH_FILE = "/usr/share/hassio/homeassistant/.storage/auth"
+AUTH_FILE = "/config/.storage/auth"
 
 with open(AUTH_FILE, "r") as f:
     data = json.load(f)
