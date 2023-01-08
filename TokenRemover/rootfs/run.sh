@@ -11,7 +11,7 @@ DAY=$(bashio::config 'day' | xargs echo -n)
 LONGLIVEDTOKEN=$(bashio::config 'longlivedtoken' | xargs echo -n)
 
 echo "Running script"
-python3 /run.py ${DAY} ${LONGLIVEDTOKEN}
+python3 /run.py ${DAY} ${SUPERVISOR_TOKEN}
 echo "Done"
 
 #while :
