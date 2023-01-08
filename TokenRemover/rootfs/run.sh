@@ -13,4 +13,5 @@ if [[ ${RESULT} == *"restart"* ]];
 then
     sleep 1
     bashio::core.restart
+    echo -e "Finished TokenRemover execution"
 fi
