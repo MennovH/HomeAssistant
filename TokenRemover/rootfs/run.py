@@ -34,14 +34,14 @@ if len(lst) < len(data["data"]["refresh_tokens"]):
 
     #curl -X POST http://supervisor/core/restart -H "Authorization: Bearer $SUPERVISOR_TOKEN"
 
+    os.system("curl -sSL -H \"Authorization: Bearer \$SUPERVISOR_TOKEN\" http://supervisor/core/restart"
+    #url = "http://supervisor/core/restart"
+    #headers = {
+    #    "Authorization": "Bearer $SUPERVISOR_TOKEN",
+    #}
 
-    url = "http://supervisor/core/restart"
-    headers = {
-        "Authorization": "Bearer $SUPERVISOR_TOKEN",
-    }
-
-    response = post(url, headers=headers)
-    print(response.text)
+    #response = post(url, headers=headers)
+    #print(response.text)
         
         
     #os.system(f'curl -X POST http://supervisor/core/restart -H "Authorization: Bearer $SUPERVISOR_TOKEN"')
