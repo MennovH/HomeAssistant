@@ -1,7 +1,7 @@
 #!/usr/bin/env bashio
 
 declare DAY
-declare RET
+declare RESULT
 
 DAY=$(bashio::config 'day' | xargs echo -n)
 
