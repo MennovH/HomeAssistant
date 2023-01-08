@@ -10,5 +10,5 @@ DAY=$(bashio::config 'day' | xargs echo -n)
 
 while :
 do
-    at ${HOUR}:${QUARTER} /run.py ${DAY}
+	echo -e "at ${HOUR}:${QUARTER} /run.py ${DAY}"
 done
