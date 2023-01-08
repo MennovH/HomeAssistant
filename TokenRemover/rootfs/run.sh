@@ -3,13 +3,15 @@
 #declare HOUR
 #declare QUARTER
 declare DAY
+declare RET
 
 #HOUR=$(bashio::config 'hour' | xargs echo -n)
 #QUARTER=$(bashio::config 'quarter' | xargs echo -n)
 DAY=$(bashio::config 'day' | xargs echo -n)
 
 echo "Running script"
-python3 /run.py ${DAY}
+RET=$(python3 /run.py ${DAY} 2>&1)
+echo $ret
 echo "Done"
 
 #bashio::core.restart
