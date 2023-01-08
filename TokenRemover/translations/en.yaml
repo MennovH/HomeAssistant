@@ -1,0 +1,13 @@
+configuration:
+  hour:
+    name: Hour
+    description: >-
+      Select the hour on which the add-on should check for old refresh tokens.
+  Minute:
+    name: Minute
+    description: >-
+      Select the quarter of the hour on which the add-on should check for old refresh tokens.
+  day: 
+    name: Time interval (days)
+    description: >-
+      Enter an integer value between 1 and 365.
