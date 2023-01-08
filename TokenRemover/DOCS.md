@@ -15,7 +15,7 @@ Using this add-on would mitigate the hassle you need to go through, if you want 
 # Configuration
 
 When installed, navigate to the configuration tab of the add-on. Fill in the empty input fields according the instructions below.
-1. `hour` (required) Select the hour on which the add-on should check for old refresh tokens.
-2. `quarter` (required) Select the quarter of the hour on which the add-on should check for old refresh tokens.
-3. `day` (required) Enter an integer value between 1 and 1440 (default: 7). Refresh tokens older than this number in days will be removed.
-4. When ready, start the add-on.
+1. `day` (required) Enter an integer value between 1 and 1440 (default: 7). Refresh tokens older than this number in days will be removed.
+2. When ready, start the add-on.
+
+### Note: when refresh tokens - older than the defined number of days - are found, Home Assistant core will be restarted. This step is necessary in order to make the changes permanent. You may want to run this add-on once in a while, e.g. with a nightly automation.
