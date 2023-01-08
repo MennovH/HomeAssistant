@@ -32,4 +32,4 @@ if len(lst) < len(data["data"]["refresh_tokens"]):
     with open(AUTH_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-    os.system(f'curl -sSL -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/core/restart')
+    os.system(f'curl -X POST http://supervisor/core/restart -H "Authorization: Bearer $SUPERVISOR_TOKEN"')
