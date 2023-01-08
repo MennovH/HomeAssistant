@@ -1,12 +1,12 @@
 #!/usr/bin/env bashio
 
-declare HOUR
-declare QUARTER
+#declare HOUR
+#declare QUARTER
 declare DAY
 declare LONGLIVEDTOKEN
 
-HOUR=$(bashio::config 'hour' | xargs echo -n)
-QUARTER=$(bashio::config 'quarter' | xargs echo -n)
+#HOUR=$(bashio::config 'hour' | xargs echo -n)
+#QUARTER=$(bashio::config 'quarter' | xargs echo -n)
 DAY=$(bashio::config 'day' | xargs echo -n)
 LONGLIVEDTOKEN=$(bashio::config 'longlivedtoken' | xargs echo -n)
 
