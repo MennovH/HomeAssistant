@@ -10,7 +10,9 @@ QUARTER=$(bashio::config 'quarter' | xargs echo -n)
 DAY=$(bashio::config 'day' | xargs echo -n)
 LONGLIVEDTOKEN=$(bashio::config 'longlivedtoken' | xargs echo -n)
 
+echo "Running script"
 python3 /run.py ${DAY} ${LONGLIVEDTOKEN}
+echo "Done"
 
 #while :
 #do
