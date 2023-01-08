@@ -1,7 +1,5 @@
 #!/usr/bin/env bashio
 
-export SUPERVISOR_TOKEN={{ .supervisor_token }}
-
 #declare HOUR
 #declare QUARTER
 declare DAY
