@@ -24,6 +24,9 @@ for k in data["data"]["refresh_tokens"]:
         lst.append(k)
 
 if len(lst) < len(data["data"]["refresh_tokens"]):
+    print(lst)
+    print(data["data"]["refresh_tokens"])
+    
     data["data"]["refresh_tokens"] = lst
 
     with open(AUTH_FILE, "w") as f:
