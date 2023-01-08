@@ -31,5 +31,5 @@ if len(lst) < len(data["data"]["refresh_tokens"]):
     with open(AUTH_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-print("restart")
+    print("restart")
 sys.exit(0)
