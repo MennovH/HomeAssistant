@@ -10,8 +10,8 @@ declare RET
 DAY=$(bashio::config 'day' | xargs echo -n)
 
 echo "Running script"
-RET=$(run.py ${DAY} 2>&1)
-echo -e "${RET}"
+python3 run.py ${DAY}
+
 echo "Done"
 
 #bashio::core.restart
