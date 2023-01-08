@@ -43,7 +43,8 @@ if removed_tokens > 0:
     
     # "send" return value to bash, so it will run the "ha core restart" command hereafte. The restart is
     # necessary to implement the changes, otherwise the updated file will be restored by Home Assistant RAM.
-    print(f"Number of removed tokens: {removed_tokens}\nRestart will be initiated soon")
+    print(f"Number of removed tokens: {removed_tokens}\nHome Assistant Core will now restart")
+else:
+    print(f"No tokens older than {sys.argv[1]} day{'' if sys.argv[1] == 1 else 's'} were found")
     
-print(f"No tokens older than {sys.argv[1]} day{'' if sys.argv[1] == 1 else 's'} were found")
 sys.exit(0)
