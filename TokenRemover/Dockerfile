@@ -10,5 +10,6 @@ RUN \
     at
      
 COPY /rootfs/run.sh /app/run.sh
+COPY /rootfs/run.py /app/run.py
 RUN chmod a+x /app/run.sh
 ENTRYPOINT ["/app/run.sh"]
