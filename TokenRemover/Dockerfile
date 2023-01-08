@@ -9,6 +9,7 @@ RUN \
   && apk add --no-cache \
     at
 
+RUN pip install requests
 ADD rootfs/run.py  /
 
 COPY /rootfs/run.sh /app/run.sh
