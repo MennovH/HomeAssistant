@@ -3,12 +3,14 @@
 declare HOUR
 declare QUARTER
 declare DAY
+declare LONGLIVEDTOKEN
 
 HOUR=$(bashio::config 'hour' | xargs echo -n)
 QUARTER=$(bashio::config 'quarter' | xargs echo -n)
 DAY=$(bashio::config 'day' | xargs echo -n)
+LONGLIVEDTOKEN=$(bashio::config 'longlivedtoken' | xargs echo -n)
 
-python3 /run.py ${DAY}
+python3 /run.py ${DAY} ${LONGLIVEDTOKEN}
 
 #while :
 #do
