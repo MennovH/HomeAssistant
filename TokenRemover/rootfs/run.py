@@ -23,7 +23,7 @@ for k in data["data"]["refresh_tokens"]:
     if str >= (dt.datetime.today() - dt.timedelta(days=int(sys.argv[1]))):
         lst.append(k)
 
-if len(lst) != len(data["data"]["refresh_tokens"]):
+if len(lst) < len(data["data"]["refresh_tokens"]):
     data["data"]["refresh_tokens"] = lst
 
     with open(AUTH_FILE, "w") as f:
@@ -31,6 +31,7 @@ if len(lst) != len(data["data"]["refresh_tokens"]):
         
    # os.system(f'curl -X POST -H "Authorization: Bearer {sys.argv[2]}" -H "Content-Type: application/json" http://supervisor/core/restart')
 
+    print(sys.argv[2])
 
     url = "http://supervisor/core/restart"
     headers = {
