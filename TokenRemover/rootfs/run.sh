@@ -1,4 +1,4 @@
-#!/usr/bin/env bashio
+#!/usr/bin/with-contenv bashio
 
 #declare HOUR
 #declare QUARTER
@@ -11,7 +11,7 @@ DAY=$(bashio::config 'day' | xargs echo -n)
 echo "Running script"
 python3 /run.py ${DAY}
 
-curl -X POST http://supervisor/core/restart -H "Authorization: Bearer $SUPERVISOR_TOKEN"
+#curl -X POST http://supervisor/core/restart -H "Authorization: Bearer $SUPERVISOR_TOKEN"
 bashio::core.restart
 echo "Done"
 
