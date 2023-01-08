@@ -5,7 +5,7 @@ WORKDIR /
 
 RUN \
   apk add --no-cache \
-    python3 \
+    python3 py3-pip \
   && apk add --no-cache \
     at
 
