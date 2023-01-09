@@ -22,7 +22,7 @@ When installed, navigate to the configuration tab of the add-on. Fill in the emp
 
 #### Note: TokenRemover will update the auth file, which resides in the config/.storage directory. However, when an inactive device becomes active while TokenRemover is running, Home Assistant will restore the auth file from its cache. This shouldn't be much of an issue, because the timing must be right to achieve this. It is recommended to run this add-on when Home Assistant is not used much.
 
-## Examle TokenRemover logging output
+## Example TokenRemover logging output
 The following images show example outputs of the add-on, which can be found in the logbook.
 
 Tokens older than 7 days (in this case) were found and removed from the file. It also shows that Home Assistant Core is restarting.
