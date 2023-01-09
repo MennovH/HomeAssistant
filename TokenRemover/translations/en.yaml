@@ -2,4 +2,4 @@ configuration:
   day: 
     name: Time interval (days)
     description: >-
-      Enter an integer value between 1 and 365.
+      Enter an integer value between 1 and 365 day(s). Older refresh tokens (of type "normal") will be removed.
