@@ -26,12 +26,11 @@ for token in data["data"]["refresh_tokens"]:
     # get creation date, and parse to a comparable format
     creation_str = token["created_at"]
     year, month, day, hour, minute, second = creation_str[:creation_str.index(".")].translate(creation_str.maketrans("T:.", "---")).split("-")
-    
-    # add 30 minutes to creation date, to prevent on boot execution (if enabled) to trigger hereafter
-    creation_date = dt.datetime(int(year), int(month), int(day), int(hour), int(minute)) + dt.timedelta(minutes=30)
+    creation_date = dt.datetime(int(year), int(month), int(day), int(hour), int(minute))
     
     # compare the creation date with the exact date time of x days ago
-    if creation_date >= (dt.datetime.now() - dt.timedelta(days=int(sys.argv[1]))):
+    # add 30 minutes to creation date, to prevent on boot execution (if enabled) to trigger hereafter
+    if creation_date >= (dt.datetime.now() + dt.timedelta(minutes=30) - dt.timedelta(days=int(sys.argv[1]))):
         keep_list.append(token)
 
 # verify differences
