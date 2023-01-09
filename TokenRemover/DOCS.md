@@ -45,4 +45,4 @@ The Home Assistant restart might kick in early, which would result in an error. 
 [screenshot1]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log1.JPG
 [screenshot2]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log2.JPG
 [screenshot3]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log3.JPG
-[screenshot3]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log4.JPG
+[screenshot4]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log4.JPG
