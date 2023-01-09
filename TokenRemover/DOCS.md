@@ -38,7 +38,7 @@ Home Assistant Core will not undergo a restart, when no older tokens have been f
 ![example logging output][screenshot3]
 <br><br>
 <br><br>
-The Home Assistant restart might kick in early, which would result in an error. This issue will clear itself, while it still gets the job done.
+The above mentioned restart might kick in early, which would result in an error. This issue will clear itself, while it still gets the job done.
 <br></br>
 ![example logging output][screenshot4]
 
