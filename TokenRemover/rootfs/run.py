@@ -27,8 +27,8 @@ for token in data["data"]["refresh_tokens"]:
     creation_str = token["created_at"]
     year, month, day, hour, minute, second = creation_str[:creation_str.index(".")].translate(creation_str.maketrans("T:.", "---")).split("-")
     
-    # add 10 minutes to creation date, to prevent on boot execution (if enabled) to trigger hereafter
-    creation_date = dt.datetime(int(year), int(month), int(day), int(hour), int(minute)) - dt.timedelta(minutes=30)
+    # add 30 minutes to creation date, to prevent on boot execution (if enabled) to trigger hereafter
+    creation_date = dt.datetime(int(year), int(month), int(day), int(hour), int(minute)) + dt.timedelta(minutes=30)
     
     # compare the creation date with the exact date time of x days ago
     if creation_date >= (dt.datetime.now() - dt.timedelta(days=int(sys.argv[1]))):
