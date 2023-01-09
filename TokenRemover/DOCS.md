@@ -1,6 +1,6 @@
 # TokenRemover Home Assistant add-on
 Home Assistant add-on to remove old refresh tokens.
-Using this add-on would mitigate the hassle you need to go through, if you want to clear the list with old refresh tokens. Every time you log in to Home Assistant, a refresh token will be created for that specified device.
+Using this add-on would mitigate the hassle you need to go through, if you want to clear the list with old refresh tokens. Every time you log in to Home Assistant, a refresh token will be created for that specific device.
 
 ## Prerequisites
 - Home Assistant Supervisor
