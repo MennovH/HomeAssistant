@@ -36,7 +36,13 @@ When Home Assistant Core has been restarted, the logging output of TokenRemover 
 Home Assistant Core will not undergo a restart, when no older tokens have been found to be removed.
 <br></br>
 ![example logging output][screenshot3]
+<br><br>
+<br><br>
+The Home Assistant restart might kick in early, which would result in an error. This issue will clear itself, while it still gets the job done.
+<br></br>
+![example logging output][screenshot4]
 
 [screenshot1]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log1.JPG
 [screenshot2]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log2.JPG
 [screenshot3]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log3.JPG
+[screenshot3]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/TokenRemover/images/example_log4.JPG
