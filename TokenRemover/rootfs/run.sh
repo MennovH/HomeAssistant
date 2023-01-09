@@ -11,7 +11,7 @@ RESULT=$(python3 run.py ${DAY})
 echo -e "${RESULT}\n"
 if [[ ${RESULT} == *"restart"* ]];
 then
-    sleep 0.5
+    sleep 0.75
     bashio::core.restart
 fi
 
