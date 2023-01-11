@@ -1,0 +1,5 @@
+configuration:
+  day: 
+    name: Number of days
+    description: >-
+      Enter an integer value between 0 and 365 day(s). Older refresh tokens, of type "normal", will be removed.
