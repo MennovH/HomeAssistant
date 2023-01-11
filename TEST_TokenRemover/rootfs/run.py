@@ -7,11 +7,15 @@ import sys
 import subprocess as sp
 
 # defining the auth file which will be updated if needed
-AUTH_FILE = "/config/.storage/auth"
-TMP_AUTH_FILE = "/config/.storage/tmp_auth"
+AUTH_FILE = r"/config/.storage/auth"
+TMP_AUTH_FILE = r"/config/.storage/tmp_auth"
+
+
+result = sp.run(f'cp "{AUTH_FILE}" "{TMP_AUTH_FILE}"', capture_output=True, encoding='UTF-8')
+
 
 # read auth file contents to variable
-with open(AUTH_FILE, "r") as f:
+with open(TMP_AUTH_FILE, "r") as f:
     data = json.load(f)
 
 # create empty list, this is where the "valid" tokens will be stored temporarily
@@ -43,8 +47,9 @@ if removed_tokens > 0:
     # overwrite refresh_token list in auth file
     with open(TMP_AUTH_FILE, "w") as f:
         json.dump(data, f, indent=4)
-    
-        sp.run(f"mv {TMP_AUTH_FILE} {AUTH_FILE}")
+        
+        result = sp.run(f'mv "{TMP_AUTH_FILE}" "{AUTH_FILE}"', capture_output=True, encoding='UTF-8')
+        
     # "send" return value to bash, so it will run the "ha core restart" command hereafter. The restart is
     # necessary to implement the changes, otherwise the updated file will be restored by Home Assistant RAM.
     print(f"Home Assistant Core will now restart to remove {removed_tokens} token{'' if removed_tokens == 1 else 's'}")
