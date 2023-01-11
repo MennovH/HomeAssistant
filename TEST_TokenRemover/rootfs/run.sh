@@ -11,7 +11,7 @@ RESULT=$(python3 run.py ${DAY})
 echo -e "${RESULT}\n"
 if [[ ${RESULT} == *"Removed"* ]];
 then
-    curl -X DELETE http://supervisor/auth/cache -H 'Authorization: Bearer $SUPERVISOR_TOKEN'
+    curl -X DELETE "http://supervisor/auth/cache" -H "Authorization: Bearer $SUPERVISOR_TOKEN"
     #sleep 0.75
     #bashio::core.restart
 fi
