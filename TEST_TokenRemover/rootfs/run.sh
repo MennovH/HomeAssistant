@@ -9,10 +9,11 @@ echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S') > Running TokenRemover\n"
 RESULT=$(python3 run.py ${DAY})
 
 echo -e "${RESULT}\n"
-if [[ ${RESULT} == *"restart"* ]];
+if [[ ${RESULT} == *"Removed"* ]];
 then
-    sleep 0.75
-    bashio::core.restart
+    curl -X DELETE http://supervisor/auth/cache -H 'Authorization: Bearer $SUPERVISOR_TOKEN'
+    #sleep 0.75
+    #bashio::core.restart
 fi
 
 echo -e "Finished TokenRemover execution"
