@@ -23,5 +23,5 @@ panel_icon: mdi:update
 options:
   day: 7
 schema:
-  day: int(1,365)
+  day: int(0,365)
 startup: once
