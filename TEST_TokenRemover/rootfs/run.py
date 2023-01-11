@@ -55,7 +55,7 @@ if removed_tokens > 0:
         sleep(1)
         #result = sp.run(f'mv "{TMP_AUTH_FILE}" "{AUTH_FILE}"', capture_output=True, encoding='UTF-8')
         
-        result = sp.check_output(f'cp {TMP_AUTH_FILE} {AUTH_FILE} && rm {TMP_AUTH_FILE}', shell=1)
+        result = sp.check_output(f'mv {TMP_AUTH_FILE} {AUTH_FILE} && rm {TMP_AUTH_FILE}', shell=1)
     # "send" return value to bash, so it will run the "ha core restart" command hereafter. The restart is
     # necessary to implement the changes, otherwise the updated file will be restored by Home Assistant RAM.
     print(f"Removed {removed_tokens} token{'' if removed_tokens == 1 else 's'}")
