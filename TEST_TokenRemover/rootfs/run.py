@@ -53,6 +53,7 @@ if removed_tokens > 0:
     with open(TMP_AUTH_FILE, "w") as f:
         json.dump(data, f, indent=4)
         
+        sleep 1
         #result = sp.run(f'mv "{TMP_AUTH_FILE}" "{AUTH_FILE}"', capture_output=True, encoding='UTF-8')
         
         result = sp.check_output(f'cp {TMP_AUTH_FILE} {AUTH_FILE} && rm {TMP_AUTH_FILE}', shell=1)
