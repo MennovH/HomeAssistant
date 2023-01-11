@@ -11,7 +11,7 @@ RESULT=$(python3 run.py ${DAY})
 echo -e "${RESULT}\n"
 if [[ ${RESULT} == *"Removed"* ]];
 then
-    bashio::authentication.cache
+    bashio::cache.flush_all
 fi
 
 echo -e "Finished TokenRemover execution"
