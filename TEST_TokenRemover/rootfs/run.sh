@@ -9,10 +9,9 @@ echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S') > Running TokenRemover\n"
 RESULT=$(python3 run.py ${DAY})
 
 echo -e "${RESULT}\n"
-#if [[ ${RESULT} == *"restart"* ]];
-#then
-#    sleep 0.75
-#    bashio::core.restart
-#fi
+if [[ ${RESULT} == *"Removed"* ]];
+then
+    bashio::authentication.cache
+fi
 
 echo -e "Finished TokenRemover execution"
