@@ -44,6 +44,7 @@ then
             bashio::core.restart
         else
             rm "${TMP_BAN}";
+        fi
     fi
 fi
 
