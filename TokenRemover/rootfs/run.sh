@@ -13,7 +13,8 @@ LAST_USED=$(bashio::config 'last_used' | xargs echo -n)
 ACTIVE_DAYS=$(bashio::config 'active_days' | xargs echo -n)
 
 echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-echo -e "Running TokenRemover\n\n\nNote: You may get locked out for one minute after restart, as TokenRemover doesn't know which token belongs to whom. TokenRemover will restore the current ip_bans.yaml file when it detects newly banned IP addresses after execution. Home Assistant Core will then again be restarted to make this change permanent, after which you should be able to log in again.\n\n\n"
+echo -e "Running TokenRemover\n"
+echo -e "\nNote: You may get locked out for one minute after restart, as TokenRemover doesn't know which token belongs to whom. TokenRemover will restore the current ip_bans.yaml file when it detects newly banned IP addresses after execution. Home Assistant Core will then again be restarted to make this change permanent, after which you should be able to log in again.\n"
 
 if [ "${LAST_USED}" == false ];
 then
@@ -22,7 +23,7 @@ else
     RESULT=$(python3 run.py ${DAY} ${ACTIVE_DAYS})
 fi
 
-echo -e "${RESULT}\n"
+echo -e "\n${RESULT}\n"
 if [[ ${RESULT} == *"restart"* ]];
 then
     if [ -f "${BAN}" ];
