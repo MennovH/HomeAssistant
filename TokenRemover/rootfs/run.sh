@@ -5,7 +5,7 @@ declare RESULT
 declare BAN
 
 BAN="/config/ip_bans.yaml"
-TMP_BAN="/config/ip_bans.yaml"
+TMP_BAN="/config/tmp_ip_bans.yaml"
 DAY=$(bashio::config 'day' | xargs echo -n)
 
 echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S') > Running TokenRemover\n"
@@ -39,7 +39,7 @@ then
             echo -e "${BANNUM}"
             echo -e "${BANNUM2}"
             echo "Detected banned IP addresses since execution.\nRestoring ip_bans.yaml file."
-            cp "${TMP_BAN}" ${BAN} && rm "${TMP_BAN}"
+            cp "${TMP_BAN}" "${BAN}" && rm "${TMP_BAN}"
             
             bashio::core.restart
         else
