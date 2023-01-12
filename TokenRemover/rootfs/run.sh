@@ -4,7 +4,7 @@ declare DAY
 declare RESULT
 declare BAN
 
-BAN = "/config/ip_bans.yaml"
+BAN="/config/ip_bans.yaml"
 DAY=$(bashio::config 'day' | xargs echo -n)
 
 echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S') > Running TokenRemover\n"
@@ -14,7 +14,7 @@ echo -e "${RESULT}\n"
 if [[ ${RESULT} == *"restart"* ]];
 then
 
-    if [ -f ${BAN} ];
+    if [ -f "${BAN}" ];
     then
         cp /config/ip_bans.yaml /config/tmp_ip_bans.yaml   
     fi
@@ -35,7 +35,7 @@ then
         sleep 30
     done
     
-    if [ -f ${BAN} && ${BANNUM2} > ${BANNUM}];
+    if [ -f "${BAN}" && ${BANNUM2} > ${BANNUM}];
     then
         cp /config/tmp_ip_bans.yaml /config/ip_bans.yaml && rm
         bashio::core.restart
