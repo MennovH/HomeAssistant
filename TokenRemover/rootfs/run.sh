@@ -22,7 +22,7 @@ then
     BANNUM=$(wc -l "${BAN}")
     
     sleep 0.75
-    curl -X DELETE "http://supervisor/auth/cache" -H "Authorization: Bearer $SUPERVISOR_TOKEN"
+    curl -X DELETE "http://supervisor/auth/cache" -H "Authorization: Bearer $SUPERVISOR_TOKEN" >/dev/null 2>&1 
     bashio::core.restart
     
     runtime="2 minutes"
