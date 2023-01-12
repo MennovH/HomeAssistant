@@ -24,9 +24,6 @@ then
     sleep 0.75
     curl -X DELETE "http://supervisor/auth/cache" -H "Authorization: Bearer $SUPERVISOR_TOKEN" >/dev/null 2>&1 
     bashio::core.restart
-    
-    runtime="2 minutes"
-    endtime=$(date -ud "$runtime" +%s)
 
     echo "Aftermath: `date +%H:%M:%S`"
     for i in {1..3}; do
