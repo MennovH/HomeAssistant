@@ -24,7 +24,7 @@ for token in data["data"]["refresh_tokens"]:
         keep_list.append(token)
         continue
     
-    if DAYS_ACTIVE < int(999):
+    if int(DAYS_ACTIVE) < 999:
         date_str = token["last_used_at"]
         year, month, day, hour, minute, second = date_str[:date_str.index(".")].translate(date_str.maketrans("T:.", "---")).split("-")
         last_used_date = dt.datetime(int(year), int(month), int(day), int(hour), int(minute))
