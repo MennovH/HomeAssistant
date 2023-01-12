@@ -22,6 +22,10 @@ journald: true
 panel_icon: mdi:update
 options:
   day: 7
+  last_used: true
+  active_days: 3
 schema:
   day: int(0,365)
+  last_used: bool
+  active_days" int(0,365)
 startup: once
