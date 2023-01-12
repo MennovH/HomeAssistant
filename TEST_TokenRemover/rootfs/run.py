@@ -8,6 +8,12 @@ import sys
 # defining the auth file which will be updated if needed
 AUTH_FILE = "/config/.storage/auth"
 
+import requests
+session = requests.Session()
+print(session.cookies.get_dict())
+
+
+
 # read auth file contents to variable
 with open(AUTH_FILE, "r") as f:
     data = json.load(f)
