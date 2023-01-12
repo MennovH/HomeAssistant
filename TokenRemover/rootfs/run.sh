@@ -10,7 +10,7 @@ DAY=$(bashio::config 'day' | xargs echo -n)
 
 echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
 echo -e "Running TokenRemover\n\n\nNote: You may get locked out for one minute after restart, as TokenRemover doesn't know which token belongs to whom. TokenRemover will restore the current ip_bans.yaml file when it detects newly banned IP addresses after execution. Home Assistant Core will then again be restarted to make this change permanent, after which you should be able to log in again.\n\n\n"
-RESULT=$(python3 run.py ${DAY})
+RESULT=$(python3 run.py ${DAY} 999)
 
 echo -e "${RESULT}\n"
 if [[ ${RESULT} == *"restart"* ]];
