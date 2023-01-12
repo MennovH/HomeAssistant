@@ -30,15 +30,17 @@ then
     # run the following procedure to re-enable locked out users after running TokenRemover
     # this could happen when [multiple] devices try to re-authenticate to Home Assistant with a revoked token
     # e.g. when "Keep me logged in" was set
+    
     echo "Aftermath: `date +%H:%M:%S`"
-    for i in {1..3}; do
+    for i in {1..3};
+    do
         sleep 30
     done
     
     if [ -f "${BAN}" ];
     then
         BANNUM2=$(wc -l "${BAN}")
-        if [[ ${BANNUM} != ${BANNUM2} ]];
+        if ! [[ ${BANNUM} == ${BANNUM2} ]];
         then
             echo -e "${BANNUM}"
             echo -e "${BANNUM2}"
