@@ -54,7 +54,7 @@ then
             bashio::core.restart
         else
             # remove temporary ip_bans.yaml file
-            rm "${TMP_BAN}"
+            rm "${TMP_BAN}";
     fi
 fi
 
