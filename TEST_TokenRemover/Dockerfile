@@ -6,7 +6,10 @@ WORKDIR /
 RUN \
   apk add --no-cache \
     python3 \
-  && pip3 install requests
+    \
+    && pip3 install \
+        --no-cache-dir \
+        requests
 
 ADD rootfs/run.py  /
 
