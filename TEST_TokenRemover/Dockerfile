@@ -5,11 +5,9 @@ WORKDIR /
 
 RUN \
   apk add --no-cache \
-    python3 \
-  && apk add --no-cache \
-    py3-pip=22.3.1-r1 \
-    \
-    && pip install requests
+    python3
+    
+RUN python3 pip install requests
 
 ADD rootfs/run.py  /
 
