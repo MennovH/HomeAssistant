@@ -4,9 +4,9 @@ configuration:
     description: >-
       Enter an integer value between 0 and 365 day(s). Older refresh tokens, of type "normal", will be removed.
   last_used: 
-    name: Number of days
+    name: Don't remove active tokens
     description: >-
-      Enter an integer value between 0 and 365 day(s). Older refresh tokens, of type "normal", will be removed.
+      If enabled, TokenRemover won't remove tokens which have been activated within the number of days set below.
   active_days: 
     name: Number of days
     description: >-
