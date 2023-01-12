@@ -25,18 +25,18 @@ then
     curl -X DELETE "http://supervisor/auth/cache" -H "Authorization: Bearer $SUPERVISOR_TOKEN"
     bashio::core.restart
     
-    runtime="2 minute"
+    runtime="2 minutes"
     endtime=$(date -ud "$runtime" +%s)
 
-    while [[ $(date -u +%s) -le $endtime ]]
-    do
-        echo "Aftermath: `date +%H:%M:%S`"
+    echo "Aftermath: `date +%H:%M:%S`"
+    for i in {1..3}; do
         BANNUM2=$(wc -l "${BAN}")
         sleep 30
     done
     
-    if [ -f "${BAN}" && ${BANNUM2} > ${BANNUM}];
+    if [ -f "${BAN}" && ${BANNUM2} != ${BANNUM}];
     then
+        echo "Detected banned IP addresses.\nRestoring ip_bans.yaml file."
         cp /config/tmp_ip_bans.yaml /config/ip_bans.yaml && rm
         bashio::core.restart
     fi
