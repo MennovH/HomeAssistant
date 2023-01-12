@@ -37,10 +37,11 @@ then
     
     if [ -f "${BAN}" ];
     then
-        if [[ ${BANNUM} != $(wc -l "${BAN}") ]];
+        BANNUM2=$(wc -l "${BAN}")
+        if [[ ${BANNUM} != ${BANNUM2} ]];
         then
             echo -e "${BANNUM}"
-            echo -e $(wc -l "${BAN}")
+            echo -e "${BANNUM2}"
             # restore ip_bans.yaml file, restart ha core again to make changes persistent
             echo "Detected banned IP addresses since execution.\nRestoring ip_bans.yaml file."
             cp /config/tmp_ip_bans.yaml /config/ip_bans.yaml && rm /config/tmp_ip_bans.yaml
