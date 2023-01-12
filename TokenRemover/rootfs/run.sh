@@ -5,6 +5,7 @@ declare RESULT
 declare BAN
 
 BAN="/config/ip_bans.yaml"
+TMP_BAN="/config/ip_bans.yaml"
 DAY=$(bashio::config 'day' | xargs echo -n)
 
 echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S') > Running TokenRemover\n"
@@ -16,7 +17,7 @@ then
 
     if [ -f "${BAN}" ];
     then
-        cp /config/ip_bans.yaml /config/tmp_ip_bans.yaml
+        cp "${BAN}" "${TMP_BAN}"
         BANNUM=$(wc -l "${BAN}")
     fi
     
@@ -34,9 +35,10 @@ then
     echo "Aftermath: `date +%H:%M:%S`"
     for i in {1..3};
     do
+        echo "${i}"
         sleep 30
     done
-    
+
     if [ -f "${BAN}" ];
     then
         BANNUM2=$(wc -l "${BAN}")
@@ -45,13 +47,15 @@ then
             echo -e "${BANNUM}"
             echo -e "${BANNUM2}"
             # restore ip_bans.yaml file, restart ha core again to make changes persistent
+            
             echo "Detected banned IP addresses since execution.\nRestoring ip_bans.yaml file."
-            cp /config/tmp_ip_bans.yaml /config/ip_bans.yaml && rm /config/tmp_ip_bans.yaml
+            cp "${TMP_BAN}" ${BAN} && rm "${TMP_BAN}"
+            
             bashio::core.restart
         else
             # remove temporary ip_bans.yaml file
-            rm /config/tmp_ip_bans.yaml
+            rm "${TMP_BAN}"
     fi
 fi
 
-echo -e "Finished TokenRemover execution"
+echo "Finished TokenRemover execution"
