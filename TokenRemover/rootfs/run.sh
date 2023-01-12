@@ -4,11 +4,11 @@ declare DAY
 declare RESULT
 declare BAN
 declare LAST_USED 
-
 declare ACTIVE_DAYS
+
 BAN="/config/ip_bans.yaml"
 TMP_BAN="/config/tmp_ip_bans.yaml"
-RETENTION_DAYS=$(bashio::config 'retention_days' | xargs echo -n)
+DAY=$(bashio::config 'day' | xargs echo -n)
 LAST_USED=$(bashio::config 'last_used' | xargs echo -n)
 ACTIVE_DAYS=$(bashio::config 'active_days' | xargs echo -n)
 
@@ -17,9 +17,9 @@ echo -e "Running TokenRemover\n\n\nNote: You may get locked out for one minute a
 
 if [ "${LAST_USED}" == false ];
 then
-    RESULT=$(python3 run.py ${RETENTION_DAYS} 999)
+    RESULT=$(python3 run.py ${DAY} 999)
 else
-    RESULT=$(python3 run.py ${RETENTION_DAYS} ${ACTIVE_DAYS})
+    RESULT=$(python3 run.py ${DAY} ${ACTIVE_DAYS})
 fi
 
 echo -e "${RESULT}\n"
