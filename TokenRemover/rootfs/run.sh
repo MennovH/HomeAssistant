@@ -25,7 +25,7 @@ then
     curl -X DELETE "http://supervisor/auth/cache" -H "Authorization: Bearer $SUPERVISOR_TOKEN"
     bashio::core.restart
     
-    runtime="5 minute"
+    runtime="2 minute"
     endtime=$(date -ud "$runtime" +%s)
 
     while [[ $(date -u +%s) -le $endtime ]]
