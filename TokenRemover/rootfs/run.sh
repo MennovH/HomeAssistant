@@ -9,7 +9,7 @@ TMP_BAN="/config/tmp_ip_bans.yaml"
 DAY=$(bashio::config 'day' | xargs echo -n)
 
 echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-echo -e "Running TokenRemover\n\nNote: You may get locked out for one minute after restart, as TokenRemover doesn't know which token belongs to whom. TokenRemover will restore the current ip_bans.yaml file when it detects newly banned IP addresses after execution. Home Assistant Core will then again be restarted to make this change permanent, after which you should be able to log in again.\n\n"
+echo -e "Running TokenRemover\n\n\nNote: You may get locked out for one minute after restart, as TokenRemover doesn't know which token belongs to whom. TokenRemover will restore the current ip_bans.yaml file when it detects newly banned IP addresses after execution. Home Assistant Core will then again be restarted to make this change permanent, after which you should be able to log in again.\n\n\n"
 RESULT=$(python3 run.py ${DAY})
 
 echo -e "${RESULT}\n"
@@ -25,7 +25,7 @@ then
     curl -X DELETE "http://supervisor/auth/cache" -H "Authorization: Bearer $SUPERVISOR_TOKEN" >/dev/null 2>&1
     bashio::core.restart
     
-    echo -e "Running checks...\n"
+    echo -e "(still) Running checks...\n"
     for i in {1..4};
     do
         sleep 15
