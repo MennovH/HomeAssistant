@@ -16,26 +16,38 @@ then
 
     if [ -f "${BAN}" ];
     then
-        cp /config/ip_bans.yaml /config/tmp_ip_bans.yaml   
+        cp /config/ip_bans.yaml /config/tmp_ip_bans.yaml
+        BANNUM=$(wc -l "${BAN}")
     fi
     
-    BANNUM=$(wc -l "${BAN}")
-    
     sleep 0.75
-    curl -X DELETE "http://supervisor/auth/cache" -H "Authorization: Bearer $SUPERVISOR_TOKEN" >/dev/null 2>&1 
+    # delete auth cache
+    curl -X DELETE "http://supervisor/auth/cache" -H "Authorization: Bearer $SUPERVISOR_TOKEN" >/dev/null 2>&1
+    
+    # invoke restart of Home Assistant Core
     bashio::core.restart
 
+    # run the following procedure to re-enable locked out users after running TokenRemover
+    # this could happen when [multiple] devices try to re-authenticate to Home Assistant with a revoked token
+    # e.g. when "Keep me logged in" was set
     echo "Aftermath: `date +%H:%M:%S`"
     for i in {1..3}; do
-        BANNUM2=$(wc -l "${BAN}")
         sleep 30
     done
     
-    if [ -f "${BAN}" && ${BANNUM2} != ${BANNUM}];
+    if [ -f "${BAN}" ];
     then
-        echo "Detected banned IP addresses.\nRestoring ip_bans.yaml file."
-        cp /config/tmp_ip_bans.yaml /config/ip_bans.yaml && rm
-        bashio::core.restart
+        if [[ ${BANNUM} != $(wc -l "${BAN}") ]];
+        then
+            echo -e "${BANNUM}"
+            echo -e $(wc -l "${BAN}")
+            # restore ip_bans.yaml file, restart ha core again to make changes persistent
+            echo "Detected banned IP addresses since execution.\nRestoring ip_bans.yaml file."
+            cp /config/tmp_ip_bans.yaml /config/ip_bans.yaml && rm /config/tmp_ip_bans.yaml
+            bashio::core.restart
+        else
+            # remove temporary ip_bans.yaml file
+            rm /config/tmp_ip_bans.yaml
     fi
 fi
 
