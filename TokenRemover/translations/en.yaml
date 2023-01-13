@@ -2,7 +2,7 @@ configuration:
   day: 
     name: Number of retention days
     description: >-
-      Enter an integer value between 0 and 365 day(s). Older refresh tokens, of type "normal", will be removed.
+      Enter an integer value between 0 and 365 days. Older refresh tokens, of type "normal", will be removed.
   last_used: 
     name: Don't remove active tokens
     description: >-
@@ -10,4 +10,4 @@ configuration:
   active_days: 
     name: Number of activation days
     description: >-
-      Enter an integer value between 0 and 365 day(s). Refresh tokens that have been inactive before this, will be removed.
+      Enter an integer value between 0 and 365 days. Refresh tokens that have been inactive before this, will be removed.
