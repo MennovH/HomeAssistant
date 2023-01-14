@@ -27,5 +27,5 @@ options:
 schema:
   day: int(0,365)
   last_used: bool
-  active_days: int(0,365)
+  active_days: int(1,365)
 startup: once
