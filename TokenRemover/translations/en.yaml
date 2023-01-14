@@ -10,4 +10,4 @@ configuration:
   active_days: 
     name: Number of activation days
     description: >-
-      Enter an integer value between 1 and 365 days. Refresh tokens that have been inactive before this, will be removed.
+      Enter an integer value between 1 and 365 days. Refresh tokens activated within this number of days, won't be removed.
