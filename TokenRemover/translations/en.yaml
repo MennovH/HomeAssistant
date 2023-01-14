@@ -1,13 +1,15 @@
 configuration:
-  day: 
+  # day
+  retention_days:
     name: Number of retention days
     description: >-
       Enter an integer value between 0 and 365 days. Older refresh tokens, of type "normal", will be removed.
-  last_used: 
-    name: Don't remove active tokens
+  #last_used
+  keep_active: 
+    name: Keep active tokens
     description: >-
       If enabled, TokenRemover won't remove tokens which have been activated within the number of days set below.
-  active_days: 
+  activation_days: 
     name: Number of activation days
     description: >-
       Enter an integer value between 1 and 365 days. Refresh tokens activated within this number of days, won't be removed.
