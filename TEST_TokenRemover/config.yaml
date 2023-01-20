@@ -40,4 +40,10 @@ schema:
   automation: bool
   days:
     - str
+    - str
+    - str
+    - str
+    - str
+    - str
+    - str
 startup: once
