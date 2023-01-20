@@ -7,12 +7,11 @@ import sys
 
 # defining the auth file which will be updated if needed
 AUTH_FILE = "/config/.storage/auth"
-
-import requests
-session = requests.Session()
-print(session.cookies.get_dict())
+RETENTION_DAYS, DAYS_ACTIVE, AUTOMATION, AUTOMATION_DAYS = sys.argv[1:5]
 
 
+print(AUTOMATION)
+print(AUTOMATION_DAYS)
 
 # read auth file contents to variable
 with open(AUTH_FILE, "r") as f:
@@ -29,17 +28,26 @@ for token in data["data"]["refresh_tokens"]:
         keep_list.append(token)
         continue
     
+    if int(DAYS_ACTIVE) < 999:
+        date_str = token["last_used_at"]
+        year, month, day, hour, minute, second = date_str[:date_str.index(".")].translate(date_str.maketrans("T:.", "---")).split("-")
+        last_used_date = dt.datetime(int(year), int(month), int(day), int(hour), int(minute))
+    
+        if last_used_date >= (dt.datetime.now() + dt.timedelta(minutes=30) - dt.timedelta(days=int(DAYS_ACTIVE))):
+            keep_list.append(token)
+            continue
+
     # get creation date, and parse to a comparable format
-    creation_str = token["created_at"]
-    year, month, day, hour, minute, second = creation_str[:creation_str.index(".")].translate(creation_str.maketrans("T:.", "---")).split("-")
+    date_str = token["created_at"]
+    year, month, day, hour, minute, second = date_str[:date_str.index(".")].translate(date_str.maketrans("T:.", "---")).split("-")
     creation_date = dt.datetime(int(year), int(month), int(day), int(hour), int(minute))
     
     # compare the creation date with the exact date time of x days ago
     # add 30 minutes to creation date, to prevent on boot execution (if enabled) to trigger hereafter
-    if creation_date >= (dt.datetime.now() + dt.timedelta(minutes=30) - dt.timedelta(days=int(sys.argv[1]))):
+    if creation_date >= (dt.datetime.now() + dt.timedelta(minutes=30) - dt.timedelta(days=int(RETENTION_DAYS))):
         keep_list.append(token)
 
-# verify differences
+# detect differences
 removed_tokens = len(data["data"]["refresh_tokens"]) - len(keep_list)
 if removed_tokens > 0:    
     data["data"]["refresh_tokens"] = keep_list
@@ -52,6 +60,6 @@ if removed_tokens > 0:
     # necessary to implement the changes, otherwise the updated file will be restored by Home Assistant RAM.
     print(f"Home Assistant Core will now restart to remove {removed_tokens} token{'' if removed_tokens == 1 else 's'}")
 else:
-    print(f"No tokens older than {sys.argv[1]} day{'' if sys.argv[1] == 1 else 's'} were found")
+    print(f"No tokens older than {RETENTION_DAYS} day{'' if RETENTION_DAYS == 1 else 's'} were found")
     
 sys.exit(0)

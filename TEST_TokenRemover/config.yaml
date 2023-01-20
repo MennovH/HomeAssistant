@@ -2,8 +2,8 @@ name: "TEST_TokenRemover"
 url: https://github.com/MennovH/HomeAssistant/tree/main/TEST_TokenRemover
 description: "Add-on for Home Assistant to remove old refresh tokens"
 codenotary: mennovh_@hotmail.com
-version: "1.0.1"
-slug: "tokenremovertest"
+version: "1.0.2"
+slug: "TEST_tokenremover"
 hassio_api: true
 hassio_role: manager
 ingress: false
@@ -21,7 +21,17 @@ map:
 journald: true
 panel_icon: mdi:update
 options:
-  day: 7
+  retention_days: 7
+  keep_active: true
+  activation_days: 3
+  automation: true
+  automation_days:
+    - ?
 schema:
-  day: int(0,365)
+  retention_days: int(0,365)
+  keep_active: bool
+  activation_days: int(1,365)
+  automation: bool
+  automation_days: list(mon|tue|wed|thu|fri|sat|sun)
+  
 startup: once
