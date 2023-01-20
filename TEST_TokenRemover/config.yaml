@@ -27,13 +27,13 @@ options:
   automation:
     enable: true
     automation_days:
-      - mon: true
-      - tue: true
-      - wed: true
-      - thu: true
-      - fri: true
-      - sat: true
-      - sun: true
+      mon: true
+      tue: true
+      wed: true
+      thu: true
+      fri: true
+      sat: true
+      sun: true
 schema:
   retention_days: int(0,365)
   keep_active: bool
@@ -41,12 +41,12 @@ schema:
   automation:
     enable: bool
     automation_days:
-      - mon: bool
-      - tue: bool
-      - wed: bool
-      - thu: bool
-      - fri: bool
-      - sat: bool
-      - sun: bool
+      mon: bool
+      tue: bool
+      wed: bool
+      thu: bool
+      fri: bool
+      sat: bool
+      sun: bool
   
 startup: once
