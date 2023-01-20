@@ -26,24 +26,24 @@ options:
   activation_days: 3
   automation: true
   days:
-    mon: true
-    tue: true
-    wed: true
-    thu: true
-    fri: true
-    sat: true
-    sun: true
+    - mon: true
+    - tue: true
+    - wed: true
+    - thu: true
+    - fri: true
+    - sat: true
+    - sun: true
 schema:
   retention_days: int(0,365)
   keep_active: bool
   activation_days: int(1,365)
   automation: bool
   days:
-    mon: bool
-    tue: bool
-    wed: bool
-    thu: bool
-    fri: bool
-    sat: bool
-    sun: bool
+    - mon: bool
+    - tue: bool
+    - wed: bool
+    - thu: bool
+    - fri: bool
+    - sat: bool
+    - sun: bool
 startup: once
