@@ -10,7 +10,13 @@ AUTH_FILE = "/config/.storage/auth"
 RETENTION_DAYS, DAYS_ACTIVE, AUTOMATION, AUTOMATION_TIME = sys.argv[1:5]
 DAYS=["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
-AUTOMATION_DAYS = [DAYS[day] for day in len(sys.argv[5:])]
+num = -1
+AUTOMATION_DAYS = []
+for day in sys.argv[5:]:
+    num += 1
+    if day == 'true':
+        AUTOMATION_DAYS.append(DAYS[num]) 
+
 
 print(AUTOMATION)
 print(AUTOMATION_TIME)
