@@ -23,6 +23,9 @@ for day in sys.argv[5:]:
 print(AUTOMATION)
 print(AUTOMATION_TIME)
 print(AUTOMATION_DAYS)
+print("done")
+sys.exit(0)
+print("nope")
 
 # read auth file contents to variable
 with open(AUTH_FILE, "r") as f:
