@@ -16,8 +16,8 @@ print(len(sys.argv[5:]))
 for day in sys.argv[5:]:
     num += 1
     print(num)
-    #if day == 'true':
-    #    AUTOMATION_DAYS.append(DAYS[num]) 
+    if day == 'true':
+        AUTOMATION_DAYS.append(DAYS[num]) 
 
 
 print(AUTOMATION)
