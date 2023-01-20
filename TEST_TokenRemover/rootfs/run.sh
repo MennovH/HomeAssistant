@@ -45,7 +45,7 @@ then
 #else
 fi
 
-RESULT=$(python3 run.py ${RETENTION_DAYS} ${ACTIVATION_DAYS} ${AUTOMATION} ${AUTOMATION_TIME} ${MON} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
+RESULT=$(python3 run.py ${RETENTION_DAYS} ${ACTIVATION_DAYS} ${AUTOMATION} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 
 echo -e " \n${RESULT}\n"
 if [[ ${RESULT} == *"restart"* ]];
