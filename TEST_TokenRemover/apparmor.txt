@@ -1,6 +1,6 @@
 #include <tunables/global>
 
-profile tokenremover flags=(attach_disconnected,mediate_deleted) {
+profile test_tokenremover flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
   # Capabilities
@@ -28,7 +28,7 @@ profile tokenremover flags=(attach_disconnected,mediate_deleted) {
   /data/** rw,
 
   # Access required for service functionality
-  /usr/bin/tokenremover r,
+  /usr/bin/test_tokenremover r,
   /bin/bash rix,
   /bin/echo ix,
   /etc/passwd r,
