@@ -16,6 +16,7 @@ RETENTION_DAYS=$(bashio::config 'retention_days' | xargs echo -n)
 KEEP_ACTIVE=$(bashio::config 'keep_active' | xargs echo -n)
 ACTIVATION_DAYS=$(bashio::config 'activation_days' | xargs echo -n)
 AUTOMATION=$(bashio::config 'automation' | xargs echo -n)
+AUTOMATION_TIME=$(bashio::config 'automation_time' | xargs echo -n)
 MON=$(bashio::config 'mon' | xargs echo -n)
 TUE=$(bashio::config 'tue' | xargs echo -n)
 WED=$(bashio::config 'wed' | xargs echo -n)
@@ -31,7 +32,7 @@ echo -e "Running TokenRemover\n"
 if [ "${AUTOMATION}" == true ];
 then
 	echo -e " \nChecking automations.yaml file\n"
-	#echo -e " \n${AUTOMATION_DAYS}"
+	echo -e " \n${AUTOMATION_TIME}"
 	
 fi
 
@@ -44,7 +45,7 @@ then
 #else
 fi
 
-RESULT=$(python3 run.py ${RETENTION_DAYS} ${ACTIVATION_DAYS} ${AUTOMATION} ${MON} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
+RESULT=$(python3 run.py ${RETENTION_DAYS} ${ACTIVATION_DAYS} ${AUTOMATION} ${AUTOMATION_TIME} ${MON} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 
 echo -e " \n${RESULT}\n"
 if [[ ${RESULT} == *"restart"* ]];
