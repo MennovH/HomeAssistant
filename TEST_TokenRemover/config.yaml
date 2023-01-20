@@ -27,6 +27,12 @@ options:
   automation: true
   automation_days:
     - ?
+    - ?
+    - ?
+    - ?
+    - ?
+    - ?
+    - ?
 schema:
   retention_days: int(0,365)
   keep_active: bool
