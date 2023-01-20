@@ -31,6 +31,6 @@ schema:
   keep_active: bool
   activation_days: int(1,365)
   automation: bool
-  days: str
+  days: list(str?|str?|str?|str?|str?|str?|str?)
   
 startup: once
