@@ -31,6 +31,6 @@ schema:
   keep_active: bool
   activation_days: int(1,365)
   automation: bool
-  automation_days: [mon,tue,wed,thu,fri,sat,sun]
+  automation_days: str(mon,tue,wed,thu,fri,sat,sun)
   
 startup: once
