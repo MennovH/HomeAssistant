@@ -39,11 +39,11 @@ schema:
   activation_days: int(1,365)
   automation: bool
   days:
-    - str
-    - str
-    - str
-    - str
-    - str
-    - str
-    - str
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
 startup: once
