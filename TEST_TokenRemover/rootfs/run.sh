@@ -31,7 +31,7 @@ echo -e "Running TokenRemover\n"
 if [ "${AUTOMATION}" == true ];
 then
 	echo -e " \nChecking automations.yaml file\n"
-	echo -e " \n${AUTOMATION_DAYS}"
+	#echo -e " \n${AUTOMATION_DAYS}"
 	
 fi
 
