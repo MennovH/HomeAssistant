@@ -25,7 +25,7 @@ options:
   keep_active: true
   activation_days: 3
   automation: true
-  days: list(str?|str?|str?|str?|str?|str?|str?)
+  days: str?
 schema:
   retention_days: int(0,365)
   keep_active: bool
