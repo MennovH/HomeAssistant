@@ -7,13 +7,15 @@ import sys
 
 # defining the auth file which will be updated if needed
 AUTH_FILE = "/config/.storage/auth"
-RETENTION_DAYS, DAYS_ACTIVE, AUTOMATION, AUTOMATION_TIME = sys.argv[1:4]
+RETENTION_DAYS, DAYS_ACTIVE, AUTOMATION, AUTOMATION_TIME = sys.argv[1:5]
 DAYS=["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
 num = -1
 AUTOMATION_DAYS = []
-for day in sys.argv[5:12]:
+print(len(sys.argv[5:]))
+for day in sys.argv[5:]:
     num += 1
+    print(num)
     if day == 'true':
         AUTOMATION_DAYS.append(DAYS[num]) 
 
