@@ -122,7 +122,7 @@ do
 		break
 	else
 		
-		RESULT=$(python3 get_date.py)
+		RESULT=$(python3 get_date.py ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 		sleep ${RESULT}
 		
 		run

@@ -4,15 +4,7 @@
 from datetime import timedelta, datetime
 import sys
 
-weekdays = {
-    'Monday': 0,
-    'Tuesday': 1,
-    'Wednesday': 2,
-    'Thursday': 3,
-    'Friday': 4,
-    'Saturday': 5,
-    'Sunday': 6,
-}
+        
 def get_next_weekday(startdate, weekday):
     """
     @startdate: given date, in format '2013-05-25'
@@ -22,7 +14,16 @@ def get_next_weekday(startdate, weekday):
     t = timedelta((7 + weekday - d.weekday()) % 7)
     return (d + t).strftime('%Y-%m-%d')
 
-ds = sorted([get_next_weekday(f'{datetime.now().date()}', weekdays[day]) for day in days])
+
+days = []
+num = -1
+for day in sys.argv[1:]:
+    num+=1
+    if day == "true":
+        days.append(num)
+        
+
+ds = sorted([get_next_weekday(f'{datetime.now().date()}', day) for day in days])
 
 for d in ds:
     e = d.split('-')
