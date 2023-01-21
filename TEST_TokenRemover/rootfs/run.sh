@@ -9,6 +9,7 @@ declare ACTIVATION_DAYS
 declare KEEP_ACTIVE
 declare RETENTION_DAYS
 declare RESULT
+declare AUTO
 
 BAN_FILE="/config/ip_bans.yaml"
 TMP_BAN_FILE="/config/tmp_ip_bans.yaml"
@@ -84,12 +85,12 @@ run () {
 INTERVAL=15
 
 
-auto = false
+AUTO=false
 for day in MON TUE WED THU FRI SAT SUN;
 do
 	if [ "${day"} == true ];
 	then
-		auto = true
+		AUTO=true
 		break
 	fi
 done
@@ -101,7 +102,7 @@ do
 	
 	run
 
-	if [ "${AUTOMATION}" == false ] || [ "${auto}" == false ];
+	if [ "${AUTOMATION}" == false ] || [ "${AUTO}" == false ];
 	then
 		break
 	fi
