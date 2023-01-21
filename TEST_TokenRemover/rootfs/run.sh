@@ -48,7 +48,6 @@ do
 	if [ "${day}" == true ];
 	then
 		AUTO=true
-		echo "true"
 		break
 	fi
 done
@@ -122,6 +121,7 @@ do
 		sleep $(echo -e "${RESULT}" | tail -n1)
 		
 		run
+		sleep 60
 	fi
 	
 done
