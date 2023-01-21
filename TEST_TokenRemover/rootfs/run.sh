@@ -95,7 +95,7 @@ do
 	
 	for day in MON TUE WED THU FRI SAT SUN;
 	do
-		
+		echo -e "${day}"
 	done
 	
 	
