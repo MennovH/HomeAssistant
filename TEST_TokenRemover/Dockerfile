@@ -8,6 +8,7 @@ RUN \
     python3
 
 ADD rootfs/run.py  /
+ADD rootfs/get_date.py  /
 
 COPY /rootfs/run.sh /app/run.sh
 RUN chmod a+x /app/run.sh
