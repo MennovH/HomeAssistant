@@ -93,6 +93,7 @@ do
 	if [ "${day}" == true ];
 	then
 		AUTO=true
+		echo "true"
 		break
 	fi
 done
