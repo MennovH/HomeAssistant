@@ -15,21 +15,23 @@ def get_next_weekday(startdate, weekday):
     return (d + t).strftime('%Y-%m-%d')
 
 
-days = []
+DAYS = []
 num = -1
-for day in sys.argv[1:]:
+for day in sys.argv[2:]:
     num+=1
     if day == "true":
-        days.append(num)
+        DAYS.append(num)
         
+AUTOMATION_TIME=sys.argv[1].split(":")
+print(AUTOMATION_TIME)
 
-ds = sorted([get_next_weekday(f'{datetime.now().date()}', day) for day in days])
+ds = sorted([get_next_weekday(f'{datetime.now().date()}', day) for day in DAYS])
 
 for d in ds:
     e = d.split('-')
 
-    if datetime.now() < datetime(year=int(e[0]), month=int(e[1])+1, day=int(e[2]), hour=3, minute=45):
-        later = datetime(year=int(e[0]), month=int(e[1])+1, day=int(e[2]), hour=3, minute=45)
+    if datetime.now() < datetime(year=int(e[0]), month=int(e[1])+1, day=int(e[2]), hour=AUTOMATION_TIME[0], minute=AUTOMATION_TIME[1]):
+        later = datetime(year=int(e[0]), month=int(e[1]), day=int(e[2]), hour=3, minute=45)
         print(datetime.now())
         print(f"Next check is at {later}")
         print((later - datetime.now()).total_seconds())

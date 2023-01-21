@@ -122,7 +122,7 @@ do
 		break
 	else
 		
-		RESULT=$(python3 get_date.py ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
+		RESULT=$(python3 get_date.py ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 		
 		echo -e "${RESULT}"
 		#echo -e "$(RESULT)" | tail -n1
