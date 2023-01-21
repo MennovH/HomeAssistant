@@ -93,7 +93,7 @@ do
 		break
 	fi
 	
-    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
+    NEXT=$(echo | busybox date -d@"$(( `busybox date -v Mon +%s` ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check is at ${NEXT}\n "
     sleep ${INTERVAL}m
 
