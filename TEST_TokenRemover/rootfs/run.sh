@@ -35,7 +35,7 @@ SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
 
-echo -e "Running TokenRemover\n "
+echo -e "Initializing add-on\n "
 
 if [ "${KEEP_ACTIVE}" == false ];
 then
@@ -64,7 +64,7 @@ fi
 run () {
 
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-	echo -e "Checking tokens\n"
+	echo -e "Running TokenRemover\n"
 
 	RESULT=$(python3 run.py ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 
@@ -82,7 +82,7 @@ run () {
 		curl -X DELETE -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/auth/cache >/dev/null 2>&1
 		bashio::core.restart
 		
-		echo -e "(still) Running checks...\n"
+		echo -e "Running some checks...\n"
 		for i in {1..4};
 		do
 			sleep 15
