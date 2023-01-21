@@ -30,7 +30,7 @@ for d in ds:
 
     if datetime.now() < datetime(year=int(e[0]), month=int(e[1])+1, day=int(e[2]), hour=3, minute=45):
         later = datetime(year=int(e[0]), month=int(e[1])+1, day=int(e[2]), hour=3, minute=45)
-        print(f'Next check is at {later}')
+        #print(f"Next check is at {later}")
         print((later - datetime.now()).total_seconds())
         sys.exit(0)
         #pause.until(datetime(year=int(e[0]), month=int(e[1])+1, day=int(e[2]), hour=3, minute=45))
