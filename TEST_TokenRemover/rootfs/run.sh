@@ -83,27 +83,46 @@ run () {
 
 INTERVAL=15
 
+
+auto = false
+for day in MON TUE WED THU FRI SAT SUN;
+do
+	if [ "${day"} == true ];
+	then
+		auto = true
+		break
+	fi
+done
+
+
 while :
 do
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
+	
 	run
 
-	if [ "${AUTOMATION}" == false ];
+	if [ "${AUTOMATION}" == false ] || [ "${auto}" == false ];
 	then
 		break
 	fi
 	
 	
-	weekday=$(date +%A)
-	weekday = $(date -d "+1 days")
-	echo -e "${weekday}"
+	#weekday=$(date +%A)
+	#weekday = $(date -d "+1 days")
+	#echo -e "${weekday}"
+	
+	RESULT=$(python3 get_date.py)
+	
+	#busybox date -u -D '%b %e %Y %H:%M' -d "Jan 22 2023 03:30" "+%a %Y-%m-%d %H:%M:%S"
 	
 	
 	
-    NEXT=$(echo | busybox date -d@"$(( `busybox date -d next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
+	
+    #NEXT=$(echo | busybox date -d@"$(( `busybox date -d next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
     #NEXT=$(echo | busybox date -d@"$(( `busybox date -d next saturday +%s` ))" "+%Y-%m-%d %H:%M:%S")
     #NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
-    echo -e " \nNext check is at ${NEXT}\n "
-    sleep ${INTERVAL}m
+    #echo -e " \nNext check is at ${NEXT}\n "
+    sleep ${RESULT}
+	
 
 done
