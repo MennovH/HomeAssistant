@@ -10,6 +10,14 @@ declare KEEP_ACTIVE
 declare RETENTION_DAYS
 declare RESULT
 declare AUTO
+declare MON
+declare TUE
+declare WED
+declare THU
+declare FRI
+declare SAT
+declare SUN
+
 
 BAN_FILE="/config/ip_bans.yaml"
 TMP_BAN_FILE="/config/tmp_ip_bans.yaml"
@@ -88,7 +96,7 @@ INTERVAL=15
 
 
 AUTO=false
-for day in MON TUE WED THU FRI SAT SUN;
+for day in "${MON}" "${TUE}" "${WED}" "${THU}" "${FRI}" "${SAT}" "${SUN}";
 do
 	echo -e "${day}"
 	if [ "${day}" == true ];
