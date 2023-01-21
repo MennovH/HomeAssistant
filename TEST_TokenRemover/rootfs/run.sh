@@ -127,7 +127,7 @@ do
 		echo -e "${RESULT}"
 		#echo -e "$(RESULT)" | tail -n1
 		
-		sleep ${RESULT} | tail -n1
+		sleep $(echo -e "${RESULT}" | tail -n1)
 		
 		run
 	fi
