@@ -29,7 +29,7 @@ for date_value in sorted([get_next_weekday(f'{datetime.now().date()}', day) for 
     date_list = date_value.split('-')
     YEAR, MONTH, DAY = int(date_list[0]), int(date_list[1]), int(date_list[2])
 
-    if datetime.now() < datetime(year=YEAR, month=MONTH, day=DAY), hour=HOUR, minute=MINUTE):
+    if datetime.now() < datetime(year=YEAR, month=MONTH, day=DAY, hour=HOUR, minute=MINUTE):
         later = datetime(year=YEAR, month=MONTH, day=DAY, hour=HOUR, minute=MINUTE)
         print(f"TokenRemover will run at {later}")
         print((later - datetime.now()).total_seconds())
