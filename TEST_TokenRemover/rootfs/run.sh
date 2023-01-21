@@ -109,7 +109,10 @@ do
 	
 	#diff=$(echo "$current-$old" |bc)
 	
-    NEXT=$(echo | busybox date -d@"$(( `busybox date -d next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
+    #NEXT=$(echo | busybox date -d@"$(( `busybox date -d next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
+	#NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
+	NEXT=$(echo | busybox date -d@"$(( `busybox date next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
+	#NEXT=$(echo | busybox date -d next monday "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check is at ${NEXT}\n "
     sleep ${INTERVAL}m
 
