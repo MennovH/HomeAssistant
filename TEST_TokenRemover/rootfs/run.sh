@@ -81,6 +81,7 @@ run () {
 
 }
 
+INTERVAL=15
 
 while :
 do
