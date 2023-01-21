@@ -26,6 +26,8 @@ AUTOMATION_TIME=sys.argv[1].split(":")
 
 ds = sorted([get_next_weekday(f'{datetime.now().date()}', day) for day in DAYS])
 
+print(ds)
+
 for d in ds:
     print(d)
     e = d.split('-')
