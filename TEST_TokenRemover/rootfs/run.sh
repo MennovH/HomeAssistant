@@ -90,6 +90,7 @@ INTERVAL=15
 AUTO=false
 for day in MON TUE WED THU FRI SAT SUN;
 do
+	echo -e "${day}"
 	if [ "${day}" == true ];
 	then
 		AUTO=true
