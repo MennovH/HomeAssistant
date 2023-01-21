@@ -93,7 +93,14 @@ do
 		break
 	fi
 	
-    NEXT=$(echo | busybox date -d@"$(( `busybox date -v Mon +%s` ))" "+%Y-%m-%d %H:%M:%S")
+	for day in MON TUE WED THU FRI SAT SUN;
+	do
+		
+	done
+	
+	
+	
+    NEXT=$(echo | busybox date -d@"$(( `busybox date -dmonday +%Y%m%d +%s` ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check is at ${NEXT}\n "
     sleep ${INTERVAL}m
 
