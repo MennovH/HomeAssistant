@@ -86,35 +86,15 @@ INTERVAL=15
 while :
 do
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-	run	
-	
-	auto = false
-	for day in MON TUE WED THU FRI SAT SUN;
-	do
-	    if [ "${day"} == true ];
-		then
-			auto = true
-			break
-		fi
-	done
-	
-	if [ "${AUTOMATION}" == false ] || [ "${auto}" == false ];
+	run
+
+	if [ "${AUTOMATION}" == false ];
 	then
 		break
 	fi
 	
-	#weekday=$(date +%A)
-	
-	#current="$(date +%s.%N)" #current date, precise to nanoseconds
-	#old="$(date +%s.%N -d ``)"
-	
-	#diff=$(echo "$current-$old" |bc)
-	
-    #NEXT=$(echo | busybox date -d@"$(( `busybox date -d next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
-	#NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
-	#NEXT=$(echo | busybox date -d@"$(( `busybox date -d next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
-	#NEXT=$(echo | busybox date -d next monday "+%Y-%m-%d %H:%M:%S")
-    #echo -e " \nNext check is at ${NEXT}\n "
+    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
+    echo -e " \nNext check is at ${NEXT}\n "
     sleep ${INTERVAL}m
 
 done
