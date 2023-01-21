@@ -7,25 +7,8 @@ import sys
 
 # defining the auth file which will be updated if needed
 AUTH_FILE = "/config/.storage/auth"
-RETENTION_DAYS, DAYS_ACTIVE, AUTOMATION, AUTOMATION_TIME = sys.argv[1:5]
-DAYS=["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+RETENTION_DAYS, DAYS_ACTIVE = sys.argv[1:3]
 
-num = -1
-AUTOMATION_DAYS = []
-print(len(sys.argv[5:]))
-for day in sys.argv[5:]:
-    num += 1
-    print(num)
-    if day == 'true':
-        AUTOMATION_DAYS.append(DAYS[num]) 
-
-
-print(AUTOMATION)
-print(AUTOMATION_TIME)
-print(AUTOMATION_DAYS)
-print("done")
-sys.exit(0)
-print("nope")
 
 # read auth file contents to variable
 with open(AUTH_FILE, "r") as f:

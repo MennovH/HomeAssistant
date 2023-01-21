@@ -25,17 +25,6 @@ FRI=$(bashio::config 'fri' | xargs echo -n)
 SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
-echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-echo -e "Running TokenRemover\n"
-
-
-if [ "${AUTOMATION}" == true ];
-then
-	echo -e " \nChecking automations.yaml file\n"
-	echo -e " \n${AUTOMATION_TIME}"
-	
-fi
-
 
 if [ "${KEEP_ACTIVE}" == false ];
 then
@@ -45,43 +34,66 @@ then
 #else
 fi
 
-RESULT=$(python3 run.py ${RETENTION_DAYS} ${ACTIVATION_DAYS} ${AUTOMATION} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 
-echo -e " \n${RESULT}\n"
-if [[ ${RESULT} == *"restart"* ]];
-then
-    if [ -f "${BAN_FILE}" ];
-    then
-        cp "${BAN_FILE}" "${TMP_BAN_FILE}"
-        BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
-    fi
-    
-    sleep 0.75
+run () {
+	echo -e "Running TokenRemover\n"
+
+	RESULT=$(python3 run.py ${RETENTION_DAYS} ${ACTIVATION_DAYS})
+
+	echo -e " \n${RESULT}\n"
+	if [[ ${RESULT} == *"restart"* ]];
+	then
+		if [ -f "${BAN_FILE}" ];
+		then
+			cp "${BAN_FILE}" "${TMP_BAN_FILE}"
+			BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
+		fi
+		
+		sleep 0.75
+		
+		curl -X DELETE -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/auth/cache >/dev/null 2>&1
+		bashio::core.restart
+		
+		echo -e "(still) Running checks...\n"
+		for i in {1..4};
+		do
+			sleep 15
+		done
+
+		if [ -f "${BAN_FILE}" ];
+		then
+			TMP_BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
+			if ! [[ ${BAN_LINE_COUNT} == ${TMP_BAN_LINE_COUNT} ]];
+			then
+				echo -e "\e[1;31mDetected banned IP addresses since execution.\nRestoring ip_bans.yaml file.\e[1;37m\n"
+				cp "${TMP_BAN_FILE}" "${BAN_FILE}" && rm "${TMP_BAN_FILE}"
+				
+				bashio::core.restart
+				
+				echo -e " \nFinished restoring ip_bans.yaml file.\n"
+			else
+				rm "${TMP_BAN_FILE}";
+			fi
+		fi
+	fi
+
+	echo "Finished TokenRemover execution"
+
+}
+
+
+while :
+do
+    echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
+	run
+
+	if [ "${AUTOMATION}" == false ];
+	then
+		break
+	fi
 	
-    curl -X DELETE -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/auth/cache >/dev/null 2>&1
-    bashio::core.restart
-    
-    echo -e "(still) Running checks...\n"
-    for i in {1..4};
-    do
-        sleep 15
-    done
+    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
+    echo -e " \nNext check is at ${NEXT}\n "
+    sleep ${INTERVAL}m
 
-    if [ -f "${BAN_FILE}" ];
-    then
-        TMP_BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
-        if ! [[ ${BAN_LINE_COUNT} == ${TMP_BAN_LINE_COUNT} ]];
-        then
-            echo -e "\e[1;31mDetected banned IP addresses since execution.\nRestoring ip_bans.yaml file.\e[1;37m\n"
-            cp "${TMP_BAN_FILE}" "${BAN_FILE}" && rm "${TMP_BAN_FILE}"
-            
-            bashio::core.restart
-            
-            echo -e " \nFinished restoring ip_bans.yaml file.\n"
-        else
-            rm "${TMP_BAN_FILE}";
-        fi
-    fi
-fi
-
-echo "Finished TokenRemover execution"
+done
