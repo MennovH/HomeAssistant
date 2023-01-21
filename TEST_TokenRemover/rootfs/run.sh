@@ -95,7 +95,7 @@ do
 	
 	
 	weekday=$(date +%A)
-	weekday = $(date -dmonday +%Y%m%d)
+	weekday = $(date -d "+1 days")
 	echo -e "${weekday}"
 	
 	
