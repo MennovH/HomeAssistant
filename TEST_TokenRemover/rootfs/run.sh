@@ -37,6 +37,8 @@ fi
 
 
 run () {
+
+    echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
 	echo -e "Running TokenRemover\n"
 
 	RESULT=$(python3 run.py ${RETENTION_DAYS} ${ACTIVATION_DAYS})
@@ -96,34 +98,36 @@ do
 done
 
 
-while :
-do
-    echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-	
-	run
+if [ "${AUTO}" == false ];
+then
+	AUTOMATION=false
+fi
 
-	if [ "${AUTOMATION}" == false ] || [ "${AUTO}" == false ];
+
+while :
+do	
+	if [ "${AUTOMATION}" == false ];
 	then
+		run
 		break
+	else
+		#weekday=$(date +%A)
+		#weekday = $(date -d "+1 days")
+		#echo -e "${weekday}"
+		
+		RESULT=$(python3 get_date.py)
+		
+		#busybox date -u -D '%b %e %Y %H:%M' -d "Jan 22 2023 03:30" "+%a %Y-%m-%d %H:%M:%S"
+		
+		
+		
+		
+		#NEXT=$(echo | busybox date -d@"$(( `busybox date -d next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
+		#NEXT=$(echo | busybox date -d@"$(( `busybox date -d next saturday +%s` ))" "+%Y-%m-%d %H:%M:%S")
+		#NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
+		#echo -e " \nNext check is at ${NEXT}\n "
+		sleep ${RESULT}
+		run
 	fi
 	
-	
-	#weekday=$(date +%A)
-	#weekday = $(date -d "+1 days")
-	#echo -e "${weekday}"
-	
-	RESULT=$(python3 get_date.py)
-	
-	#busybox date -u -D '%b %e %Y %H:%M' -d "Jan 22 2023 03:30" "+%a %Y-%m-%d %H:%M:%S"
-	
-	
-	
-	
-    #NEXT=$(echo | busybox date -d@"$(( `busybox date -d next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
-    #NEXT=$(echo | busybox date -d@"$(( `busybox date -d next saturday +%s` ))" "+%Y-%m-%d %H:%M:%S")
-    #NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
-    #echo -e " \nNext check is at ${NEXT}\n "
-    sleep ${RESULT}
-	
-
 done
