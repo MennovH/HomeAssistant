@@ -94,6 +94,7 @@ do
 	    if [ "${day"} == true ];
 		then
 			auto = true
+			break
 		fi
 	done
 	
@@ -111,9 +112,9 @@ do
 	
     #NEXT=$(echo | busybox date -d@"$(( `busybox date -d next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
 	#NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
-	NEXT=$(echo | busybox date -d@"$(( `busybox date -d next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
+	#NEXT=$(echo | busybox date -d@"$(( `busybox date -d next monday +%s` ))" "+%Y-%m-%d %H:%M:%S")
 	#NEXT=$(echo | busybox date -d next monday "+%Y-%m-%d %H:%M:%S")
-    echo -e " \nNext check is at ${NEXT}\n "
+    #echo -e " \nNext check is at ${NEXT}\n "
     sleep ${INTERVAL}m
 
 done
