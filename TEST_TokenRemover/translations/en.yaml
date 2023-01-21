@@ -17,4 +17,32 @@ configuration:
     name: Enable automation
     description: >-
       TokenRemover will create an automation based on user input
+  mon:
+    name: Monday
+    description: >-
+      When enabled, TokenRemover will run each Monday
+  tue:
+    name: Tuesday
+    description: >-
+      When enabled, TokenRemover will run each Tuesday
+  wed:
+    name: Wednesday
+    description: >-
+      When enabled, TokenRemover will run each Wednesday
+  thu:
+    name: Thursday
+    description: >-
+      When enabled, TokenRemover will run each Thursday
+  fri:
+    name: Friday
+    description: >-
+      When enabled, TokenRemover will run each Friday
+  sat:
+    name: Saturday
+    description: >-
+      When enabled, TokenRemover will run each Saturday
+  sun:
+    name: Sunday
+    description: >-
+      When enabled, TokenRemover will run each Sunday
   
