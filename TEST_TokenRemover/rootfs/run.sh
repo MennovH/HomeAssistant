@@ -103,7 +103,7 @@ do
 		break
 	fi
 	
-	weekday=$(date +%A)
+	#weekday=$(date +%A)
 	
 	#current="$(date +%s.%N)" #current date, precise to nanoseconds
 	#old="$(date +%s.%N -d ``)"
