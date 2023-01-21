@@ -123,7 +123,10 @@ do
 	else
 		
 		RESULT=$(python3 get_date.py ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
-		sleep ${RESULT}
+		
+		echo -e "${RESULT}"
+		
+		sleep ${RESULT[1]}
 		
 		run
 	fi
