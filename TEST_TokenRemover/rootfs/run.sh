@@ -35,6 +35,8 @@ SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
 
+echo -e "Running TokenRemover\n "
+
 if [ "${KEEP_ACTIVE}" == false ];
 then
     echo -e " \nNote: You may get locked out for one minute after restart, as TokenRemover doesn't know which token belongs to whom. TokenRemover will restore the current ip_bans.yaml file when it detects newly banned IP addresses within one minute after execution. Home Assistant Core will then again be restarted to make this change permanent, after which you should be able to log in again.\n"
@@ -62,7 +64,7 @@ fi
 run () {
 
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-	echo -e "Running TokenRemover\n"
+	echo -e "Checking tokens\n"
 
 	RESULT=$(python3 run.py ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 
@@ -118,7 +120,6 @@ do
 		
 		RESULT=$(python3 get_date.py ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 		echo -e $(echo -e "${RESULT}" | head -n1)
-		echo -e "${RESULT}"
 		sleep $(echo -e "${RESULT}" | tail -n1)
 		
 		run
