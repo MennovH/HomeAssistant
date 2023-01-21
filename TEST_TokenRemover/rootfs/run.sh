@@ -125,8 +125,9 @@ do
 		RESULT=$(python3 get_date.py ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 		
 		echo -e "${RESULT}"
+		#echo -e "$(RESULT)" | tail -n1
 		
-		sleep ${RESULT[1]}
+		sleep ${RESULT} | tail -n1
 		
 		run
 	fi
