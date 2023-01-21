@@ -123,10 +123,7 @@ do
 	else
 		
 		RESULT=$(python3 get_date.py ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
-		
-		echo -e "${RESULT}"
-		#echo -e "$(RESULT)" | tail -n1
-		
+		echo -e $(echo -e "${RESULT}" | head -n1)		
 		sleep $(echo -e "${RESULT}" | tail -n1)
 		
 		run
