@@ -39,8 +39,24 @@ if [ "${KEEP_ACTIVE}" == false ];
 then
     echo -e " \nNote: You may get locked out for one minute after restart, as TokenRemover doesn't know which token belongs to whom. TokenRemover will restore the current ip_bans.yaml file when it detects newly banned IP addresses within one minute after execution. Home Assistant Core will then again be restarted to make this change permanent, after which you should be able to log in again.\n"
 	ACTIVATION_DAYS = 999
-    #RESULT=$(python3 run.py ${RETENTION_DAYS} 999)
-#else
+fi
+
+
+AUTO=false
+for day in "${MON}" "${TUE}" "${WED}" "${THU}" "${FRI}" "${SAT}" "${SUN}";
+do
+	if [ "${day}" == true ];
+	then
+		AUTO=true
+		echo "true"
+		break
+	fi
+done
+
+
+if [ "${AUTO}" == false ];
+then
+	AUTOMATION=false
 fi
 
 
@@ -91,27 +107,6 @@ run () {
 	echo "Finished TokenRemover execution"
 
 }
-
-INTERVAL=15
-
-
-AUTO=false
-for day in "${MON}" "${TUE}" "${WED}" "${THU}" "${FRI}" "${SAT}" "${SUN}";
-do
-	echo -e "${day}"
-	if [ "${day}" == true ];
-	then
-		AUTO=true
-		echo "true"
-		break
-	fi
-done
-
-
-if [ "${AUTO}" == false ];
-then
-	AUTOMATION=false
-fi
 
 
 while :
