@@ -27,11 +27,12 @@ AUTOMATION_TIME=sys.argv[1].split(":")
 ds = sorted([get_next_weekday(f'{datetime.now().date()}', day) for day in DAYS])
 
 for d in ds:
+    print(d)
     e = d.split('-')
 
+    print(datetime(year=int(e[0]), month=int(e[1])+1, day=int(e[2]), hour=int(AUTOMATION_TIME[0]), minute=int(AUTOMATION_TIME[1])))
     if datetime.now() < datetime(year=int(e[0]), month=int(e[1])+1, day=int(e[2]), hour=int(AUTOMATION_TIME[0]), minute=int(AUTOMATION_TIME[1])):
         later = datetime(year=int(e[0]), month=int(e[1]), day=int(e[2]), hour=3, minute=45)
         print(f"Next check is at {later}")
         print((later - datetime.now()).total_seconds())
         sys.exit(0)
-
