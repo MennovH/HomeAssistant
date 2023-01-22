@@ -31,7 +31,7 @@ def reoccurrence(am_pm, automation_time, automation_days):
         
         
         if am_pm == 'Both':
-            h = hr if hr != 12 else 0
+            h = hr if hr < 12 else 0
             for _ in range(2):
                 if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt, second=0):
                     later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
