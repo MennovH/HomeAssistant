@@ -28,7 +28,7 @@ def reoccurrence(automation_time, automation_days):
     #    num+=1
     #    if day == "true":
     #        weekdays.append(num)
-            
+    
     hr, mnt = int(automation_time[0]), int(automation_time[1])
 
     for date_value in sorted([date_calc(f'{datetime.now().date()}', day) for day in weekdays]):
@@ -97,7 +97,7 @@ if __name__ == '__main__':
     print(sys.argv[1:])
     if sys.argv[1] == '0':
         # check reoccurrence
-        result = reoccurrence(sys.argv[2], sys.argv[3:])
+        result = reoccurrence(sys.argv[2].split(':'), sys.argv[3:])
         print(result[0])
         print(result[1])
         sys.exit(0)
