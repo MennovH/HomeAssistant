@@ -94,7 +94,6 @@ def tokenremover(retention_days, active_days):
 
 
 if __name__ == '__main__':
-    print(sys.argv[1:])
     if sys.argv[1] == '0':
         # check reoccurrence
         result = reoccurrence(sys.argv[2].split(':'), sys.argv[3:])
