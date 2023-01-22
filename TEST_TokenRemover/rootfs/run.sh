@@ -68,7 +68,7 @@ run () {
 
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 
-	echo -e "\e[1A\e[${RESULT}\n"
+	echo -e "\\r${RESULT}\n"
 	if [[ ${RESULT} == *"restart"* ]];
 	then
 		if [ -f "${BAN_FILE}" ];
