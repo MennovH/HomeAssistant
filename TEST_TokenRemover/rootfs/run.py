@@ -31,12 +31,12 @@ def reoccurrence(am_pm, automation_time, automation_days):
         
         
         if am_pm == 'Both':
-            h = hr
+            h = hr if hr != 12 else 0
             for _ in range(2):
                 if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt, second=0):
                     later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
                     return f"Next run at {later}\n{(later - datetime.now()).total_seconds()}"
-                h = 0 if h == 12 else hr + 12 if h < 12 else hr - 12
+                h = 12 if h == 0 else hr + 12 if h < 12 else hr - 12
                     
         else:
             if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
