@@ -5,6 +5,7 @@ import json
 import sys
 from datetime import timedelta, datetime
 
+# defining the auth file which will be updated if needed
 AUTH_FILE = "/config/.storage/auth"
 
 
@@ -16,12 +17,17 @@ def date_calc(dt, wkd):
 
 
 def reoccurrence(automation_time, automation_days):
-    weekdays = []
-    num = -1
-    for day in automation_days:
-        num+=1
-        if day == "true":
-            weekdays.append(num)
+    # calculate next run date
+    #weekdays = []
+    #num = -1
+    
+    weekdays = [day for day in range(len(automation_days)) if automation_days[day] == 'true']:
+    
+    
+    #for day in automation_days:
+    #    num+=1
+    #    if day == "true":
+    #        weekdays.append(num)
             
     hr, mnt = int(automation_time[0]), int(automation_time[1])
 
@@ -29,7 +35,7 @@ def reoccurrence(automation_time, automation_days):
         date_list = date_value.split('-')
         yr, mnth, d = int(date_list[0]), int(date_list[1]), int(date_list[2])
 
-        if datetime.now() < datetime(year=yr, month=mth, day=d, hour=hr, minute=mnt):
+        if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt):
             later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
             print(f"TokenRemover will run at {later}")
             print((later - datetime.now()).total_seconds())
@@ -37,9 +43,6 @@ def reoccurrence(automation_time, automation_days):
 
 
 def tokenremover(retention_days, active_days):
-    # defining the auth file which will be updated if needed
-
-
     # read auth file contents to variable
     with open(AUTH_FILE, "r") as f:
         data = json.load(f)
@@ -57,8 +60,8 @@ def tokenremover(retention_days, active_days):
         
         if int(active_days) < 999:
             date_str = token["last_used_at"]
-            year, month, day, hour, minute, second = date_str[:date_str.index(".")].translate(date_str.maketrans("T:.", "---")).split("-")
-            last_used_date = datetime(int(year), int(month), int(day), int(hour), int(minute))
+            yr, mnth, d, hr, mnt, scnd = date_str[:date_str.index(".")].translate(date_str.maketrans("T:.", "---")).split("-")
+            last_used_date = datetime(int(year), int(mnth), int(d), int(hr), int(mnt))
         
             if last_used_date >= (datetime.now() + timedelta(minutes=30) - timedelta(days=int(active_days))):
                 keep_list.append(token)
@@ -66,8 +69,8 @@ def tokenremover(retention_days, active_days):
 
         # get creation date, and parse to a comparable format
         date_str = token["created_at"]
-        year, month, day, hour, minute, second = date_str[:date_str.index(".")].translate(date_str.maketrans("T:.", "---")).split("-")
-        creation_date = datetime(int(year), int(month), int(day), int(hour), int(minute))
+        yr, mnth, d, hr, mnt, scnd = date_str[:date_str.index(".")].translate(date_str.maketrans("T:.", "---")).split("-")
+        creation_date = datetime(int(year), int(mnth), int(d), int(hr), int(mnt))
         
         # compare the creation date with the exact date time of x days ago
         # add 30 minutes to creation date, to prevent on boot execution (if enabled) to trigger hereafter
