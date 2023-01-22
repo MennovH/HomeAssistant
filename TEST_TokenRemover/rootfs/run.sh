@@ -35,7 +35,7 @@ SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
 
-echo -e "${__BASHIO_COLORS_GREEN}Starting add-on\n ${__BASHIO_COLORS_DEFAULT}"
+echo -e "${__BASHIO_COLORS_GREEN}Started add-on\n ${__BASHIO_COLORS_DEFAULT}"
 
 if [ "${KEEP_ACTIVE}" == false ];
 then
@@ -82,7 +82,7 @@ run () {
 		# restart Home Assistant Core
 		bashio::core.restart
 		
-		echo -e "Running checks ...\n"
+		echo -e "Running checks ..."
 		
 		sleep 60
 
@@ -91,7 +91,7 @@ run () {
 			TMP_BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
 			if ! [[ ${BAN_LINE_COUNT} == ${TMP_BAN_LINE_COUNT} ]];
 			then
-				echo -e "\e[1;31mDetected banned IP addresses since execution.\nRestoring ip_bans.yaml file.\e[1;37m\n"
+				echo -e "\e[1A\e[\e[1;31mDetected banned IP addresses since execution.\nRestoring ip_bans.yaml file.\e[1;37m\n"
 				cp "${TMP_BAN_FILE}" "${BAN_FILE}" && rm "${TMP_BAN_FILE}"
 				
 				bashio::core.restart
