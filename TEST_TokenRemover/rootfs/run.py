@@ -29,7 +29,7 @@ def reoccurrence(am_pm, automation_time, automation_days):
         date_list = date_value.split('-')
         yr, mnth, d = int(date_list[0]), int(date_list[1]), int(date_list[2])
 
-        if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt):
+        if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
             later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
             return f"Next run at {later}\n{(later - datetime.now()).total_seconds()}"
 
