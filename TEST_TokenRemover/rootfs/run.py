@@ -9,7 +9,10 @@ AUTH_FILE = "/config/.storage/auth"
 
 
 def date_calc(dt, wkd):
-    return (datetime.strptime(dt, '%Y-%m-%d') + timedelta((7 + wkd - d.weekday()) % 7)).strftime('%Y-%m-%d')
+    d = datetime.strptime(dt, '%Y-%m-%d')
+    t = timedelta((7 + wkd - d.weekday()) % 7)
+    return (d + t).strftime('%Y-%m-%d')
+
 
 
 def reoccurrence(automation_time, automation_days):
