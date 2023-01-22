@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 # import needed modules
+from datetime import timedelta, datetime
 import json
 import sys
-from datetime import timedelta, datetime
 
 # defining the auth file which will be updated if needed
 AUTH_FILE = "/config/.storage/auth"
@@ -15,20 +15,9 @@ def date_calc(dt, wkd):
     return (d + t).strftime('%Y-%m-%d')
 
 
-
 def reoccurrence(automation_time, automation_days):
     # calculate next run date
-    #weekdays = []
-    #num = -1
-    
-    weekdays = [day for day in range(len(automation_days)) if automation_days[day] == 'true']
-    
-    
-    #for day in automation_days:
-    #    num+=1
-    #    if day == "true":
-    #        weekdays.append(num)
-    
+    weekdays = [day for day in range(len(automation_days)) if automation_days[day] == 'true']    
     hr, mnt = int(automation_time[0]), int(automation_time[1])
 
     for date_value in sorted([date_calc(f'{datetime.now().date()}', day) for day in weekdays]):
@@ -37,7 +26,7 @@ def reoccurrence(automation_time, automation_days):
 
         if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt):
             later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
-            return f"TokenRemover will run at {later}\n{(later - datetime.now()).total_seconds()}"
+            return f"Next run at {later}\n{(later - datetime.now()).total_seconds()}\n "
 
 
 def tokenremover(retention_days, active_days):
@@ -86,21 +75,19 @@ def tokenremover(retention_days, active_days):
         
         # "send" return value to bash, so it will run the "ha core restart" command hereafter. The restart is
         # necessary to implement the changes, otherwise the updated file will be restored by Home Assistant RAM.
-        print(f"Home Assistant Core will now restart to remove {removed_tokens} token{'' if removed_tokens == 1 else 's'}")
-    else:
-        print(f"No tokens older than {retention_days} day{'' if retention_days == 1 else 's'} were found")
-        
-    sys.exit(0)
+        return f"Restarting now to remove {removed_tokens} token{'' if removed_tokens == 1 else 's'}"
+    
+    return "No tokens were removed"
 
 
 if __name__ == '__main__':
     if sys.argv[1] == '0':
         # check reoccurrence
         result = reoccurrence(sys.argv[2].split(':'), sys.argv[3:])
-        print(result)
     else:
         # run tokenremover
-        tokenremover(sys.argv[2], sys.argv[3])
+        result = tokenremover(sys.argv[2], sys.argv[3])
+        
+    print(result)
     sys.exit(0)
-        
-        
+    
