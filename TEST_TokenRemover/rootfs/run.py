@@ -21,7 +21,7 @@ def reoccurrence(automation_time, automation_days):
     #weekdays = []
     #num = -1
     
-    weekdays = [day for day in range(len(automation_days)) if automation_days[day] == 'true']:
+    weekdays = [day for day in range(len(automation_days)) if automation_days[day] == 'true']
     
     
     #for day in automation_days:
