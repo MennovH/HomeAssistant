@@ -66,7 +66,7 @@ run () {
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
 	echo -e "Running TokenRemover\n"
 
-	RESULT=$(python3 run.py ${RETENTION_DAYS} ${ACTIVATION_DAYS})
+	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 
 	echo -e " \n${RESULT}\n"
 	if [[ ${RESULT} == *"restart"* ]];
@@ -118,7 +118,7 @@ do
 		break
 	else
 		
-		RESULT=$(python3 get_date.py ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
+		RESULT=$(python3 run.py 0 ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 		echo -e $(echo -e "${RESULT}" | head -n1)
 		sleep $(echo -e "${RESULT}" | tail -n1)
 		
