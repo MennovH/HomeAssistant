@@ -15,11 +15,16 @@ def date_calc(date, weekday):
     return (d + t).strftime('%Y-%m-%d')
 
 
-def reoccurrence(automation_time, automation_days):
+def reoccurrence(am_pm, automation_time, automation_days):
     # Calculate next run date
     weekdays = [day for day in range(len(automation_days)) if automation_days[day] == 'true']    
     hr, mnt = int(automation_time[0]), int(automation_time[1])
 
+    if hr == 12 and am_pm == 'AM':
+        hr = 0
+    elif hr != 12 and am_pm == 'PM':
+        hr += 12
+    
     for date_value in sorted([date_calc(f'{datetime.now().date()}', day) for day in weekdays]):
         date_list = date_value.split('-')
         yr, mnth, d = int(date_list[0]), int(date_list[1]), int(date_list[2])
@@ -83,7 +88,7 @@ def tokenremover(retention_days, active_days):
 if __name__ == '__main__':
     if sys.argv[1] == '0':
         # Check reoccurrence
-        result = reoccurrence(sys.argv[2].split(':'), sys.argv[3:])
+        result = reoccurrence(sys.argv[2], sys.argv[3].split(':'), sys.argv[4:])
     else:
         # Run tokenremover
         result = tokenremover(sys.argv[2], sys.argv[3])
