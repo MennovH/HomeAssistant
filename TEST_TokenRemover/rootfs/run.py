@@ -37,9 +37,7 @@ def reoccurrence(automation_time, automation_days):
 
         if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt):
             later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
-            print(f"TokenRemover will run at {later}")
-            print((later - datetime.now()).total_seconds())
-            sys.exit(0)
+            return [f"TokenRemover will run at {later}", (later - datetime.now()).total_seconds()]
 
 
 def tokenremover(retention_days, active_days):
@@ -101,10 +99,12 @@ if __name__ == '__main__':
     #sys.exit(0)
     if sys.argv[1] == '0':
         # check reoccurrence
-        reoccurrence(sys.argv[2], sys.argv[3:])
-        
+        result = reoccurrence(sys.argv[2], sys.argv[3:])
+        print(result[0])
+        print(result[1])
     else:
         # run tokenremover
         tokenremover(sys.argv[2], sys.argv[3])
         
+    sys.exit(0)
         
