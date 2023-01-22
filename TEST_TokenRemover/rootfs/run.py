@@ -26,7 +26,7 @@ def reoccurrence(automation_time, automation_days):
 
         if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt):
             later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
-            return f"Next run at {later}\n{(later - datetime.now()).total_seconds()}\n "
+            return f"Next run at {later}\n{(later - datetime.now()).total_seconds()}"
 
 
 def tokenremover(retention_days, active_days):

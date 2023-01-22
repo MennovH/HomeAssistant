@@ -35,7 +35,7 @@ SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
 
-echo -e "Starting add-on\n "
+echo -e "Starting add-on\n"
 
 if [ "${KEEP_ACTIVE}" == false ];
 then
@@ -63,7 +63,7 @@ fi
 
 run () {
 
-    echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
+    echo -e " \nTime: $(date '+%Y-%m-%d %H:%M:%S')\n"
 	echo -e "Running TokenRemover"
 
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
