@@ -35,7 +35,7 @@ SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
 
-echo -e "Starting add-on\n"
+echo -e "${__BASHIO_COLORS_GREEN}Starting add-on\n ${__BASHIO_COLORS_DEFAULT}"
 
 if [ "${KEEP_ACTIVE}" == false ];
 then
