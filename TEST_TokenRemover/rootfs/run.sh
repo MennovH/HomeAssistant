@@ -35,7 +35,7 @@ FRI=$(bashio::config 'fri' | xargs echo -n)
 SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
-
+echo -e "${AM_PM}"
 echo -e "${__BASHIO_COLORS_GREEN}Started add-on\n ${__BASHIO_COLORS_DEFAULT}"
 
 if [ "${KEEP_ACTIVE}" == false ];

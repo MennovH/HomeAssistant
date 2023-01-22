@@ -36,7 +36,7 @@ def reoccurrence(am_pm, automation_time, automation_days):
                 if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt, second=0):
                     later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
                     return f"Next run at {later}\n{(later - datetime.now()).total_seconds()}"
-                h = 12 if h == 0 else hr + 12 if h < 12 else hr - 12
+                h = 12 if h == 0 else hr + 12
                     
         else:
             if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
