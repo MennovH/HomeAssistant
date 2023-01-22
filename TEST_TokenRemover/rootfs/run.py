@@ -93,10 +93,10 @@ if __name__ == '__main__':
     
     if sys.argv[1] == 0:
         # check reoccurrence
-        
         reoccurrence(sys.argv[2], sys.argv[3:])
+        
     else:
         # run tokenremover
-        run_tokenremover(sys.argv[2], sys.argv[3])
+        tokenremover(sys.argv[2], sys.argv[3])
         
         
