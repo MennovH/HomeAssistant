@@ -28,10 +28,20 @@ def reoccurrence(am_pm, automation_time, automation_days):
     for date_value in sorted([date_calc(f'{datetime.now().date()}', day) for day in weekdays]):
         date_list = date_value.split('-')
         yr, mnth, d = int(date_list[0]), int(date_list[1]), int(date_list[2])
-
-        if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
-            later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
-            return f"Next run at {later}\n{(later - datetime.now()).total_seconds()}"
+        
+        
+        if am_pm == 'Both':
+            h = hr
+            for _ in range(2):
+                if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt, second=0):
+                    later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
+                    return f"Next run at {later}\n{(later - datetime.now()).total_seconds()}"
+                h = 0 if h == 12 else hr + 12 if h < 12 else hr - 12
+                    
+        else:
+            if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
+                later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
+                return f"Next run at {later}\n{(later - datetime.now()).total_seconds()}"
 
 
 def tokenremover(retention_days, active_days):
