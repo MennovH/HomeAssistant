@@ -54,6 +54,11 @@ do
 	fi
 done
 
+if [ "${AUTO}" == "Daily" ];
+then
+	echo "TokenRemover will run daily due to invalid reoccurrence configuration"
+fi
+
 
 run () {
 
