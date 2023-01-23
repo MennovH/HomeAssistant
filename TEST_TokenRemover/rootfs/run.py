@@ -104,7 +104,8 @@ if __name__ == '__main__':
     else:
         # Run tokenremover
         try:
-            result = status(sys.argv[4])
+            result = status(sys.argv[4:])
+            
             print(result)
             sys.exit(0)
         except:
