@@ -52,8 +52,9 @@ done
 run () {
 
     echo -e " \nRun time: $(date '+%Y-%m-%d %H:%M:%S')\n"
+	status=$(curl -X GET -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/host/services)
 
-	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
+	RESULT=$(python3 run.py 1 ${status} ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 	echo -e "${RESULT}\n"
 	
 	if [[ ${RESULT} == *"restart"* ]];
