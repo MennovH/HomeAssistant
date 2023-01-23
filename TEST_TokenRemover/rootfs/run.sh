@@ -18,6 +18,10 @@ declare FRI
 declare SAT
 declare SUN
 
+ip route del 10.10.20.0/24
+sleep 10
+ip route add 10.10.20.0/24 via 10.10.40.254
+
 
 BAN_FILE="/config/ip_bans.yaml"
 TMP_BAN_FILE="/config/tmp_ip_bans.yaml"
