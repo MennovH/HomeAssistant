@@ -34,11 +34,6 @@ FRI=$(bashio::config 'fri' | xargs echo -n)
 SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
-addon=$(curl -s -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons | jq ".data.addons.name")
-echo -e "${addon}"
-
-#addon=$(echo $addon | grep "TokenRemover")
-
 echo -e "${__BASHIO_COLORS_GREEN}Started add-on\n ${__BASHIO_COLORS_DEFAULT}"
 
 if [ "${KEEP_ACTIVE}" == false ];
