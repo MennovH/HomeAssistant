@@ -89,7 +89,6 @@ run () {
 			else
 				rm "${TMP_BAN_FILE}";
 			fi
-		else
 		fi
 	fi
 
