@@ -8,9 +8,7 @@ RUN \
     python3
 
 ADD rootfs/run.py  /
-ADD rootfs/finish  /
 
-COPY /rootfs/run.sh /app/run.sh
-RUN chmod a+x /app/run.sh
-RUN chmod a+x /app/finish
+COPY /rootfs /app
+RUN chmod a+x /app/run.sh /app/finish
 ENTRYPOINT ["/app/run.sh"]
