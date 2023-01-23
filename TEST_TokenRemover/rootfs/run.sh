@@ -118,7 +118,7 @@ then
 	run
 	
 	# Stop this addon from running
-	$(curl -X POST --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons/${ADDON}/stop)
+	$(curl -X POST --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons/${ADDON}/stop > /dev/null 2>&1)
 	
 else
 	echo -e "${__BASHIO_COLORS_GREEN}TokenRemover will run at set times${__BASHIO_COLORS_DEFAULT}\n "
