@@ -102,6 +102,7 @@ run () {
 
 if [ "${AUTO}" == "Once" ];
 then
+	echo "TokenRemover will run only once due to invalid recurrence configuration"
 	run
 else
 	while :
