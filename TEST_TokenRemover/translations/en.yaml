@@ -22,16 +22,16 @@ configuration:
     description: >-
       Select the time on which TokenRemover should run
   mon:
-    name: Monday
+    name: Run every Monday
   tue:
-    name: Tuesday
+    name: Run every Tuesday
   wed:
-    name: Wednesday
+    name: Run every Wednesday
   thu:
-    name: Thursday
+    name: Run every Thursday
   fri:
-    name: Friday
+    name: Run every Friday
   sat:
-    name: Saturday
+    name: Run every Saturday
   sun:
-    name: Sunday
+    name: Run every Sunday
