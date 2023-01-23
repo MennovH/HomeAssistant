@@ -9,6 +9,11 @@ import sys
 AUTH_FILE = "/config/.storage/auth"
 
 
+def addon(info):
+    prt = info[info.index("TokenRemover"):]
+    return prt[prt.index(": "):prt.index("\", \"description")][3:]
+
+
 def date_calc(date, weekday):
     d = datetime.strptime(date, '%Y-%m-%d')
     t = timedelta((7 + weekday - d.weekday()) % 7)
@@ -98,9 +103,11 @@ if __name__ == '__main__':
         # Check recurrence
         weekdays = [day-1 for day in range(len(sys.argv[3:])) if sys.argv[3:][day] == 'true']
         result = recurrence(sys.argv[2], sys.argv[3].split(':'), weekdays)
-    else:
+    elif sys.argv[1] == 1:
         # Run tokenremover       
         result = tokenremover(sys.argv[2], sys.argv[3])
+    else:
+        result = addon(sys.argv[2])
 
     print(result)
     sys.exit(0)
