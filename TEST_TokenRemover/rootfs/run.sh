@@ -114,7 +114,7 @@ then
 	
 	ADDON=$(curl -X GET --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons)
 	ADDON=$(python3 run.py 2 ${ADDON})
-	
+	echo -e "${ADDON}"
 	run
 	
 	# Stop this addon from running
