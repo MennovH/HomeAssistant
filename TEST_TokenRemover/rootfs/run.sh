@@ -114,5 +114,3 @@ else
 		sleep 60	
 	done
 fi
-
-exit 0
