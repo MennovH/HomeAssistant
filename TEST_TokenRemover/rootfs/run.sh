@@ -10,6 +10,7 @@ declare KEEP_ACTIVE
 declare RETENTION_DAYS
 declare RESULT
 declare AUTO
+declare ADDON
 declare MON
 declare TUE
 declare WED
@@ -51,20 +52,9 @@ done
 
 run () {
 
-    echo -e " \nRun time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-	status=$(curl -X GET --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/host/services)
-	
-	while :
-	do
-	    if [[ $status == *'{"name": "haos-agent.service", "description": "Home Assistant OS Agent", "state": "active"}'* ]];
-	    then
-	    	break
-	    else
-	        sleep 10
-	    fi
-	done
+    echo -e " \nRun time: $(date '+%Y-%m-%d %H:%M:%S')\n"	
 
-	echo "Waiting 30 seconds to prevent running while starting"
+	echo "Waiting 30 seconds to prevent running while HA is booting"
 	sleep 30
 	
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
@@ -112,12 +102,12 @@ if [ "${AUTO}" == "Once" ];
 then
 	echo -e "${__BASHIO_COLORS_YELLOW}TokenRemover will run only once due to invalid recurrence configuration${__BASHIO_COLORS_DEFAULT}"
 	
+	# Get current addon name
 	ADDON=$(curl -X GET --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons)
 	ADDON=$(python3 run.py 2 ${ADDON})
-	echo -e "${ADDON}"
 	run
 	
-	# Stop this addon from running
+	# Permanently stop this addon from running
 	$(curl -X POST --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons/${ADDON}/stop > /dev/null 2>&1)
 	
 else
