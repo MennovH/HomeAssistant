@@ -116,5 +116,5 @@ else
 	done
 fi
 
-exec finish
+exec ./finish
 
