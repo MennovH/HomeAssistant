@@ -58,15 +58,15 @@ run () {
 	do
 	    if [[ $status == *'{"name": "haos-agent.service", "description": "Home Assistant OS Agent", "state": "active"}'* ]];
 	    then
-	        echo "HA is started"
 	    	break
 	    else
-	        echo "HA is not started"
 	        sleep 10
 	    fi
 	done
 
-
+	echo "Waiting 30 seconds to prevent running while starting"
+	sleep 30
+	
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 	echo -e "${RESULT}\n"
 	
@@ -92,7 +92,7 @@ run () {
 			TMP_BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
 			if ! [[ ${BAN_LINE_COUNT} == ${TMP_BAN_LINE_COUNT} ]];
 			then
-				echo -e "\e[1A\e[\e[1;31mDetected banned IP addresses since execution.\nRestoring ip_bans.yaml file.\e[1;37m\n"
+				echo -e "\e[1;31mDetected banned IP addresses since execution.\nRestoring ip_bans.yaml file.\e[1;37m\n"
 				cp "${TMP_BAN_FILE}" "${BAN_FILE}" && rm "${TMP_BAN_FILE}"
 				
 				bashio::core.restart
