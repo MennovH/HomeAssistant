@@ -10,7 +10,9 @@ AUTH_FILE = "/config/.storage/auth"
 
 
 def status(output):
-    print(output)
+    parsed = json.loads(output)
+    
+    print(parsed['data'])
 
 def date_calc(date, weekday):
     d = datetime.strptime(date, '%Y-%m-%d')
