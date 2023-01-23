@@ -56,7 +56,7 @@ run () {
 	
 	while :
 	do
-	    if [[ $status == *'{"name": "haos-agent.service", "description": "Home Assistant OS Agent", "state": "inactive"}'* ]];
+	    if [[ $status == *'{"name": "haos-agent.service", "description": "Home Assistant OS Agent", "state": "active"}'* ]];
 	    then
 	        echo "HA is started"
 	    	break
