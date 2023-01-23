@@ -107,7 +107,7 @@ then
 else
 	while :
 	do
-		RESULT=$(python3 run.py ${AM_PM} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
+		RESULT=$(python3 run.py 0 ${AM_PM} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 		echo -e $(echo -e "${RESULT}" | head -n1)
 		sleep $(echo -e "${RESULT}" | tail -n1)
 		

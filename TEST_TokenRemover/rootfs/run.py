@@ -15,7 +15,7 @@ def date_calc(date, weekday):
     return (d + t).strftime('%Y-%m-%d')
 
 
-def reoccurrence(am_pm, automation_time, weekdays):
+def recurrence(am_pm, automation_time, weekdays):
     # Calculate next run time
     hr, mnt = int(automation_time[0]), int(automation_time[1])
 
@@ -94,12 +94,15 @@ def tokenremover(retention_days, active_days):
     return "No tokens were removed"
 
 
-if __name__ == '__main__':
-    # Check reoccurrence
-    
-    weekdays = [day for day in range(len(sys.argv[3:])) if sys.argv[3:][day] == 'true']
-    result = reoccurrence(sys.argv[1], sys.argv[2].split(':'), weekdays)
-        
+if __name__ == '__main__':    
+    if sys.argv[1] == '0':
+        # Check recurrence
+        weekdays = [day for day in range(len(sys.argv[3:])) if sys.argv[3:][day] == 'true']
+        result = recurrence(sys.argv[2], sys.argv[3].split(':'), weekdays)
+    else:
+        # Run tokenremover
+        result = tokenremover(sys.argv[2], sys.argv[3])
+
     print(result)
     sys.exit(0)
     
