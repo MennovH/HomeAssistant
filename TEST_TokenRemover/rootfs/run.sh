@@ -55,7 +55,6 @@ run () {
     echo -e " \nRun time: $(date '+%Y-%m-%d %H:%M:%S')\n"	
 	
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
-	echo -e -n "${RESULT}"
 	
 	if [[ ${RESULT} == *"Restart"* ]];
 	then
@@ -64,6 +63,7 @@ run () {
 			cp "${BAN_FILE}" "${TMP_BAN_FILE}"
 			BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
 		fi
+		echo -e -n "${RESULT}"
 		
 		sleep 0.75
 		
@@ -90,6 +90,8 @@ run () {
 				rm "${TMP_BAN_FILE}";
 			fi
 		fi
+	else
+		echo -e "${RESULT}"
 	fi
 
 	echo -e " -> Finished TokenRemover execution\n "
