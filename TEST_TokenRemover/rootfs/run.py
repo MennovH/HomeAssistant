@@ -97,8 +97,8 @@ def tokenremover(retention_days, active_days):
 if __name__ == '__main__':
     # Check reoccurrence
     
-    weekdays = [day for day in range(7)] if sys.argv[1] == "Daily" else [day for day in range(len(sys.argv[4:])) if sys.argv[4:][day] == 'true']
-    result = reoccurrence(sys.argv[2], sys.argv[3].split(':'), weekdays)
+    weekdays = [day for day in range(len(sys.argv[3:])) if sys.argv[3:][day] == 'true']
+    result = reoccurrence(sys.argv[1], sys.argv[2].split(':'), weekdays)
         
     print(result)
     sys.exit(0)
