@@ -55,7 +55,7 @@ run () {
     echo -e " \nRun time: $(date '+%Y-%m-%d %H:%M:%S')\n"	
 	
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
-	echo -e "${RESULT}\n"
+	echo -e -n "${RESULT}"
 	
 	if [[ ${RESULT} == *"Restart"* ]];
 	then
@@ -70,17 +70,17 @@ run () {
 		# restart Home Assistant Core
 		bashio::core.restart
 		
-		echo -e "\r Restarted"
-		echo -e -n "Running checks..."
-		
+		echo -e "\r Done\n"
+		echo -e -n " -> Running checks..."
 		sleep 60
-		
+		echo -e "\r Done\n"
+			
 		if [ -f "${BAN_FILE}" ];
 		then
 			TMP_BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
 			if ! [[ ${BAN_LINE_COUNT} == ${TMP_BAN_LINE_COUNT} ]];
 			then
-				echo -e "${__BASHIO_COLORS_YELLOW} -> Detected new bans.${__BASHIO_COLORS_DEFAULT}\n    Restoring ip_bans.yaml file.\n"
+				echo -e "${__BASHIO_COLORS_YELLOW} -> Detected new IP bans.${__BASHIO_COLORS_DEFAULT}\n    Restoring ip_bans.yaml file.\n"
 				cp "${TMP_BAN_FILE}" "${BAN_FILE}" && rm "${TMP_BAN_FILE}"
 				
 				bashio::core.restart
@@ -89,6 +89,7 @@ run () {
 			else
 				rm "${TMP_BAN_FILE}";
 			fi
+		else
 		fi
 	fi
 
