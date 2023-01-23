@@ -89,9 +89,9 @@ def tokenremover(retention_days, active_days):
         
         # "send" return value to bash, so it will run the "ha core restart" command hereafter. The restart is
         # necessary to implement the changes, otherwise the updated file will be restored by Home Assistant RAM.
-        return f"Restarting now to remove {removed_tokens} token{'' if removed_tokens == 1 else 's'}"
+        return f" -> Removed {removed_tokens} token{'' if removed_tokens == 1 else 's'}\n -> Restarting..."
     
-    return "No tokens were removed"
+    return " -> No tokens were removed"
 
 
 if __name__ == '__main__':    
