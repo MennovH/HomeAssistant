@@ -112,7 +112,7 @@ if [ "${AUTO}" == "Once" ];
 then
 	echo -e "${__BASHIO_COLORS_YELLOW}TokenRemover will run only once due to invalid recurrence configuration${__BASHIO_COLORS_DEFAULT}"
 	
-	ADDON=$(curl -X GET -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons)
+	ADDON=$(curl -X GET --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons)
 	ADDON=$(python3 run.py 2 ${addon})
 	
 	
