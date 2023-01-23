@@ -114,5 +114,3 @@ else
 		sleep 60	
 	done
 fi
-
-exec /run/s6/basedir/bin/halt
