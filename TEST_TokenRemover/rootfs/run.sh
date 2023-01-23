@@ -100,7 +100,7 @@ run () {
 
 if [ "${AUTO}" == "Once" ];
 then
-	echo -e "${__BASHIO_COLORS_ORANGE}TokenRemover will run only once due to invalid recurrence configuration${__BASHIO_COLORS_DEFAULT}"
+	echo -e "${__BASHIO_COLORS_YELLOW}TokenRemover will run only once due to invalid recurrence configuration${__BASHIO_COLORS_DEFAULT}"
 	run
 else
 	while :
