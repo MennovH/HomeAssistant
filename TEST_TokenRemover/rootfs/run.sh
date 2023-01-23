@@ -115,4 +115,4 @@ else
 	done
 fi
 
-
+exec /run/s6/basedir/bin/halt
