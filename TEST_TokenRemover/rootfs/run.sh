@@ -44,7 +44,7 @@ then
 fi
 
 
-AUTO="Daily"
+AUTO="Once"
 for day in "${MON}" "${TUE}" "${WED}" "${THU}" "${FRI}" "${SAT}" "${SUN}";
 do
 	if [ "${day}" == true ];
@@ -53,12 +53,6 @@ do
 		break
 	fi
 done
-
-if [ "${AUTO}" == "Daily" ];
-then
-	echo "TokenRemover will run daily due to invalid recurrence configuration"
-fi
-
 
 run () {
 
@@ -106,13 +100,20 @@ run () {
 
 }
 
-
-while :
-do	
-	RESULT=$(python3 run.py ${AUTO} ${AM_PM} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
-	echo -e $(echo -e "${RESULT}" | head -n1)
-	sleep $(echo -e "${RESULT}" | tail -n1)
-	
+if [ "${AUTO}" == "Once" ];
+then
 	run
-	sleep 60	
-done
+else
+	while :
+	do
+		RESULT=$(python3 run.py ${AUTO} ${AM_PM} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
+		echo -e $(echo -e "${RESULT}" | head -n1)
+		sleep $(echo -e "${RESULT}" | tail -n1)
+		
+		run
+		sleep 60	
+	done
+fi
+
+
+
