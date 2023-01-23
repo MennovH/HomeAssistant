@@ -11,8 +11,7 @@ AUTH_FILE = "/config/.storage/auth"
 
 def addon(info):
     prt = info[info.index("TEST_TokenRemover"):]
-    return prt
-    return prt[prt.index(": "):prt.index("\", \"description")][3:]
+    return prt[prt.index(": "):prt.index("\",\"description")][3:]
 
 
 def date_calc(date, weekday):
