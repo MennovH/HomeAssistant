@@ -11,7 +11,6 @@ AUTH_FILE = "/config/.storage/auth"
 
 def addon(info):
     try:
-        return info["data"]
         prt = info[str(info["data"]).index("TEST_TokenRemover"):]
         return prt[prt.index(":"):prt.index("\",\"description")][2:]
     except Exception as e:
