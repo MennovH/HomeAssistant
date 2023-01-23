@@ -13,26 +13,26 @@ configuration:
     name: Number of activation days
     description: >-
       Enter an integer value between 1 and 365 days. Refresh tokens activated within this number of days, won't be removed.
-recurrence:
-  am_pm:
-    name: Select AM or PM
-    description: >-
-      TokenRemover will run before (AM) or after noon (PM)
-  automation_time:
-    name: Select time
-    description: >-
-      Select the time on which TokenRemover should run
-  mon:
-    name: Run every Monday
-  tue:
-    name: Run every Tuesday
-  wed:
-    name: Run every Wednesday
-  thu:
-    name: Run every Thursday
-  fri:
-    name: Run every Friday
-  sat:
-    name: Run every Saturday
-  sun:
-    name: Run every Sunday
+  recurrence:
+    am_pm:
+      name: Select AM or PM
+      description: >-
+        TokenRemover will run before (AM) or after noon (PM)
+    automation_time:
+      name: Select time
+      description: >-
+        Select the time on which TokenRemover should run
+    mon:
+      name: Run every Monday
+    tue:
+      name: Run every Tuesday
+    wed:
+      name: Run every Wednesday
+    thu:
+      name: Run every Thursday
+    fri:
+      name: Run every Friday
+    sat:
+      name: Run every Saturday
+    sun:
+      name: Run every Sunday
