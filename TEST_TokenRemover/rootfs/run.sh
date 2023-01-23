@@ -34,6 +34,8 @@ FRI=$(bashio::config 'fri' | xargs echo -n)
 SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
+whoami
+
 
 echo -e "${__BASHIO_COLORS_GREEN}Started add-on\n ${__BASHIO_COLORS_DEFAULT}"
 
@@ -116,5 +118,4 @@ else
 	done
 fi
 
-exec finish
 
