@@ -109,7 +109,7 @@ if __name__ == '__main__':
         # Run tokenremover       
         result = tokenremover(sys.argv[2], sys.argv[3])
     else:
-        result = addon(sys.argv[2:])
+        result = addon("".join(sys.argv[2:]))
 
     print(result)
     sys.exit(0)
