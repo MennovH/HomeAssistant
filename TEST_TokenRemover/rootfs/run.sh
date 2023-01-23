@@ -53,8 +53,21 @@ run () {
 
     echo -e " \nRun time: $(date '+%Y-%m-%d %H:%M:%S')\n"
 	status=$(curl -X GET --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/host/services)
+	
+	while :
+	do
+	    if [[ $status == *'{"name": "haos-agent.service", "description": "Home Assistant OS Agent", "state": "inactive"}'* ]];
+	    then
+	        echo "HA is started"
+	    	break
+	    else
+	        echo "HA is not started"
+	        sleep 10
+	    fi
+	done
 
-	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS} ${status})
+
+	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 	echo -e "${RESULT}\n"
 	
 	if [[ ${RESULT} == *"restart"* ]];
