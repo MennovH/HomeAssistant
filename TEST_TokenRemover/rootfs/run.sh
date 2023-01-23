@@ -9,7 +9,7 @@ declare ACTIVATION_DAYS
 declare KEEP_ACTIVE
 declare RETENTION_DAYS
 declare RESULT
-#declare AUTO
+declare AUTO
 declare MON
 declare TUE
 declare WED
@@ -24,7 +24,7 @@ TMP_BAN_FILE="/config/tmp_ip_bans.yaml"
 RETENTION_DAYS=$(bashio::config 'retention_days' | xargs echo -n)
 KEEP_ACTIVE=$(bashio::config 'keep_active' | xargs echo -n)
 ACTIVATION_DAYS=$(bashio::config 'activation_days' | xargs echo -n)
-#AUTOMATION=$(bashio::config 'automation' | xargs echo -n)
+AUTOMATION=$(bashio::config 'automation' | xargs echo -n)
 AM_PM=$(bashio::config 'am_pm' | xargs echo -n)
 AUTOMATION_TIME=$(bashio::config 'automation_time' | xargs echo -n)
 MON=$(bashio::config 'mon' | xargs echo -n)
@@ -35,7 +35,7 @@ FRI=$(bashio::config 'fri' | xargs echo -n)
 SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
-echo -e "${AM_PM}"
+
 echo -e "${__BASHIO_COLORS_GREEN}Started add-on\n ${__BASHIO_COLORS_DEFAULT}"
 
 if [ "${KEEP_ACTIVE}" == false ];
@@ -45,15 +45,21 @@ then
 fi
 
 
-AUTO="Daily"
+AUTO=false
 for day in "${MON}" "${TUE}" "${WED}" "${THU}" "${FRI}" "${SAT}" "${SUN}";
 do
 	if [ "${day}" == true ];
 	then
-		AUTO="Defined"
+		AUTO=true
 		break
 	fi
 done
+
+
+if [ "${AUTO}" == false ];
+then
+	AUTOMATION=false
+fi
 
 
 run () {
@@ -104,11 +110,19 @@ run () {
 
 
 while :
-do
-	RESULT=$(python3 run.py ${AUTO} ${AM_PM} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
-	echo -e $(echo -e "${RESULT}" | head -n1)
-	sleep $(echo -e "${RESULT}" | tail -n1)
+do	
+	if [ "${AUTOMATION}" == false ];
+	then
+		run
+		break
+	else
+		
+		RESULT=$(python3 run.py 0 ${AM_PM} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
+		echo -e $(echo -e "${RESULT}" | head -n1)
+		sleep $(echo -e "${RESULT}" | tail -n1)
+		
+		run
+		sleep 60
+	fi
 	
-	run
-	sleep 60
 done
