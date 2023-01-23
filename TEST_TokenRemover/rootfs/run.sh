@@ -53,14 +53,11 @@ done
 run () {
 
     echo -e " \nRun time: $(date '+%Y-%m-%d %H:%M:%S')\n"	
-
-	echo "Waiting 30 seconds to prevent running while HA is booting"
-	sleep 30
 	
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 	echo -e "${RESULT}\n"
 	
-	if [[ ${RESULT} == *"restart"* ]];
+	if [[ ${RESULT} == *"Restart"* ]];
 	then
 		if [ -f "${BAN_FILE}" ];
 		then
@@ -73,21 +70,22 @@ run () {
 		# restart Home Assistant Core
 		bashio::core.restart
 		
-		echo -e "Running checks ..."
+		echo -e "\r Restarted"
+		echo -e -n "Running checks..."
 		
 		sleep 60
-
+		
 		if [ -f "${BAN_FILE}" ];
 		then
 			TMP_BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
 			if ! [[ ${BAN_LINE_COUNT} == ${TMP_BAN_LINE_COUNT} ]];
 			then
-				echo -e "\e[1;31mDetected banned IP addresses since execution.\nRestoring ip_bans.yaml file.\e[1;37m\n"
+				echo -e "${__BASHIO_COLORS_YELLOW} -> Detected new bans.${__BASHIO_COLORS_DEFAULT}\n    Restoring ip_bans.yaml file.\n"
 				cp "${TMP_BAN_FILE}" "${BAN_FILE}" && rm "${TMP_BAN_FILE}"
 				
 				bashio::core.restart
 				
-				echo -e " \nFinished restoring ip_bans.yaml file.\n"
+				echo -e "${__BASHIO_COLORS_GREEN} -> Restored ip_bans.yaml file.${__BASHIO_COLORS_DEFAULT}\n"
 			else
 				rm "${TMP_BAN_FILE}";
 			fi
