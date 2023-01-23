@@ -94,7 +94,7 @@ run () {
 		fi
 	fi
 
-	echo -e "Finished TokenRemover execution\n "
+	echo -e " -> Finished TokenRemover execution\n "
 
 }
 
