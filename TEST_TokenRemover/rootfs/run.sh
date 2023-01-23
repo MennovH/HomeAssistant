@@ -52,9 +52,8 @@ done
 run () {
 
     echo -e " \nRun time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-    	try {
-	    status=$(curl -X GET -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/host/services)
-	} catch {}
+	status=$(curl -X GET -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/host/services)
+	echo -e "${status}"
 
 	RESULT=$(python3 run.py 1 ${status} ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 	echo -e "${RESULT}\n"
