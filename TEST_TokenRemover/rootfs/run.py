@@ -10,7 +10,7 @@ AUTH_FILE = "/config/.storage/auth"
 
 
 def addon(info):
-    prt = info[info.index("TokenRemover"):]
+    prt = info[info.index("TEST_TokenRemover"):]
     return prt[prt.index(": "):prt.index("\", \"description")][3:]
 
 
