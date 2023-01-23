@@ -55,11 +55,10 @@ done
 
 run () {
 
-    echo -e " \nTime: $(date '+%Y-%m-%d %H:%M:%S')\n"
-	echo -e -n "\rRunning TokenRemover\r"
+    echo -e " \nRun time: $(date '+%Y-%m-%d %H:%M:%S')\n"
 
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
-	echo -e "\r${RESULT}\n"
+	echo -e "${RESULT}\n"
 	
 	if [[ ${RESULT} == *"restart"* ]];
 	then
