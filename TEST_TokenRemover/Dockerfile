@@ -10,5 +10,5 @@ RUN \
 ADD rootfs/run.py  /
 
 COPY /rootfs /app
-RUN chmod a+x /app/run.sh /app/finish
+RUN chmod a+x /app/run.sh
 ENTRYPOINT ["/app/run.sh"]
