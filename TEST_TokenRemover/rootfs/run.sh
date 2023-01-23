@@ -56,7 +56,7 @@ done
 run () {
 
     echo -e " \nTime: $(date '+%Y-%m-%d %H:%M:%S')\n"
-	echo -e -n "Running TokenRemover"
+	echo -e -n "Running TokenRemover\r"
 
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 	echo -e "\r\033[1A\033[0K${RESULT}\n"
