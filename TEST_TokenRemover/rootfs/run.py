@@ -9,6 +9,9 @@ import sys
 AUTH_FILE = "/config/.storage/auth"
 
 
+def status(output):
+    print(output)
+
 def date_calc(date, weekday):
     d = datetime.strptime(date, '%Y-%m-%d')
     t = timedelta((7 + weekday - d.weekday()) % 7)
@@ -100,7 +103,13 @@ if __name__ == '__main__':
         result = recurrence(sys.argv[2], sys.argv[3].split(':'), weekdays)
     else:
         # Run tokenremover
-        result = tokenremover(sys.argv[2], sys.argv[3])
+        try:
+            result = status(sys.argv[2])
+            print(result)
+        except:
+            pass
+        
+        result = tokenremover(sys.argv[3], sys.argv[4])
 
     print(result)
     sys.exit(0)
