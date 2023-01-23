@@ -18,11 +18,6 @@ declare FRI
 declare SAT
 declare SUN
 
-ip route del 10.10.20.0/24
-sleep 10
-ip route add 10.10.20.0/24 via 10.10.40.254
-
-
 BAN_FILE="/config/ip_bans.yaml"
 TMP_BAN_FILE="/config/tmp_ip_bans.yaml"
 RETENTION_DAYS=$(bashio::config 'retention_days' | xargs echo -n)
@@ -43,7 +38,6 @@ then
     echo -e "${__BASHIO_COLORS_YELLOW}Note: You may get locked out for one minute after restart, as TokenRemover doesn't know which token belongs to whom. TokenRemover will restore the current ip_bans.yaml file when it detects newly banned IP addresses within one minute after execution. Home Assistant Core will then again be restarted to make this change permanent, after which you should be able to log in again.\n${__BASHIO_COLORS_DEFAULT}"
 	ACTIVATION_DAYS = 999
 fi
-
 
 AUTO="Once"
 for day in "${MON}" "${TUE}" "${WED}" "${THU}" "${FRI}" "${SAT}" "${SUN}";
