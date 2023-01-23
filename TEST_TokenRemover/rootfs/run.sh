@@ -59,7 +59,7 @@ run () {
 	echo -e -n "Running TokenRemover"
 
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
-	echo -e "\\r\033[1A\033[0K${RESULT}\n"
+	echo -e "\\r${RESULT}\n"
 	
 	if [[ ${RESULT} == *"restart"* ]];
 	then
