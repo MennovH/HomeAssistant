@@ -13,6 +13,7 @@ INTERVAL=$(bashio::config 'interval')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
 SORT=$(bashio::config 'sort')
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
+CROSS_MARK="\u2714\u274c\"
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -46,13 +47,13 @@ check () {
     if [[ ${DNS_RECORD} == *"\"success\":false"* ]];
     then
         ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-        echo -e " - ${DOMAIN} \e[1;31mError: ${ERROR}\e[1;37m\n"
+        echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK}: ${ERROR}\e[1;37m\n"
     fi
     
     if [[ "${DNS_RECORD}" == *'"count":0'* ]];
     then
         ERROR=1
-        echo -e " - ${DOMAIN} \e[1;31mError: No A record found!\e[1;37m\n"
+        echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} A record not found!\e[1;37m\n"
     fi
     
     if [[ ${ERROR} == 0 ]];
