@@ -43,13 +43,18 @@ check () {
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json")
 
-    if [[ ${DNS_RECORD} == *"\"success\":false"* ]] || [[ "${DNS_RECORD}" == *'"count":0'* ]];
+    if [[ ${DNS_RECORD} == *"\"success\":false"* ]];
     then
         ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-        #echo -e " - \e[1;31mError: ${ERROR}\e[1;37m"
         echo -e " - ${DOMAIN} \e[1;31mError: ${ERROR}\e[1;37m\n"
-        #exit 0
     fi
+    
+    if [[ "${DNS_RECORD}" == *'"count":0'* ]];
+    then
+        ERROR=1
+        echo -e " - ${DOMAIN} \e[1;31mError: No A record found!\e[1;37m\n"
+    fi
+    
     if [[ ${ERROR} == 0 ]];
     then
         DOMAIN_ID=$(echo ${DNS_RECORD} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
