@@ -45,7 +45,8 @@ check () {
     if [[ ${DNS_RECORD} == *"\"success\":false"* ]];
     then
         ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-        echo -e " - \e[1;31mError: ${ERROR}\e[1;37m"
+        #echo -e " - \e[1;31mError: ${ERROR}\e[1;37m"
+        echo -e " - ${DOMAIN} \e[1;31mError: ${ERROR}\e[1;37m\n"
         #exit 0
     else
 
