@@ -43,7 +43,7 @@ check () {
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json")
 
-    if [[ ${DNS_RECORD} == *"\"success\":false"* ]];
+    if [[ ${DNS_RECORD} == *"\"success\":false"* ]] || [[ "${DNS_RECORD}" == *'"count":0'* ]];
     then
         ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         #echo -e " - \e[1;31mError: ${ERROR}\e[1;37m"
