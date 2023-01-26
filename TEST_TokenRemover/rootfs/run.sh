@@ -50,9 +50,6 @@ do
 	fi
 done
 
-ADDON=$(curl -X GET --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons)
-echo -e "${ADDON}"
-
 run () {
 
     echo -e " \nRun time: $(date '+%Y-%m-%d %H:%M:%S')\n"	
