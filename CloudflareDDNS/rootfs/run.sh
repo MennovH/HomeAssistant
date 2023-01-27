@@ -18,9 +18,9 @@ CROSS_MARK="\u274c"
 
 if [[ ${SORT} == true ]];
 then
-    ARR=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -n)
+    ARR=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -n | xargs echo -n)
 else
-    ARR=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done)
+    ARR=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
 fi
 
 for ITEM in ${ARR[@]};
@@ -33,7 +33,7 @@ echo -e ${ARR[@]}
 
 
 
-echo -e $(bashio::config 'domains|keys' | awk 'NR==FNR{a[FNR]=$1;next} {print a[$1]}')
+#echo -e $(bashio::config 'domains|keys' | awk 'NR==FNR{a[FNR]=$1;next} {print a[$1]}')
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -118,13 +118,16 @@ do
         echo "Iterating domain list (sorted):"
         for ITEM in ${ARR[@]};
         do
-            check ${ITEM}# $(bashio::config "domains[${ITEM}].domain")
-        done #| sort -uk 1
+            check ${ITEM}
+            # $(bashio::config "domains[${ITEM}].domain")
+        done
+        #| sort -uk 1
     else
         echo "Iterating domain list:"
-        for ITEM in ${ARR[@]};#$(bashio::config "domains|keys");
+        for ITEM in ${ARR[@]}; #$(bashio::config "domains|keys");
         do
-            check ${ITEM} #$(bashio::config "domains[${ITEM}].domain")
+            check ${ITEM}
+            #$(bashio::config "domains[${ITEM}].domain")
         done
     fi
 
