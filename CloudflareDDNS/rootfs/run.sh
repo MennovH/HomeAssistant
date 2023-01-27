@@ -18,7 +18,7 @@ CROSS_MARK="\u274c"
 
 if [[ ${SORT} == true ]];
 then
-    ARR=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -n -uk 1 | xargs echo -n)
+    ARR=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk1 -n | xargs echo -n)
 else
     ARR=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
 fi
