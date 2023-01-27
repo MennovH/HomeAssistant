@@ -116,15 +116,15 @@ do
     if [[ ${SORT} == true ]];
     then
         echo "Iterating domain list (sorted):"
-        for ITEM in $(bashio::config "domains|keys");
+        for ITEM in ${ARR[@]};
         do
-            check $(bashio::config "domains[${ITEM}].domain")
-        done | sort -uk 1
+            check ${ITEM}# $(bashio::config "domains[${ITEM}].domain")
+        done #| sort -uk 1
     else
         echo "Iterating domain list:"
-        for ITEM in $(bashio::config "domains|keys");
+        for ITEM in ${ARR[@]};#$(bashio::config "domains|keys");
         do
-            check $(bashio::config "domains[${ITEM}].domain")
+            check ${ITEM} #$(bashio::config "domains[${ITEM}].domain")
         done
     fi
 
