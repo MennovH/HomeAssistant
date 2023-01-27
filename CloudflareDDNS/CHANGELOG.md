@@ -1,9 +1,9 @@
 # v1.3.2
 - Improved domain sorting:
   - The log output will be available sooner while iterating through the list of domains
-- Removed sort option:
-  - All domains will be sorted by default
-  - Any duplicates will now certainly be removed from the list
+- Removed sort option from configuration:
+  - The list of domains will be sorted by default
+  - Any duplicates will from now on certainly be removed from the list
 - Improved error handling:
   - Missing domains will now be mentioned in the logs
   - Missing domains won't cause the add-on to stop running anymore
