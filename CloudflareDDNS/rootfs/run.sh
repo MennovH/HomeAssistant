@@ -17,6 +17,16 @@ CROSS_MARK="\u274c"
 
 echo -e $(bashio::config "domains|keys")
 
+
+arr=()
+
+while IFS= read -r val; do
+  arr+=("'$val'")
+done < <(printf $(bashio::config "domains|keys"))
+
+(IFS=,; printf '[%s]' "${arr[*]}")
+
+
 for ITEM in $(bashio::config "domains|keys");
 do
     echo -e $(bashio::config "domains[${ITEM}].domain")
