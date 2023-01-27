@@ -20,7 +20,7 @@ CROSS_MARK="\u274c"
 ARR=()
 for ITEM in $(bashio::config "domains|keys");
 do
-    ARR+=$(bashio::config "domains[${ITEM}].domain")
+    ARR+=($(bashio::config "domains[${ITEM}].domain"))
 done | sort -uk 1
 
 echo -e "${ARR}"
