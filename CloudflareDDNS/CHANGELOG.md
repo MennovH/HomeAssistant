@@ -1,3 +1,13 @@
+# v1.3.2
+- Improved domain sorting
+- Removed sort option:
+  - All domains will be sorted by default
+  - Any duplicates will now certainly be removed from the list
+- Improved error handling:
+  - Missing domains will now be mentioned in the logs
+  - Missing domains won't cause the add-on to stop running anymore
+  - Errors won't cause the add-on to stop running anymore
+
 # v1.3.1
 Updated codenotary
 
