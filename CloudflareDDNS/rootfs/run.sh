@@ -16,6 +16,16 @@ CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
 
+arr=()
+for ITEM in $(bashio::config "domains|keys");
+do
+    arr+=$(bashio::config "domains[${ITEM}].domain")
+done | sort -uk 1
+
+echo -e "${arr}"
+
+
+
 echo -e $(bashio::config 'domains|keys' | awk 'NR==FNR{a[FNR]=$1;next} {print a[$1]}')
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
