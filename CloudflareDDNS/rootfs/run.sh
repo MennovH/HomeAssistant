@@ -5,7 +5,7 @@ declare TOKEN
 declare ZONE
 declare INTERVAL
 declare SHOW_HIDE_PIP
-declare ARR
+declare DOMAINS
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
@@ -16,24 +16,7 @@ SORT=$(bashio::config 'sort')
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
-if [[ ${SORT} == true ]];
-then
-    ARR=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
-else
-    ARR=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
-fi
-
-for ITEM in ${ARR[@]};
-do
-    echo -e "- ${ITEM}"
-#    ARR+= $(bashio::config "domains[${ITEM}].domain")
-done
-
-echo -e ${ARR[@]}
-
-
-
-#echo -e $(bashio::config 'domains|keys' | awk 'NR==FNR{a[FNR]=$1;next} {print a[$1]}')
+DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -113,24 +96,12 @@ do
     fi
 
     # iterate through listed domains
-    if [[ ${SORT} == true ]];
-    then
-        echo "Iterating domain list (sorted):"
-        for ITEM in ${ARR[@]};
-        do
-            check ${ITEM}
-            # $(bashio::config "domains[${ITEM}].domain")
-        done
-        #| sort -uk 1
-    else
-        echo "Iterating domain list:"
-        for ITEM in ${ARR[@]}; #$(bashio::config "domains|keys");
-        do
-            check ${ITEM}
-            #$(bashio::config "domains[${ITEM}].domain")
-        done
-    fi
-
+    echo "Iterating domain list:"
+    for ITEM in ${DOMAINS[@]};
+    do
+        check ${ITEM}
+    done
+        
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check is at ${NEXT}\n "
     sleep ${INTERVAL}m
