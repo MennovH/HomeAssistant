@@ -15,6 +15,14 @@ SORT=$(bashio::config 'sort')
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
+echo -e $(bashio::config "domains|keys")
+
+for ITEM in $(bashio::config "domains|keys");
+do
+    echo -e $(bashio::config "domains[${ITEM}].domain")
+done | sort -uk 1
+
+
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
