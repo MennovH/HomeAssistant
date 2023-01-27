@@ -5,7 +5,7 @@
   "version": "0.0.1",
   "config_flow": true,
   "requirements": [],
-  "documentation": ""
+  "documentation": "https://github.com/MennovH/HomeAssistant/blob/main/supervisor_health/README.md",
   "iot_class": "cloud_polling",
   "ssdp": [],
   "zeroconf": [],
