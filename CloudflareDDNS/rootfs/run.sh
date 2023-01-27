@@ -16,7 +16,7 @@ SORT=$(bashio::config 'sort')
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
-ARR=for j in "$(bashio::config "domains|keys")[@]"; do echo $(bashio::config "domains[${j}].domain"); done | sort -n
+ARR=$(for j in "$(bashio::config "domains|keys")[@]"; do echo $(bashio::config "domains[${j}].domain"); done | sort -n)
 
 #for ITEM in $(bashio::config "domains|keys");
 #do
