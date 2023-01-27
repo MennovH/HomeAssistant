@@ -1,7 +1,7 @@
 {
   "codeowners": ["@MennovH"],
   "domain": "supervisor_health",
-  "name": "Supervisor Health",
+  "name": "Supervisor health",
   "version": "0.0.1",
   "config_flow": true,
   "requirements": [],

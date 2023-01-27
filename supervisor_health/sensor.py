@@ -28,7 +28,7 @@ class HealthEntity(CoordinatorEntity):
     @property
     def name(self):
         """Return the name of the sensor."""
-        return "Supervisor Health"
+        return "Supervisor health"
 
     @property
     def state(self):
