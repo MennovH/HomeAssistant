@@ -20,18 +20,13 @@ echo -e $(bashio::config "domains|keys")
 
 arr=()
 
-while IFS= read -r val; do
-  arr+=("'$val'")
-done < <(printf $(bashio::config "domains|keys"))
-
-(IFS=,; printf '[%s]' "${arr[*]}")
-
-
 for ITEM in $(bashio::config "domains|keys");
 do
+    arr+=$(bashio::config "domains[${ITEM}].domain")
     echo -e $(bashio::config "domains[${ITEM}].domain")
 done | sort -uk 1
 
+echo -e "${arr}"
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
