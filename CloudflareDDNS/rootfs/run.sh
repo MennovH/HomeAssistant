@@ -5,6 +5,7 @@ declare TOKEN
 declare ZONE
 declare INTERVAL
 declare SHOW_HIDE_PIP
+declare ARR -a
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
@@ -16,13 +17,13 @@ CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
 
-arr=()
+ARR=()
 for ITEM in $(bashio::config "domains|keys");
 do
-    arr+=$(bashio::config "domains[${ITEM}].domain")
+    ARR+=$(bashio::config "domains[${ITEM}].domain")
 done | sort -uk 1
 
-echo -e "${arr}"
+echo -e "${ARR}"
 
 
 
