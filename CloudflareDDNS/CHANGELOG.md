@@ -1,5 +1,6 @@
 # v1.3.2
-- Improved domain sorting
+- Improved domain sorting:
+  - The log output will be available sooner while iterating through the list of domains
 - Removed sort option:
   - All domains will be sorted by default
   - Any duplicates will now certainly be removed from the list
