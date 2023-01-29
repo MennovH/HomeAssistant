@@ -22,4 +22,4 @@ configuration:
   hide_public_ip: 
     name: Hide public IP address in logbook
     description: >-
-      Don't show the public IP address in the logbook.
+      Don't show the current public IP address in the logbook.
