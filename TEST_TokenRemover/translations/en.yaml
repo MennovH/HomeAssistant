@@ -14,9 +14,9 @@ configuration:
     description: >-
       Enter an integer value between 1 and 365 days. Refresh tokens activated within this number of days, won't be removed.
   am_pm:
-    name: Select AM or PM
+    name: Select AM, PM, or Both
     description: >-
-      TokenRemover will run before (AM), after noon (PM), or both
+      TokenRemover will run before (AM), after noon (PM), or before and after noon (Both)
   automation_time:
     name: Select time
     description: >-
