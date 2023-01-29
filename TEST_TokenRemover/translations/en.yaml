@@ -16,7 +16,7 @@ configuration:
   am_pm:
     name: Select AM or PM
     description: >-
-      TokenRemover will run before (AM) or after noon (PM)
+      TokenRemover will run before (AM), after noon (PM), or both
   automation_time:
     name: Select time
     description: >-
