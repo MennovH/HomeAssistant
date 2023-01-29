@@ -42,7 +42,7 @@ def recurrence(am_pm, automation_time, weekdays):
             for _ in range(2):
                 if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt, second=0):
                     later = datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt)
-                    return f"Next run at {later}\n{(later - datetime.now()).total_seconds()}"
+                    return f"Next run is at {later}\n{(later - datetime.now()).total_seconds()}"
                 h = 12 if h == 0 else hr + 12
                     
         else:
