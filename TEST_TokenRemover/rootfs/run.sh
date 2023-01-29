@@ -71,7 +71,7 @@ run () {
 		bashio::core.restart
 		
 		echo -e -n " -> Running checks..."
-		sleep 60
+		sleep 120
 		echo -e "\r Done\n"
 			
 		if [ -f "${BAN_FILE}" ];
