@@ -57,11 +57,11 @@ check () {
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
         ERROR=1
-        
         if [[ ${AUTO_CREATE} == 1 ]];
         then
+            echo "auto create"
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":"true"}' "${DOMAIN}" "${PUBLIC_IP}")
-            API_RESPONSE=$(curl -sX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+            API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
                 -H "X-Auth-Email: ${EMAIL}" \
                 -H "Authorization: Bearer ${TOKEN}" \
                 -H "Content-Type: application/json" \
