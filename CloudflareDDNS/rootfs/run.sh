@@ -11,7 +11,7 @@ EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
-SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
+HIDE_PIP=$(bashio::config 'hide_public_ip')
 AUTO_CREATE=$(bashio::config 'auto_create')
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
@@ -109,7 +109,7 @@ while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-    if [[ ${SHOW_HIDE_PIP} == 1 ]];
+    if [[ ${HIDE_PIP} == 0 ]];
     then
         Public IP address: ${PUBLIC_IP}\n
     fi
