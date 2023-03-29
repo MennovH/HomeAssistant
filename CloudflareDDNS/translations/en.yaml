@@ -23,3 +23,7 @@ configuration:
     name: Hide public IP address in logbook
     description: >-
       Don't show the current public IP address in the logbook.
+  auto_create:
+    name: Automatically create proxied A record
+    description: >-
+      Automatically create proxied A record
