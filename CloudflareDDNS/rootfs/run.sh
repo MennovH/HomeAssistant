@@ -13,7 +13,6 @@ ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
 AUTO_CREATE=$(bashio::config 'auto_create')
-API_RESPONSE=""
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
@@ -40,44 +39,17 @@ else
     echo -e "Checking A records every ${INTERVAL} minutes\n "
 fi
 
-
 check () {
-    result=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
+    ERROR=0
+    DOMAIN=$1
+    API_RESPONSE=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
         -H "X-Auth-Email: ${EMAIL}" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json")
-    echo -e $result
-}
-
-update () {
-    DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
-    result=$(curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
-        -H "X-Auth-Email: ${EMAIL}" \
-        -H "Authorization: Bearer ${TOKEN}" \
-        -H "Content-Type: application/json" \
-        --data ${DATA})
-    echo -e $result
-}
-
-create () {
-    DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "true")
-    result=$(curl -sX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
-        -H "X-Auth-Email: ${EMAIL}" \
-        -H "Authorization: Bearer ${TOKEN}" \
-        -H "Content-Type: application/json" \
-        --data ${DATA})
-    echo -e $result
-}
-
-find () {
-    ERROR=0
-    DOMAIN=$1
-    check
-    API_RESPONSE=$?
-
+        
     if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
     then
-        ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
+        ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} ${ERROR}\e[1;37m\n"
     fi
     
@@ -87,16 +59,19 @@ find () {
         
         if [[ ${AUTO_CREATE} == 1 ]];
         then
-            create
-            API_RESPONSE=$?
+            DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "true")
+            API_RESPONSE=$(curl -sX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+                -H "X-Auth-Email: ${EMAIL}" \
+                -H "Authorization: Bearer ${TOKEN}" \
+                -H "Content-Type: application/json")
+                --data ${DATA})
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
-                ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
+                ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
                 echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} ${ERROR}\e[1;37m\n"
             else
                 echo -e " - ${DOMAIN} \e[1;32m created\e[1;37m\n"
             fi
-            
         else
             echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} A record not found!\e[1;37m\n"
         fi
@@ -110,9 +85,12 @@ find () {
 
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
-        
-            update
-            API_RESPONSE=$?
+            DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
+            API_RESPONSE=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
+                -H "X-Auth-Email: ${EMAIL}" \
+                -H "Authorization: Bearer ${TOKEN}" \
+                -H "Content-Type: application/json" \
+                --data ${DATA})
 
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
@@ -139,7 +117,7 @@ do
     echo "Iterating domain list:"
     for ITEM in ${DOMAINS[@]};
     do
-        find ${ITEM}
+        check ${ITEM}
     done
         
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
