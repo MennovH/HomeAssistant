@@ -59,7 +59,7 @@ check () {
         ERROR=1
         echo "auto create:"
         echo -e ${AUTO_CREATE}
-        if [[ ${AUTO_CREATE} == 1 ]];
+        if [[ ${AUTO_CREATE} == "true" ]];
         then
             echo "auto create"
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":"true"}' "${DOMAIN}" "${PUBLIC_IP}")
