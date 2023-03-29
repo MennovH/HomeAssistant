@@ -26,4 +26,4 @@ configuration:
   auto_create:
     name: Automatically create proxied A record
     description: >-
-      Automatically create proxied A record
+      Proxied A records will be created automatically for non-existent (sub)domains.
