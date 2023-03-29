@@ -62,7 +62,7 @@ check () {
         if [[ ${AUTO_CREATE} == "true" ]];
         then
             echo "auto create"
-            DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":"true"}' "${DOMAIN}" "${PUBLIC_IP}")
+            DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":true}' "${DOMAIN}" "${PUBLIC_IP}")
             API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
                 -H "X-Auth-Email: ${EMAIL}" \
                 -H "Authorization: Bearer ${TOKEN}" \
