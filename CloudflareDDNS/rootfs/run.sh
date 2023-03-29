@@ -69,7 +69,8 @@ create () {
 find () {
     ERROR=0
     DOMAIN=$1
-    API_RESPONSE=$(check)
+    check
+    API_RESPONSE=$?
 
     if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
     then
@@ -83,7 +84,8 @@ find () {
         
         if [[ ${AUTO_CREATE} == 1 ]];
         then
-            API_RESPONSE=$(create)
+            create
+            API_RESPONSE=$?
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
                 ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
@@ -106,7 +108,8 @@ find () {
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
         
-            API_RESPONSE=$(update)
+            update
+            API_RESPONSE=$?
 
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
