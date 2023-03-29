@@ -12,6 +12,7 @@ TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
+AUTO_CREATE=$(bashio::config 'auto_create')
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
@@ -38,40 +39,76 @@ else
     echo -e "Checking A records every ${INTERVAL} minutes\n "
 fi
 
+
 check () {
-    ERROR=0
     DOMAIN=$1
-    DNS_RECORD=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
+    return $(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
         -H "X-Auth-Email: ${EMAIL}" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json")
+}
 
-    if [[ ${DNS_RECORD} == *"\"success\":false"* ]];
+update () {
+    DOMAIN=$1
+    DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
+    return $(curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
+        -H "X-Auth-Email: ${EMAIL}" \
+        -H "Authorization: Bearer ${TOKEN}" \
+        -H "Content-Type: application/json" \
+        --data ${DATA})
+}
+
+create () {
+    DOMAIN=$1
+    DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "true")
+    return $(curl -sX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+        -H "X-Auth-Email: ${EMAIL}" \
+        -H "Authorization: Bearer ${TOKEN}" \
+        -H "Content-Type: application/json")
+        --data ${DATA})
+}
+
+find () {
+    ERROR=0
+    DOMAIN=$1
+    API_RESPONSE = check($DOMAIN)
+
+    if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
     then
         ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} ${ERROR}\e[1;37m\n"
     fi
     
-    if [[ "${DNS_RECORD}" == *'"count":0'* ]];
+    if [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
         ERROR=1
-        echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} A record not found!\e[1;37m\n"
+        
+        if [[ ${AUTO_CREATE} == 1 ]];
+        then
+            API_RESPONSE=create($DOMAIN)
+            if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
+            then
+                ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
+                echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} ${ERROR}\e[1;37m\n"
+            else
+                echo -e " - ${DOMAIN} (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;32m created\e[1;37m\n"
+            fi
+            
+        else
+            echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} A record not found!\e[1;37m\n"
+        fi
     fi
     
     if [[ ${ERROR} == 0 ]];
     then
-        DOMAIN_ID=$(echo ${DNS_RECORD} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
-        DOMAIN_IP=$(echo ${DNS_RECORD} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
-        DOMAIN_PROXIED=$(echo ${DNS_RECORD} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
+        DOMAIN_ID=$(echo ${API_RESPONSE} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
+        DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
+        DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
 
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
-            DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
-            API_RESPONSE=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
-                -H "X-Auth-Email: ${EMAIL}" \
-                -H "Authorization: Bearer ${TOKEN}" \
-                -H "Content-Type: application/json" \
-                --data ${DATA})
+        
+            API_RESPONSE=update($DOMAIN)
 
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
@@ -98,7 +135,7 @@ do
     echo "Iterating domain list:"
     for ITEM in ${DOMAINS[@]};
     do
-        check ${ITEM}
+        find ${ITEM}
     done
         
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
