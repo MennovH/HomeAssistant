@@ -57,8 +57,9 @@ check () {
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
         ERROR=1
-        echo "auto createeeee!"
-        if [[ "${AUTO_CREATE}" == 1 ]];
+        echo "auto create:"
+        echo -e ${AUTO_CREATE}
+        if [[ ${AUTO_CREATE} == 1 ]];
         then
             echo "auto create"
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":"true"}' "${DOMAIN}" "${PUBLIC_IP}")
