@@ -1,3 +1,7 @@
+# v1.3.3
+- Added auto-create option. When enabled, proxied A records will be created automatically for non-existent (sub)domains.
+- Minor logging output modifications.
+
 # v1.3.2
 - Improved domain sorting:
   - The log output will be available sooner while iterating through the list of domains
