@@ -59,7 +59,7 @@ check () {
         
         if [[ ${AUTO_CREATE} == 1 ]];
         then
-            DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "true")
+            DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":"true"}' "${DOMAIN}" "${PUBLIC_IP}")
             API_RESPONSE=$(curl -sX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
                 -H "X-Auth-Email: ${EMAIL}" \
                 -H "Authorization: Bearer ${TOKEN}" \
