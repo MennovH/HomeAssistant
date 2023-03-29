@@ -4,7 +4,8 @@ declare EMAIL
 declare TOKEN
 declare ZONE
 declare INTERVAL
-declare SHOW_HIDE_PIP
+declare HIDE_PIP
+declare AUTO_CREATE
 declare DOMAINS
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
