@@ -13,6 +13,7 @@ ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 SHOW_HIDE_PIP=$(bashio::config 'hide_public_ip')
 AUTO_CREATE=$(bashio::config 'auto_create')
+API_RESPONSE=""
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
@@ -41,7 +42,6 @@ fi
 
 
 check () {
-    DOMAIN=$1
     return $(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
         -H "X-Auth-Email: ${EMAIL}" \
         -H "Authorization: Bearer ${TOKEN}" \
@@ -49,7 +49,6 @@ check () {
 }
 
 update () {
-    DOMAIN=$1
     DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
     return $(curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
         -H "X-Auth-Email: ${EMAIL}" \
@@ -59,7 +58,6 @@ update () {
 }
 
 create () {
-    DOMAIN=$1
     DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "true")
     return $(curl -sX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
         -H "X-Auth-Email: ${EMAIL}" \
@@ -71,7 +69,7 @@ create () {
 find () {
     ERROR=0
     DOMAIN=$1
-    API_RESPONSE = $(check {$DOMAIN})
+    API_RESPONSE=$(check)
 
     if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
     then
@@ -85,7 +83,7 @@ find () {
         
         if [[ ${AUTO_CREATE} == 1 ]];
         then
-            API_RESPONSE=$(create {$DOMAIN})
+            API_RESPONSE=$(create)
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
                 ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
@@ -108,7 +106,7 @@ find () {
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
         
-            API_RESPONSE=$(update {$DOMAIN})
+            API_RESPONSE=$(update)
 
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
