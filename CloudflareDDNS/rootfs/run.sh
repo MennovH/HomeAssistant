@@ -63,8 +63,9 @@ check () {
             API_RESPONSE=$(curl -sX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
                 -H "X-Auth-Email: ${EMAIL}" \
                 -H "Authorization: Bearer ${TOKEN}" \
-                -H "Content-Type: application/json")
+                -H "Content-Type: application/json" \
                 --data ${DATA})
+                
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
                 ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
