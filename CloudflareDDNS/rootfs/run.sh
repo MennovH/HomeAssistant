@@ -91,7 +91,7 @@ find () {
                 ERROR=$(echo ${DNS_RECORD} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
                 echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} ${ERROR}\e[1;37m\n"
             else
-                echo -e " - ${DOMAIN} (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;32m created\e[1;37m\n"
+                echo -e " - ${DOMAIN} \e[1;32m created\e[1;37m\n"
             fi
             
         else
