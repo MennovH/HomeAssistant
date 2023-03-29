@@ -74,7 +74,7 @@ check () {
                 echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m created\e[1;37m\n"
             fi
         else
-            echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31mA record not found!\e[1;37m\n"
+            echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31m A record not found!\e[1;37m\n"
         fi
     fi
     
