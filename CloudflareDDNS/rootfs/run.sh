@@ -51,14 +51,12 @@ check () {
     if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
     then
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-        echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} ${ERROR}\e[1;37m\n"
+        echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31m ${ERROR}\e[1;37m\n"
     fi
     
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
         ERROR=1
-        echo "auto create:"
-        echo -e ${AUTO_CREATE}
         if [[ ${AUTO_CREATE} == "true" ]];
         then
             echo "auto create"
@@ -72,12 +70,12 @@ check () {
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
                 ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-                echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} ${ERROR}\e[1;37m\n"
+                echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31m ${ERROR}\e[1;37m\n"
             else
-                echo -e " - ${DOMAIN} \e[1;32m created\e[1;37m\n"
+                echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m created\e[1;37m\n"
             fi
         else
-            echo -e " - ${DOMAIN} \e[1;31m${CROSS_MARK} A record not found!\e[1;37m\n"
+            echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31mA record not found!\e[1;37m\n"
         fi
     fi
     
@@ -98,12 +96,14 @@ check () {
 
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
-                echo -e " - ${DOMAIN} (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;31m failed to update\e[1;37m\n"
+                echo -e " ${CROSS_MARK}${DOMAIN} =>\e[1;31m failed to update\e[1;37m\n"
+                # (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;31m failed to update\e[1;37m\n"
             else
-                echo -e " - ${DOMAIN} (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;32m updated\e[1;37m\n"
+                echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m updated\e[1;37m\n"
+                # (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;32m updated\e[1;37m\n"
             fi
         else
-            echo -e " - ${DOMAIN} ${CHECK_MARK}\n"
+            echo -e " ${CHECK_MARK} ${DOMAIN}\n"
         fi
     fi
 }
