@@ -19,10 +19,15 @@ CROSS_MARK="\u274c"
 
 DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
 
-echo -e $(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
-        -H "X-Auth-Email: ${EMAIL}" \
-        -H "Authorization: Bearer ${TOKEN}" \
-        -H "Content-Type: application/json" | jq -r '.result[].name')
+TEST=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
+    -H "X-Auth-Email: ${EMAIL}" \
+    -H "Authorization: Bearer ${TOKEN}" \
+    -H "Content-Type: application/json" | jq -r '.result[].name')
+
+for ITEM in ${TEST[@]};
+do
+    echo -e ${ITEM}
+done
 
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
