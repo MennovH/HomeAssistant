@@ -146,12 +146,12 @@ do
             fi
             HARDCODED_DOMAINS=( "${HARDCODED_DOMAINS[@]/$DOMAIN/}" )
         done
-        #DOMAINS=$(for j in $DOMAINS; do echo $j; done | sort -uk 1 | xargs echo -n)
+        DOMAINS=$(for j in $DOMAINS[@]; do echo $j; done | sort -uk 1 | xargs echo -n)
     fi
     
     # iterate through listed domains
     echo "Iterating domain list:"
-    for DOMAIN in ${DOMAINS[@]}; do check ${DOMAIN}; done | sort -uk 1
+    for DOMAIN in ${DOMAINS[@]}; do check ${DOMAIN}; done
     
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check is at ${NEXT}\n "
