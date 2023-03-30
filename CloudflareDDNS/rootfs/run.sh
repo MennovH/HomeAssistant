@@ -20,11 +20,6 @@ CROSS_MARK="\u274c"
 #HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
 HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
 
-for x in ${HARDCODED_DOMAINS[@]};
-do
-    echo -e "$x"
-done
-
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
@@ -54,6 +49,13 @@ function domain_lookup {
 function check {
     ERROR=0
     DOMAIN=$1
+    if [[ ${DOMAIN} == *"_no_proxy"* ]];
+    then
+        $DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
+        $PROXY=false
+    else
+        $PROXY=true
+    fi
     API_RESPONSE=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
         -H "X-Auth-Email: ${EMAIL}" \
         -H "Authorization: Bearer ${TOKEN}" \
@@ -70,7 +72,8 @@ function check {
         ERROR=1
        # if [[ ${AUTO_CREATE} == "true" ]];
        # then
-        DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":true}' "${DOMAIN}" "${PUBLIC_IP}")
+       
+        DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
         API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
             -H "X-Auth-Email: ${EMAIL}" \
             -H "Authorization: Bearer ${TOKEN}" \
