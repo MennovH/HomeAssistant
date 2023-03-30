@@ -48,9 +48,9 @@ function list_includes_item {
   local item="$2"
   if [[ $list =~ (^|[[:space:]])"$item"($|[[:space:]]) ]] ; then
     # yes, list includes item
-    result=0
-  else
     result=1
+  else
+    result=0
   fi
   return $result
 }
@@ -140,7 +140,7 @@ do
 
     for DOMAIN in ${INPUT_DOMAINS[@]};
     do
-        if ![`list_includes_item "$DOMAINS" "$DOMAIN"`];
+        if `list_includes_item "$DOMAINS" "$DOMAIN"`;
         then
             check ${DOMAIN}
         fi
