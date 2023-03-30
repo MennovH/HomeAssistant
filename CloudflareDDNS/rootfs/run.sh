@@ -14,7 +14,6 @@ TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 HIDE_PIP=$(bashio::config 'hide_public_ip')
-AUTO_CREATE=$(bashio::config 'auto_create')
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
@@ -64,25 +63,25 @@ function check {
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
         ERROR=1
-        if [[ ${AUTO_CREATE} == "true" ]];
+       # if [[ ${AUTO_CREATE} == "true" ]];
+       # then
+        DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":true}' "${DOMAIN}" "${PUBLIC_IP}")
+        API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+            -H "X-Auth-Email: ${EMAIL}" \
+            -H "Authorization: Bearer ${TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data ${DATA})
+
+        if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
         then
-            DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":true}' "${DOMAIN}" "${PUBLIC_IP}")
-            API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
-                -H "X-Auth-Email: ${EMAIL}" \
-                -H "Authorization: Bearer ${TOKEN}" \
-                -H "Content-Type: application/json" \
-                --data ${DATA})
-                
-            if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
-            then
-                ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-                echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31m ${ERROR}\e[1;37m\n"
-            else
-                echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m created\e[1;37m\n"
-            fi
+            ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
+            echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31m ${ERROR}\e[1;37m\n"
         else
-            echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31m A record not found!\e[1;37m\n"
+            echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m created\e[1;37m\n"
         fi
+       # else
+       #     echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31m A record not found!\e[1;37m\n"
+       # fi
     fi
     
     if [[ ${ERROR} == 0 ]];
