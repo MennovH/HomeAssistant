@@ -140,11 +140,8 @@ do
 
     for DOMAIN in ${INPUT_DOMAINS[@]};
     do
-        if `list_includes_item "$DOMAINS" "$DOMAIN"`;
+        if `!list_includes_item "$DOMAINS" "$DOMAIN"`;
         then
-            echo -e "Existent: ${DOMAIN}\n"
-        else
-            echo -e "Not existent: ${DOMAIN}\n"
             check ${DOMAIN}
         fi
     done
