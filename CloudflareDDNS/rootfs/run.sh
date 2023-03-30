@@ -136,13 +136,18 @@ do
         if `list_includes_item "$DOMAINS" "$DOMAIN"`;
         then
             DOMAINS+=("$DOMAIN")
+            echo -e "${INPUT_DOMAINS}"
+            INPUT_DOMAINS=( "${INPUT_DOMAINS[@]/$DOMAIN/}" )
+            echo -e "${INPUT_DOMAINS}"
             #check ${DOMAIN};
         fi
     done
 
+    DOMAIN_LIST=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
+
     # iterate through listed domains
     echo "Iterating domain list:"
-    for DOMAIN in ${DOMAINS[@]}; do check ${DOMAIN}; done
+    for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
     
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check is at ${NEXT}\n "
