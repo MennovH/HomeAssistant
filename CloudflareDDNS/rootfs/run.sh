@@ -145,10 +145,9 @@ do
             fi
             HARDCODED_DOMAINS=( "${HARDCODED_DOMAINS[@]/$DOMAIN/}" )
         done
-        echo -e "$DOMAINS"
         DOMAINS=$(for j in $DOMAINS; do echo $j; done | sort -uk 1 | xargs echo -n)
     fi
-    echo -e "$DOMAINS"
+    
     # iterate through listed domains
     echo "Iterating domain list:"
     for DOMAIN in ${DOMAINS[@]}; do check ${DOMAIN}; done
