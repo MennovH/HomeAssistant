@@ -8,6 +8,7 @@ declare HIDE_PIP
 declare AUTO_CREATE
 declare DOMAINS
 declare HARDCODED_DOMAINS
+declare -A DOMAIN_LIST
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
@@ -148,10 +149,18 @@ do
             HARDCODED_DOMAINS=( "${HARDCODED_DOMAINS[@]/$DOMAIN/}" )
         done | sort -uk 1
         #DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1 | xargs echo -n)
-        DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1)
+        #DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1)
     fi
     
-    DOMAINS=$(awk -v RS="[ \n]" -v ORS=" " '!($0 in DOMAINS){print;DOMAINS[$0]}' <(echo $DOMAINS))
+    DOMAIN_LIST=()
+    for w in "${DOMAINS[@]}"; do
+        [[ ${DOMAIN_LIST[$w]} ]] && continue
+        Aunique+=( "$w" )
+        DOMAIN_LIST[$w]=x
+    done
+    
+    
+   # DOMAINS=$(awk -v RS="[ \n]" -v ORS=" " '!($0 in DOMAINS){print;DOMAINS[$0]}' <(echo $DOMAINS))
     
     echo -e "${RS}"
     echo -e "${ORS}"
@@ -159,7 +168,7 @@ do
     
     # iterate through listed domains
     echo "Iterating domain list:"
-    for DOMAIN in ${DOMAINS[@]}; do check ${DOMAIN}; done
+    for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
     
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check is at ${NEXT}\n "
