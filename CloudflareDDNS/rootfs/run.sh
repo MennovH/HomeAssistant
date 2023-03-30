@@ -73,6 +73,7 @@ function check {
        # if [[ ${AUTO_CREATE} == "true" ]];
        # then
        
+        echo -e ${ERROR}
         DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
         API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
             -H "X-Auth-Email: ${EMAIL}" \
@@ -94,6 +95,7 @@ function check {
     
     if [[ ${ERROR} == 0 ]];
     then
+        echo -e ${ERROR}
         DOMAIN_ID=$(echo ${API_RESPONSE} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
