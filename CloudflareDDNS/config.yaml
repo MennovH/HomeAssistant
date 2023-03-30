@@ -20,18 +20,17 @@ options:
   email_address: null
   cloudflare_zone_id: null
   cloudflare_api_token: null
-  domains:
-    - domain: ""
   interval: 15
   hide_public_ip: true
   auto_create: true
+  domains:
+    - domain: ""
 schema:
   email_address: email
   cloudflare_zone_id: password
   cloudflare_api_token: password
-  domains:
-    - domain: str?
   interval: int(1,1440)
   hide_public_ip: bool
   auto_create: bool
-  
+  domains:
+    - domain: str?
