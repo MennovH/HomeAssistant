@@ -14,8 +14,13 @@ Using this add-on would mitigate the hassle you need to go through, if you want 
 # Configuration
 
 When installed, navigate to the configuration tab of the add-on. Fill in the empty input fields according the instructions below.
-1. `day` (required) Enter an integer value between 1 and 365 day(s). The default is 7 days. Refresh tokens older than this number in days will be removed. Devices of which the token has been removed, must re-authenticate.
-2. When ready, start the add-on.
+1. `retention_days` (required) (default: 7) Enter an integer value between 1 and 365 day(s). Refresh tokens older than this number in days will be removed, when `keep_active` is disabled. Devices of which the token has been removed, must re-authenticate.
+2. `keep_active` (required) (default: true) If true, tokens will not be removed when the tokens have been activated within the number of `activation_days`. Even when a token is significantly older than the number of `retention_days`.
+3. `activation_days` (required) (default: 7) Enter an integer value between 1 and 365 days. This option will only apply when `keep_active` is enabled.
+4. `am_pm` (required) (default: AM) TokenRemover will run before (AM), after noon (PM), or before and after noon (Both).
+5. `automation_time` (required) (default: 03:00) Select the time on which TokenRemover should run.
+6. Enable/disable the days on which TokenRemover should (not) run.
+7. When ready, start the add-on.
 
 #### Note: when refresh tokens - older than the defined number of days (+30 minutes to prevent a fast retrigger) - are found, Home Assistant core will be restarted. This step is necessary in order to make the changes permanent. You may want to run this add-on once in a while, e.g. with a nightly automation.
 
