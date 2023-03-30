@@ -13,11 +13,11 @@ Using this add-on would mitigate the hassle you need to go through, if you want 
 
 # Configuration
 
-When installed, navigate to the configuration tab of the add-on. Fill in the empty input fields according the instructions below.
-1. `retention_days` (required) (default: 7) Enter an integer value between 1 and 365 day(s). Refresh tokens older than this number in days will be removed, when `keep_active` is disabled. Devices of which the token has been removed, must re-authenticate.
-2. `keep_active` (required) (default: true) If true, tokens will not be removed when the tokens have been activated within the number of `activation_days`. Even when a token is significantly older than the number of `retention_days`.
-3. `activation_days` (required) (default: 7) Enter an integer value between 1 and 365 days. This option will only apply when `keep_active` is enabled.
-4. `am_pm` (required) (default: AM) TokenRemover will run before (AM), after noon (PM), or before and after noon (Both).
+When installed, navigate to the configuration tab of the add-on. Configure the add-on according to the instructions below.
+1. `retention_days` (default: 7) Enter an integer value between 1 and 365 day(s). Refresh tokens older than this number in days will be removed, when `keep_active` is disabled. Devices of which the token has been removed, must re-authenticate.
+2. `keep_active` (default: true) If true, tokens will not be removed when the tokens have been activated within the number of `activation_days`. Even when a token is significantly older than the number of `retention_days`.
+3. `activation_days` (default: 7) Enter an integer value between 1 and 365 days. This option will only apply when `keep_active` is enabled.
+4. `am_pm`* (default: AM) TokenRemover will run before (AM), after noon (PM), or before and after noon (Both).
 5. `automation_time` (required) (default: 03:00) Select the time on which TokenRemover should run.
 6. Enable/disable the days on which TokenRemover should (not) run.
 7. When ready, start the add-on.
