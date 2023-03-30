@@ -1,5 +1,5 @@
 # v1.3.3
-- Added auto-create option. When enabled, proxied A records will be created automatically for non-existent (sub)domains.
+- Removed the need to manually configure (sub)domains. CloudflareDDNS will fetch all existing A records within the specified zone and keep them up-to-date accordingly. Manually configuring (sub)domains is only necessary when the option "auto_create" is enabled. When "auto_create" is enabled, proxied A records will be created automatically for non-existent, but specified (sub)domains.
 - Minor logging output modifications.
 
 # v1.3.2
