@@ -140,8 +140,9 @@ do
 
     for DOMAIN in ${INPUT_DOMAINS[@]};
     do
-        if `!list_includes_item "$DOMAINS" "$DOMAIN"`;
+        if `list_includes_item "$DOMAINS" "$DOMAIN"`;
         then
+        else
             check ${DOMAIN}
         fi
     done
