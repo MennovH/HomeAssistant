@@ -33,14 +33,6 @@ then
     exit 1
 fi
 
-if [[ ${INTERVAL} == 1 ]];
-then
-    echo -e "Checking A records every minute\n "
-else
-    echo -e "Checking A records every ${INTERVAL} minutes\n "
-fi
-
-
 
 
 function list_includes_item {
@@ -54,7 +46,6 @@ function list_includes_item {
   fi
   return $result
 }
-
 
 
 function check () {
@@ -124,6 +115,8 @@ function check () {
     fi
 }
 
+if [[ ${INTERVAL} == 1 ]]; then echo -e "Checking A records every minute\n "; else echo -e "Checking A records every ${INTERVAL} minutes\n "; fi
+
 while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
@@ -139,20 +132,18 @@ do
         -H "Content-Type: application/json" | jq -r '.result[].name')
 
     for DOMAIN in ${INPUT_DOMAINS[@]};
-    do
+    do 
         if `list_includes_item "$DOMAINS" "$DOMAIN"`;
         then
-            check ${DOMAIN}
+            DOMAINS+=("$DOMAIN")
+            #check ${DOMAIN};
         fi
     done
 
     # iterate through listed domains
     echo "Iterating domain list:"
-    for DOMAIN in ${DOMAINS[@]};
-    do
-        check ${DOMAIN}
-    done
-        
+    for DOMAIN in ${DOMAINS[@]}; do check ${DOMAIN}; done
+    
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check is at ${NEXT}\n "
     sleep ${INTERVAL}m
