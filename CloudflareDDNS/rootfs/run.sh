@@ -7,6 +7,7 @@ declare INTERVAL
 declare HIDE_PIP
 declare AUTO_CREATE
 declare DOMAINS
+declare HARDCODED_DOMAINS
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
@@ -17,7 +18,7 @@ AUTO_CREATE=$(bashio::config 'auto_create')
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
-INPUT_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
+HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -33,9 +34,7 @@ then
     exit 1
 fi
 
-
-
-function list_includes_item {
+function domain_lookup {
   local list="$1"
   local item="$2"
   if [[ $list =~ (^|[[:space:]])"$item"($|[[:space:]]) ]] ; then
@@ -47,8 +46,7 @@ function list_includes_item {
   return $result
 }
 
-
-function check () {
+function check {
     ERROR=0
     DOMAIN=$1
     API_RESPONSE=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
@@ -121,27 +119,18 @@ while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-    if [[ ${HIDE_PIP} == 0 ]];
-    then
-        Public IP address: ${PUBLIC_IP}\n
-    fi
+    if [[ ${HIDE_PIP} == 0 ]]; then echo -e "Public IP address: ${PUBLIC_IP}\n"; fi
     
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
         -H "X-Auth-Email: ${EMAIL}" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name')
 
-    echo -e "${INPUT_DOMAINS}"
-    for DOMAIN in ${INPUT_DOMAINS[@]};
+    for DOMAIN in ${HARDCODED_DOMAINS[@]};
     do 
-        if `list_includes_item "$DOMAINS" "$DOMAIN"`;
-        then
-            DOMAINS+=("$DOMAIN")
-            #check ${DOMAIN};
-        fi
+        if `domain_lookup "$DOMAINS" "$DOMAIN"`; then DOMAINS+=("$DOMAIN"); fi
         INPUT_DOMAINS=( "${INPUT_DOMAINS[@]/$DOMAIN/}" )
     done
-    echo -e "${INPUT_DOMAINS}"
 
     DOMAIN_LIST=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
 
