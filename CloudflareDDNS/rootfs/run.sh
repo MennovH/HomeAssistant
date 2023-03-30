@@ -146,7 +146,7 @@ do
                 DOMAINS+=("$DOMAIN")
             fi
             HARDCODED_DOMAINS=( "${HARDCODED_DOMAINS[@]/$DOMAIN/}" )
-        done | sort -uk 1
+        done
         #DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1 | xargs echo -n)
         #DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1)
     fi
