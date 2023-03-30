@@ -19,12 +19,6 @@ CROSS_MARK="\u274c"
 
 INPUT_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
 
-for ITEM in ${TEST[@]};
-do
-    echo -e ${ITEM}
-done
-
-
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
@@ -46,7 +40,24 @@ else
     echo -e "Checking A records every ${INTERVAL} minutes\n "
 fi
 
-check () {
+
+
+
+function list_includes_item {
+  local list="$1"
+  local item="$2"
+  if [[ $list =~ (^|[[:space:]])"$item"($|[[:space:]]) ]] ; then
+    # yes, list includes item
+    result=0
+  else
+    result=1
+  fi
+  return $result
+}
+
+
+
+function check () {
     ERROR=0
     DOMAIN=$1
     API_RESPONSE=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
@@ -93,7 +104,7 @@ check () {
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
-            API_RESPONSE=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
+            API_RESPONSE=$(curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
                 -H "X-Auth-Email: ${EMAIL}" \
                 -H "Authorization: Bearer ${TOKEN}" \
                 -H "Content-Type: application/json" \
@@ -121,20 +132,28 @@ do
     then
         Public IP address: ${PUBLIC_IP}\n
     fi
-
     
-    DOMAINS=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
+    DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
         -H "X-Auth-Email: ${EMAIL}" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name')
 
-
+    for DOMAIN in ${INPUT_DOMAINS[@]};
+    do
+        if !`list_includes_item "$DOMAINS" "$DOMAIN"`;
+        then
+            echo -e "Not existent: ${DOMAIN}\n"
+            check ${DOMAIN}
+        else
+            echo -e "Existent: ${DOMAIN}\n"
+        fi
+    done
 
     # iterate through listed domains
     echo "Iterating domain list:"
-    for ITEM in ${DOMAINS[@]};
+    for DOMAIN in ${DOMAINS[@]};
     do
-        check ${ITEM}
+        check ${DOMAIN}
     done
         
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
