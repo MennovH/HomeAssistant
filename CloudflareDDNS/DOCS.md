@@ -45,7 +45,7 @@ It's also possible to directly configure the add-on via the YAML configurator, a
 <br></br>
 ![example YAML configuration][screenshot2]
 
-## Examle CloudflareDDNS logging output
+## Example CloudflareDDNS logging output
 The following image shows an example output of the add-on, which can be found in the logbook. In this scenario, the A record of (sub)domain-3 pointed to a wrong IP address. The add-on found that this record was incorrect, and updated it accordingly. This change is instantly visible in the Cloudflare dashboard.
 <br></br>
 ![example logging output][screenshot3]
