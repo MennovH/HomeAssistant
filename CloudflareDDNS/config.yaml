@@ -21,7 +21,7 @@ options:
   cloudflare_zone_id: null
   cloudflare_api_token: null
   domains:
-    - domain: null
+    - domain: ?
   interval: 15
   hide_public_ip: true
   auto_create: true
