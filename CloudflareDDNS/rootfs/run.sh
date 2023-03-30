@@ -126,8 +126,8 @@ do
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name')
         
-    wc -w <<< $HARDCODED_DOMAINS
-    if [[ wc -w <<< $HARDCODED_DOMAINS > 0 ]];
+    count=$(wc -w <<< $HARDCODED_DOMAINS)
+    if [[ $count > 0 ]];
     then
         for DOMAIN in ${HARDCODED_DOMAINS[@]};
         do 
