@@ -17,12 +17,7 @@ AUTO_CREATE=$(bashio::config 'auto_create')
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
-DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
-
-TEST=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
-    -H "X-Auth-Email: ${EMAIL}" \
-    -H "Authorization: Bearer ${TOKEN}" \
-    -H "Content-Type: application/json" | jq -r '.result[].name')
+INPUT_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
 
 for ITEM in ${TEST[@]};
 do
@@ -126,6 +121,14 @@ do
     then
         Public IP address: ${PUBLIC_IP}\n
     fi
+
+    
+    DOMAINS=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
+        -H "X-Auth-Email: ${EMAIL}" \
+        -H "Authorization: Bearer ${TOKEN}" \
+        -H "Content-Type: application/json" | jq -r '.result[].name')
+
+
 
     # iterate through listed domains
     echo "Iterating domain list:"
