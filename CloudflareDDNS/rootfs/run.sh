@@ -139,13 +139,16 @@ do
     then
         for DOMAIN in ${HARDCODED_DOMAINS[@]};
         do 
-            if `domain_lookup "$DOMAINS" "$DOMAIN"`; then DOMAINS+=("$DOMAIN"); fi
+            if `domain_lookup "$DOMAINS" "$DOMAIN"`;
+            then
+                DOMAINS+=("$DOMAIN")
+            fi
             HARDCODED_DOMAINS=( "${HARDCODED_DOMAINS[@]/$DOMAIN/}" )
         done
-
+        echo -e "$DOMAINS"
         DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
     fi
-    
+    echo -e "$DOMAINS"
     # iterate through listed domains
     echo "Iterating domain list:"
     for DOMAIN in ${DOMAINS[@]}; do check ${DOMAIN}; done
