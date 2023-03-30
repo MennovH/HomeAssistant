@@ -8,8 +8,6 @@ declare HIDE_PIP
 declare AUTO_CREATE
 declare DOMAINS
 declare HARDCODED_DOMAINS
-declare -A DOMAIN_LIST
-declare -A Aseen
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
@@ -153,19 +151,9 @@ do
         #DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1)
     fi
     
-    DOMAIN_LIST=()
-    for d in "${DOMAINS[@]}"; do
-        [[ ${Aseen[$d]} ]] && continue
-        DOMAIN_LIST+=( "$d" )
-        Aseen[$d]=x
-    done
+    DOMAIN_LIST=($(for d in "${DOMAINS[@]}"; do echo "${d}"; done | sort -u))
     
-    
-   # DOMAINS=$(awk -v RS="[ \n]" -v ORS=" " '!($0 in DOMAINS){print;DOMAINS[$0]}' <(echo $DOMAINS))
-    
-    echo -e "${RS}"
-    echo -e "${ORS}"
-    echo -e "${DOMAINS}"
+   
     
     # iterate through listed domains
     echo "Iterating domain list:"
