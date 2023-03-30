@@ -20,8 +20,6 @@ CROSS_MARK="\u274c"
 #HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
 HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
 
-echo -e "${HARDCODED_DOMAINS}"
-
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
@@ -76,7 +74,6 @@ function check {
        # if [[ ${AUTO_CREATE} == "true" ]];
        # then
        
-        echo -e ${ERROR}
         DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
         API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
             -H "X-Auth-Email: ${EMAIL}" \
@@ -98,7 +95,6 @@ function check {
     
     if [[ ${ERROR} == 0 ]];
     then
-        echo -e ${ERROR}
         DOMAIN_ID=$(echo ${API_RESPONSE} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
@@ -151,10 +147,12 @@ do
                 DOMAINS+=("$DOMAIN")
             fi
             HARDCODED_DOMAINS=( "${HARDCODED_DOMAINS[@]/$DOMAIN/}" )
-        done
+        done | sort -uk 1
         #DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1 | xargs echo -n)
         DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1)
     fi
+    
+    DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1)
     
     # iterate through listed domains
     echo "Iterating domain list:"
