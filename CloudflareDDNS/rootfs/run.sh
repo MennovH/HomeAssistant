@@ -131,17 +131,17 @@ do
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name')
 
+    echo -e "${INPUT_DOMAINS}"
     for DOMAIN in ${INPUT_DOMAINS[@]};
     do 
         if `list_includes_item "$DOMAINS" "$DOMAIN"`;
         then
             DOMAINS+=("$DOMAIN")
-            echo -e "${INPUT_DOMAINS}"
-            INPUT_DOMAINS=( "${INPUT_DOMAINS[@]/$DOMAIN/}" )
-            echo -e "${INPUT_DOMAINS}"
             #check ${DOMAIN};
         fi
+        INPUT_DOMAINS=( "${INPUT_DOMAINS[@]/$DOMAIN/}" )
     done
+    echo -e "${INPUT_DOMAINS}"
 
     DOMAIN_LIST=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
 
