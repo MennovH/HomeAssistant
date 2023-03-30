@@ -19,9 +19,7 @@ CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
 #HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
-HARDCODED_DOMAINS=$(bashio::config "domains|keys")
-echo -e "$HARDCODED_DOMAINS"
-
+HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
