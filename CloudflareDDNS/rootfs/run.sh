@@ -125,18 +125,22 @@ do
         -H "X-Auth-Email: ${EMAIL}" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name')
+        
+    wc -w <<< $HARDCODED_DOMAINS
+    if [[ wc -w <<< $HARDCODED_DOMAINS > 0 ]];
+    then
+        for DOMAIN in ${HARDCODED_DOMAINS[@]};
+        do 
+            if `domain_lookup "$DOMAINS" "$DOMAIN"`; then DOMAINS+=("$DOMAIN"); fi
+            INPUT_DOMAINS=( "${INPUT_DOMAINS[@]/$DOMAIN/}" )
+        done
 
-    for DOMAIN in ${HARDCODED_DOMAINS[@]};
-    do 
-        if `domain_lookup "$DOMAINS" "$DOMAIN"`; then DOMAINS+=("$DOMAIN"); fi
-        INPUT_DOMAINS=( "${INPUT_DOMAINS[@]/$DOMAIN/}" )
-    done
-
-    DOMAIN_LIST=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
-
+        DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
+    fi
+    
     # iterate through listed domains
     echo "Iterating domain list:"
-    for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
+    for DOMAIN in ${DOMAINS[@]}; do check ${DOMAIN}; done
     
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e " \nNext check is at ${NEXT}\n "
