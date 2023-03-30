@@ -51,10 +51,10 @@ function check {
     DOMAIN=$1
     if [[ ${DOMAIN} == *"_no_proxy"* ]];
     then
-        $DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
-        $PROXY=false
+        DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
+        PROXY=false
     else
-        $PROXY=true
+        PROXY=true
     fi
     API_RESPONSE=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
         -H "X-Auth-Email: ${EMAIL}" \
