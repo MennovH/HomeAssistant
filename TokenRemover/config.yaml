@@ -46,4 +46,4 @@ schema:
   fri: bool
   sat: bool
   sun: bool
-startup: after
+startup: application
