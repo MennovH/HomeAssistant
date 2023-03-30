@@ -140,7 +140,7 @@ do
         for DOMAIN in ${HARDCODED_DOMAINS[@]};
         do 
             if `domain_lookup "$DOMAINS" "$DOMAIN"`; then DOMAINS+=("$DOMAIN"); fi
-            INPUT_DOMAINS=( "${INPUT_DOMAINS[@]/$DOMAIN/}" )
+            HARDCODED_DOMAINS=( "${HARDCODED_DOMAINS[@]/$DOMAIN/}" )
         done
 
         DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
