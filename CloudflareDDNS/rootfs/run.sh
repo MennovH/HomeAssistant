@@ -19,6 +19,12 @@ CROSS_MARK="\u274c"
 
 DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
 
+echo -e $(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
+        -H "X-Auth-Email: ${EMAIL}" \
+        -H "Authorization: Bearer ${TOKEN}" \
+        -H "Content-Type: application/json" | jq -r '.result[].name')
+
+
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
