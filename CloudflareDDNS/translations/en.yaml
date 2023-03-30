@@ -11,10 +11,6 @@ configuration:
     name: Cloudflare API token
     description: >-
       Enter the Cloudflare API token with which the A records could be updated.
-  domains:
-    name: (sub)Domains
-    description: >-
-      Enter the regarding (sub)domains which should be kept up-to-date.
   interval: 
     name: Time interval (minutes)
     description: >-
@@ -26,4 +22,8 @@ configuration:
   auto_create:
     name: Automatically create proxied A record
     description: >-
-      Proxied A records will be created automatically for non-existent (sub)domains.
+      Proxied A records will be created automatically for non-existent (sub)domains, specified below.
+  domains:
+    name: (sub)Domains (optional)
+    description: >-
+      Enter the regarding (sub)domains of which A records must be created when non-existent (only applicable when the option "auto_create" is enabled.
