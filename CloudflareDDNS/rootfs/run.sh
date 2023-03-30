@@ -20,6 +20,8 @@ CROSS_MARK="\u274c"
 #HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
 HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
 
+echo -e "${HARDCODED_DOMAINS}"
+
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
@@ -142,6 +144,7 @@ do
         for DOMAIN in ${HARDCODED_DOMAINS[@]};
         do 
             TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
+            
             if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`;
             then
                 DOMAINS+=("$DOMAIN")
