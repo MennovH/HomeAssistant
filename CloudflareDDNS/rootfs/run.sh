@@ -5,7 +5,6 @@ declare TOKEN
 declare ZONE
 declare INTERVAL
 declare HIDE_PIP
-declare AUTO_CREATE
 declare DOMAINS
 declare HARDCODED_DOMAINS
 
@@ -14,11 +13,9 @@ TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 HIDE_PIP=$(bashio::config 'hide_public_ip')
+HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
-
-#HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | sort -uk 1 | xargs echo -n)
-HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
@@ -37,24 +34,18 @@ fi
 function domain_lookup {
   local list="$1"
   local item="$2"
-  if [[ $list =~ (^|[[:space:]])"$item"($|[[:space:]]) ]] ; then
-    # yes, list includes item
-    result=1
-  else
-    result=0
-  fi
+  if [[ $list =~ (^|[[:space:]])"$item"($|[[:space:]]) ]] ; then result=1; else result=0; fi
   return $result
 }
 
 function check {
     ERROR=0
     DOMAIN=$1
+    PROXY=true
     if [[ ${DOMAIN} == *"_no_proxy"* ]];
     then
         DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
         PROXY=false
-    else
-        PROXY=true
     fi
     API_RESPONSE=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
         -H "X-Auth-Email: ${EMAIL}" \
@@ -70,8 +61,6 @@ function check {
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
         ERROR=1
-       # if [[ ${AUTO_CREATE} == "true" ]];
-       # then
        
         DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
         API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
@@ -87,9 +76,6 @@ function check {
         else
             echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m created\e[1;37m\n"
         fi
-       # else
-       #     echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31m A record not found!\e[1;37m\n"
-       # fi
     fi
     
     if [[ ${ERROR} == 0 ]];
@@ -147,13 +133,9 @@ do
             fi
             HARDCODED_DOMAINS=( "${HARDCODED_DOMAINS[@]/$DOMAIN/}" )
         done
-        #DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1 | xargs echo -n)
-        #DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1)
     fi
     
     DOMAIN_LIST=($(for d in "${DOMAINS[@]}"; do echo "${d}"; done | sort -u))
-    
-   
     
     # iterate through listed domains
     echo "Iterating domain list:"
