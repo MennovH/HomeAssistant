@@ -9,6 +9,7 @@ declare AUTO_CREATE
 declare DOMAINS
 declare HARDCODED_DOMAINS
 declare -A DOMAIN_LIST
+declare -A Aseen
 
 EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
@@ -153,10 +154,10 @@ do
     fi
     
     DOMAIN_LIST=()
-    for w in "${DOMAINS[@]}"; do
-        [[ ${DOMAIN_LIST[$w]} ]] && continue
-        Aunique+=( "$w" )
-        DOMAIN_LIST[$w]=x
+    for d in "${DOMAINS[@]}"; do
+        [[ ${Aseen[$d]} ]] && continue
+        DOMAIN_LIST+=( "$d" )
+        Aseen[$d]=x
     done
     
     
