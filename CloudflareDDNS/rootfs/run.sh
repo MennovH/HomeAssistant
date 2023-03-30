@@ -152,7 +152,11 @@ do
         DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1)
     fi
     
-    DOMAINS=$(for j in ${DOMAINS[@]}; do echo $j; done | sort -uk 1)
+    $(awk -v RS="[ \n]" -v ORS=" " '!($0 in DOMAINS){print;DOMAINS[$0]}' <(echo $DOMAINS))
+    
+    echo -e "${RS}"
+    echo -e "${ORS}"
+    echo -e "${DOMAINS}"
     
     # iterate through listed domains
     echo "Iterating domain list:"
