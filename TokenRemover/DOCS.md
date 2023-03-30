@@ -22,9 +22,9 @@ When installed, navigate to the configuration tab of the add-on. Configure the a
 6. Enable/disable the days on which TokenRemover should (not) run.
 7. When ready, start the add-on.
 
-#### Note: when refresh tokens - older than the defined number of days (+30 minutes to prevent a fast retrigger) - are found, Home Assistant core will be restarted. This step is necessary in order to make the changes permanent. You may want to run this add-on once in a while, e.g. with a nightly automation.
+#### Note: when refresh tokens - older than the defined number of days (+30 minutes to prevent a fast retrigger) - are found, Home Assistant core will be restarted. This step is necessary in order to make the changes permanent.
 
-#### Note: TokenRemover will update the auth file, which resides in the config/.storage directory. However, when an inactive device becomes active while TokenRemover is running, Home Assistant will restore the auth file from its cache. This shouldn't be much of an issue, because the timing must be right to achieve this. It is recommended to run this add-on when Home Assistant is not used much.
+#### Note: TokenRemover will update the auth file, which resides in the config/.storage directory. However, when an inactive device becomes active while TokenRemover is running, Home Assistant will restore the auth file from its cache. This shouldn't be much of an issue, because the timing must be exactly right to achieve this.
 
 ## Example TokenRemover logging output
 The following images show example outputs of the add-on, which can be found in the logbook.
