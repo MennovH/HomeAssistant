@@ -5,7 +5,8 @@ WORKDIR /
 
 RUN \
   apk add --no-cache \
-    python3
+    python3 \
+    tzdata
 
 ADD rootfs/run.py  /
 
