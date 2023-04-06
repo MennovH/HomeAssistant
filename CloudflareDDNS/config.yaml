@@ -13,7 +13,7 @@ arch:
   - armhf
   - armv7
   - i386
-startup: before
+startup: services
 journald: true
 panel_icon: mdi:cloud-check
 options:
