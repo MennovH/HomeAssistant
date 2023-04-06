@@ -112,6 +112,7 @@ if [[ ${INTERVAL} == 1 ]]; then echo -e "Checking A records every minute\n "; el
 while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
+    reset
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
     if [[ ${HIDE_PIP} == 0 ]]; then echo -e "Public IP address: ${PUBLIC_IP}\n"; fi
     
