@@ -204,9 +204,7 @@ do
     echo -e "\n "
     
     duration=$SECONDS
-    echo "$(($duration / 60)) minutes and $(($duration % 60))"
-    TMP_SEC=$((($INTERVAL*60)-($duration / 60) - ($duration % 60)))
-    echo -e "${TMP_SEC}"
+    TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)))
     sleep ${TMP_SEC}s
 
 done
