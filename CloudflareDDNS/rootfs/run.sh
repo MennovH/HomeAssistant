@@ -149,6 +149,7 @@ function check {
             if [[ ${HIDE_PIP} == false ]];
             then
                 if [[ ${PROXY} == false ]];
+                then
                     echo -e " ${CHECK_MARK} ${DOMAIN} (${G}not proxied${D})\n";
                 else
                     echo -e " ${CHECK_MARK} ${DOMAIN} (${O}proxied${D})\n";
