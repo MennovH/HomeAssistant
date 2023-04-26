@@ -121,6 +121,7 @@ function check {
                 if [[ ${HIDE_PIP} == false ]];
                 then
                     if [[ ${PROXY} == false ]];
+                    then
                         echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${G}not proxied${D}) => ${R}failed to update${D}\n"
                     else
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${O}proxied${D}) => ${GR}created${D}\n"
@@ -134,6 +135,7 @@ function check {
                 if [[ ${HIDE_PIP} == false ]];
                 then
                     if [[ ${PROXY} == false ]];
+                    then
                         echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${D} (${G}not proxied${D}) => ${GR}updated${D}\n"
                     else
                         echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${D} (${O}proxied${D}) => ${GR}updated${D}\n"
