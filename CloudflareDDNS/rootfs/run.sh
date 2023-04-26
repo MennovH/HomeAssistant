@@ -17,6 +17,13 @@ HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio:
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
+
+# colors
+G="\e[1;30m" #grey
+O="\e[1;66m" #orange
+R=""
+GR="\e[1;32m" #green
+
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
     echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
@@ -61,7 +68,6 @@ function check {
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
         ERROR=1
-       
         DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
         API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
             -H "X-Auth-Email: ${EMAIL}" \
@@ -76,9 +82,9 @@ function check {
         else
             if [[ ${HIDE_PIP} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${DOMAIN} ${PUBLIC_IP} ${PROXY} =>\e[1;32m created\e[1;37m\n"
+                echo -e " ${CHECK_MARK} ${DOMAIN} ${PROXY} =>\e[1;32m created\e[1;37m\n"
             else
-                echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m created\e[1;37m\n"
+                echo -e " ${CHECK_MARK} ${DOMAIN} =>${GR} created\e[1;37m\n"
             fi
         fi
     fi
