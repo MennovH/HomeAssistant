@@ -171,6 +171,7 @@ do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
+    SECONDS=0
     echo -e "Next: ${NEXT}\n"
     if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${W}\n"; fi
     
@@ -201,6 +202,11 @@ do
     for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
     
     echo -e "\n "
-    sleep ${INTERVAL}m
+    
+    duration=$SECONDS
+    echo "$(($duration / 60)) minutes and $(($duration % 60))"
+    TMP_SEC=$((($INTERVAL*60)-($duration / 60) - ($duration % 60))
+    echo -e "${TMP_SEC}"
+    sleep ${TMP_SEC}s
 
 done
