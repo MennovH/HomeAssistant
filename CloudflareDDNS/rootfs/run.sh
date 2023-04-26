@@ -17,6 +17,11 @@ HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio:
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
+# font
+N="\e[0m"
+I="\e[3m" #italic
+S="\e[9m" #strikethrough
+
 # regular colors:
 RG="\e[0;32m" #green
 RR="\e[0;31m" #red
@@ -89,9 +94,9 @@ function check {
             then
                 if [[ ${PROXY} == false ]];
                 then
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${R}not proxied${W}) => ${GR}created${W}\n"
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}created${W}\n"
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}proxied${W}) => ${GR}created${W}\n"
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RG}proxied${W}${N}) => ${GR}created${W}\n"
                 fi
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}created${W}\n"
@@ -120,9 +125,9 @@ function check {
                 then
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${R}not proxied${W}) => ${RR}failed to update${W}\n"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${I}${R}not proxied${W}${N}) => ${RR}failed to update${W}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}proxied${W}) => ${GR}created${W}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RG}proxied${W}${N}) => ${GR}created${W}\n"
                     fi
                 else
                     echo -e " ${CROSS_MARK} ${DOMAIN} => ${RR}failed to update${W}\n"
@@ -133,9 +138,9 @@ function check {
                 then
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${R}not proxied${W}) => ${GR}updated${W} (was ${Y}${DOMAIN_IP}${W})\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}updated${W} (\e[9m${Y}${DOMAIN_IP}${W}\e[0m)\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}proxied${W}) => ${GR}updated${W} (was ${Y}${DOMAIN_IP}${W})\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RG}proxied${W}${N}) => ${GR}updated${W} (\e[9m${Y}${DOMAIN_IP}${W}\e[0m)\n"
                     fi
                 else
                     echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${W}\n"
@@ -147,9 +152,9 @@ function check {
             then
                 if [[ ${DOMAIN_PROXIED} == false ]];
                 then
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${R}not proxied${W})\n";
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N})\n";
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}proxied${W})\n";
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RG}proxied${W}${N})\n";
                 fi
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN}\n"
