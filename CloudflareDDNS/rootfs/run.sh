@@ -113,7 +113,7 @@ while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-    echo -e "Public IP address: ${PUBLIC_IP}\n"
+    echo -e "Public IP address: ${HIDE_PIP}\n"
     if [[ ${HIDE_PIP} == 0 ]]; then echo -e "Public IP address: ${PUBLIC_IP}\n"; fi
     
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
