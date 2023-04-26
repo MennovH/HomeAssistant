@@ -17,13 +17,12 @@ HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio:
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
-
 # colors
-G="\e[1;30m" #grey
-O="\e[1;66m" #orange
-R="\e[1;31m"
-GR="\e[1;32m" #green
 D="\e[1;37m" #default
+G="\e[1;30m" #grey
+GR="\e[1;32m" #green
+O="\e[1;66m" #orange
+R="\e[1;31m" #red
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
