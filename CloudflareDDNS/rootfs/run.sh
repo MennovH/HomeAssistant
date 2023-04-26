@@ -85,9 +85,9 @@ function check {
             then
                 if [[ ${PROXY} == false ]];
                 then
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${B}not proxied${W}) => ${GR}created${W}\n"
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${R}not proxied${W}) => ${GR}created${W}\n"
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${Y}proxied${W}) => ${GR}created${W}\n"
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${B}proxied${W}) => ${GR}created${W}\n"
                 fi
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}created${W}\n"
@@ -116,9 +116,9 @@ function check {
                 then
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${B}not proxied${W}) => ${R}failed to update${W}\n"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${R}not proxied${W}) => ${R}failed to update${W}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${Y}proxied${W}) => ${GR}created${W}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${B}proxied${W}) => ${GR}created${W}\n"
                     fi
                 else
                     echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${W}\n"
@@ -130,9 +130,9 @@ function check {
                 then
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${B}not proxied${W}) => ${GR}updated${W} (was ${DOMAIN_IP})\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${R}not proxied${W}) => ${GR}updated${W} (was ${Y}${DOMAIN_IP}${W})\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${Y}proxied${W}) => ${GR}updated${W} (was ${DOMAIN_IP})\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${B}proxied${W}) => ${GR}updated${W} (was ${Y}${DOMAIN_IP}${W})\n"
                     fi
                 else
                     echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${W}\n"
@@ -144,9 +144,9 @@ function check {
             then
                 if [[ ${DOMAIN_PROXIED} == false ]];
                 then
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${B}not proxied${W})\n";
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${R}not proxied${W})\n";
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${Y}proxied${W})\n";
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${B}proxied${W})\n";
                 fi
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN}\n"
