@@ -82,7 +82,11 @@ function check {
         else
             if [[ ${HIDE_PIP} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${DOMAIN} ${PROXY} => ${GR}created${D}\n"
+                if [[ ${PROXY} == false ]];
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${G}not proxied${D}) => ${GR}created${D}\n"
+                else
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${O}proxied${D}) => ${GR}created${D}\n"
+                fi
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}created${D}\n"
             fi
@@ -115,7 +119,11 @@ function check {
             then
                 if [[ ${HIDE_PIP} == false ]];
                 then
-                    echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${PROXY_STATUS}) => ${R}failed to update${D}\n"
+                    if [[ ${PROXY} == false ]];
+                        echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${G}not proxied${D}) => ${R}failed to update${D}\n"
+                    else
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${O}proxied${D}) => ${GR}created${D}\n"
+                    fi
                 else
                     echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${D}\n"
                 fi
@@ -124,19 +132,27 @@ function check {
 
                 if [[ ${HIDE_PIP} == false ]];
                 then
-                    echo -e " ${CHECK_MARK} ${DOMAIN} ${DOMAIN_IP} (${PROXY_STATUS}) => ${GR}updated${D}\n"
+                    if [[ ${PROXY} == false ]];
+                        echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${D} (${G}not proxied${D}) => ${GR}updated${D}\n"
+                    else
+                        echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${D} (${O}proxied${D}) => ${GR}updated${D}\n"
+                    fi
                 else
                     echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${D}\n"
                 fi
                 # (${R}${DOMAIN_IP}${D}), ${GR}updated${D}\n"
-            fi
-        else
-            if [[ ${HIDE_PIP} == false ]];
-            then
-                echo -e " ${CHECK_MARK} ${DOMAIN} (${PROXY_STATUS})\n";
-            else
-                echo -e " ${CHECK_MARK} ${DOMAIN}\n"
-            fi
+             fi
+#         else
+#             if [[ ${HIDE_PIP} == false ]];
+#             then
+#                 if [[ ${PROXY} == false ]];
+#                     echo -e " ${CHECK_MARK} ${DOMAIN} (${G}not proxied${D})\n";
+#                 else
+#                     echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${D} (${O}proxied${D}) => ${GR}updated${D}\n"
+#                 fi
+#             else
+#                 echo -e " ${CHECK_MARK} ${DOMAIN}\n"
+#             fi
         fi
     fi
 }
