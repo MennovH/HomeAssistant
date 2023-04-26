@@ -20,6 +20,7 @@ CROSS_MARK="\u274c"
 # colors
 W="\e[1;37m" #white
 B="\e[1;30m" #black
+BL="\e[1;34m" #blue
 GR="\e[1;32m" #green
 Y="\e[1;33m" #yellow
 R="\e[1;31m" #red
@@ -154,13 +155,13 @@ function check {
     fi
 }
 
-if [[ ${INTERVAL} == 1 ]]; then echo -e "Checking A records every minute\n "; else echo -e "Checking A records every ${INTERVAL} minutes\n "; fi
+if [[ ${INTERVAL} == 1 ]]; then echo -e "Iterating every minute\n "; else echo -e "Iterating every ${INTERVAL} minutes\n "; fi
 
 while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
-    if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${PUBLIC_IP}\n"; fi
+    if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${W}\n"; fi
     
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
         -H "X-Auth-Email: ${EMAIL}" \
@@ -189,7 +190,7 @@ do
     for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
     
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
-    echo -e " \nNext check is at ${NEXT}\n "
+    echo -e "\nNext iteration: ${NEXT}\n "
     sleep ${INTERVAL}m
 
 done
