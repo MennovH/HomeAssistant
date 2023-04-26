@@ -18,23 +18,23 @@ CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
 # colors
-D="\e[1;37m" #default
-G="\e[1;30m" #grey
+W="\e[1;37m" #white
+B="\e[1;30m" #black
 GR="\e[1;32m" #green
-O="\e[1;66m" #orange
+Y="\e[1;33m" #yellow
 R="\e[1;31m" #red
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
-    echo -e "${R}Failed to run due to invalid email address${D}\n"
+    echo -e "${R}Failed to run due to invalid email address${W}\n"
     exit 1
 elif [[ ${#TOKEN} == 0 ]];
 then
-    echo -e "${R}Failed to run due to missing Cloudflare API token${D}\n"
+    echo -e "${R}Failed to run due to missing Cloudflare API token${W}\n"
     exit 1
 elif [[ ${#ZONE} == 0 ]];
 then
-    echo -e "${R}Failed to run due to missing Cloudflare Zone ID${D}\n"
+    echo -e "${R}Failed to run due to missing Cloudflare Zone ID${W}\n"
     exit 1
 fi
 
@@ -62,7 +62,7 @@ function check {
     if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
     then
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${D}\n"
+        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${W}\n"
     fi
     
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
@@ -78,18 +78,18 @@ function check {
         if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
         then
             ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-            echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${D}\n"
+            echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${W}\n"
         else
             if [[ ${HIDE_PIP} == false ]];
             then
                 if [[ ${PROXY} == false ]];
                 then
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${G}not proxied${D}) => ${GR}created${D}\n"
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${B}not proxied${W}) => ${GR}created${W}\n"
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${O}proxied${D}) => ${GR}created${D}\n"
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${Y}proxied${W}) => ${GR}created${W}\n"
                 fi
             else
-                echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}created${D}\n"
+                echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}created${W}\n"
             fi
         fi
     fi
@@ -115,37 +115,37 @@ function check {
                 then
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${G}not proxied${D}) => ${R}failed to update${D}\n"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${B}not proxied${W}) => ${R}failed to update${W}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${O}proxied${D}) => ${GR}created${D}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${Y}proxied${W}) => ${GR}created${W}\n"
                     fi
                 else
-                    echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${D}\n"
+                    echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${W}\n"
                 fi
-                # (${R}${DOMAIN_IP}${D}), ${R}failed to update${D}\n"
+                # (${R}${DOMAIN_IP}${W}), ${R}failed to update${W}\n"
             else
 
                 if [[ ${HIDE_PIP} == false ]];
                 then
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${D} (${G}not proxied${D}) => ${GR}updated${D}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${W} (${B}not proxied${W}) => ${GR}updated${W}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${D} (${O}proxied${D}) => ${GR}updated${D}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${W} (${Y}proxied${W}) => ${GR}updated${W}\n"
                     fi
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${D}\n"
+                    echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${W}\n"
                 fi
-                # (${R}${DOMAIN_IP}${D}), ${GR}updated${D}\n"
+                # (${R}${DOMAIN_IP}${W}), ${GR}updated${W}\n"
              fi
         else
             if [[ ${HIDE_PIP} == false ]];
             then
                 if [[ ${DOMAIN_PROXIED} == false ]];
                 then
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${G}not proxied${D})\n";
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${B}not proxied${W})\n";
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${O}proxied${D})\n";
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${O}proxied${W})\n";
                 fi
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN}\n"
