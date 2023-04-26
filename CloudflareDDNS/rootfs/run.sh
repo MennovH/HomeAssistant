@@ -127,7 +127,7 @@ function check {
                     then
                         echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${I}${R}not proxied${W}${N}) => ${RR}failed to update${W}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RG}proxied${W}${N}) => ${GR}created${W}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
                     fi
                 else
                     echo -e " ${CROSS_MARK} ${DOMAIN} => ${RR}failed to update${W}\n"
@@ -140,7 +140,7 @@ function check {
                     then
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}updated${W} (\e[9m${Y}${DOMAIN_IP}${W}\e[0m)\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RG}proxied${W}${N}) => ${GR}updated${W} (\e[9m${Y}${DOMAIN_IP}${W}\e[0m)\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}updated${W} (\e[9m${Y}${DOMAIN_IP}${W}\e[0m)\n"
                     fi
                 else
                     echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${W}\n"
@@ -154,7 +154,7 @@ function check {
                 then
                     echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N})\n";
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RG}proxied${W}${N})\n";
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N})\n";
                 fi
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN}\n"
