@@ -17,7 +17,11 @@ HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio:
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 
-# colors
+# regular colors:
+RG="\e[0;32m" #green
+RR="\e[0;31m" #red
+
+# bold colors
 W="\e[1;37m" #white
 B="\e[1;30m" #black
 BL="\e[1;34m" #blue
@@ -27,15 +31,15 @@ R="\e[1;31m" #red
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
-    echo -e "${R}Failed to run due to invalid email address${W}\n"
+    echo -e "${RR}Failed to run due to invalid email address${W}\n"
     exit 1
 elif [[ ${#TOKEN} == 0 ]];
 then
-    echo -e "${R}Failed to run due to missing Cloudflare API token${W}\n"
+    echo -e "${RR}Failed to run due to missing Cloudflare API token${W}\n"
     exit 1
 elif [[ ${#ZONE} == 0 ]];
 then
-    echo -e "${R}Failed to run due to missing Cloudflare Zone ID${W}\n"
+    echo -e "${RR}Failed to run due to missing Cloudflare Zone ID${W}\n"
     exit 1
 fi
 
@@ -87,7 +91,7 @@ function check {
                 then
                     echo -e " ${CHECK_MARK} ${DOMAIN} (${R}not proxied${W}) => ${GR}created${W}\n"
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${B}proxied${W}) => ${GR}created${W}\n"
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}proxied${W}) => ${GR}created${W}\n"
                 fi
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}created${W}\n"
@@ -116,14 +120,13 @@ function check {
                 then
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${R}not proxied${W}) => ${R}failed to update${W}\n"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${R}not proxied${W}) => ${RR}failed to update${W}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${B}proxied${W}) => ${GR}created${W}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}proxied${W}) => ${GR}created${W}\n"
                     fi
                 else
-                    echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${W}\n"
+                    echo -e " ${CROSS_MARK} ${DOMAIN} => ${RR}failed to update${W}\n"
                 fi
-                # (${R}${DOMAIN_IP}${W}), ${R}failed to update${W}\n"
             else
 
                 if [[ ${HIDE_PIP} == false ]];
@@ -132,7 +135,7 @@ function check {
                     then
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${R}not proxied${W}) => ${GR}updated${W} (was ${Y}${DOMAIN_IP}${W})\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${B}proxied${W}) => ${GR}updated${W} (was ${Y}${DOMAIN_IP}${W})\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}proxied${W}) => ${GR}updated${W} (was ${Y}${DOMAIN_IP}${W})\n"
                     fi
                 else
                     echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${W}\n"
@@ -146,7 +149,7 @@ function check {
                 then
                     echo -e " ${CHECK_MARK} ${DOMAIN} (${R}not proxied${W})\n";
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${B}proxied${W})\n";
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}proxied${W})\n";
                 fi
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN}\n"
