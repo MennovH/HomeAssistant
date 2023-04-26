@@ -23,7 +23,7 @@ options:
   interval: 15
   hide_public_ip: true
   domains:
-    - domain: ""
+    - ""
 schema:
   email_address: email
   cloudflare_zone_id: password
@@ -31,4 +31,4 @@ schema:
   interval: int(1,1440)
   hide_public_ip: bool
   domains:
-    - domain: "str?"
+    - "str?"
