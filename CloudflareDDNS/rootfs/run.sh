@@ -21,20 +21,21 @@ CROSS_MARK="\u274c"
 # colors
 G="\e[1;30m" #grey
 O="\e[1;66m" #orange
-R=""
+R="\e[1;31m"
 GR="\e[1;32m" #green
+D="\e[1;37m" #default
 
 if ! [[ ${EMAIL} == ?*@?*.?* ]];
 then
-    echo -e "\e[1;31mFailed to run due to invalid email address\e[1;37m\n"
+    echo -e "${R}Failed to run due to invalid email address${D}\n"
     exit 1
 elif [[ ${#TOKEN} == 0 ]];
 then
-    echo -e "\e[1;31mFailed to run due to missing Cloudflare API token\e[1;37m\n"
+    echo -e "${R}Failed to run due to missing Cloudflare API token${D}\n"
     exit 1
 elif [[ ${#ZONE} == 0 ]];
 then
-    echo -e "\e[1;31mFailed to run due to missing Cloudflare Zone ID\e[1;37m\n"
+    echo -e "${R}Failed to run due to missing Cloudflare Zone ID${D}\n"
     exit 1
 fi
 
@@ -62,7 +63,7 @@ function check {
     if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
     then
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-        echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31m ${ERROR}\e[1;37m\n"
+        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${D}\n"
     fi
     
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
@@ -78,13 +79,13 @@ function check {
         if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
         then
             ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-            echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31m ${ERROR}\e[1;37m\n"
+            echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${D}\n"
         else
             if [[ ${HIDE_PIP} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${DOMAIN} ${PROXY} =>\e[1;32m created\e[1;37m\n"
+                echo -e " ${CHECK_MARK} ${DOMAIN} ${PROXY} => ${GR}created${D}\n"
             else
-                echo -e " ${CHECK_MARK} ${DOMAIN} =>${GR} created\e[1;37m\n"
+                echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}created${D}\n"
             fi
         fi
     fi
@@ -94,6 +95,13 @@ function check {
         DOMAIN_ID=$(echo ${API_RESPONSE} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
+
+        if [[ ${DOMAIN_PROXIED} == false ]];
+        then
+            PROXY_STATUS="${G}not proxied${D}"
+        else
+            PROXY_STATUS="${O}proxied${D}"
+        fi
 
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
@@ -108,25 +116,25 @@ function check {
             then
                 if [[ ${HIDE_PIP} == false ]];
                 then
-                    echo -e " ${CROSS_MARK}${DOMAIN} ${DOMAIN_IP} ${DOMAIN_PROXIED} =>\e[1;31m failed to update\e[1;37m\n"
+                    echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${PROXY_STATUS}) => ${R}failed to update${D}\n"
                 else
-                    echo -e " ${CROSS_MARK}${DOMAIN} =>\e[1;31m failed to update\e[1;37m\n"
+                    echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${D}\n"
                 fi
-                # (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;31m failed to update\e[1;37m\n"
+                # (${R}${DOMAIN_IP}${D}), ${R}failed to update${D}\n"
             else
 
                 if [[ ${HIDE_PIP} == false ]];
                 then
-                    echo -e " ${CHECK_MARK} ${DOMAIN} ${DOMAIN_IP} ${DOMAIN_PROXIED} =>\e[1;32m updated\e[1;37m\n"
+                    echo -e " ${CHECK_MARK} ${DOMAIN} ${DOMAIN_IP} (${PROXY_STATUS}) => ${GR}updated${D}\n"
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m updated\e[1;37m\n"
+                    echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${D}\n"
                 fi
-                # (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;32m updated\e[1;37m\n"
+                # (${R}${DOMAIN_IP}${D}), ${GR}updated${D}\n"
             fi
         else
             if [[ ${HIDE_PIP} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${DOMAIN} ${DOMAIN_IP} ${DOMAIN_PROXIED}\n";
+                echo -e " ${CHECK_MARK} ${DOMAIN} ${DOMAIN_IP} (${PROXY_STATUS})\n";
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN}\n"
             fi
