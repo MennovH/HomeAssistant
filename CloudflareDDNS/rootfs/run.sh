@@ -130,9 +130,9 @@ function check {
                 then
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${W} (${B}not proxied${W}) => ${GR}updated${W}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${B}not proxied${W}) => ${GR}updated${W} (was ${DOMAIN_IP})\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${W} (${Y}proxied${W}) => ${GR}updated${W}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${Y}proxied${W}) => ${GR}updated${W} (was ${DOMAIN_IP})\n"
                     fi
                 else
                     echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${W}\n"
@@ -161,6 +161,8 @@ while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')\n"
+    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
+    echo -e "Next: ${NEXT}\n"
     if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${W}\n"; fi
     
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
@@ -189,8 +191,7 @@ do
     echo "Iterating domain list:"
     for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
     
-    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
-    echo -e "\nNext iteration: ${NEXT}\n "
+    echo "\n "
     sleep ${INTERVAL}m
 
 done
