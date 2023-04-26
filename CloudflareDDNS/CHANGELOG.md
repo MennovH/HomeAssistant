@@ -1,3 +1,7 @@
+# v1.3.4
+- Fixed PIP not being shown when disabling the "hide PIP" option
+- Added 
+
 # v1.3.3
 - Removed the need to manually configure (sub)domains. CloudflareDDNS will fetch all existing A records within the specified zone and keep them up-to-date accordingly. - A records of manually configured (sub)domains will automatically be created when missing in the Cloudflare portal (proxied by default).
   - Added option to create non-proxied A records per (sub)domain, by adding the string "_no_proxy" directly behind the regarding (sub)domain.
