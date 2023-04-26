@@ -155,7 +155,7 @@ function check {
     fi
 }
 
-if [[ ${INTERVAL} == 1 ]]; then echo -e "Iterating every minute\n "; else echo -e "Iterating every ${INTERVAL} minutes\n "; fi
+if [[ ${INTERVAL} == 1 ]]; then bashio::log.info "Iterating every minute\n "; else bashio::log.info "Iterating every ${INTERVAL} minutes\n "; fi
 
 while :
 do
