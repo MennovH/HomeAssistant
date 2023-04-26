@@ -31,4 +31,4 @@ schema:
   interval: int(1,1440)
   hide_public_ip: bool
   domains:
-    - domain: str?
+    - domain: "str?"
