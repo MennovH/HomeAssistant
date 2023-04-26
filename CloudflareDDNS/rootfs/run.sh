@@ -145,7 +145,7 @@ function check {
                 then
                     echo -e " ${CHECK_MARK} ${DOMAIN} (${B}not proxied${W})\n";
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${O}proxied${W})\n";
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${Y}proxied${W})\n";
                 fi
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN}\n"
