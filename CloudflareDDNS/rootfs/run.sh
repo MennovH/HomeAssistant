@@ -16,6 +16,7 @@ HIDE_PIP=$(bashio::config 'hide_public_ip')
 HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
+ITERATION=0
 
 # font
 N="\e[0m"
@@ -194,9 +195,9 @@ do
     fi
     
     DOMAIN_LIST=($(for d in "${DOMAINS[@]}"; do echo "${d}"; done | sort -u))
-    
+    ITERATION+=1
     # iterate through listed domains
-    echo "Iterating domain list:"
+    echo "Domain list iteration ${ITERATION}:"
     for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
     
     echo -e "\n "
