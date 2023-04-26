@@ -145,17 +145,17 @@ function check {
                 fi
                 # (${R}${DOMAIN_IP}${D}), ${GR}updated${D}\n"
              fi
-#         else
-#             if [[ ${HIDE_PIP} == false ]];
-#             then
-#                 if [[ ${PROXY} == false ]];
-#                     echo -e " ${CHECK_MARK} ${DOMAIN} (${G}not proxied${D})\n";
-#                 else
-#                     echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${D} (${O}proxied${D}) => ${GR}updated${D}\n"
-#                 fi
-#             else
-#                 echo -e " ${CHECK_MARK} ${DOMAIN}\n"
-#             fi
+        else
+            if [[ ${HIDE_PIP} == false ]];
+            then
+                if [[ ${PROXY} == false ]];
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${G}not proxied${D})\n";
+                else
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${O}proxied${D})\n";
+                fi
+            else
+                echo -e " ${CHECK_MARK} ${DOMAIN}\n"
+            fi
         fi
     fi
 }
