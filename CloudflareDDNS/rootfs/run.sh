@@ -195,7 +195,7 @@ do
     fi
     
     DOMAIN_LIST=($(for d in "${DOMAINS[@]}"; do echo "${d}"; done | sort -u))
-    ITERATION+=1
+    ITERATION=$(($ITERATION + 1))
     # iterate through listed domains
     echo "Domain list iteration ${ITERATION}:"
     for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
