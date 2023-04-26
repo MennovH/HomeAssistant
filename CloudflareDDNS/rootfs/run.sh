@@ -98,9 +98,9 @@ function check {
 
         if [[ ${DOMAIN_PROXIED} == false ]];
         then
-            PROXY_STATUS=echo -e "${G}not proxied${D}"
+            PROXY_STATUS=$(echo -e "${G}not proxied${D}")
         else
-            PROXY_STATUS=echo -e "${O}proxied${D}"
+            PROXY_STATUS=$(echo -e "${O}proxied${D}")
         fi
 
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
