@@ -14,7 +14,7 @@ ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 HIDE_PIP=$(bashio::config 'hide_public_ip')
 #HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
-HARDCODED_DOMAINS=$(for j in $(bashio::config "domains"); do echo $(bashio::config "${j}"); done | xargs echo -n)
+HARDCODED_DOMAINS=$(bashio::config "domains")
 echo -e "${HARDCODED_DOMAINS}"
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
