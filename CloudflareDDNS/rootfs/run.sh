@@ -191,7 +191,7 @@ do
     echo "Iterating domain list:"
     for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
     
-    echo "\n "
+    echo -e "\n "
     sleep ${INTERVAL}m
 
 done
