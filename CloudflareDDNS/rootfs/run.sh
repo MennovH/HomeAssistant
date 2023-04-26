@@ -100,13 +100,6 @@ function check {
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
 
-        if [[ ${DOMAIN_PROXIED} == false ]];
-        then
-            PROXY_STATUS=$(echo -e "${G}not proxied${D}")
-        else
-            PROXY_STATUS=$(echo -e "\e[1;66mproxied${D}")
-        fi
-
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
@@ -120,7 +113,7 @@ function check {
             then
                 if [[ ${HIDE_PIP} == false ]];
                 then
-                    if [[ ${PROXY} == false ]];
+                    if [[ ${DOMAIN_PROXIED} == false ]];
                     then
                         echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${G}not proxied${D}) => ${R}failed to update${D}\n"
                     else
@@ -134,7 +127,7 @@ function check {
 
                 if [[ ${HIDE_PIP} == false ]];
                 then
-                    if [[ ${PROXY} == false ]];
+                    if [[ ${DOMAIN_PROXIED} == false ]];
                     then
                         echo -e " ${CHECK_MARK} ${DOMAIN} ${R}${DOMAIN_IP}${D} (${G}not proxied${D}) => ${GR}updated${D}\n"
                     else
@@ -148,7 +141,7 @@ function check {
         else
             if [[ ${HIDE_PIP} == false ]];
             then
-                if [[ ${PROXY} == false ]];
+                if [[ ${DOMAIN_PROXIED} == false ]];
                 then
                     echo -e " ${CHECK_MARK} ${DOMAIN} (${G}not proxied${D})\n";
                 else
