@@ -74,7 +74,12 @@ function check {
             ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
             echo -e " ${CROSS_MARK} ${DOMAIN} =>\e[1;31m ${ERROR}\e[1;37m\n"
         else
-            echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m created\e[1;37m\n"
+            if [[ ${HIDE_PIP} == false ]];
+            then
+                echo -e " ${CHECK_MARK} ${DOMAIN} ${PUBLIC_IP} ${PROXY} =>\e[1;32m created\e[1;37m\n"
+            else
+                echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m created\e[1;37m\n"
+            fi
         fi
     fi
     
@@ -95,16 +100,30 @@ function check {
 
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
-                echo -e " ${CROSS_MARK}${DOMAIN} =>\e[1;31m failed to update\e[1;37m\n"
-                echo -e "${DOMAIN_IP} ${DOMAIN_PROXIED}\n"
+                if [[ ${HIDE_PIP} == false ]];
+                then
+                    echo -e " ${CROSS_MARK}${DOMAIN} ${DOMAIN_IP} ${DOMAIN_PROXIED} =>\e[1;31m failed to update\e[1;37m\n"
+                else
+                    echo -e " ${CROSS_MARK}${DOMAIN} =>\e[1;31m failed to update\e[1;37m\n"
+                fi
                 # (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;31m failed to update\e[1;37m\n"
             else
-                echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m updated\e[1;37m\n"
-                echo -e "${DOMAIN_IP} ${DOMAIN_PROXIED}\n"
+
+                if [[ ${HIDE_PIP} == false ]];
+                then
+                    echo -e " ${CHECK_MARK} ${DOMAIN} ${DOMAIN_IP} ${DOMAIN_PROXIED} =>\e[1;32m updated\e[1;37m\n"
+                else
+                    echo -e " ${CHECK_MARK} ${DOMAIN} =>\e[1;32m updated\e[1;37m\n"
+                fi
                 # (\e[1;31m${DOMAIN_IP}\e[1;37m),\e[1;32m updated\e[1;37m\n"
             fi
         else
-            echo -e " ${CHECK_MARK} ${DOMAIN}\n"
+            if [[ ${HIDE_PIP} == false ]];
+            then
+                echo -e " ${CHECK_MARK} ${DOMAIN} ${DOMAIN_IP} ${DOMAIN_PROXIED}\n";
+            else
+                echo -e " ${CHECK_MARK} ${DOMAIN}\n"
+            fi
         fi
     fi
 }
