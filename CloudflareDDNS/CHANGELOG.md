@@ -3,16 +3,16 @@
   Update the current YAML config of the add-on like so:
 
   Old:<br>
-  `domains:`
-  `  - domain: <domain1>`
-  `  - domain: <domain2>`
-  `  - domain: <...>`
+  ```domains:
+    - domain: <domain1>
+    - domain: <domain2>
+    - domain: <...>```
   
   New:<br>
-  ` domains:`
-  `  - <domain1>`
-  `  - <domain2>`
-  `  - <...>`
+  ``` domains:
+    - <domain1>
+    - <domain2>
+    - <...>```
 
   *This is how it originally was, until it suddenly didn't function properly during the lifetime of v1.2.0.*
 
