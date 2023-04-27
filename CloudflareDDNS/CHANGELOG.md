@@ -17,7 +17,7 @@
   ```
 
   *This is how it originally was, until it suddenly didn't function properly during the lifetime of v1.2.0.*
-
+<br>
 - Fixed PIP not being shown when disabling the "Hide PIP" option.
 - With the "Hide PIP" option disabled, logging output will from now on also show whether or not the record is proxied by Cloudflare.
 - Minor visual changes to the logging output.
