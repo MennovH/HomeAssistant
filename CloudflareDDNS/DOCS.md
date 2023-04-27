@@ -46,7 +46,7 @@ It's also possible to directly configure the add-on via the YAML configurator, a
 ![example YAML configuration][screenshot2]
 
 ## Example CloudflareDDNS logging output
-The following image shows an example output of the add-on, which can be found in the logbook. In this scenario, the A record of (sub)domain-3 pointed to a wrong IP address. The add-on found that this record was incorrect, and updated it accordingly. This change is instantly visible in the Cloudflare dashboard.
+The following image shows an example output of the add-on, which can be found in the logbook. In this scenario, the A record of example3.com pointed to a wrong IP address. The add-on found that this record was incorrect, and updated it accordingly. The add-on also noticed that the A record of example4.com was missing, and created it (proxied by default which can be overruled as stated earlier). These changes are instantly visible in the Cloudflare dashboard. This example shows the full output with the "Hide PIP" option set to disabled. If enabled, information as the current Public IP address and whether or not the regarding A records are proxied by Cloudflare, won't be shown.
 <br></br>
 ![example logging output][screenshot3]
 
