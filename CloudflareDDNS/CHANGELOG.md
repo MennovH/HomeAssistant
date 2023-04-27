@@ -21,7 +21,7 @@
 - Fixed PIP not being shown when disabling the "Hide PIP" option.
 - With the "Hide PIP" option disabled, logging output will from now on also show whether or not the record is proxied by Cloudflare.
 - Minor visual changes to the logging output.
-- Updated documentation
+- Updated documentation and images
 
 # v1.3.3
 - Removed the need to manually configure (sub)domains. CloudflareDDNS will fetch all existing A records within the specified zone and keep them up-to-date accordingly. - A records of manually configured (sub)domains will automatically be created when missing in the Cloudflare portal (proxied by default).
