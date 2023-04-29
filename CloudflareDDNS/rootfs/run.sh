@@ -205,7 +205,7 @@ do
     echo -e "\n "
     
     duration=$SECONDS
-    TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)))
+    TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
     sleep ${TMP_SEC}s
 
 done
