@@ -10,7 +10,7 @@ configuration:
   cloudflare_api_token:
     name: Cloudflare API token
     description: >-
-      Enter the Cloudflare API token with which the A records could be updated.
+      Enter the Cloudflare API token with which the A records can be updated.
   interval: 
     name: Time interval (minutes)
     description: >-
