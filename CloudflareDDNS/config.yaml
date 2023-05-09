@@ -22,7 +22,8 @@ options:
   cloudflare_api_token: null
   interval: 15
   hide_public_ip: true
-  domains: str
+  domains:
+    - null
 schema:
   email_address: email
   cloudflare_zone_id: password
