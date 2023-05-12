@@ -180,32 +180,43 @@ do
         -H "X-Auth-Email: ${EMAIL}" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name')
-        
-    count=$(wc -w <<< $HARDCODED_DOMAINS)
-    if [[ $count > 0 ]];
+    
+    if [[ ! -z "$DOMAINS" ]];
     then
-        for DOMAIN in ${HARDCODED_DOMAINS[@]};
-        do 
-            TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
+    
+        count=$(wc -w <<< $HARDCODED_DOMAINS)
+        if [[ $count > 0 ]];
+        then
+            for DOMAIN in ${HARDCODED_DOMAINS[@]};
+            do 
+                TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
             
-            if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`;
-            then
-                DOMAINS+=("$DOMAIN")
-            fi
-            HARDCODED_DOMAINS=( "${HARDCODED_DOMAINS[@]/$DOMAIN/}" )
-        done
+                if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`;
+                then
+                    DOMAINS+=("$DOMAIN")
+                fi
+                HARDCODED_DOMAINS=( "${HARDCODED_DOMAINS[@]/$DOMAIN/}" )
+            done
+        fi
+    
+        DOMAIN_LIST=($(for d in "${DOMAINS[@]}"; do echo "${d}"; done | sort -u))
+        
+        if [[ ! -z "$DOMAIN_LIST" ]];
+        then
+            ITERATION=$(($ITERATION + 1))
+            # iterate through listed domains
+            echo "Domain list iteration ${ITERATION}:"
+            for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
+    
+            echo -e "\n "
+    
+            duration=$SECONDS
+            TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
+            sleep ${TMP_SEC}s
+        else
+            echo -e "${R}Domain list iteration failed. Retrying...${W}"
+        fi
+    else
+        echo -e "${R}Domain list iteration failed. Retrying...${W}"
     fi
-    
-    DOMAIN_LIST=($(for d in "${DOMAINS[@]}"; do echo "${d}"; done | sort -u))
-    ITERATION=$(($ITERATION + 1))
-    # iterate through listed domains
-    echo "Domain list iteration ${ITERATION}:"
-    for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
-    
-    echo -e "\n "
-    
-    duration=$SECONDS
-    TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
-    sleep ${TMP_SEC}s
-
 done
