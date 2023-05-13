@@ -160,7 +160,7 @@ function check {
             # nothing changed
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${GREY}${DOMAIN}${W})\n";
+                echo -e " ${CHECK_MARK} ${GREY}${DOMAIN}${W}\n";
             else
                 echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${W}\n";
             fi
