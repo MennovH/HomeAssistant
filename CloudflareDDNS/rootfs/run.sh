@@ -208,7 +208,7 @@ do
             echo "Domain list iteration ${ITERATION}:"
             for DOMAIN in ${DOMAIN_LIST[@]};
             do
-                check ${DOMAIN} ${PERSISTENT_DOMAINS};
+                `check "${DOMAIN}" "${PERSISTENT_DOMAINS[@]}"`;
             done
             echo -e "\n "
             duration=$SECONDS
