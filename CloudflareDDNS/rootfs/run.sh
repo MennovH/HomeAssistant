@@ -13,7 +13,6 @@ TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 HIDE_PIP=$(bashio::config 'hide_public_ip')
-#HARDCODED_DOMAINS=$(for j in $(bashio::config "domains|keys"); do echo $(bashio::config "domains[${j}].domain"); done | xargs echo -n)
 HARDCODED_DOMAINS=$(bashio::config "domains")
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
@@ -147,7 +146,6 @@ function check {
                 else
                     echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${W}\n"
                 fi
-                # (${R}${DOMAIN_IP}${W}), ${GR}updated${W}\n"
              fi
         else
             if [[ ${HIDE_PIP} == false ]];
@@ -183,7 +181,6 @@ do
     
     if [[ ! -z "$DOMAINS" ]];
     then
-    
         count=$(wc -w <<< $HARDCODED_DOMAINS)
         if [[ $count > 0 ]];
         then
