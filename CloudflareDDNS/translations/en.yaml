@@ -20,6 +20,6 @@ configuration:
     description: >-
       Proxied A records will be created automatically for non-existent (sub)domains, specified below.
   domains:
-    name: (sub)Domains (optional)
+    name: Persistent domains (optional)
     description: >-
       Enter the regarding (sub)domains of which A records must be created when non-existent. The A record will be created as proxied by default. If a (sub)domain should not be proxied, place "_no_proxy" (without quotes) directly behind the regarding (sub)domain.
