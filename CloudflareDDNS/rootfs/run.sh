@@ -80,25 +80,27 @@ function check {
 
         if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
         then
+            # creation failed
             ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${W}\n"
         else
-            if [[ ${HIDE_PIP} == false ]];
+            # creation successful (no need to mention current PIP (again))
+            #if [[ ${HIDE_PIP} == false ]];
+            #then
+            if [[ ${PROXY} == false ]];
             then
-                if [[ ${PROXY} == false ]];
-                then
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}created${W}\n"
-                else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
-                fi
-            else            
-                if [[ ${PROXY} == false ]];
-                then
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}created${W}\n"
-                else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
-                fi
+                echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}created${W}\n"
+            else
+                echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
             fi
+            #else            
+            #    if [[ ${PROXY} == false ]];
+            #    then
+            #        echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}created${W}\n"
+            #    else
+            #        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
+            #    fi
+            #fi
         fi
     fi
     
