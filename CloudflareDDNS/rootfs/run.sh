@@ -89,7 +89,7 @@ function check {
                 then
                     echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}created${W}\n"
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RG}proxied${W}${N}) => ${GR}created${W}\n"
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
                 fi
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}created${W}\n"
