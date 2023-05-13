@@ -183,7 +183,7 @@ do
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name')
     
-    PERSISTENT=PERSISTENT_DOMAINS
+    PERSISTENT="${PERSISTENT_DOMAINS[@]}"
     
     if [[ ! -z "$DOMAINS" ]];
     then
