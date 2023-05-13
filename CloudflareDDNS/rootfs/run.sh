@@ -27,7 +27,7 @@ S="\e[9m" #strikethrough
 RG="\e[0;32m" #green
 RR="\e[0;31m" #red
 YY="\e[0;33m" #yellow
-GREY="\e[37m" #grey
+GREY="\e[44m" #grey
 
 # bold colors
 W="\e[1;37m" #white
