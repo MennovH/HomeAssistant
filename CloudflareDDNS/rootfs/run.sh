@@ -35,13 +35,13 @@ GR="\e[1;32m" #green
 Y="\e[1;33m" #yellow
 R="\e[1;31m" #red
 
-if [[ ${#TOKEN} == 0 ]];
-then
-    echo -e "${RR}Failed to run due to missing Cloudflare API token${W}\n"
-    exit 1
-elif [[ ${#ZONE} == 0 ]];
+if [[ ${#ZONE} == 0 ]];
 then
     echo -e "${RR}Failed to run due to missing Cloudflare Zone ID${W}\n"
+    exit 1
+elif [[ ${#TOKEN} == 0 ]];
+then
+    echo -e "${RR}Failed to run due to missing Cloudflare API token${W}\n"
     exit 1
 fi
 
@@ -54,8 +54,10 @@ function domain_lookup {
 
 function check {
     ERROR=0
-    DOMAIN=$1
-    PERSISTENT=$2
+    local DOMAIN="$1"
+    local PERSISTENT="$2"
+    
+    echo -e "${PERSISTENT}"
     PROXY=true
     if [[ ${DOMAIN} == *"_no_proxy"* ]];
     then
@@ -102,10 +104,6 @@ function check {
         DOMAIN_ID=$(echo ${API_RESPONSE} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
-
-        #PROXY=$(echo ${PERSISTENT_DOMAINS} | grep -w -q ${DOMAIN})
-        
-        echo -e "${PERSISTENT_DOMAINS}"
         
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
@@ -193,7 +191,6 @@ do
             for DOMAIN in ${PERSISTENT_DOMAINS[@]};
             do 
                 TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
-            
                 if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`;
                 then
                     DOMAINS+=("$DOMAIN")
@@ -209,7 +206,10 @@ do
             ITERATION=$(($ITERATION + 1))
             # iterate through listed domains
             echo "Domain list iteration ${ITERATION}:"
-            for DOMAIN in ${DOMAIN_LIST[@]}; do check "${DOMAIN}" "${PERSISTENT_DOMAINS}"; done
+            for DOMAIN in ${DOMAIN_LIST[@]};
+            do
+                check ${DOMAIN} ${PERSISTENT_DOMAINS};
+            done
             echo -e "\n "
             duration=$SECONDS
             TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
