@@ -1,3 +1,7 @@
+# v1.3.6
+- Removed the e-mail address configuration, as it was not necessary for the Cloudflare API. This removal has no impact for installations with the e-mail address still defined in the configuration file.
+- Updated documentation and images.
+
 # v1.3.5
 - Fixed "missing domains" issue, by correcting the config.yaml file of this add-on. Users without any configuration were forced to use the code editor and make (minor) changes to get the add-on to work properly.
 - Added validation to prevent the add-on to crash. In some occasions it was found that the add-on failed to obtain the domains via Cloudflare API. When iterating this empty list of domains, the add-on wasn't able to restore itself and crashed.

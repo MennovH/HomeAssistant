@@ -10,7 +10,7 @@ configuration:
   interval: 
     name: Time interval (minutes)
     description: >-
-      Enter an integer value between 1 and 1440.
+      Enter an integer value between 1 and 1440. Default value is 10.
   hide_public_ip: 
     name: Hide public IP address in logbook
     description: >-
