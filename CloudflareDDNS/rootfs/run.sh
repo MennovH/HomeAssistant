@@ -200,7 +200,7 @@ do
         fi
     
         DOMAIN_LIST=($(for d in "${DOMAINS[@]}"; do echo "${d}"; done | sort -u))
-        
+        DONAIN_LIST=$null
         if [[ ! -z "$DOMAIN_LIST" ]];
         then
             ITERATION=$(($ITERATION + 1))
