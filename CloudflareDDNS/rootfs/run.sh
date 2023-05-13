@@ -5,13 +5,15 @@ declare ZONE
 declare INTERVAL
 declare HIDE_PIP
 declare DOMAINS
-declare HARDCODED_DOMAINS
+declare PERSISTENT_DOMAINS
+declare CHECK_MARK
+declare CROSS_MARK
 
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 HIDE_PIP=$(bashio::config 'hide_public_ip')
-HARDCODED_DOMAINS=$(bashio::config "domains")
+PERSISTENT_DOMAINS=$(bashio::config "domains")
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 ITERATION=0
@@ -44,10 +46,10 @@ then
 fi
 
 function domain_lookup {
-  local list="$1"
-  local item="$2"
-  if [[ $list =~ (^|[[:space:]])"$item"($|[[:space:]]) ]] ; then result=1; else result=0; fi
-  return $result
+  local LIST="$1"
+  local ITEM="$2"
+  if [[ $LIST =~ (^|[[:space:]])"$ITEM"($|[[:space:]]) ]] ; then RESULT=1; else RESULT=0; fi
+  return $RESULT
 }
 
 function check {
@@ -100,8 +102,10 @@ function check {
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
 
+        
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
+            # difference detected
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
             API_RESPONSE=$(curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
                 -H "Authorization: Bearer ${TOKEN}" \
@@ -179,10 +183,10 @@ do
     
     if [[ ! -z "$DOMAINS" ]];
     then
-        count=$(wc -w <<< $HARDCODED_DOMAINS)
+        count=$(wc -w <<< $PERSISTENT_DOMAINS)
         if [[ $count > 0 ]];
         then
-            for DOMAIN in ${HARDCODED_DOMAINS[@]};
+            for DOMAIN in ${PERSISTENT_DOMAINS[@]};
             do 
                 TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
             
@@ -190,11 +194,11 @@ do
                 then
                     DOMAINS+=("$DOMAIN")
                 fi
-                HARDCODED_DOMAINS=( "${HARDCODED_DOMAINS[@]/$DOMAIN/}" )
+                PERSISTENT_DOMAINS=( "${PERSISTENT_DOMAINS[@]/$DOMAIN/}" )
             done
         fi
     
-        DOMAIN_LIST=($(for d in "${DOMAINS[@]}"; do echo "${d}"; done | sort -u))
+        DOMAIN_LIST=($(for D in "${DOMAINS[@]}"; do echo "${D}"; done | sort -u))
         
         if [[ ! -z "$DOMAIN_LIST" ]];
         then
