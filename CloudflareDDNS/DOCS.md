@@ -7,7 +7,6 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 ## Prerequisites
 - Home Assistant Supervisor
 - A valid Cloudflare account
-  - The email address associated to this account needs to be added in the configuration of this add-on later on
 - Cloudflare managed DNS records
   - The regarding domain name records must be managed via Cloudflare.
 - A valid Cloudflare API token
@@ -34,11 +33,10 @@ Using this add-on as extension to Nginx Proxy Manager, provides an easy way to c
 # Configuration
 
 When installed, navigate to the configuration tab of the add-on. Fill in the empty input fields according the instructions below.
-1. `email_address` (required) Enter the e-mail address which is used for the Cloudflare portal.
 2. `cloudflare_zone_id` (required) Enter the ZONE-ID for the zone of which the DNS records must be kept up-to-date.
 3. `cloudflare_api_token` (required) Enter the API token with which you may edit DNS records for the specified zone.
 4. `domains` (optional) Add the (sub)domains of which the A records must be kept up-to-date. This will create A records for (sub)domains missing entirely in the portal. All current (sub)domains will be fetched with each run. Each (sub)domain must be added separately, like so:<br><br>![example domain configuration][screenshot1] <br></br>All A records will be created as "proxied" by default. When specific (sub)domains should not be proxied, add the string "_no_proxy" directly behind the regarding (sub)domains.
-6. `interval` (required) Enter an integer value between 1 and 1440 (default: 15). This is the interval in minutes in which the (sub)domains will be updated.
+6. `interval` (required) Enter an integer value between 1 and 1440 (default: 10). This is the interval in minutes in which the (sub)domains will be updated.
 7. When ready, start the add-on. The logging will show its results. Don't forget to enable "Start at startup" and "Watchdog", to ensure the add-on is running.
 
 It's also possible to directly configure the add-on via the YAML configurator, as shown in the image below.
