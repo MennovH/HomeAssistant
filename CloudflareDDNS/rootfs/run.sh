@@ -209,7 +209,7 @@ do
             ITERATION=$(($ITERATION + 1))
             # iterate through listed domains
             echo "Domain list iteration ${ITERATION}:"
-            for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN} ${PERSISTENT_DOMAINS}; done
+            for DOMAIN in ${DOMAIN_LIST[@]}; do `check "${DOMAIN}" "${PERSISTENT_DOMAINS}"`; done
             echo -e "\n "
             duration=$SECONDS
             TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
