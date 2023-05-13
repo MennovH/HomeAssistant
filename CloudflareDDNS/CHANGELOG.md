@@ -1,6 +1,7 @@
 # v1.3.6
 - Removed the e-mail address configuration, as it was not necessary for the Cloudflare API. This removal has no impact for installations with the e-mail address still defined in the configuration file.
 - Added visibility to each domain's proxy status in the logs, regardless of whether the PIP is configured as hidden.
+- Added comments to code.
 - Updated documentation and images.
 
 # v1.3.5
