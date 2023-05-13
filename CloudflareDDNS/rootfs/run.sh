@@ -27,7 +27,7 @@ S="\e[9m" #strikethrough
 RG="\e[0;32m" #green
 RR="\e[0;31m" #red
 YY="\e[0;33m" #yellow
-GREY="\e[44m" #grey
+GREY="\e[40m" #grey
 
 # bold colors
 W="\e[1;37m" #white
@@ -122,17 +122,17 @@ function check {
                     # show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${GREY}${DOMAIN}${W}) (${R}${DOMAIN_IP}${W}) => ${RR}failed to update${W}\n"
+                        echo -e " ${CROSS_MARK} ${GREY}${DOMAIN}${N}) (${R}${DOMAIN_IP}${N}) => ${RR}failed to update${N}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${W} (${R}${DOMAIN_IP}${W}) => ${RR}failed to update${W}\n"
+                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${N} (${R}${DOMAIN_IP}${N}) => ${RR}failed to update${N}\n"
                     fi
                 else
                     # don't show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${GREY}${DOMAIN}${W}) => ${RR}failed to update${W}\n"
+                        echo -e " ${CROSS_MARK} ${GREY}${DOMAIN}${N}) => ${RR}failed to update${N}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${W} => ${RR}failed to update${W}\n"
+                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${N} => ${RR}failed to update${N}\n"
                     fi
                 fi
             else
@@ -142,17 +142,17 @@ function check {
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${GREY}${DOMAIN}${W}) => ${GR}updated${W} (\e[9m${DOMAIN_IP}\e[0m)\n"
+                        echo -e " ${CHECK_MARK} ${GREY}${DOMAIN}${N}) => ${GR}updated${N} (\e[9m${DOMAIN_IP}\e[0m)\n"
                     else
-                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${W} => ${GR}updated${W} (\e[9m${DOMAIN_IP}\e[0m)\n"
+                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${N} => ${GR}updated${N} (\e[9m${DOMAIN_IP}\e[0m)\n"
                     fi
                 else
                     # don't show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${GREY}${DOMAIN}${W}) => ${GR}updated${W}\n"
+                        echo -e " ${CHECK_MARK} ${GREY}${DOMAIN}${N}) => ${GR}updated${N}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${W} => ${GR}updated${W}\n"
+                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${N} => ${GR}updated${N}\n"
                     fi
                 fi
              fi
@@ -160,9 +160,9 @@ function check {
             # nothing changed
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${GREY}${DOMAIN}${W}\n";
+                echo -e " ${CHECK_MARK} ${GREY}${DOMAIN}${N}\n";
             else
-                echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${W}\n";
+                echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${N}\n";
             fi
         fi
     fi
