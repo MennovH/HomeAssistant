@@ -104,7 +104,7 @@ function check {
 
         PROXY=$(echo ${PERSISTENT_DOMAINS} | grep -w -q ${DOMAIN})
         
-        echo -e "$PROXY"
+        echo -e "${PROXY}"
         
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
