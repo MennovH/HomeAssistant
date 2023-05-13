@@ -1,5 +1,5 @@
 # v1.3.6
-- Removed the e-mail address configuration, as it was not necessary for the Cloudflare API.
+- Removed the e-mail address configuration, as it was not necessary for the Cloudflare API. This removal has no impact for installations with the e-mail address still defined in the configuration file.
 - Updated documentation and images.
 
 # v1.3.5
