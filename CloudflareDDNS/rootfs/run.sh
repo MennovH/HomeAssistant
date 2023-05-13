@@ -83,17 +83,22 @@ function check {
             ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${W}\n"
         else
-            #if [[ ${HIDE_PIP} == false ]];
-            #then
-            if [[ ${PROXY} == false ]];
+            if [[ ${HIDE_PIP} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}created${W}\n"
-            else
-                echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
+                if [[ ${PROXY} == false ]];
+                then
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}created${W}\n"
+                else
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
+                fi
+            else            
+                if [[ ${PROXY} == false ]];
+                then
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}created${W}\n"
+                else
+                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
+                fi
             fi
-            #else
-            #    echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}created${W}\n"
-            #fi
         fi
     fi
     
@@ -113,32 +118,46 @@ function check {
 
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
-                #if [[ ${HIDE_PIP} == false ]];
-                #then
-                if [[ ${DOMAIN_PROXIED} == false ]];
+                # update failed
+                if [[ ${HIDE_PIP} == false ]];
                 then
-                    echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${I}${R}not proxied${W}${N}) => ${RR}failed to update${W}\n"
+                    if [[ ${DOMAIN_PROXIED} == false ]];
+                    then
+                        echo -e " ${CROSS_MARK} ${DOMAIN} (${R}${DOMAIN_IP}${W}) (${I}${R}not proxied${W}${N}) => ${RR}failed to update${W}\n"
+                    else
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${R}${DOMAIN_IP}${W}) (${RG}${I}proxied${W}${N}) => ${RR}failed to update${W}\n"
+                    fi
                 else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${RR}failed to update${W}\n"
-                fi
-                #else
+                    if [[ ${DOMAIN_PROXIED} == false ]];
+                    then
+                        echo -e " ${CROSS_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${RR}failed to update${W}\n"
+                    else
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${RR}failed to update${W}\n"
+                    fi
                 #    echo -e " ${CROSS_MARK} ${DOMAIN} => ${RR}failed to update${W}\n"
-                #fi
-            else
-
-                #if [[ ${HIDE_PIP} == false ]];
-                #then
-                if [[ ${DOMAIN_PROXIED} == false ]];
-                then
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}updated${W} (\e[9m${Y}${DOMAIN_IP}${W}\e[0m)\n"
-                else
-                    echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}updated${W} (\e[9m${Y}${DOMAIN_IP}${W}\e[0m)\n"
                 fi
-                #else
+            else
+                # update successful
+                if [[ ${HIDE_PIP} == false ]];
+                then
+                    if [[ ${DOMAIN_PROXIED} == false ]];
+                    then
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}updated${W} (\e[9m${Y}${DOMAIN_IP}${W}\e[0m)\n"
+                    else
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}updated${W} (\e[9m${Y}${DOMAIN_IP}${W}\e[0m)\n"
+                    fi
+                else
+                    if [[ ${DOMAIN_PROXIED} == false ]];
+                    then
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}updated${W}\n"
+                    else
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}updated${W}\n"
+                    fi
                 #    echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${W}\n"
-                #fi
+                fi
              fi
         else
+            # nothing changed
             #if [[ ${HIDE_PIP} == false ]];
             #then
             if [[ ${DOMAIN_PROXIED} == false ]];
