@@ -1,3 +1,6 @@
+# v1.3.5
+- Fixed "missing domains" issue, by correcting the configuration.yaml file. Users without any configuration were forced to use the code editor to get the add-on to work.
+
 # v1.3.4
 - Breaking change: Fixed the issue where the optional "(sub)domains" setting wasn't really optional because it required the key-value format.
   Update the current YAML config of the add-on like so:
