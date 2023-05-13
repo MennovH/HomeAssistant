@@ -121,17 +121,17 @@ function check {
                     # show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${YY}${DOMAIN}${W} (${R}${DOMAIN_IP}${W}) => ${RR}failed to update${W}\n"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} (${YY}not proxied${W}) (${R}${DOMAIN_IP}${W}) => ${RR}failed to update${W}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${RG}${DOMAIN}${W} (${R}${DOMAIN_IP}${W}) => ${RR}failed to update${W}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${R}${DOMAIN_IP}${W}) => ${RR}failed to update${W}\n"
                     fi
                 else
                     # don't show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${YY}${DOMAIN}${W} => ${RR}failed to update${W}\n"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} (${YY}not proxied${W}) => ${RR}failed to update${W}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${RG}${DOMAIN}${W} => ${RR}failed to update${W}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} => ${RR}failed to update${W}\n"
                     fi
                 fi
             else
@@ -141,17 +141,17 @@ function check {
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${W} => ${GR}updated${W} (\e[9m${DOMAIN_IP}\e[0m)\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${YY}not proxied${W}) => ${GR}updated${W} (\e[9m${DOMAIN_IP}\e[0m)\n"
                     else
-                        echo -e " ${CHECK_MARK} ${RG}${DOMAIN}${W} => ${GR}updated${W} (\e[9m${DOMAIN_IP}\e[0m)\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${W} (\e[9m${DOMAIN_IP}\e[0m)\n"
                     fi
                 else
                     # don't show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${W} => ${GR}updated${W}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${YY}not proxied${W}) => ${GR}updated${W}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${RG}${DOMAIN}${W} => ${GR}updated${W}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${W}\n"
                     fi
                 fi
              fi
@@ -159,9 +159,9 @@ function check {
             # nothing changed
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${W}\n";
+                echo -e " ${CHECK_MARK} ${DOMAIN} (${YY}not proxied${W})\n";
             else
-                echo -e " ${CHECK_MARK} ${RG}${DOMAIN}${W}\n";
+                echo -e " ${CHECK_MARK} ${DOMAIN}\n";
             fi
         fi
     fi
