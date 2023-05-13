@@ -102,7 +102,7 @@ function check {
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
 
-        PROXY=$(echo $PERSISTENT_DOMAINS | grep -w -q $DOMAIN)
+        PROXY=$(echo ${PERSISTENT_DOMAINS} | grep -w -q ${DOMAIN})
         
         echo -e "$PROXY"
         
