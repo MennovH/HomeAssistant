@@ -183,6 +183,8 @@ do
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name')
     
+    PERSISTENT=PERSISTENT_DOMAINS
+    
     if [[ ! -z "$DOMAINS" ]];
     then
         count=$(wc -w <<< $PERSISTENT_DOMAINS)
@@ -208,7 +210,7 @@ do
             echo "Domain list iteration ${ITERATION}:"
             for DOMAIN in ${DOMAIN_LIST[@]};
             do
-                check ${DOMAIN} ${PERSISTENT_DOMAINS[@]};
+                check ${DOMAIN} ${PERSISTENT[@]};
             done
             echo -e "\n "
             duration=$SECONDS
