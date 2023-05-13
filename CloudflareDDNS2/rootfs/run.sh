@@ -8,7 +8,6 @@ declare HIDE_PIP
 declare DOMAINS
 declare HARDCODED_DOMAINS
 
-EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
@@ -35,11 +34,7 @@ GR="\e[1;32m" #green
 Y="\e[1;33m" #yellow
 R="\e[1;31m" #red
 
-if ! [[ ${EMAIL} == ?*@?*.?* ]];
-then
-    echo -e "${RR}Failed to run due to invalid email address${W}\n"
-    exit 1
-elif [[ ${#TOKEN} == 0 ]];
+if [[ ${#TOKEN} == 0 ]];
 then
     echo -e "${RR}Failed to run due to missing Cloudflare API token${W}\n"
     exit 1
