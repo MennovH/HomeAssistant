@@ -119,7 +119,7 @@ function check {
                     then
                         echo -e " ${CROSS_MARK} ${DOMAIN} ${DOMAIN_IP} (${I}${R}not proxied${W}${N}) => ${RR}failed to update${W}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${RR}failed to update${W}\n"
                     fi
                 else
                     echo -e " ${CROSS_MARK} ${DOMAIN} => ${RR}failed to update${W}\n"
