@@ -85,22 +85,12 @@ function check {
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${W}\n"
         else
             # creation successful (no need to mention current PIP (again))
-            #if [[ ${HIDE_PIP} == false ]];
-            #then
             if [[ ${PROXY} == false ]];
             then
                 echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}created${W}\n"
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
             fi
-            #else            
-            #    if [[ ${PROXY} == false ]];
-            #    then
-            #        echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}created${W}\n"
-            #    else
-            #        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}created${W}\n"
-            #    fi
-            #fi
         fi
     fi
     
@@ -123,6 +113,7 @@ function check {
                 # update failed
                 if [[ ${HIDE_PIP} == false ]];
                 then
+                    # show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
                         echo -e " ${CROSS_MARK} ${DOMAIN} (${R}${DOMAIN_IP}${W}) (${I}${R}not proxied${W}${N}) => ${RR}failed to update${W}\n"
@@ -130,18 +121,19 @@ function check {
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${R}${DOMAIN_IP}${W}) (${RG}${I}proxied${W}${N}) => ${RR}failed to update${W}\n"
                     fi
                 else
+                    # don't show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
                         echo -e " ${CROSS_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${RR}failed to update${W}\n"
                     else
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${RR}failed to update${W}\n"
                     fi
-                #    echo -e " ${CROSS_MARK} ${DOMAIN} => ${RR}failed to update${W}\n"
                 fi
             else
                 # update successful
                 if [[ ${HIDE_PIP} == false ]];
                 then
+                    # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}updated${W} (\e[9m${Y}${DOMAIN_IP}${W}\e[0m)\n"
@@ -149,28 +141,23 @@ function check {
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}updated${W} (\e[9m${Y}${DOMAIN_IP}${W}\e[0m)\n"
                     fi
                 else
+                    # don't show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N}) => ${GR}updated${W}\n"
                     else
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N}) => ${GR}updated${W}\n"
                     fi
-                #    echo -e " ${CHECK_MARK} ${DOMAIN} => ${GR}updated${W}\n"
                 fi
              fi
         else
             # nothing changed
-            #if [[ ${HIDE_PIP} == false ]];
-            #then
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
                 echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${R}not proxied${W}${N})\n";
             else
                 echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${W}${N})\n";
             fi
-            #else
-            #    echo -e " ${CHECK_MARK} ${DOMAIN}\n"
-            #fi
         fi
     fi
 }
@@ -215,9 +202,7 @@ do
             # iterate through listed domains
             echo "Domain list iteration ${ITERATION}:"
             for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
-    
             echo -e "\n "
-    
             duration=$SECONDS
             TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
             sleep ${TMP_SEC}s
