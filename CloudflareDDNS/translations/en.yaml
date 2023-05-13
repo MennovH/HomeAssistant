@@ -1,8 +1,4 @@
 configuration:
-  email_address:
-    name: E-mail address
-    description: >-
-      Enter the e-mail address which is associated to your Cloudflare account.
   cloudflare_zone_id:
     name: Cloudflare Zone ID
     description: >-
