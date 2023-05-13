@@ -54,10 +54,8 @@ function domain_lookup {
 
 function check {
     ERROR=0
-    local DOMAIN="$1"
-    local PERSISTENT="$2"
+    DOMAIN=$1
     
-    #echo -e "${PERSISTENT}"
     PROXY=true
     if [[ ${DOMAIN} == *"_no_proxy"* ]];
     then
@@ -104,9 +102,6 @@ function check {
         DOMAIN_ID=$(echo ${API_RESPONSE} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
-        
-        PROXY=$(echo $PERSISTENT[@] | grep -w -q $DOMAIN)
-        echo -e "${PROXY}"
         
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
@@ -186,8 +181,6 @@ do
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name')
     
-    PERSISTENT="${PERSISTENT_DOMAINS[@]}"
-    
     if [[ ! -z "$DOMAINS" ]];
     then
         count=$(wc -w <<< $PERSISTENT_DOMAINS)
@@ -211,10 +204,7 @@ do
             ITERATION=$(($ITERATION + 1))
             # iterate through listed domains
             echo "Domain list iteration ${ITERATION}:"
-            for DOMAIN in ${DOMAIN_LIST[@]};
-            do
-                check ${DOMAIN} ${PERSISTENT[@]};
-            done
+            for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
             echo -e "\n "
             duration=$SECONDS
             TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
