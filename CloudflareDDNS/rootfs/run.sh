@@ -1,6 +1,5 @@
 #!/usr/bin/env bashio
 
-declare EMAIL
 declare TOKEN
 declare ZONE
 declare INTERVAL
@@ -8,7 +7,6 @@ declare HIDE_PIP
 declare DOMAINS
 declare HARDCODED_DOMAINS
 
-EMAIL=$(bashio::config 'email_address' | xargs echo -n)
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
@@ -35,11 +33,7 @@ GR="\e[1;32m" #green
 Y="\e[1;33m" #yellow
 R="\e[1;31m" #red
 
-if ! [[ ${EMAIL} == ?*@?*.?* ]];
-then
-    echo -e "${RR}Failed to run due to invalid email address${W}\n"
-    exit 1
-elif [[ ${#TOKEN} == 0 ]];
+if [[ ${#TOKEN} == 0 ]];
 then
     echo -e "${RR}Failed to run due to missing Cloudflare API token${W}\n"
     exit 1
@@ -66,7 +60,6 @@ function check {
         PROXY=false
     fi
     API_RESPONSE=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
-        -H "X-Auth-Email: ${EMAIL}" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json")
         
@@ -81,7 +74,6 @@ function check {
         ERROR=1
         DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
         API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
-            -H "X-Auth-Email: ${EMAIL}" \
             -H "Authorization: Bearer ${TOKEN}" \
             -H "Content-Type: application/json" \
             --data ${DATA})
@@ -115,7 +107,6 @@ function check {
         then
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
             API_RESPONSE=$(curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
-                -H "X-Auth-Email: ${EMAIL}" \
                 -H "Authorization: Bearer ${TOKEN}" \
                 -H "Content-Type: application/json" \
                 --data ${DATA})
@@ -175,7 +166,6 @@ do
     if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${W}\n"; fi
     
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
-        -H "X-Auth-Email: ${EMAIL}" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name')
     
