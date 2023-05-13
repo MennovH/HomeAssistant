@@ -1,0 +1,29 @@
+configuration:
+  email_address:
+    name: E-mail address
+    description: >-
+      Enter the e-mail address which is associated to your Cloudflare account.
+  cloudflare_zone_id:
+    name: Cloudflare Zone ID
+    description: >-
+      Enter the regarding Zone ID of which the A records should be updated.
+  cloudflare_api_token:
+    name: Cloudflare API token
+    description: >-
+      Enter the Cloudflare API token with which the A records can be updated.
+  interval: 
+    name: Time interval (minutes)
+    description: >-
+      Enter an integer value between 1 and 1440.
+  hide_public_ip: 
+    name: Hide public IP address in logbook
+    description: >-
+      Don't show the current public IP address in the logbook.
+  auto_create:
+    name: Automatically create proxied A record
+    description: >-
+      Proxied A records will be created automatically for non-existent (sub)domains, specified below.
+  domains:
+    name: (sub)Domains (optional)
+    description: >-
+      Enter the regarding (sub)domains of which A records must be created when non-existent. The A record will be created as proxied by default. If a (sub)domain should not be proxied, place "_no_proxy" (without quotes) directly behind the regarding (sub)domain.
