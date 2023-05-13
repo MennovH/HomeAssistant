@@ -1,5 +1,7 @@
 # v1.3.5
-- Fixed "missing domains" issue, by correcting the configuration.yaml file. Users without any configuration were forced to use the code editor to get the add-on to work.
+- Fixed "missing domains" issue, by correcting the config.yaml file of this add-on. Users without any configuration were forced to use the code editor and make (minor) changes to get the add-on to work properly.
+- Added validation to prevent the add-on to crash. In some occasions it was found that the add-on failed to obtain the domains via Cloudflare API. When iterating this empty list of domains, the add-on wasn't able to restore itself and crashed.
+- Minor deletions of old code.
 
 # v1.3.4
 - Breaking change: Fixed the issue where the optional "(sub)domains" setting wasn't really optional because it required the key-value format.
