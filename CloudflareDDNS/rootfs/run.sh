@@ -19,31 +19,25 @@ CROSS_MARK="\u274c"
 ITERATION=0
 
 # font
-N="\e[0m"
+N="\e[0m" #normal
 I="\e[3m" #italic
 S="\e[9m" #strikethrough
 
-# regular colors:
-RG="\e[0;32m" #green
-RR="\e[0;31m" #red
-YY="\e[0;33m" #yellow
-GREY="\e[40m" #grey
-
-# bold colors
-W="\e[1;37m" #white
-B="\e[1;30m" #black
-BL="\e[1;34m" #blue
-GR="\e[1;32m" #green
-Y="\e[1;33m" #yellow
-R="\e[1;31m" #red
+# colors:
+RG="\e[0;32m" #regular green
+RR="\e[0;31m" #regular red
+YY="\e[0;33m" #regular yellow
+BL="\e[1;34m" #bold blue
+GR="\e[1;32m" #bold green
+R="\e[1;31m" #bold red (error)
 
 if [[ ${#ZONE} == 0 ]];
 then
-    echo -e "${RR}Failed to run due to missing Cloudflare Zone ID${W}\n"
+    echo -e "${RR}Failed to run due to missing Cloudflare Zone ID${N}\n"
     exit 1
 elif [[ ${#TOKEN} == 0 ]];
 then
-    echo -e "${RR}Failed to run due to missing Cloudflare API token${W}\n"
+    echo -e "${RR}Failed to run due to missing Cloudflare API token${N}\n"
     exit 1
 fi
 
@@ -57,7 +51,6 @@ function domain_lookup {
 function check {
     ERROR=0
     DOMAIN=$1
-    
     PROXY=true
     if [[ ${DOMAIN} == *"_no_proxy"* ]];
     then
@@ -71,7 +64,7 @@ function check {
     if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
     then
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${W}\n"
+        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
     fi
     
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
@@ -87,14 +80,14 @@ function check {
         then
             # creation failed
             ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
-            echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${W}\n"
+            echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
         else
             # creation successful (no need to mention current PIP (again))
             if [[ ${PROXY} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${W} => ${GR}created${W}\n"
+                echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RR}not proxied${N}) => ${GR}created${N}\n"
             else
-                echo -e " ${CHECK_MARK} ${RG}${DOMAIN}${W} => ${GR}created${W}\n"
+                echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${GR}created${N}\n"
             fi
         fi
     fi
@@ -122,17 +115,17 @@ function check {
                     # show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${GREY}${DOMAIN}${N}) (${R}${DOMAIN_IP}${N}) => ${RR}failed to update${N}\n"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${I}${RR}not proxied${N}) => ${R}failed to update${N}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${N} (${R}${DOMAIN_IP}${N}) => ${RR}failed to update${N}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RG}${I}proxied${N}) => ${R}failed to update${N}\n"
                     fi
                 else
                     # don't show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${GREY}${DOMAIN}${N}) => ${RR}failed to update${N}\n"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} (${I}${RR}not proxied${N}) => ${R}failed to update${N}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${N} => ${RR}failed to update${N}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${R}failed to update${N}\n"
                     fi
                 fi
             else
@@ -142,17 +135,17 @@ function check {
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${GREY}${DOMAIN}${N}) => ${GR}updated${N} (\e[9m${DOMAIN_IP}\e[0m)\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RR}not proxied${N}) => ${GR}updated${N} (\e[9m${YY}${DOMAIN_IP}${N}\e[0m)\n"
                     else
-                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${N} => ${GR}updated${N} (\e[9m${DOMAIN_IP}\e[0m)\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${GR}updated${N} (\e[9m${YY}${DOMAIN_IP}${N}\e[0m)\n"
                     fi
                 else
                     # don't show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${GREY}${DOMAIN}${N}) => ${GR}updated${N}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RR}not proxied${N}) => ${GR}updated${N}\n"
                     else
-                        echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${N} => ${GR}updated${N}\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${GR}updated${N}\n"
                     fi
                 fi
              fi
@@ -160,9 +153,9 @@ function check {
             # nothing changed
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${GREY}${DOMAIN}${N}\n";
+                echo -e " ${CHECK_MARK} ${DOMAIN} (${I}${RR}not proxied${N})\n";
             else
-                echo -e " ${CHECK_MARK} ${YY}${DOMAIN}${N}\n";
+                echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N})\n";
             fi
         fi
     fi
@@ -212,9 +205,9 @@ do
             TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
             sleep ${TMP_SEC}s
         else
-            echo -e "${R}Domain list iteration failed. Retrying...${W}"
+            echo -e "${RR}Domain list iteration failed. Retrying...${N}"
         fi
     else
-        echo -e "${R}Domain list iteration failed. Retrying...${W}"
+        echo -e "${RR}Domain list iteration failed. Retrying...${N}"
     fi
 done
