@@ -1,6 +1,6 @@
 # v1.3.7
 - Added error counters to logs
-- Removed unnecessary code
+- Small changes to code
 
 # v1.3.6
 - Removed the e-mail address configuration, as it was not necessary for the Cloudflare API. This removal has no impact for installations with the e-mail address still defined in the configuration file.
