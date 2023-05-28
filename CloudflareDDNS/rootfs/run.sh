@@ -8,9 +8,6 @@ declare DOMAINS
 declare PERSISTENT_DOMAINS
 declare CHECK_MARK
 declare CROSS_MARK
-declare CREATIONERRORCOUNT
-declare ITERATIONERRORCOUNT
-declare UPDATEERRORCOUNT
 
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
@@ -34,9 +31,9 @@ BL="\e[1;34m" #bold blue
 GR="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
-CREATIONERRORCOUNT = 0
-ITERATIONERRORCOUNT = 0
-UPDATEERRORCOUNT = 0
+CREATIONERRORCOUNT=0
+ITERATIONERRORCOUNT=0
+UPDATEERRORCOUNT=0 
 
 if [[ ${#ZONE} == 0 ]];
 then
