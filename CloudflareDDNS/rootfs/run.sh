@@ -17,6 +17,9 @@ PERSISTENT_DOMAINS=$(bashio::config "domains")
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 ITERATION=0
+CREATIONERRORCOUNT=0
+ITERATIONERRORCOUNT=0
+UPDATEERRORCOUNT=0 
 
 # font
 N="\e[0m" #normal
@@ -30,10 +33,6 @@ YY="\e[0;33m" #regular yellow
 BL="\e[1;34m" #bold blue
 GR="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
-
-CREATIONERRORCOUNT=0
-ITERATIONERRORCOUNT=0
-UPDATEERRORCOUNT=0 
 
 if [[ ${#ZONE} == 0 ]];
 then
