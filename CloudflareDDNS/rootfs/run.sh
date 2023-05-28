@@ -114,7 +114,6 @@ function check {
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
                 # update failed
-                
                 UPDATEERRORCOUNT=$(($UPDATEERRORCOUNT + 1))
                 if [[ ${HIDE_PIP} == false ]];
                 then
@@ -141,9 +140,9 @@ function check {
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) => ${GR}updated${N} (${YY}\e[9m${DOMAIN_IP}${N}\e[0m)\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) => ${GR}updated${N} (${YY}${S}${DOMAIN_IP}${N}\e[0m)\n"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${GR}updated${N} (${YY}\e[9m${DOMAIN_IP}${N}\e[0m)\n"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${GR}updated${N} (${YY}${S}${DOMAIN_IP}${N}\e[0m)\n"
                     fi
                 else
                     # don't show previously assigned PIP
@@ -179,6 +178,7 @@ do
     echo -e "Errors (iteration/creation/update): ${ITERATIONERRORCOUNT}/${CREATIONERRORCOUNT}/${UPDATEERRORCOUNT}\n"
     if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${N}\n"; fi
     
+    # fetch existing A records
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name')
@@ -188,6 +188,7 @@ do
         count=$(wc -w <<< $PERSISTENT_DOMAINS)
         if [[ $count > 0 ]];
         then
+            # add persistent domains to obtained record list
             for DOMAIN in ${PERSISTENT_DOMAINS[@]};
             do 
                 TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
@@ -203,8 +204,8 @@ do
         
         if [[ ! -z "$DOMAIN_LIST" ]];
         then
-            ITERATION=$(($ITERATION + 1))
             # iterate through listed domains
+            ITERATION=$(($ITERATION + 1))
             echo "Domain list iteration ${ITERATION}:"
             for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
             echo -e "\n "
@@ -212,10 +213,12 @@ do
             TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
             sleep ${TMP_SEC}s
         else
+            # iteration failed
             ITERATIONERRORCOUNT=$(($ITERATIONERRORCOUNT + 1))
             echo -e "${RR}Domain list iteration failed. Retrying...${N}"
         fi
     else
+        # iteration failed
         ITERATIONERRORCOUNT=$(($ITERATIONERRORCOUNT + 1))
         echo -e "${RR}Domain list iteration failed. Retrying...${N}"
     fi
