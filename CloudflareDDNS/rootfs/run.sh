@@ -102,8 +102,7 @@ function check {
         DOMAIN_ID=$(echo ${API_RESPONSE} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
-        
-        UPDATEERRORCOUNT=$(($UPDATEERRORCOUNT + 1))
+
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
             # difference detected
