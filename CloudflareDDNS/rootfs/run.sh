@@ -17,9 +17,9 @@ PERSISTENT_DOMAINS=$(bashio::config "domains")
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 ITERATION=0
-CREATIONERRORCOUNT=0
-ITERATIONERRORCOUNT=0
-UPDATEERRORCOUNT=0 
+#CREATIONERRORCOUNT=0
+#ITERATIONERRORCOUNT=0
+#UPDATEERRORCOUNT=0 
 
 # font
 N="\e[0m" #normal
@@ -82,7 +82,7 @@ function check {
         if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
         then
             # creation failed
-            CREATIONERRORCOUNT=$(($CREATIONERRORCOUNT + 1))
+           # CREATIONERRORCOUNT=$(($CREATIONERRORCOUNT + 1))
             ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}"
         else
@@ -114,7 +114,7 @@ function check {
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
                 # update failed
-                UPDATEERRORCOUNT=$(($UPDATEERRORCOUNT + 1))
+               # UPDATEERRORCOUNT=$(($UPDATEERRORCOUNT + 1))
                 if [[ ${HIDE_PIP} == false ]];
                 then
                     # show current assigned PIP
@@ -175,7 +175,7 @@ do
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     SECONDS=0
     echo -e "Next: ${NEXT}"
-    echo -e "Errors (iteration/creation/update): ${ITERATIONERRORCOUNT}/${CREATIONERRORCOUNT}/${UPDATEERRORCOUNT}"
+   # echo -e "Errors (iteration/creation/update): ${ITERATIONERRORCOUNT}/${CREATIONERRORCOUNT}/${UPDATEERRORCOUNT}"
     if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${N}\n"; fi
     
     # fetch existing A records
@@ -214,12 +214,12 @@ do
             sleep ${TMP_SEC}s
         else
             # iteration failed
-            ITERATIONERRORCOUNT=$(($ITERATIONERRORCOUNT + 1))
+          #  ITERATIONERRORCOUNT=$(($ITERATIONERRORCOUNT + 1))
             echo -e "${RR}Domain list iteration failed. Retrying...${N}"
         fi
     else
         # iteration failed
-        ITERATIONERRORCOUNT=$(($ITERATIONERRORCOUNT + 1))
+       # ITERATIONERRORCOUNT=$(($ITERATIONERRORCOUNT + 1))
         echo -e "${RR}Domain list iteration failed. Retrying...${N}"
     fi
 done
