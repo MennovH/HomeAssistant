@@ -11,7 +11,3 @@ Orange cloud or grey cloud (i.e. proxied or not) is no problem for this add-on. 
 ## TokenRemover
 Decide when access tokens need to be removed, so TokenRemover will delete these automatically when the thresholds have been met.
 This allows for easier token removal without having to remove them per-user.
-
-## supervisor_health
-Custom integration which retrieves the supervisor status by using the Home Assistant api.
-The integration needs manual installation, and can then be shown as entity in your dashboard.
