@@ -50,10 +50,10 @@ The following image shows an example output of the add-on, which can be found in
 
 ### Runtime errors
 The additional logging of "Runtime errors" shows a summary of how many times something went wrong during runtime. The summary shows four values separated by a "/", and have the following meaning:
-- First value shows how many times it failed retrieving the current public IP address
-- Second value shows how many times it failed during an iteration
-- Third value shows how many times it failed creating an A record
-- Last value shows how many times it failed updating an A record
+- First value: counter for failing to get the current public IP address (possible causes: API failure, network issues)
+- Second value: counter for failing during an iteration (possible causes: Cloudflare API failure, network issues)
+- Third value: counter for failing to create an A record (possible causes: Cloudflare API failure, misconfigurations)
+- Last value: counter for failing to update an A record (possible cause: Cloudflare API failure)
 
 [screenshot1]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/example_domain_list.png
 [screenshot2]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/example_yaml.png
