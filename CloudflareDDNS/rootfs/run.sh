@@ -215,7 +215,7 @@ do
     echo -e "Next: ${NEXT}"
 
     # print current PIP
-    if [[ ${LOG_PIP} == true ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${N} (${i})\n"; fi
+    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BL}${PUBLIC_IP}${N} (${i})\n"; fi
     
     # fetch existing A records
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
