@@ -6,6 +6,9 @@
 - Fixed startup error message by removing deprecated parameters
 - Improved error logging
   - Added error handling in case the current PIP could not be fetched
+- Changed configuration parameter "hide_public_ip" to "log_pip"
+  - Old configuration "hide_public_ip" can be removed as the double negative was confusing
+  - New configuration "log_pip" has default value of "true"
 - Updated documentation
 
 # v1.3.7
