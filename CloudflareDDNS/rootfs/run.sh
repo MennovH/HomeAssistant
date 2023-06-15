@@ -56,6 +56,7 @@ function check {
     ERROR=0
     DOMAIN=$1
     PROXY=true
+    echo -e "${DOMAIN}"
     if [[ ${DOMAIN} == *"_no_proxy"* ]];
     then
         DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
