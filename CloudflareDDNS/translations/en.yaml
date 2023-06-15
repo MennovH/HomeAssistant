@@ -12,9 +12,9 @@ configuration:
     description: >-
       Enter an integer value between 1 and 1440. Default value is 10.
   hide_public_ip: 
-    name: Hide public IP address in logbook
+    name: Hide public IP address in log
     description: >-
-      Don't show the current public IP address in the logbook.
+      Don't show the current public IP address in the log.
   auto_create:
     name: Automatically create proxied A record
     description: >-
