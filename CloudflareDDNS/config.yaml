@@ -26,6 +26,6 @@ schema:
   cloudflare_zone_id: password
   cloudflare_api_token: password
   interval: int(1,1440)
-  hide_public_ip: bool
+  log_pip: bool
   domains:
     - "str?"
