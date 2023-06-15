@@ -171,9 +171,10 @@ if [[ ${INTERVAL} == 1 ]]; then bashio::log.info "Iterating every minute\n "; el
 
 while :
 do
+    ISSUE=0
     #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>&1)
-    PUBLIC_IP=$(curl -s --connect-timeout 50 https://api.ipify.org || echo 0)
+    PUBLIC_IP=$(curl -s --connect-timeout 50 https://api.ipify2.org || echo 0)
     #PUBLIC_IP=$(curl -s --connect-timeout 5 https://api.ipify.org 2>&1)
     
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
@@ -223,20 +224,26 @@ do
                 # iteration failed
                 ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
                 echo -e "${RR}Domain list iteration failed. Retrying in 60 seconds...${N}"
-                sleep 60s
+                ISSUE=1
             fi
         else
             # iteration failed
             ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
             echo -e "${RR}Domain list iteration failed. Retrying in 60 seconds...${N}"
-            sleep 60s
+            ISSUE=1
         fi
     else
         # PIP fetch failed
         PIP_ERRORS=$(($PIP_ERRORS + 1))
         echo -e "${RR}Failed to get current public IP address. Retrying in 60 seconds...${N}"
+        ISSUE=1
+    fi
+    echo -e "Errors (PIP/iteration/creation/update): ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}\n\n"
+    if [[ "$ISSUE" == 1 ]]
+    then
         sleep 60s
     fi
-    echo -e "Errors (PIP/iteration/creation/update): ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
+    ISSUE=0
+    
 done
 echo -e "$PUBLIC_IP"
