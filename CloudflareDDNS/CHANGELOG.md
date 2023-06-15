@@ -1,7 +1,11 @@
 # v1.3.8
-- Renewed error logging
-- Added error handling when unable to get the current public IP address
-- Fixed startup issue due to deprecated parameters
+- Improved error logging
+  - Added error handling in case the current public IP address could not be fetched
+- Public IP (PIP) retrieval issues
+  - Added infinite while loop with delay to assure the iteration only starts when the current PIP is known
+  - Added secondary API for redundancy to retrieve the PIP
+  - Added log message to see which API was used (shown only when "Hide public IP address in log" configuration is set to false)
+- Fixed startup error message by removing deprecated parameters
 - Updated documentation
 
 # v1.3.7
