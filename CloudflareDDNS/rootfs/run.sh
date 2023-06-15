@@ -35,6 +35,7 @@ BL="\e[1;34m" #bold blue
 GR="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
+# checks on configuration
 if [[ ${#ZONE} == 0 ]];
 then
     echo -e "${RR}Failed to run due to missing Cloudflare Zone ID${N}"
@@ -48,15 +49,14 @@ fi
 function domain_lookup {
   local LIST="$1"
   local ITEM="$2"
-  if [[ $LIST =~ (^|[[:space:]])"$ITEM"($|[[:space:]]) ]] ; then RESULT=1; else RESULT=0; fi
-  return $RESULT
+  if [[ $LIST =~ (^|[[:space:]])"$ITEM"($|[[:space:]]) ]] ; then return 1; else return 0; fi
 }
 
-function check {
+# Cloudflare API function (get/update/create)
+function cfapi {
     ERROR=0
     DOMAIN=$1
     PROXY=true
-    #echo -e ">>${DOMAIN}<<"
     if [[ ${DOMAIN} == *"_no_proxy"* ]];
     then
         DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
@@ -115,10 +115,12 @@ function check {
 
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
+            
                 # update failed
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
                 if [[ ${HIDE_PIP} == false ]];
                 then
+                
                     # show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
@@ -127,6 +129,7 @@ function check {
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RG}${I}proxied${N}) => ${R}failed to update${N}"
                     fi
                 else
+                
                     # don't show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
@@ -136,9 +139,11 @@ function check {
                     fi
                 fi
             else
+            
                 # update successful
                 if [[ ${HIDE_PIP} == false ]];
                 then
+                
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
@@ -147,6 +152,7 @@ function check {
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${GR}updated${N} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                     fi
                 else
+                
                     # don't show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
@@ -157,6 +163,7 @@ function check {
                 fi
              fi
         else
+        
             # nothing changed
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
@@ -168,7 +175,8 @@ function check {
     fi
 }
 
-if [[ ${INTERVAL} == 1 ]]; then bashio::log.info "Iterating every minute\n "; else bashio::log.info "Iterating every ${INTERVAL} minutes\n "; fi
+# starting message
+if [[ ${INTERVAL} == 1 ]]; then echo -e "${RG}Iterating every minute${N}\n "; else echo -e "${RG}Iterating every ${INTERVAL} minutes${N}\n "; fi
 
 while :
 do
@@ -177,9 +185,12 @@ do
     ISSUE=0
     echo -e "Runtime errors: ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
-    
+
+    # loop until PIP is known
     while :
     do
+    
+        # try different APIs to get current PIP
         for i in "api.ipify.org" "api.my-ip.io/ip"
         do PUBLIC_IP=$(curl -s --connect-timeout 5 https://$i || echo 0)
             if [[ $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
@@ -192,13 +203,18 @@ do
         then
             break
         fi
+        
+        # APIs failed to return PIP, retry in 10 seconds
         PIP_ERRORS=$(($PIP_ERRORS + 1))
         echo -e "${RR}Failed to get current public IP address. Retrying in 10 seconds...${N}"
         sleep 10s
     done
 
+    # calculate next run time
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e "Next: ${NEXT}"
+
+    # print current PIP
     if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${N} (${i})\n"; fi
     
     # fetch existing A records
@@ -222,15 +238,14 @@ do
                 PERSISTENT_DOMAINS=( "${PERSISTENT_DOMAINS[@]/$DOMAIN/}" )
             done
         fi
-    
+        # sort domain list alphabetically
         DOMAIN_LIST=($(for D in "${DOMAINS[@]}"; do echo "${D}"; done | sort -u))
-        
         if [[ ! -z "$DOMAIN_LIST" ]];
         then
             # iterate through listed domains
             ITERATION=$(($ITERATION + 1))
             echo "Domain list iteration ${ITERATION}:"
-            for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
+            for DOMAIN in ${DOMAIN_LIST[@]}; do cfapi ${DOMAIN}; done
         else
             # iteration failed
             ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
@@ -245,11 +260,13 @@ do
     fi
     if [[ $ISSUE == 1 ]]
     then
+        # iteration not completed, set sleep time at 60 seconds
         TMP_SEC=60
     else
-        # duration=$SECONDS
+        # iteration completed, calculate sleep time
         TMP_SEC=$(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60)))
     fi
+    # wait until next iteration
     sleep ${TMP_SEC}s
     echo ""
 done
