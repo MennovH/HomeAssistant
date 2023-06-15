@@ -245,12 +245,11 @@ do
     fi
     if [[ $ISSUE == 1 ]]
     then
-        ISSUE=0
-        sleep 60s
+        TMP_SEC=60
     else
-        duration=$SECONDS
-        TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)))
-        sleep ${TMP_SEC}s
+        # duration=$SECONDS
+        TMP_SEC=$(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60)))
     fi
+    sleep ${TMP_SEC}s
     echo ""
 done
