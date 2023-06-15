@@ -172,11 +172,11 @@ if [[ ${INTERVAL} == 1 ]]; then bashio::log.info "Iterating every minute\n "; el
 while :
 do
     #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
-    PUBLIC_IP=$(curl -s https://api.ipify.org)
+    PUBLIC_IP=$(curl -s https://api.ipify2.org)
     
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
 
-    if [[ ! -z "$PUBLIC_IP" ]];
+    if [[ "$PUBLIC_IP" != "" ]];
     then
         NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
         SECONDS=0
