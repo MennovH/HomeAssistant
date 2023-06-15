@@ -173,17 +173,16 @@ while :
 do
     #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>&1)
-    PUBLIC_IP=$(curl -s --connect-timeout 50 https://api.ipify.org || echo 0)
+    PUBLIC_IP=$(curl -s --connect-timeout 50 https://api.ipify2.org || echo 0)
     #PUBLIC_IP=$(curl -s --connect-timeout 5 https://api.ipify.org 2>&1)
-    echo -e "$PUBLIC_IP"
+    
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
-
+    
     if [[ "$PUBLIC_IP" != 0 ]];
     then
         NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
         SECONDS=0
         echo -e "Next: ${NEXT}"
-        echo -e "Errors (PIP/iteration/creation/update): ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
         if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${N}\n"; fi
         
         # fetch existing A records
@@ -235,8 +234,9 @@ do
     else
         # PIP fetch failed
         PIP_ERRORS=$(($PIP_ERRORS + 1))
-        echo -e "${RR}Retrieving PIP failed. Retrying in 60 seconds...${N}"
+        echo -e "${RR}Failed to get current public IP address. Retrying in 60 seconds...${N}"
         sleep 60s
     fi
+    echo -e "Errors (PIP/iteration/creation/update): ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
 done
 echo -e "$PUBLIC_IP"
