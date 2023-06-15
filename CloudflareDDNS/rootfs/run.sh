@@ -211,7 +211,7 @@ do
     done
 
     # calculate next run time
-    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+(${INTERVAL}-1)*60 ))" "+%Y-%m-%d %H:%M:%S")
+    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+(${INTERVAL}*60)-1 ))" "+%Y-%m-%d %H:%M:%S")
     echo -e "Next: ${NEXT}"
 
     # print current PIP
