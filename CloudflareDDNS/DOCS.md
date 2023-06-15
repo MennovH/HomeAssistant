@@ -48,6 +48,8 @@ The following image shows an example output of the add-on, which can be found in
 <br></br>
 ![example logging output][screenshot3]
 <br></br>
+
+### Runtime errors
 Added a summary of "Runtime errors" to see how many times something went wrong in the logging every iteration. The summary shows four values separated by a "/", and have the following meaning:
 - First value shows how many times it failed retrieving the current public IP address
 - Second value shows how many times it failed during an iteration
