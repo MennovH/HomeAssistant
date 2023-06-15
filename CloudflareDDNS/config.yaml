@@ -20,7 +20,7 @@ options:
   cloudflare_zone_id: null
   cloudflare_api_token: null
   interval: 10
-  hide_public_ip: true
+  log_pip: true
   domains: []
 schema:
   cloudflare_zone_id: password
