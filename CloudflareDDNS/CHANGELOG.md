@@ -1,3 +1,8 @@
+# v1.3.8
+- Renewed error logging
+- Added error handling when unable to get the current public IP address
+- Fixed startup issue due to deprecated parameters
+
 # v1.3.7
 - Added error counters to logs.
 - Small changes to code.
