@@ -1,4 +1,4 @@
-# v1.3.8
+# v1.3.8 - soon to be released
 - Improved error logging
   - Added error handling in case the current public IP address could not be fetched
 - Public IP (PIP) retrieval issues
