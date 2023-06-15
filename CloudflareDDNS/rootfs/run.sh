@@ -173,9 +173,7 @@ while :
 do
     ISSUE=0
     #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
-    #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>&1)
     PUBLIC_IP=$(curl -s --connect-timeout 50 https://api.ipify.org || echo 0)
-    #PUBLIC_IP=$(curl -s --connect-timeout 5 https://api.ipify.org 2>&1)
     
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
     
@@ -216,10 +214,7 @@ do
                 ITERATION=$(($ITERATION + 1))
                 echo "Domain list iteration ${ITERATION}:"
                 for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
-                echo -e "\n "
-                duration=$SECONDS
-                TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
-                sleep ${TMP_SEC}s
+                
             else
                 # iteration failed
                 ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
@@ -240,10 +235,15 @@ do
     fi
     
     echo -e "Errors (PIP/iteration/creation/update): ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}\n"
-    if [[ "$ISSUE" == 1 ]]
+    if [[ $ISSUE == 1 ]]
     then
+        ISSUE=0
         sleep 60s
+    else
+        echo -e "\n "
+        duration=$SECONDS
+        TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
+        sleep ${TMP_SEC}s
     fi
-    ISSUE=0
     
 done
