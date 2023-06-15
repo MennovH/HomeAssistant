@@ -173,7 +173,7 @@ while :
 do
     #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>&1)
-    PUBLIC_IP=$(curl -s --connect-timeout 50 https://api.ipify2.org || echo 0)
+    PUBLIC_IP=$(curl -s --connect-timeout 50 https://api.ipify.org || echo 0)
     #PUBLIC_IP=$(curl -s --connect-timeout 5 https://api.ipify.org 2>&1)
     
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
