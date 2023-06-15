@@ -215,7 +215,6 @@ do
                 ITERATION=$(($ITERATION + 1))
                 echo "Domain list iteration ${ITERATION}:"
                 for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
-                
             else
                 # iteration failed
                 ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
@@ -234,16 +233,14 @@ do
         echo -e "${RR}Failed to get current public IP address. Retrying in 60 seconds...${N}"
         ISSUE=1
     fi
-    
     if [[ $ISSUE == 1 ]]
     then
         ISSUE=0
         sleep 60s
     else
-        echo -e "\n "
+        echo ""
         duration=$SECONDS
         TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
         sleep ${TMP_SEC}s
     fi
-    
 done
