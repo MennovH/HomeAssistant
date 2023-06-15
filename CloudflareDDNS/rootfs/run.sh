@@ -178,7 +178,7 @@ do
     success=0
     while :
     do
-        for i in "api.ipify.org" "api.my-ip.io/ip"
+        for i in "api.ipify2.org" "api.my-ip.io/ip"
         do PUBLIC_IP=$(curl -s --connect-timeout 5 https://$i || echo 0)
             if [[ $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
             then
@@ -261,7 +261,7 @@ do
         sleep 60s
     else
         duration=$SECONDS
-        TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
+        TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)))
         sleep ${TMP_SEC}s
     fi
     echo ""
