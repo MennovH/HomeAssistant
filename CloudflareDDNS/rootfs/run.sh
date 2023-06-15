@@ -178,7 +178,8 @@ do
     PUBLIC_IP=$(curl -s --connect-timeout 50 https://api.ipify.org || echo 0)
     
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
-    if [[ $PUBLIC_IP != 0 ]];
+    if [[ $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
+    #if [[ $PUBLIC_IP != 0  ]];
     then
         NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
         SECONDS=0
