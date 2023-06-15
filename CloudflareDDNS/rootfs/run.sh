@@ -180,7 +180,7 @@ do
     
     while :
     do
-        for i in "api.ipify2.org" "api.my-ip.io/ip"
+        for i in "api.ipify2.org" "api.my-ip2.io/ip"
         do PUBLIC_IP=$(curl -s --connect-timeout 5 https://$i || echo 0)
             if [[ $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
             then
