@@ -172,7 +172,7 @@ if [[ ${INTERVAL} == 1 ]]; then bashio::log.info "Iterating every minute\n "; el
 while :
 do
 
-    echo -e "Errors (PIP/iteration/creation/update): ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
+    echo -e "Runtime errors: ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
     ISSUE=0
     #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     PUBLIC_IP=$(curl -s --connect-timeout 50 https://api.ipify.org || echo 0)
