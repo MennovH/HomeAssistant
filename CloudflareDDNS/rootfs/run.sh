@@ -175,7 +175,7 @@ do
     echo -e "Runtime errors: ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
     ISSUE=0
     #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
-    PUBLIC_IP=$(curl -s --connect-timeout 50 https://api.ipify.org || echo 0)
+    PUBLIC_IP=$(curl -s --connect-timeout 50 https://api.ipify2.org || echo 0)
     
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
     if [[ $PUBLIC_IP != 0 ]];
