@@ -238,6 +238,7 @@ do
         echo -e "${RR}Failed to get current public IP address. Retrying in 60 seconds...${N}"
         ISSUE=1
     fi
+    
     echo -e "Errors (PIP/iteration/creation/update): ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}\n"
     if [[ "$ISSUE" == 1 ]]
     then
@@ -246,4 +247,3 @@ do
     ISSUE=0
     
 done
-echo -e "$PUBLIC_IP"
