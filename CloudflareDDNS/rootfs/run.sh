@@ -171,7 +171,7 @@ if [[ ${INTERVAL} == 1 ]]; then bashio::log.info "Iterating every minute\n "; el
 
 while :
 do
-    PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
+    PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify2.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
 
     if [[ ! -z "$PUBLIC_IP" ]];
@@ -219,16 +219,19 @@ do
             else
                 # iteration failed
                 ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
-                echo -e "${RR}Domain list iteration failed. Retrying...${N}"
+                echo -e "${RR}Domain list iteration failed. Retrying in 60 seconds...${N}"
+                sleep 60s
             fi
         else
             # iteration failed
             ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
-            echo -e "${RR}Domain list iteration failed. Retrying...${N}"
+            echo -e "${RR}Domain list iteration failed. Retrying in 60 seconds...${N}"
+            sleep 60s
         fi
     else
         # PIP fetch failed
         PIP_ERRORS=$(($PIP_ERRORS + 1))
-        echo -e "${RR}Retrieving PIP failed. Retrying...${N}"
+        echo -e "${RR}Retrieving PIP failed. Retrying in 60 seconds...${N}"
+        sleep 60s
     fi
 done
