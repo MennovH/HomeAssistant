@@ -172,8 +172,8 @@ if [[ ${INTERVAL} == 1 ]]; then bashio::log.info "Iterating every minute\n "; el
 while :
 do
     #PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
-    PUBLIC_IP=$(curl -s --connect-timeout 5 https://api.ipify.org)
-    
+    PUBLIC_IP=$(curl -s --connect-timeout 5 https://api.ipify2.org)
+    echo -e "$PUBLIC_IP"
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
 
     if [[ ! -z "$PUBLIC_IP" ]];
@@ -237,3 +237,4 @@ do
         sleep 60s
     fi
 done
+echo -e "$PUBLIC_IP"
