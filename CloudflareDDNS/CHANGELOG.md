@@ -2,6 +2,7 @@
 - Renewed error logging
 - Added error handling when unable to get the current public IP address
 - Fixed startup issue due to deprecated parameters
+- Updated documentation
 
 # v1.3.7
 - Added error counters to logs.
