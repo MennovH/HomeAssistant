@@ -3,7 +3,7 @@
 declare TOKEN
 declare ZONE
 declare INTERVAL
-declare HIDE_PIP
+declare LOG_PIP
 declare DOMAINS
 declare PERSISTENT_DOMAINS
 declare CHECK_MARK
@@ -12,7 +12,7 @@ declare CROSS_MARK
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
-HIDE_PIP=$(bashio::config 'hide_public_ip')
+LOG_PIP=$(bashio::config 'log_pip')
 PERSISTENT_DOMAINS=$(bashio::config "domains")
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
@@ -118,7 +118,7 @@ function cfapi {
             
                 # update failed
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
-                if [[ ${HIDE_PIP} == false ]];
+                if [[ ${LOG_PIP} == true ]];
                 then
                 
                     # show current assigned PIP
@@ -141,7 +141,7 @@ function cfapi {
             else
             
                 # update successful
-                if [[ ${HIDE_PIP} == false ]];
+                if [[ ${LOG_PIP} == true ]];
                 then
                 
                     # show previously assigned PIP
@@ -215,7 +215,7 @@ do
     echo -e "Next: ${NEXT}"
 
     # print current PIP
-    if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${N} (${i})\n"; fi
+    if [[ ${LOG_PIP} == true ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${N} (${i})\n"; fi
     
     # fetch existing A records
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
