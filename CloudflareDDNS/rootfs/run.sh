@@ -17,10 +17,10 @@ PERSISTENT_DOMAINS=$(bashio::config "domains")
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 ITERATION=0
-CREATIONERRORCOUNT=0
-ITERATIONERRORCOUNT=0
-UPDATEERRORCOUNT=0 
-CONNECTIONERRORCOUNT=0
+CREATION_ERRORS=0
+ITERATION_ERRORS=0
+UPDATE_ERRORS=0 
+PIP_ERRORS=0
 
 # font
 N="\e[0m" #normal
@@ -83,7 +83,7 @@ function check {
         if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
         then
             # creation failed
-           # CREATIONERRORCOUNT=$(($CREATIONERRORCOUNT + 1))
+            CREATION_ERRORS=$(($CREATION_ERRORS + 1))
             ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}"
         else
@@ -115,7 +115,7 @@ function check {
             if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
             then
                 # update failed
-               # UPDATEERRORCOUNT=$(($UPDATEERRORCOUNT + 1))
+                UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
                 if [[ ${HIDE_PIP} == false ]];
                 then
                     # show current assigned PIP
@@ -173,54 +173,62 @@ while :
 do
     PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null)
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
-    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
-    SECONDS=0
-    echo -e "Next: ${NEXT}"
-   # echo -e "Errors (iteration/creation/update): ${ITERATIONERRORCOUNT}/${CREATIONERRORCOUNT}/${UPDATEERRORCOUNT}"
-    if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${N}\n"; fi
-    
-    # fetch existing A records
-    DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
-        -H "Authorization: Bearer ${TOKEN}" \
-        -H "Content-Type: application/json" | jq -r '.result[].name')
-    
-    if [[ ! -z "$DOMAINS" ]];
+
+    if [[ ! -z "$PUBLIC_IP" ]];
     then
-        count=$(wc -w <<< $PERSISTENT_DOMAINS)
-        if [[ $count > 0 ]];
-        then
-            # add persistent domains to obtained record list
-            for DOMAIN in ${PERSISTENT_DOMAINS[@]};
-            do 
-                TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
-                if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`;
-                then
-                    DOMAINS+=("$DOMAIN")
-                fi
-                PERSISTENT_DOMAINS=( "${PERSISTENT_DOMAINS[@]/$DOMAIN/}" )
-            done
-        fi
-    
-        DOMAIN_LIST=($(for D in "${DOMAINS[@]}"; do echo "${D}"; done | sort -u))
+        NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
+        SECONDS=0
+        echo -e "Next: ${NEXT}"
+        echo -e "Errors (PIP/iteration/creation/update): ${PIP_ERRORS/ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
+        if [[ ${HIDE_PIP} == false ]]; then echo -e "Public IP address: ${BL}${PUBLIC_IP}${N}\n"; fi
         
-        if [[ ! -z "$DOMAIN_LIST" ]];
+        # fetch existing A records
+        DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
+            -H "Authorization: Bearer ${TOKEN}" \
+            -H "Content-Type: application/json" | jq -r '.result[].name')
+        
+        if [[ ! -z "$DOMAINS" ]];
         then
-            # iterate through listed domains
-            ITERATION=$(($ITERATION + 1))
-            echo "Domain list iteration ${ITERATION}:"
-            for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
-            echo -e "\n "
-            duration=$SECONDS
-            TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
-            sleep ${TMP_SEC}s
+            count=$(wc -w <<< $PERSISTENT_DOMAINS)
+            if [[ $count > 0 ]];
+            then
+                # add persistent domains to obtained record list
+                for DOMAIN in ${PERSISTENT_DOMAINS[@]};
+                do 
+                    TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
+                    if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`;
+                    then
+                        DOMAINS+=("$DOMAIN")
+                    fi
+                    PERSISTENT_DOMAINS=( "${PERSISTENT_DOMAINS[@]/$DOMAIN/}" )
+                done
+            fi
+        
+            DOMAIN_LIST=($(for D in "${DOMAINS[@]}"; do echo "${D}"; done | sort -u))
+            
+            if [[ ! -z "$DOMAIN_LIST" ]];
+            then
+                # iterate through listed domains
+                ITERATION=$(($ITERATION + 1))
+                echo "Domain list iteration ${ITERATION}:"
+                for DOMAIN in ${DOMAIN_LIST[@]}; do check ${DOMAIN}; done
+                echo -e "\n "
+                duration=$SECONDS
+                TMP_SEC=$(((($INTERVAL*60)-($duration/60))-($duration%60)-1))
+                sleep ${TMP_SEC}s
+            else
+                # iteration failed
+                ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
+                echo -e "${RR}Domain list iteration failed. Retrying...${N}"
+            fi
         else
             # iteration failed
-          #  ITERATIONERRORCOUNT=$(($ITERATIONERRORCOUNT + 1))
+            ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
             echo -e "${RR}Domain list iteration failed. Retrying...${N}"
         fi
     else
-        # iteration failed
-       # ITERATIONERRORCOUNT=$(($ITERATIONERRORCOUNT + 1))
-        echo -e "${RR}Domain list iteration failed. Retrying...${N}"
+        # PIP fetch failed
+        PIP_ERRORS=$(($PIP_ERRORS + 1))
+        echo -e "${RR}Retrieving PIP failed. Retrying...${N}"
     fi
 done
