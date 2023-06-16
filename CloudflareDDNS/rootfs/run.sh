@@ -102,9 +102,9 @@ function cfapi {
             # creation successful (no need to mention current PIP (again))
             if [[ ${PROXY} == false ]];
             then
-                echo -e " ${GR}${PLUS}${N} ${DOMAIN} ☁"
+                echo -e " ☁ ${GR}${PLUS}${N} ${DOMAIN}"
             else
-                echo -e " ${GR}${PLUS}${N} ${DOMAIN} ${RY}☁${N}"
+                echo -e " ${RY}☁${N} ${GR}${PLUS}${N} ${DOMAIN}"
             fi
         fi
     fi
@@ -135,18 +135,18 @@ function cfapi {
                     # show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) ☁ => ${R}failed to update${N}"
+                        echo -e " ☁ ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) => ${R}failed to update${N}"
                     else
-                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) ${RY}☁${N} => ${R}failed to update${N}"
+                        echo -e " ${RY}☁${N} ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) => ${R}failed to update${N}"
                     fi
                 else
                 
                     # don't show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${DOMAIN} ☁ => ${R}failed to update${N}"
+                        echo -e " ☁ ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${N}"
                     else
-                        echo -e " ${CROSS_MARK} ${DOMAIN} ${RY}☁${N} => ${R}failed to update${N}"
+                        echo -e " ${RY}☁${N} ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${N}"
                     fi
                 fi
             else
@@ -158,18 +158,18 @@ function cfapi {
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} ☁ (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ☁ ${RG}${CHECK_MARK}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
                     else
-                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} ${RY}☁${N} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ${RY}☁${N} ${RG}${CHECK_MARK}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
                     fi
                 else
                 
                     # don't show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} ☁"
+                        echo -e " ☁ ${RG}${CHECK_MARK}${N} ${DOMAIN}"
                     else
-                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} ${RY}☁${N}"
+                        echo -e " ${RY}☁${N} ${RG}${CHECK_MARK}${N} ${DOMAIN}"
                     fi
                 fi
              fi
@@ -178,9 +178,9 @@ function cfapi {
             # nothing changed
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
-                echo -e " ${BULLET} ${DOMAIN} ☁";
+                echo -e " ☁ ${DOMAIN}";
             else
-                echo -e " ${BULLET} ${DOMAIN} ${RY}☁${N}";
+                echo -e " ${RY}☁${N} ${DOMAIN}";
             fi
         fi
     fi
