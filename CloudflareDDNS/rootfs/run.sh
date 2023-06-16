@@ -56,10 +56,14 @@ then
     exit 1
 fi
 
+function show_pip {
+    local IP="$1"
+    if [[ ${LOG_PIP} == true ]]; then echo -e " (${RY}${S}${IP}${N}\e[0m)"; fi
+}
 
 function cloud {
     local PROXIED="$1"
-    if [[ ${PROXIED} == true ]];then echo -e "${RY}☁${N}"; else echo "☁"; fi
+    if [[ ${PROXIED} == true ]]; then echo -e "${RY}☁${N}"; else echo "☁"; fi
 }
 
 function domain_lookup {
@@ -107,7 +111,7 @@ function cfapi {
         else
             # creation successful (no need to mention current PIP (again))
             CREATE_COUNTER=$(($CREATE_COUNTER + 1))
-            echo -e " $(if [[ ${PROXY} == true ]];then echo -e "${RY}";fi)☁${N} ${BG}${PLUS}${N} ${DOMAIN}"
+            echo -e " $(cloud ${PROXY}) ${BG}${PLUS}${N} ${DOMAIN}"
         fi
     fi
     
@@ -131,12 +135,14 @@ function cfapi {
             
                 # update failed
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
-                echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${CROSS_MARK} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]];then echo -e " (${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi) => ${R}failed to update${N}"
+                #echo -e " $(cloud ${DOMAIN_PROXIED}) ${CROSS_MARK} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]];then echo -e " (${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi) => ${R}failed to update${N}"
+                echo -e " $(cloud ${DOMAIN_PROXIED}) ${CROSS_MARK} ${DOMAIN}$(show_pip $DOMAIN_IP) => ${R}failed to update${N}"
             else
             
                 # update successful
                 UPDATE_COUNTER=$(($UPDATE_COUNTER + 1))
-                echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]];then echo -e " (${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi)"
+                #echo -e " $(cloud ${DOMAIN_PROXIED}) ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]];then echo -e " (${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi)"
+                echo -e " $(cloud ${DOMAIN_PROXIED}) ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}$(show_pip $DOMAIN_IP)"
              fi
         else
         
