@@ -17,7 +17,8 @@ PERSISTENT_DOMAINS=$(bashio::config "domains")
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 BULLET="\u25cf"
-PLUS="\uff0b"
+#PLUS="\uff0b"
+PLUS="\u2975"
 CLOUD="\U2601"
 ITERATION=0
 CREATION_ERRORS=0
@@ -40,7 +41,7 @@ BL="\e[1;34m" #bold blue
 GR="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
-echo -e "${CLOUD} ${YY}${CLOUD}${N}"
+#echo -e "${CLOUD} ${YY}${CLOUD}${N}"
 
 
 # checks on configuration
@@ -101,7 +102,8 @@ function cfapi {
             # creation successful (no need to mention current PIP (again))
             if [[ ${PROXY} == false ]];
             then
-                echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RR}${I}not proxied${N})"
+                #echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RR}${I}not proxied${N})"
+                echo -e " ${GR}${PLUS}${N} ${DOMAIN} ${CLOUD}"
             else
                 echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RG}${I}proxied${N})"
             fi
@@ -134,7 +136,9 @@ function cfapi {
                     # show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RR}${I}not proxied${N}) => ${R}failed to update${N}"
+                    
+                        #echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RR}${I}not proxied${N}) => ${R}failed to update${N}"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) ${CLOUD} => ${R}failed to update${N}"
                     else
                         echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RG}${I}proxied${N}) => ${R}failed to update${N}"
                     fi
@@ -143,7 +147,8 @@ function cfapi {
                     # don't show current assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) => ${R}failed to update${N}"
+                        #echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) => ${R}failed to update${N}"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} ${CLOUD} => ${R}failed to update${N}"
                     else
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${R}failed to update${N}"
                     fi
@@ -157,7 +162,8 @@ function cfapi {
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} ${CLOUD} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        #echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                     else
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                     fi
@@ -166,7 +172,8 @@ function cfapi {
                     # don't show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N})"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} ${CLOUD}"
+                        #echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N})"
                     else
                         echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N})"
                     fi
@@ -177,7 +184,8 @@ function cfapi {
             # nothing changed
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
-                echo -e " ${BULLET} ${DOMAIN} (${RR}${I}not proxied${N})";
+                echo -e " ${BULLET} ${DOMAIN} ${CLOUD}";
+                #echo -e " ${BULLET} ${DOMAIN} (${RR}${I}not proxied${N})";
             else
                 echo -e " ${BULLET} ${DOMAIN} (${RG}${I}proxied${N})";
             fi
