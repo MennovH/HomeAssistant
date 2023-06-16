@@ -246,8 +246,8 @@ do
         fi
         
         # sort domain list alphabetically
-        DOMAIN_COUNT=echo ${#DOMAIN_LIST[@]}
         DOMAIN_LIST=($(for DOMAIN in "${DOMAINS[@]}"; do echo "${DOMAIN}"; done | sort -u))
+        DOMAIN_COUNT=echo ${#DOMAIN_LIST[@]}
         if [[ ! -z "$DOMAIN_LIST" ]];
         then
         
