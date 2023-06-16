@@ -140,7 +140,7 @@ function cfapi {
                         #echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RR}${I}not proxied${N}) => ${R}failed to update${N}"
                         echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) ${CLOUD} => ${R}failed to update${N}"
                     else
-                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RG}${I}proxied${N}) => ${R}failed to update${N}"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) => ${R}failed to update${N}"
                         #echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RG}${I}proxied${N}) => ${R}failed to update${N}"
                     fi
                 else
@@ -152,7 +152,7 @@ function cfapi {
                         echo -e " ${CROSS_MARK} ${DOMAIN} ${CLOUD} => ${R}failed to update${N}"
                     else
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${R}failed to update${N}"
-                        echo -e " ${CHECK_MARK} ${DOMAIN} => ${R}failed to update${N}"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${N}"
                     fi
                 fi
             else
@@ -164,22 +164,22 @@ function cfapi {
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${DOMAIN} ${CLOUD} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} ${CLOUD} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                     else
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                     fi
                 else
                 
                     # don't show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${DOMAIN} ${CLOUD}"
+                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} ${CLOUD}"
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N})"
                     else
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N})"
-                        echo -e " ${CHECK_MARK} ${DOMAIN}"
+                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN}"
                     fi
                 fi
              fi
