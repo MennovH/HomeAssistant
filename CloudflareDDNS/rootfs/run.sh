@@ -6,23 +6,20 @@ declare INTERVAL
 declare LOG_PIP
 declare DOMAINS
 declare PERSISTENT_DOMAINS
-declare CHECK_MARK
+declare RELOAD_SYMBOL
 declare CROSS_MARK
 
+# variables
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 LOG_PIP=$(bashio::config 'log_pip')
 PERSISTENT_DOMAINS=$(bashio::config "domains")
-#CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
+#RELOAD_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
-#BULLET="\u25cf"
-BULLET="\u2022"
-#BULLET="\u2219"
+#BULLET="\u2022"
 PLUS="\uff0b"
-CHECK_MARK="\u21bb"
-#PLUS="\u2795"
-CLOUD="\U2601"
+RELOAD_SYMBOL="\u21bb"
 PREVIOUS_PIP=""
 
 # counters
@@ -39,15 +36,13 @@ CREATE_COUNTER=0
 N="\e[0m" #normal
 I="\e[3m" #italic
 S="\e[9m" #strikethrough
-B="\e[1m" #bold
 
-# colors:
+# colors
 RG="\e[0;32m" #regular green
 RR="\e[0;31m" #regular red
 RY="\e[0;33m" #regular yellow
-BL="\e[1;34m" #bold blue
-GR="\e[1;32m" #bold green
-BY="\e[1;33m" #bold yellow
+BB="\e[1;34m" #bold blue
+BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
 # checks on configuration
@@ -108,9 +103,9 @@ function cfapi {
             CREATE_COUNTER=$(($CREATE_COUNTER + 1))
             if [[ ${PROXY} == false ]];
             then
-                echo -e " ☁ ${GR}${PLUS}${N} ${DOMAIN}"
+                echo -e " ☁ ${BG}${PLUS}${N} ${DOMAIN}"
             else
-                echo -e " ${RY}☁${N} ${GR}${PLUS}${N} ${DOMAIN}"
+                echo -e " ${RY}☁${N} ${BG}${PLUS}${N} ${DOMAIN}"
             fi
         fi
     fi
@@ -165,19 +160,29 @@ function cfapi {
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ☁ ${RG}${CHECK_MARK}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ☁ ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
                     else
-                        echo -e " ${RY}☁${N} ${RG}${CHECK_MARK}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
                     fi
                 else
-                
+                    
+                    
+                    # if [[ ${DOMAIN_PROXIED} == false ]];
+                    # then
+                    echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]]; ${RY};fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
+                    # else
+                    #     echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
+                    # fi
+
+
+                    
                     # don't show previously assigned PIP
-                    if [[ ${DOMAIN_PROXIED} == false ]];
-                    then
-                        echo -e " ☁ ${RG}${CHECK_MARK}${N} ${DOMAIN}"
-                    else
-                        echo -e " ${RY}☁${N} ${RG}${CHECK_MARK}${N} ${DOMAIN}"
-                    fi
+                    # if [[ ${DOMAIN_PROXIED} == false ]];
+                    # then
+                    #     echo -e " ☁ ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
+                    # else
+                    #     echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
+                    # fi
                 fi
              fi
         else
@@ -211,8 +216,8 @@ do
     do
     
         # try different APIs to get current PIP
-        for i in "api.ipify.org" "api.my-ip.io/ip"
-        do PUBLIC_IP=$(curl -s --connect-timeout 5 https://$i || echo 0)
+        for API in "api.ipify.org" "api.my-ip.io/ip"
+        do PUBLIC_IP=$(curl -s --connect-timeout 5 https://$API || echo 0)
             if [[ $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
             then
                 SUCCESS=1
@@ -240,7 +245,7 @@ do
     echo -e "Next: ${NEXT}"
 
     # print current PIP
-    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BL}${PUBLIC_IP}${N} (${i})"; fi
+    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} (${API})"; fi
     
     # fetch existing A records
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
