@@ -169,7 +169,7 @@ function cfapi {
                     
                     # if [[ ${DOMAIN_PROXIED} == false ]];
                     # then
-                    echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]]; ${RY};fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
+                    echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]]; then ${RY};fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
                     # else
                     #     echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
                     # fi
