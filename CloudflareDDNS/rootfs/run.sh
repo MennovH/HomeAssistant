@@ -185,7 +185,8 @@ do
     ISSUE=0
     echo -e "Runtime errors: ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
-
+    PIP_FETCH_START=`date +%s`
+    
     # loop until PIP is known
     while :
     do
@@ -209,9 +210,11 @@ do
         echo -e "${RR}Failed to get current public IP address. Retrying in 10 seconds...${N}"
         sleep 10s
     done
-
+    
     # calculate next run time
-    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+${INTERVAL}*60 ))" "+%Y-%m-%d %H:%M:%S")
+    PIP_FETCH_TIME=$((`date +%s`-start))
+    if [[ ! $INTERVAL > $PIP_FETCH_TIME ]]; then PIP_FETCH_TIME=0; fi
+    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+(${INTERVAL}*60)-$PIP_FETCH_TIME ))" "+%Y-%m-%d %H:%M:%S")
     echo -e "Next: ${NEXT}"
 
     # print current PIP
