@@ -36,6 +36,10 @@ I="\e[3m" #italic
 S="\e[9m" #strikethrough
 B="\e[1m" #bold
 
+# background
+BGR="\e[101m" # red background
+BGG="\e[42m" # green background
+
 # colors:
 RG="\e[0;32m" #regular green
 RR="\e[0;31m" #regular red
@@ -104,9 +108,9 @@ function cfapi {
             if [[ ${PROXY} == false ]];
             then
                 #echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RR}${I}not proxied${N})"
-                echo -e " ${BY}${PLUS}${N} ${DOMAIN} ${CLOUD}"
+                echo -e " ${BY}${PLUS}${N} ${DOMAIN} ${BGR}${CLOUD}${N}"
             else
-                echo -e " ${GR}${PLUS}${N} ${DOMAIN}"
+                echo -e " ${GR}${PLUS}${N} ${DOMAIN} ${BGG}${CLOUD}${N}"
                 #echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RG}${I}proxied${N})"
             fi
         fi
@@ -140,9 +144,9 @@ function cfapi {
                     then
                     
                         #echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RR}${I}not proxied${N}) => ${R}failed to update${N}"
-                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) ${CLOUD} => ${R}failed to update${N}"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) ${BGR}${CLOUD}${N} => ${R}failed to update${N}"
                     else
-                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) => ${R}failed to update${N}"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) ${BGG}${CLOUD}${N} => ${R}failed to update${N}"
                         #echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RG}${I}proxied${N}) => ${R}failed to update${N}"
                     fi
                 else
@@ -151,10 +155,10 @@ function cfapi {
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
                         #echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) => ${R}failed to update${N}"
-                        echo -e " ${CROSS_MARK} ${DOMAIN} ${CLOUD} => ${R}failed to update${N}"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} ${BGR}${CLOUD}${N} => ${R}failed to update${N}"
                     else
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${R}failed to update${N}"
-                        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${N}"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} ${BGG}${CLOUD}${N} => ${R}failed to update${N}"
                     fi
                 fi
             else
@@ -166,22 +170,22 @@ function cfapi {
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${RY}${CHECK_MARK}${N} ${DOMAIN} ${CLOUD} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ${RY}${CHECK_MARK}${N} ${DOMAIN} ${BGR}${CLOUD}${N} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                     else
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
-                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} ${BGG}${CLOUD}${N} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
                     fi
                 else
                 
                     # don't show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${RY}${CHECK_MARK}${N} ${DOMAIN} ${CLOUD}"
+                        echo -e " ${RY}${CHECK_MARK}${N} ${DOMAIN} ${BGR}${CLOUD}${N}"
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N})"
                     else
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N})"
-                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN}"
+                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} ${BGG}${CLOUD}${N}"
                     fi
                 fi
              fi
@@ -190,11 +194,11 @@ function cfapi {
             # nothing changed
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
-                echo -e " ${RY}${BULLET}${N} ${DOMAIN} ${CLOUD}";
+                echo -e " ${RY}${BULLET}${N} ${DOMAIN} ${BGR}${CLOUD}${N}";
                 #echo -e " ${BULLET} ${DOMAIN} (${RR}${I}not proxied${N})";
             else
                 #echo -e " ${BULLET} ${DOMAIN} (${RG}${I}proxied${N})";
-                echo -e " ${RG}${BULLET}${N} ${DOMAIN}";
+                echo -e " ${RG}${BULLET}${N} ${DOMAIN} ${BGG}${CLOUD}${N}";
             fi
         fi
     fi
