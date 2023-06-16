@@ -103,9 +103,9 @@ function cfapi {
             if [[ ${PROXY} == false ]];
             then
                 #echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RR}${I}not proxied${N})"
-                echo -e " ${GR}${PLUS}${N} ${DOMAIN} ${CLOUD}"
+                echo -e "${GR}${PLUS}${N} ${DOMAIN} ${CLOUD}"
             else
-                echo -e " ${GR}${PLUS}${N} ${DOMAIN}"
+                echo -e "${GR}${PLUS}${N} ${DOMAIN}"
                 #echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RG}${I}proxied${N})"
             fi
         fi
