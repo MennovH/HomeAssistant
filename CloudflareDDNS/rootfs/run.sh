@@ -83,11 +83,13 @@ function cfapi {
 
         if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
         then
+        
             # creation failed
             CREATION_ERRORS=$(($CREATION_ERRORS + 1))
             ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}"
         else
+        
             # creation successful (no need to mention current PIP (again))
             if [[ ${PROXY} == false ]];
             then
@@ -228,48 +230,48 @@ do
     if [[ ! -z "$DOMAINS" ]];
     then
         count=$(wc -w <<< $PERSISTENT_DOMAINS)
+        TMP_PERSISTENT_DOMAINS=$PERSISTENT_DOMAINS
         if [[ $count > 0 ]];
         then
             # add persistent domains to obtained record list
-            for DOMAIN in ${PERSISTENT_DOMAINS[@]};
-            do 
+            for DOMAIN in ${TMP_PERSISTENT_DOMAINS[@]};
+            do
                 TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
                 if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`;
                 then
                     DOMAINS+=("$DOMAIN")
                 fi
-                PERSISTENT_DOMAINS=( "${PERSISTENT_DOMAINS[@]/$DOMAIN/}" )
+                TMP_PERSISTENT_DOMAINS=( "${TMP_PERSISTENT_DOMAINS[@]/$DOMAIN/}" )
             done
         fi
+        
         # sort domain list alphabetically
-        DOMAIN_LIST=($(for D in "${DOMAINS[@]}"; do echo "${D}"; done | sort -u))
+        DOMAIN_COUNT=0
+        DOMAIN_LIST=($(for DOMAIN in "${DOMAINS[@]}"; do echo "${DOMAIN}"; DOMAIN_COUNT=$(($DOMAIN_COUNT + 1)); done | sort -u))
         if [[ ! -z "$DOMAIN_LIST" ]];
         then
+        
             # iterate through listed domains
             ITERATION=$(($ITERATION + 1))
             echo "Domain list iteration ${ITERATION}:"
             for DOMAIN in ${DOMAIN_LIST[@]}; do cfapi ${DOMAIN}; done
         else
+        
             # iteration failed
             ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
             echo -e "${RR}Inner domain list iteration failed. Restarting iteration in 60 seconds...${N}"
             ISSUE=1
         fi
     else
+    
         # iteration failed
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         echo -e "${RR}Outer domain list iteration failed. Restarting iteration in 60 seconds...${N}"
         ISSUE=1
     fi
-    if [[ $ISSUE == 1 ]]
-    then
-        # iteration not completed, set sleep time at 60 seconds
-        TMP_SEC=60
-    else
-        # iteration completed, calculate sleep time
-        TMP_SEC=$(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60)))
-    fi
-    # wait until next iteration
+    
+    # set sleep time and wait until next iteration
+    if [[ $ISSUE == 1 ]]; then TMP_SEC=60; else TMP_SEC=$(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi
     sleep ${TMP_SEC}s
     echo ""
 done
