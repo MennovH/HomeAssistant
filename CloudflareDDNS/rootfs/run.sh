@@ -29,6 +29,7 @@ ITERATION_ERRORS=0
 UPDATE_ERRORS=0 
 PIP_ERRORS=0
 
+echo -e "☁"
 
 # font
 N="\e[0m" #normal
