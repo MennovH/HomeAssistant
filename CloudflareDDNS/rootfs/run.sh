@@ -18,11 +18,13 @@ CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 BULLET="\u25cf"
 PLUS="\uff0b"
+CLOUD="\U2601"
 ITERATION=0
 CREATION_ERRORS=0
 ITERATION_ERRORS=0
 UPDATE_ERRORS=0 
 PIP_ERRORS=0
+
 
 # font
 N="\e[0m" #normal
@@ -37,6 +39,9 @@ YY="\e[0;33m" #regular yellow
 BL="\e[1;34m" #bold blue
 GR="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
+
+echo -e "${CLOUD} ${Y}${CLOUD}${N}"
+
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
