@@ -23,11 +23,17 @@ PLUS="\uff0b"
 CHECK_MARK="\u21bb"
 #PLUS="\u2795"
 CLOUD="\U2601"
+PREVIOUS_PIP=""
+
+# counters
 ITERATION=0
 CREATION_ERRORS=0
 ITERATION_ERRORS=0
 UPDATE_ERRORS=0 
 PIP_ERRORS=0
+NEW_PIP_COUNTER=0
+UPDATE_COUNTER=0
+CREATE_COUNTER=0
 
 # font
 N="\e[0m" #normal
@@ -98,8 +104,8 @@ function cfapi {
             ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}"
         else
-        
             # creation successful (no need to mention current PIP (again))
+            CREATE_COUNTER=$(($CREATE_COUNTER + 1))
             if [[ ${PROXY} == false ]];
             then
                 echo -e " ☁ ${GR}${PLUS}${N} ${DOMAIN}"
@@ -152,9 +158,10 @@ function cfapi {
             else
             
                 # update successful
+                UPDATE_COUNTER=$(($UPDATE_COUNTER + 1))
                 if [[ ${LOG_PIP} == true ]];
                 then
-                
+                    
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
@@ -195,6 +202,7 @@ do
     SECONDS=0
     ISSUE=0
     echo -e "Runtime errors: ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
+    echo -e "Runtime changes: ${NEW_PIP_COUNTER}/${CREATE_COUNTER}/${UPDATE_COUNTER}"
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
     PIP_FETCH_START=`date +%s`
     
@@ -215,6 +223,9 @@ do
         then
             break
         fi
+
+        if [[ $PREVIOUS_PIP != "" ]]; then NEW_PIP_COUNTER=$(($NEW_PIP_COUNTER + 1)); fi
+        PREVIOUS_PIP=$PUBLIC_PIP
         
         # APIs failed to return PIP, retry in 10 seconds
         PIP_ERRORS=$(($PIP_ERRORS + 1))
