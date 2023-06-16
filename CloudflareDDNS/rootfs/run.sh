@@ -62,9 +62,6 @@ function cloud {
     if [[ ${PROXIED} == true ]];then echo -e "${RY}☁${N}"; else echo "☁"; fi
 }
 
-cloud true
-cloud false
-
 function domain_lookup {
   local LIST="$1"
   local ITEM="$2"
@@ -144,7 +141,8 @@ function cfapi {
         else
         
             # nothing changed
-            echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${DOMAIN}";
+            #echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${DOMAIN}";
+            echo -e " $(cloud ${DOMAIN_PROXIED}) ${DOMAIN}";
         fi
     fi
 }
