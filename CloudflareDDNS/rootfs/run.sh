@@ -24,8 +24,6 @@ ITERATION_ERRORS=0
 UPDATE_ERRORS=0 
 PIP_ERRORS=0
 
-echo -e "${PLUS}"
-
 # font
 N="\e[0m" #normal
 I="\e[3m" #italic
@@ -98,9 +96,9 @@ function cfapi {
             # creation successful (no need to mention current PIP (again))
             if [[ ${PROXY} == false ]];
             then
-                echo -e " ${GR}+${N} ${DOMAIN} (${RR}${I}not proxied${N})"
+                echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RR}${I}not proxied${N})"
             else
-                echo -e " ${GR}+${N} ${DOMAIN} (${RG}${I}proxied${N})"
+                echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RG}${I}proxied${N})"
             fi
         fi
     fi
