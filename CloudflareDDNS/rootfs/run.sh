@@ -160,7 +160,7 @@ function cfapi {
                     # show previously assigned PIP
                     # if [[ ${DOMAIN_PROXIED} == false ]];
                     # then
-                echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]]; echo -e "(${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi)"
+                echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]];then echo -e "(${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi)"
                     # else
                     #     echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
                     # fi
