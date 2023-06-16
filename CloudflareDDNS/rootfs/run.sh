@@ -237,8 +237,8 @@ do
             for DOMAIN in ${TMP_PERSISTENT_DOMAINS[@]};
             do
                 TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
-                $DOMAINS=( "${DOMAINS[@]/$TMP_DOMAIN}" )
-                
+                #$DOMAINS=( "${DOMAINS[@]/$TMP_DOMAIN}" )
+                echo ${DOMAINS[@]/$TMP_DOMAIN}
                 #if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"` ;
                 #then
                 DOMAINS+=("$DOMAIN")
