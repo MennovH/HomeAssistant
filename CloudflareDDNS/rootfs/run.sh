@@ -253,8 +253,8 @@ do
         
             # iterate through listed domains
             ITERATION=$(($ITERATION + 1))
-            if [[ $DOMAIN_COUNT == 1 ]]; then DOMAIN_COUNT="${DOMAIN_COUNT} domain"; else DOMAIN_COUNT="${DOMAIN_COUNT} domains"; fi
-            echo "Iteration ${ITERATION} (${DOMAIN_COUNT}):"
+            #if [[ $DOMAIN_COUNT == 1 ]]; then DOMAIN_COUNT="${DOMAIN_COUNT} domain"; else DOMAIN_COUNT="${DOMAIN_COUNT} domains"; fi
+            echo "Iteration ${ITERATION} (${DOMAIN_COUNT} domain(s)):"
             for DOMAIN in ${DOMAIN_LIST[@]}; do cfapi ${DOMAIN}; done
         else
         
