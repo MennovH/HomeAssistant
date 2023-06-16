@@ -40,7 +40,7 @@ BL="\e[1;34m" #bold blue
 GR="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
-echo -e "${CLOUD} ${Y}${CLOUD}${N}"
+echo -e "${CLOUD} ${YY}${CLOUD}${N}"
 
 
 # checks on configuration
