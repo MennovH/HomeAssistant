@@ -154,22 +154,22 @@ function cfapi {
             
                 # update successful
                 UPDATE_COUNTER=$(($UPDATE_COUNTER + 1))
-                if [[ ${LOG_PIP} == true ]];
-                then
+                # if [[ ${LOG_PIP} == true ]];
+                # then
                     
                     # show previously assigned PIP
-                    if [[ ${DOMAIN_PROXIED} == false ]];
-                    then
-                        echo -e " ☁ ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
-                    else
-                        echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
-                    fi
-                else
+                    # if [[ ${DOMAIN_PROXIED} == false ]];
+                    # then
+                echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]]; echo -e "(${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi)"
+                    # else
+                    #     echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
+                    # fi
+                # else
                     
                     
                     # if [[ ${DOMAIN_PROXIED} == false ]];
                     # then
-                    echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]]; then ${RY};fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
+                    #     echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]]; then echo -e "${RY}";fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
                     # else
                     #     echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
                     # fi
@@ -183,14 +183,14 @@ function cfapi {
                     # else
                     #     echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
                     # fi
-                fi
+                # fi
              fi
         else
         
             # nothing changed
             # if [[ ${DOMAIN_PROXIED} == false ]];
             # then
-            echo -e " $(if [[ ${DOMAIN_PROXIED} == false ]];then echo -e "${RY}";fi)☁${N} ${DOMAIN}";
+            echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${DOMAIN}";
             # else
             #     echo -e " ${RY}☁${N} ${DOMAIN}";
             # fi
