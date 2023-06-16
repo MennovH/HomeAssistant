@@ -220,7 +220,7 @@ do
     echo -e "Next: ${NEXT}"
 
     # print current PIP
-    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BL}${PUBLIC_IP}${N} (${i})\n"; fi
+    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BL}${PUBLIC_IP}${N} (${i})"; fi
     
     # fetch existing A records
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
@@ -275,5 +275,5 @@ do
     # set sleep time and wait until next iteration
     if [[ $ISSUE == 1 ]]; then TMP_SEC=60; else TMP_SEC=$(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi
     sleep ${TMP_SEC}s
-    echo ""
+    echo -e "\n "
 done
