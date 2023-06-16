@@ -14,11 +14,12 @@ ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 LOG_PIP=$(bashio::config 'log_pip')
 PERSISTENT_DOMAINS=$(bashio::config "domains")
-CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
+#CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 #BULLET="\u25cf"
 BULLET="\u2219"
 PLUS="\uff0b"
+CHECK_MARK="\u1f5d8"
 #PLUS="\u2795"
 CLOUD="\U2601"
 ITERATION=0
@@ -41,9 +42,6 @@ YY="\e[0;33m" #regular yellow
 BL="\e[1;34m" #bold blue
 GR="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
-
-#echo -e "${CLOUD} ${YY}${CLOUD}${N}"
-
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
@@ -104,9 +102,9 @@ function cfapi {
             if [[ ${PROXY} == false ]];
             then
                 #echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RR}${I}not proxied${N})"
-                echo -e "${GR}${PLUS}${N} ${DOMAIN} ${CLOUD}"
+                echo -e " ${GR}${PLUS}${N} ${DOMAIN} ${CLOUD}"
             else
-                echo -e "${GR}${PLUS}${N} ${DOMAIN}"
+                echo -e " ${GR}${PLUS}${N} ${DOMAIN}"
                 #echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RG}${I}proxied${N})"
             fi
         fi
