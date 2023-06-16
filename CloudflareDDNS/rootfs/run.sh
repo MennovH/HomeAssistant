@@ -47,8 +47,11 @@ RR="\e[0;31m" #regular red
 RY="\e[0;33m" #regular yellow
 BL="\e[1;34m" #bold blue
 GR="\e[1;32m" #bold green
-BY="\e[0;33m" #regular yellow
+BY="\e[1;33m" #bold yellow
 R="\e[1;31m" #bold red (error)
+
+
+echo -e "${RY}☁${N}"
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
