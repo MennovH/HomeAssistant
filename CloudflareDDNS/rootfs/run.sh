@@ -56,6 +56,15 @@ then
     exit 1
 fi
 
+
+function cloud {
+    local PROXIED="$1"
+    if [[ ${PROXIED} == true ]];then echo -e "${RY}☁${N}"; else echo "☁"; fi
+}
+
+cloud true
+cloud false
+
 function domain_lookup {
   local LIST="$1"
   local ITEM="$2"
