@@ -4,8 +4,10 @@
   - Added secondary API for redundancy to retrieve the PIP
   - Added log message to see which API was used (shown only when "Hide public IP address in log" configuration is set to false)
 - Fixed startup error message by removing deprecated parameters
-- Improved error logging
+- Improved logging
   - Added error handling in case the current PIP could not be fetched
+  - Improved error logging
+  - Added icons to show proxy status (orange cloud=proxied versus grey cloud=not proxied)
 - Changed configuration parameter "hide_public_ip" to "log_pip"
   - Old configuration "hide_public_ip" can be removed as the double negative was confusing
   - New configuration "log_pip" has default value of "true"
