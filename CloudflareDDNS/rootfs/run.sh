@@ -17,8 +17,8 @@ PERSISTENT_DOMAINS=$(bashio::config "domains")
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 BULLET="\u25cf"
-#PLUS="\uff0b"
-PLUS="\u2795"
+PLUS="\uff0b"
+#PLUS="\u2795"
 CLOUD="\U2601"
 ITERATION=0
 CREATION_ERRORS=0
@@ -105,7 +105,8 @@ function cfapi {
                 #echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RR}${I}not proxied${N})"
                 echo -e " ${GR}${PLUS}${N} ${DOMAIN} ${CLOUD}"
             else
-                echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RG}${I}proxied${N})"
+                echo -e " ${GR}${PLUS}${N} ${DOMAIN}"
+                #echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RG}${I}proxied${N})"
             fi
         fi
     fi
@@ -141,6 +142,7 @@ function cfapi {
                         echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) ${CLOUD} => ${R}failed to update${N}"
                     else
                         echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RG}${I}proxied${N}) => ${R}failed to update${N}"
+                        #echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RG}${I}proxied${N}) => ${R}failed to update${N}"
                     fi
                 else
                 
