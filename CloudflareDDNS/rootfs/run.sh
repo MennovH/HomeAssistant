@@ -247,14 +247,13 @@ do
         
         # sort domain list alphabetically
         DOMAIN_LIST=($(for DOMAIN in "${DOMAINS[@]}"; do echo "${DOMAIN}"; done | sort -u))
-        DOMAIN_COUNT=echo ${#DOMAIN_LIST[@]}
         if [[ ! -z "$DOMAIN_LIST" ]];
         then
         
             # iterate through listed domains
             ITERATION=$(($ITERATION + 1))
-            #if [[ $DOMAIN_COUNT == 1 ]]; then DOMAIN_COUNT="${DOMAIN_COUNT} domain"; else DOMAIN_COUNT="${DOMAIN_COUNT} domains"; fi
-            echo "Iteration ${ITERATION} (${DOMAIN_COUNT} domain(s)):"
+            if [[ ${#DOMAIN_LIST[@]} == 1 ]]; then DOMAIN_COUNT="${#DOMAIN_LIST[@]} domain"; else DOMAIN_COUNT="${#DOMAIN_LIST[@]} domains"; fi
+            echo "Iteration ${ITERATION} (${DOMAIN_COUNT}):"
             for DOMAIN in ${DOMAIN_LIST[@]}; do cfapi ${DOMAIN}; done
         else
         
