@@ -24,8 +24,6 @@ ITERATION_ERRORS=0
 UPDATE_ERRORS=0 
 PIP_ERRORS=0
 
-
-echo -e "${PLUS} - ${BULLET}"
 # font
 N="\e[0m" #normal
 I="\e[3m" #italic
@@ -174,9 +172,9 @@ function cfapi {
             # nothing changed
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
-                echo -e " - ${DOMAIN} (${RR}${I}not proxied${N})";
+                echo -e " ${BULLET} ${DOMAIN} (${RR}${I}not proxied${N})";
             else
-                echo -e " - ${DOMAIN} (${RG}${I}proxied${N})";
+                echo -e " ${BULLET} ${DOMAIN} (${RG}${I}proxied${N})";
             fi
         fi
     fi
