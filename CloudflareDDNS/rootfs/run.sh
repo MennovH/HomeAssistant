@@ -17,12 +17,14 @@ PERSISTENT_DOMAINS=$(bashio::config "domains")
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
 BULLET="\u25cf"
-PLUS="\u002b"
+PLUS="\uff0b"
 ITERATION=0
 CREATION_ERRORS=0
 ITERATION_ERRORS=0
 UPDATE_ERRORS=0 
 PIP_ERRORS=0
+
+echo -e "${PLUS}"
 
 # font
 N="\e[0m" #normal
