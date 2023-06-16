@@ -188,12 +188,12 @@ function cfapi {
         else
         
             # nothing changed
-            if [[ ${DOMAIN_PROXIED} == false ]];
-            then
-                echo -e " ☁ ${DOMAIN}";
-            else
-                echo -e " ${RY}☁${N} ${DOMAIN}";
-            fi
+            # if [[ ${DOMAIN_PROXIED} == false ]];
+            # then
+            echo -e " $(if [[ ${DOMAIN_PROXIED} == false ]];then ${RY};fi)☁${N} ${DOMAIN}";
+            # else
+            #     echo -e " ${RY}☁${N} ${DOMAIN}";
+            # fi
         fi
     fi
 }
