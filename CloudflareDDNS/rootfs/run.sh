@@ -26,6 +26,7 @@ PIP_ERRORS=0
 N="\e[0m" #normal
 I="\e[3m" #italic
 S="\e[9m" #strikethrough
+B="\e[1m" #bold
 
 # colors:
 RG="\e[0;32m" #regular green
@@ -93,9 +94,9 @@ function cfapi {
             # creation successful (no need to mention current PIP (again))
             if [[ ${PROXY} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) => ${GR}created${N}"
+                echo -e " ${GR}+${N} ${DOMAIN} (${RR}${I}not proxied${N})"
             else
-                echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${GR}created${N}"
+                echo -e " ${GR}+${N} ${DOMAIN} (${RG}${I}proxied${N})"
             fi
         fi
     fi
@@ -128,7 +129,7 @@ function cfapi {
                     then
                         echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RR}${I}not proxied${N}) => ${R}failed to update${N}"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RG}${I}proxied${N}) => ${R}failed to update${N}"
+                        echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) (${RG}${I}proxied${N}) => ${R}failed to update${N}"
                     fi
                 else
                 
@@ -149,18 +150,18 @@ function cfapi {
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) => ${GR}updated${N} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${GR}updated${N} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                     fi
                 else
                 
                     # don't show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) => ${GR}updated${N}"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N})"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${GR}updated${N}"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N})"
                     fi
                 fi
              fi
@@ -169,9 +170,9 @@ function cfapi {
             # nothing changed
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
-                echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N})";
+                echo -e " - ${DOMAIN} (${RR}${I}not proxied${N})";
             else
-                echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N})";
+                echo -e " - ${DOMAIN} (${RG}${I}proxied${N})";
             fi
         fi
     fi
