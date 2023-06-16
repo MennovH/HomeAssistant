@@ -16,12 +16,16 @@ LOG_PIP=$(bashio::config 'log_pip')
 PERSISTENT_DOMAINS=$(bashio::config "domains")
 CHECK_MARK="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
+BULLET="\u25cf"
+PLUS="\u002b"
 ITERATION=0
 CREATION_ERRORS=0
 ITERATION_ERRORS=0
 UPDATE_ERRORS=0 
 PIP_ERRORS=0
 
+
+echo -e "${PLUS} - ${BULLET}"
 # font
 N="\e[0m" #normal
 I="\e[3m" #italic
