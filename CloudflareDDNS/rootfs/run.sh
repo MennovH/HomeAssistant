@@ -152,7 +152,8 @@ function cfapi {
                         #echo -e " ${CROSS_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) => ${R}failed to update${N}"
                         echo -e " ${CROSS_MARK} ${DOMAIN} ${CLOUD} => ${R}failed to update${N}"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${R}failed to update${N}"
+                        #echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) => ${R}failed to update${N}"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} => ${R}failed to update${N}"
                     fi
                 fi
             else
@@ -167,7 +168,8 @@ function cfapi {
                         echo -e " ${CHECK_MARK} ${DOMAIN} ${CLOUD} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        #echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ${CHECK_MARK} ${DOMAIN} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                     fi
                 else
                 
@@ -177,7 +179,8 @@ function cfapi {
                         echo -e " ${CHECK_MARK} ${DOMAIN} ${CLOUD}"
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N})"
                     else
-                        echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N})"
+                        #echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N})"
+                        echo -e " ${CHECK_MARK} ${DOMAIN}"
                     fi
                 fi
              fi
@@ -189,7 +192,8 @@ function cfapi {
                 echo -e " ${BULLET} ${DOMAIN} ${CLOUD}";
                 #echo -e " ${BULLET} ${DOMAIN} (${RR}${I}not proxied${N})";
             else
-                echo -e " ${BULLET} ${DOMAIN} (${RG}${I}proxied${N})";
+                #echo -e " ${BULLET} ${DOMAIN} (${RG}${I}proxied${N})";
+                echo -e " ${BULLET} ${DOMAIN}";
             fi
         fi
     fi
