@@ -101,12 +101,7 @@ function cfapi {
         else
             # creation successful (no need to mention current PIP (again))
             CREATE_COUNTER=$(($CREATE_COUNTER + 1))
-            if [[ ${PROXY} == false ]];
-            then
-                echo -e " ☁ ${BG}${PLUS}${N} ${DOMAIN}"
-            else
-                echo -e " ${RY}☁${N} ${BG}${PLUS}${N} ${DOMAIN}"
-            fi
+            echo -e " $(if [[ ${PROXY} == true ]];then echo -e "${RY}";fi)☁${N} ${BG}${PLUS}${N} ${DOMAIN}"
         fi
     fi
     
@@ -130,70 +125,17 @@ function cfapi {
             
                 # update failed
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
-                if [[ ${LOG_PIP} == true ]];
-                then
-                
-                    # show current assigned PIP
-                    if [[ ${DOMAIN_PROXIED} == false ]];
-                    then
-                        echo -e " ☁ ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) => ${R}failed to update${N}"
-                    else
-                        echo -e " ${RY}☁${N} ${CROSS_MARK} ${DOMAIN} (${RR}${DOMAIN_IP}${N}) => ${R}failed to update${N}"
-                    fi
-                else
-                
-                    # don't show current assigned PIP
-                    if [[ ${DOMAIN_PROXIED} == false ]];
-                    then
-                        echo -e " ☁ ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${N}"
-                    else
-                        echo -e " ${RY}☁${N} ${CROSS_MARK} ${DOMAIN} => ${R}failed to update${N}"
-                    fi
-                fi
+                echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${CROSS_MARK} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]];then echo -e " (${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi) => ${R}failed to update${N}"
             else
             
                 # update successful
                 UPDATE_COUNTER=$(($UPDATE_COUNTER + 1))
-                # if [[ ${LOG_PIP} == true ]];
-                # then
-                    
-                    # show previously assigned PIP
-                    # if [[ ${DOMAIN_PROXIED} == false ]];
-                    # then
-                echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]];then echo -e "(${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi)"
-                    # else
-                    #     echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN} (${RY}${S}${DOMAIN_IP}${N}\e[0m)"
-                    # fi
-                # else
-                    
-                    
-                    # if [[ ${DOMAIN_PROXIED} == false ]];
-                    # then
-                    #     echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]]; then echo -e "${RY}";fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
-                    # else
-                    #     echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
-                    # fi
-
-
-                    
-                    # don't show previously assigned PIP
-                    # if [[ ${DOMAIN_PROXIED} == false ]];
-                    # then
-                    #     echo -e " ☁ ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
-                    # else
-                    #     echo -e " ${RY}☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}"
-                    # fi
-                # fi
+                echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]];then echo -e " (${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi)"
              fi
         else
         
             # nothing changed
-            # if [[ ${DOMAIN_PROXIED} == false ]];
-            # then
             echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${DOMAIN}";
-            # else
-            #     echo -e " ${RY}☁${N} ${DOMAIN}";
-            # fi
         fi
     fi
 }
@@ -262,13 +204,8 @@ do
             for DOMAIN in ${TMP_PERSISTENT_DOMAINS[@]};
             do
                 TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
-                #$DOMAINS=( "${DOMAINS[@]/$TMP_DOMAIN}" )
                 DOMAINS=( "${DOMAINS[@]/$DOMAIN/}" )
-                if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"` ;
-                then
-                    DOMAINS+=("$DOMAIN")
-                fi
-                #TMP_PERSISTENT_DOMAINS=( "${TMP_PERSISTENT_DOMAINS[@]/$DOMAIN/}" )
+                if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`; then DOMAINS+=("$DOMAIN"); fi
             done
         fi
         
