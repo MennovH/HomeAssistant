@@ -39,9 +39,10 @@ B="\e[1m" #bold
 # colors:
 RG="\e[0;32m" #regular green
 RR="\e[0;31m" #regular red
-YY="\e[0;33m" #regular yellow
+RY="\e[0;33m" #regular yellow
 BL="\e[1;34m" #bold blue
 GR="\e[1;32m" #bold green
+BY="\e[0;33m" #regular yellow
 R="\e[1;31m" #bold red (error)
 
 # checks on configuration
@@ -103,7 +104,7 @@ function cfapi {
             if [[ ${PROXY} == false ]];
             then
                 #echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RR}${I}not proxied${N})"
-                echo -e " ${GR}${PLUS}${N} ${DOMAIN} ${CLOUD}"
+                echo -e " ${BY}${PLUS}${N} ${DOMAIN} ${CLOUD}"
             else
                 echo -e " ${GR}${PLUS}${N} ${DOMAIN}"
                 #echo -e " ${GR}${PLUS}${N} ${DOMAIN} (${RG}${I}proxied${N})"
@@ -165,7 +166,7 @@ function cfapi {
                     # show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} ${CLOUD} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
+                        echo -e " ${RY}${CHECK_MARK}${N} ${DOMAIN} ${CLOUD} (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
                     else
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N}) (${YY}${S}${DOMAIN_IP}${N}\e[0m)"
@@ -176,7 +177,7 @@ function cfapi {
                     # don't show previously assigned PIP
                     if [[ ${DOMAIN_PROXIED} == false ]];
                     then
-                        echo -e " ${RG}${CHECK_MARK}${N} ${DOMAIN} ${CLOUD}"
+                        echo -e " ${RY}${CHECK_MARK}${N} ${DOMAIN} ${CLOUD}"
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RR}${I}not proxied${N})"
                     else
                         #echo -e " ${CHECK_MARK} ${DOMAIN} (${RG}${I}proxied${N})"
@@ -189,11 +190,11 @@ function cfapi {
             # nothing changed
             if [[ ${DOMAIN_PROXIED} == false ]];
             then
-                echo -e " ${BULLET} ${DOMAIN} ${CLOUD}";
+                echo -e " ${RY}${BULLET}${N} ${DOMAIN} ${CLOUD}";
                 #echo -e " ${BULLET} ${DOMAIN} (${RR}${I}not proxied${N})";
             else
                 #echo -e " ${BULLET} ${DOMAIN} (${RG}${I}proxied${N})";
-                echo -e " ${BULLET} ${DOMAIN}";
+                echo -e " ${RG}${BULLET}${N} ${DOMAIN}";
             fi
         fi
     fi
