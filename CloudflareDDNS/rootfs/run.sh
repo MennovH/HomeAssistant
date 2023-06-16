@@ -237,11 +237,13 @@ do
             for DOMAIN in ${TMP_PERSISTENT_DOMAINS[@]};
             do
                 TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
-                if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"` ;
-                then
-                    DOMAINS+=("$DOMAIN")
-                fi
-                TMP_PERSISTENT_DOMAINS=( "${TMP_PERSISTENT_DOMAINS[@]/$DOMAIN/}" )
+                $DOMAINS=( "${DOMAINS[@]/$TMP_DOMAIN}" )
+                
+                #if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"` ;
+                #then
+                DOMAINS+=("$DOMAIN")
+                #fi
+                #TMP_PERSISTENT_DOMAINS=( "${TMP_PERSISTENT_DOMAINS[@]/$DOMAIN/}" )
             done
         fi
         
