@@ -212,7 +212,7 @@ do
     done
     
     # calculate next run time
-    PIP_FETCH_TIME=$((`date +%s`-start))
+    PIP_FETCH_TIME=$((`date +%s`-PIP_FETCH_START))
     if [[ ! $INTERVAL > $PIP_FETCH_TIME ]]; then PIP_FETCH_TIME=0; fi
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+(${INTERVAL}*60)-$PIP_FETCH_TIME ))" "+%Y-%m-%d %H:%M:%S")
     echo -e "Next: ${NEXT}"
