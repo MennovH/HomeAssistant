@@ -47,7 +47,6 @@ BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
 echo -e "${RY}☁${N} Initializing add-on ☁"
-echo -e "PIP: ${BB}XXX.XXX.XXX.XXX${N}"
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
