@@ -15,8 +15,8 @@
     - e: times A records could not be created
     - f: times A records could not be updated
     - g: times iterations failed
-  - Added colored bullets to represent the proxy status that match Cloudflare's definitions (orange cloud=proxied versus grey cloud=not proxied)
-    - At this moment the cloud colors only seem to be visible in the Desktop app. For this reason these icons are not yet used as bullets.
+  - Added colored bullets to represent the proxy status that match Cloudflare's definitions (orange cloud=proxied, grey cloud=not proxied)
+    - At this moment the cloud icon colors only seem to be visible in the Desktop app. For this reason these icons are not (yet) used as bullets.
   - Replaced "created" log messsage with plus sign
   - Replaced "updated" log message with reload symbol
 - Changed configuration parameter "hide_public_ip" to "log_pip"
