@@ -2,20 +2,20 @@
 - Fixed public IP (PIP) retrieval issues
   - Added infinite while loop with delay to assure the iteration only starts when the current PIP is known
   - Added secondary API for redundancy to retrieve the PIP
+  - Added error handling in case the current PIP could not be fetched
 - Fixed startup error message by removing deprecated parameters
 - Improved logging
-  - Added error handling in case the current PIP could not be fetched
   - Added log message that shows how many domains (returned by API and persistent config) need to be iterated
   - Added log message to see which API was used (shown only when "Hide public IP address in log" configuration is set to false)
   - Added status counters which shows changes in the first part and errors in the second: [a/b/c] [d/e/f/g]
-    - a: times the PIP has changed
-    - b: times A records have been created
-    - c: times A records have been updated
-    - d: times the PIP could not be retrieved by APIs
-    - e: times A records could not be created
-    - f: times A records could not be updated
-    - g: times iterations failed
-  - Added colored bullets to represent the proxy status that match Cloudflare's definitions (orange cloud=proxied, grey cloud=not proxied)
+    - a: number of times the PIP has changed
+    - b: number of times A records have been created
+    - c: number times A records have been updated
+    - d: number of times the PIP could not be retrieved by APIs
+    - e: number of times A records could not be created
+    - f: number of times A records could not be updated
+    - g: number of times iterations failed
+  - Added colored bullets to represent the proxy status that match Cloudflare's definitions (orange cloud = proxied, grey cloud = not proxied)
     - At this moment the cloud icon colors only seem to be visible in the Desktop app. For this reason these icons are not (yet) used as bullets.
   - Replaced "created" log messsage with plus sign
   - Replaced "updated" log message with reload symbol
