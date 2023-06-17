@@ -182,7 +182,7 @@ do
 
             # retrieved PIP
             if [[ $PREVIOUS_PIP != "" ]]; then NEW_PIP_COUNTER=$(($NEW_PIP_COUNTER + 1)); fi
-            PREVIOUS_PIP=$PUBLIC_PIP
+            PREVIOUS_PIP="$PUBLIC_IP"
             break
         fi
 
