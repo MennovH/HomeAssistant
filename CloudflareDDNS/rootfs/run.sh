@@ -46,7 +46,7 @@ BB="\e[1;34m" #bold blue
 BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
-echo -e "\e[0;33m☁${N} Initializing add-on ☁"
+echo -e "${RY}☁${N} Initializing add-on ☁"
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
@@ -68,7 +68,8 @@ function show_pip {
 # function to return colored cloud
 function cloud {
     local PROXIED="$1"
-    if [[ ${PROXIED} == true ]]; then echo -e "${RY}${RY}${BULLET}${N}"; else echo "${GR}${BULLET}${N}"; fi
+    #if [[ ${PROXIED} == true ]]; then echo -e "${RY}${CLOUD}${N}"; else echo "${GR}${CLOUD}${N}"; fi
+    if [[ ${PROXIED} == true ]]; then echo -e "${RY}${BULLET}${N}"; else echo "${GR}${BULLET}${N}"; fi
 }
 
 # function to lookup domains in list
