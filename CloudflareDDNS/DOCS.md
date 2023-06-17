@@ -44,16 +44,24 @@ It's also possible to directly configure the add-on via the YAML configurator, a
 ![example YAML configuration][screenshot2]
 
 ## Example CloudflareDDNS logging output
-The following image shows an example output of the add-on, which can be found in the logbook. In this scenario, the A record of example3.com pointed to a wrong IP address. The add-on found that this record was incorrect, and updated it accordingly. The add-on also noticed that the A record of example4.com was missing, and created it (proxied by default which can be overruled as stated earlier). These changes are instantly visible in the Cloudflare dashboard. This example shows the full output with the "Hide PIP" option set to disabled. If enabled, IP address information and whether or not the regarding A records are proxied by Cloudflare, won't be shown.
-<br></br>
-![example logging output][screenshot3]
-
-### Runtime errors
-The additional logging of "Runtime errors" shows a summary of how many times something went wrong during runtime. The summary shows four values separated by a "/", and have the following meaning:
+### Updates
+The following image shows an example output of the add-on, which can be found in the logbook. In this scenario, the A record of example1.com and later example3.com pointed to a wrong IP address. The add-on found that this record was incorrect, and updated it accordingly.
+### Creations
+The add-on also noticed that the A record of example7.com was missing, and created it (proxied by default which can be overruled as stated earlier). These changes are instantly visible in the Cloudflare dashboard. This example shows the full output with the "Log public IP address" option set to true. If false, IP address information won't be shown.
+### Bullet points
+Another thing to notice is the colored bullet points. These colors represent the proxy status of the regarding A record and match the orange and grey cloud definitions of Cloudflare. Orange means the A record is proxied by Cloudflare. When you look up the domain, it will resolve to Cloudflare and thus hide your PIP. Grey on the other hand, means that the A record resolves to your PIP.
+### Status
+The status shows the status until the current iteration. It shows the changes in the first part [green] and errors in the second part [red]. Every value in between "/" has a different meaning, as explained below.
+#### Runtime changes
+- First value: shows the number of times the PIP has changed since the add-on started
+- Second value: shows the number of A records created by the add-on since the add-on started
+- Last value: shows the number of A records updated by the add-on since the add-on started
+#### Runtime errors
 - First value: counter for failing to get the current public IP address (possible causes: API failure, network issues)
 - Second value: counter for failing during an iteration (possible causes: Cloudflare API failure, network issues)
 - Third value: counter for failing to create an A record (possible causes: Cloudflare API failure, misconfigurations)
 - Last value: counter for failing to update an A record (possible cause: Cloudflare API failure)
+![example logging output][screenshot3]
 
 [screenshot1]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/example_domain_list.png
 [screenshot2]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/example_yaml.png
