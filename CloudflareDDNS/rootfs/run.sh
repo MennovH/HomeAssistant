@@ -109,6 +109,7 @@ function cfapi {
             ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}"
         else
+        
             # creation successful (no need to mention current PIP (again))
             CREATE_COUNTER=$(($CREATE_COUNTER + 1))
             echo -e " $(cloud ${PROXY}) ${BG}${PLUS}${N} ${DOMAIN}"
@@ -123,7 +124,8 @@ function cfapi {
 
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
         then
-            # difference detected
+        
+            # domain needs to be updated
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
             API_RESPONSE=$(curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
                 -H "Authorization: Bearer ${TOKEN}" \
@@ -135,19 +137,16 @@ function cfapi {
             
                 # update failed
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
-                #echo -e " $(cloud ${DOMAIN_PROXIED}) ${CROSS_MARK} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]];then echo -e " (${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi) => ${R}failed to update${N}"
                 echo -e " $(cloud ${DOMAIN_PROXIED}) ${CROSS_MARK} ${DOMAIN}$(show_pip $DOMAIN_IP) => ${R}failed to update${N}"
             else
             
                 # update successful
                 UPDATE_COUNTER=$(($UPDATE_COUNTER + 1))
-                #echo -e " $(cloud ${DOMAIN_PROXIED}) ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}$(if [[ ${LOG_PIP} == true ]];then echo -e " (${RY}${S}${DOMAIN_IP}${N}\e[0m)";fi)"
                 echo -e " $(cloud ${DOMAIN_PROXIED}) ${RG}${RELOAD_SYMBOL}${N} ${DOMAIN}$(show_pip $DOMAIN_IP)"
              fi
         else
         
             # nothing changed
-            #echo -e " $(if [[ ${DOMAIN_PROXIED} == true ]];then echo -e "${RY}";fi)☁${N} ${DOMAIN}";
             echo -e " $(cloud ${DOMAIN_PROXIED}) ${DOMAIN}";
         fi
     fi
@@ -213,6 +212,7 @@ do
         TMP_PERSISTENT_DOMAINS=$PERSISTENT_DOMAINS
         if [[ $count > 0 ]];
         then
+        
             # add persistent domains to obtained record list
             for DOMAIN in ${TMP_PERSISTENT_DOMAINS[@]};
             do
@@ -248,7 +248,7 @@ do
     fi
     
     # set sleep time and wait until next iteration
-    if [[ $ISSUE == 1 ]]; then TMP_SEC=60; else TMP_SEC=$(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi
-    sleep ${TMP_SEC}s
+    #if [[ $ISSUE == 1 ]]; then TMP_SEC=60; else TMP_SEC=$(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi
+    sleep $(if [[ $ISSUE == 1 ]]; then echo 60; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
     echo -e "\n "
 done
