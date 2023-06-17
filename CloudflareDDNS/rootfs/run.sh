@@ -63,7 +63,7 @@ function show_pip {
 
 function cloud {
     local PROXIED="$1"
-    if [[ ${PROXIED} == true ]]; then echo -e "${RY}${U}[☁]${N}"; else echo "${GR}${U}[☁]${N}"; fi
+    if [[ ${PROXIED} == true ]]; then echo -e "${RY}${U}☁${N}"; else echo "${GR}${U}☁${N}"; fi
 }
 
 function domain_lookup {
