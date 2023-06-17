@@ -9,8 +9,6 @@ declare PERSISTENT_DOMAINS
 declare RELOAD_SYMBOL
 declare CROSS_MARK
 
-echo -e "example.com\nexample1.com\nexample3.com\nexample4.com\nexample5.com\nexample6.com\nexample7.com"
-
 # variables
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
@@ -49,6 +47,7 @@ BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
 echo -e "${RY}☁${N} Initializing add-on ☁"
+echo -e "PIP: ${BB}XXX.XXX.XXX.XXX${N}"
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
