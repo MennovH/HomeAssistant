@@ -9,7 +9,6 @@ declare PERSISTENT_DOMAINS
 declare RELOAD_SYMBOL
 declare CROSS_MARK
 
-echo "${RY}☁${N} Initializing add-on ☁"
 
 # variables
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
@@ -47,6 +46,8 @@ GR="\e[1;30m" #grey
 BB="\e[1;34m" #bold blue
 BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
+
+echo "${RY}☁${N} Initializing add-on ☁"
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
