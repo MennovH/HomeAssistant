@@ -68,7 +68,7 @@ function show_pip {
 # function to return colored cloud
 function cloud {
     local PROXIED="$1"
-    if [[ ${PROXIED} == true ]]; then echo -e "${RY}${BULLET}${N}"; else echo "${GR}${BULLET}${N}"; fi
+    if [[ ${PROXIED} == true ]]; then echo -e "${RY}${RY}${BULLET}${N}"; else echo "${GR}${BULLET}${N}"; fi
 }
 
 # function to lookup domains in list
