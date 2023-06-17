@@ -44,6 +44,8 @@ It's also possible to directly configure the add-on via the YAML configurator, a
 ![example YAML configuration][screenshot2]
 
 ## Example CloudflareDDNS logging output
+![example logging output][screenshot3]
+
 ### Updates
 The following image shows an example output of the add-on, which can be found in the logbook. In this scenario, the A record of example1.com and later example3.com pointed to a wrong IP address. The add-on found that this record was incorrect, and updated it accordingly.
 ### Creations
@@ -61,7 +63,6 @@ The status shows the status until the current iteration. It shows the changes in
 - Second value: counter for failing during an iteration (possible causes: Cloudflare API failure, network issues)
 - Third value: counter for failing to create an A record (possible causes: Cloudflare API failure, misconfigurations)
 - Last value: counter for failing to update an A record (possible cause: Cloudflare API failure)
-![example logging output][screenshot3]
 
 [screenshot1]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/example_domain_list.png
 [screenshot2]: https://raw.githubusercontent.com/MennovH/HomeAssistant/main/CloudflareDDNS/images/example_yaml.png
