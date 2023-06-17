@@ -49,7 +49,7 @@ The image below shows a full example output of the add-on, which can be found in
 ![example logging output][screenshot3]
 
 ### Updates
-The log shows there were two iterations. The A record of example1.com and later of example3.com, pointed to a wrong IP address. The add-on found that these records were incorrect, and updated them accordingly via the Cloudflare API. These changes are directly visible in the Cloudflare dashboard.
+The log shows two iterations. The A record of example1.com and later of example3.com, pointed to a wrong IP address. The add-on found that these records were incorrect, and updated them accordingly via the Cloudflare API. These changes are directly visible in the Cloudflare dashboard.
 ### Creations
 The add-on also noticed that the A record of example7.com (which was manually configured as persistent domain (see example configuration)) was missing during the first iteration, and created it via the Cloudflare API. This change is directly visible in the Cloudflare dashboard.
 ### Bullet points
