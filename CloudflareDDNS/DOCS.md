@@ -49,13 +49,13 @@ The image below shows a full example output of the add-on, which can be found in
 ![example logging output][screenshot3]
 
 ### Updates
-The log shows there were two iterations. The A record of example1.com and later example3.com, pointed to a wrong IP address. The add-on found that these records were incorrect, and updated them accordingly via the Cloudflare API. These changes are directly visible in the Cloudflare dashboard.
+The log shows there were two iterations. The A record of example1.com and later of example3.com, pointed to a wrong IP address. The add-on found that these records were incorrect, and updated them accordingly via the Cloudflare API. These changes are directly visible in the Cloudflare dashboard.
 ### Creations
 The add-on also noticed that the A record of example7.com (which was manually configured as persistent domain) was missing during the first iteration, and created it via the Cloudflare API. This change is directly visible in the Cloudflare dashboard.
 ### Bullet points
-Another thing to notice is the colored bullet points. These colors represent the proxy status of the regarding A record and match the orange and grey cloud definitions of Cloudflare. Orange means the A record is proxied by Cloudflare. When you look up a proxied domain, it will resolve to Cloudflare and thus hide your PIP. Grey on the other hand, means that the A record resolves to your PIP.
+The colors of the bullet points represent the proxy status of the regarding A record and match the orange and grey cloud definitions of Cloudflare. Orange means the A record is proxied by Cloudflare. When you look up a proxied domain, it will resolve to Cloudflare and thus hide your PIP. Grey on the other hand, means that the A record resolves to your PIP.
 ### Status
-The status shows the status until the current iteration. It shows the changes in the first part [green] and errors in the second part [red]. Every value divided by a "/" has its own meaning as explained below.
+The status shows the past changes [green] and errors [red]. Every value divided by a "/" has its own meaning as explained below.
 #### Runtime changes
 - First value: shows the number of times the PIP has changed since the add-on started
 - Second value: shows the number of A records created by the add-on since the add-on started
