@@ -53,7 +53,7 @@ The log shows there were two iterations. The A record of example1.com and later 
 ### Creations
 The add-on also noticed that the A record of example7.com (which was manually configured as persistent domain) was missing during the first iteration, and created it via the Cloudflare API. This change is directly visible in the Cloudflare dashboard.
 ### Bullet points
-The colors of the bullet points represent the proxy status of the regarding A record and match the orange and grey cloud definitions of Cloudflare. Orange means the A record is proxied by Cloudflare. When you look up a proxied domain, it will resolve to Cloudflare and thus hide your PIP. Grey on the other hand, means that the A record resolves to your PIP.
+The colors of the bullet points represent the proxy status of the regarding A record and match the orange and grey cloud definitions of Cloudflare. Orange means the A record is proxied by Cloudflare. When you look up a proxied domain, it will resolve to Cloudflare and thus hide your PIP. Grey on the other hand, means that the A record resolves to your PIP. At the moment the phone app doesn't show the color of orange cloud icons. This is why the clouds themselves are not (yet) used as bullet points.
 ### Status
 The status shows the past changes [green] and errors [red]. Every value divided by a "/" has its own meaning as explained below.
 #### Runtime changes
