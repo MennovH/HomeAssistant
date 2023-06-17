@@ -174,8 +174,8 @@ do
     do
     
         # try different APIs to get current PIP
-        for API in "api.ipify.org" "api.my-ip.io/ip"
-        do PUBLIC_IP=$(curl -s --connect-timeout 5 https://$API || echo 0)
+        for API in "ipify.org" "my-ip.io/ip"
+        do PUBLIC_IP=$(curl -s --connect-timeout 5 https://api.$API || echo 0)
             if [[ $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
             then
                 SUCCESS=1
@@ -205,7 +205,7 @@ do
     echo -e "Next: ${NEXT}"
 
     # print current PIP
-    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} (${API})"; fi
+    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} ($(echo ${API} | cut -d '/' -f 1))"; fi
     
     # fetch existing A records
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
