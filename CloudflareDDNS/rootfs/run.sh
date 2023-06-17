@@ -39,6 +39,7 @@ S="\e[9m" #strikethrough
 RG="\e[0;32m" #regular green
 RR="\e[0;31m" #regular red
 RY="\e[0;33m" #regular yellow
+GR="\e[1;30m" #grey
 BB="\e[1;34m" #bold blue
 BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
@@ -61,7 +62,7 @@ function show_pip {
 
 function cloud {
     local PROXIED="$1"
-    if [[ ${PROXIED} == true ]]; then echo -e "${RY}☁${N}"; else echo "☁"; fi
+    if [[ ${PROXIED} == true ]]; then echo -e "${RY}[☁]${N}"; else echo "${GR}[☁]${N}"; fi
 }
 
 function domain_lookup {
