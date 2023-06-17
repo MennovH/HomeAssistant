@@ -15,9 +15,7 @@ ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 LOG_PIP=$(bashio::config 'log_pip')
 PERSISTENT_DOMAINS=$(bashio::config "domains")
-#RELOAD_SYMBOL="\033[0;32m\xE2\x9C\x94\033[0m"
 CROSS_MARK="\u274c"
-#BULLET="\u2022"
 PLUS="\uff0b"
 RELOAD_SYMBOL="\u21bb"
 PREVIOUS_PIP=""
@@ -160,11 +158,8 @@ do
     SUCCESS=0
     SECONDS=0
     ISSUE=0
-
     
     echo -e "Status: [${RG}${NEW_PIP_COUNTER}/${CREATE_COUNTER}/${UPDATE_COUNTER}${N}] [${RR}${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}${N}]"
-    # echo -e "Runtime errors: ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
-    # echo -e "Runtime changes: ${NEW_PIP_COUNTER}/${CREATE_COUNTER}/${UPDATE_COUNTER}"
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
     PIP_FETCH_START=`date +%s`
     
@@ -181,14 +176,16 @@ do
                 break
             fi
         done
+        
         if [[ $SUCCESS == 1 ]]
         then
+
+            # retrieved PIP
+            if [[ $PREVIOUS_PIP != "" ]]; then NEW_PIP_COUNTER=$(($NEW_PIP_COUNTER + 1)); fi
+            PREVIOUS_PIP=$PUBLIC_PIP
             break
         fi
 
-        if [[ $PREVIOUS_PIP != "" ]]; then NEW_PIP_COUNTER=$(($NEW_PIP_COUNTER + 1)); fi
-        PREVIOUS_PIP=$PUBLIC_PIP
-        
         # APIs failed to return PIP, retry in 10 seconds
         PIP_ERRORS=$(($PIP_ERRORS + 1))
         echo -e "${RR}Failed to get current public IP address. Retrying in 10 seconds...${N}"
@@ -251,7 +248,6 @@ do
     fi
     
     # set sleep time and wait until next iteration
-    #if [[ $ISSUE == 1 ]]; then TMP_SEC=60; else TMP_SEC=$(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi
     sleep $(if [[ $ISSUE == 1 ]]; then echo 60; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
     echo -e "\n "
 done
