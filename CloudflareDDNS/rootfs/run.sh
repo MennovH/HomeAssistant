@@ -208,7 +208,7 @@ do
     echo -e "Next: ${NEXT}"
 
     # print current PIP
-    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} ($(echo ${API} | cut -d '/' -f 1))"; fi
+    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} by $(echo ${API} | cut -d '/' -f 1)"; fi
     
     # fetch existing A records
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
