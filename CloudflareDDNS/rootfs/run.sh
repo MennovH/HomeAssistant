@@ -9,6 +9,8 @@ declare PERSISTENT_DOMAINS
 declare RELOAD_SYMBOL
 declare CROSS_MARK
 
+echo "${RY}☁${N} Initializing add-on ☁"
+
 # variables
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
@@ -17,6 +19,7 @@ LOG_PIP=$(bashio::config 'log_pip')
 PERSISTENT_DOMAINS=$(bashio::config "domains")
 CROSS_MARK="\u274c"
 PLUS="\uff0b"
+BULLET="\u2022"
 RELOAD_SYMBOL="\u21bb"
 PREVIOUS_PIP=""
 
@@ -63,7 +66,7 @@ function show_pip {
 
 function cloud {
     local PROXIED="$1"
-    if [[ ${PROXIED} == true ]]; then echo -e "${RY}${U}☁${N}"; else echo "${GR}${U}☁${N}"; fi
+    if [[ ${PROXIED} == true ]]; then echo -e "${RY}${BULLET}${N}"; else echo "${GR}${BULLET}${N}"; fi
 }
 
 function domain_lookup {
