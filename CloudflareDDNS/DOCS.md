@@ -45,8 +45,7 @@ It's also possible to directly configure the add-on via the YAML configurator, a
 
 ## Example CloudflareDDNS logging output
 The image below shows a full example output of the add-on, which can be found in the logbook. To hide the PIP information, set the "Log public IP address" option to false.
-
-<br>
+<br></br>
 ![example logging output][screenshot3]
 
 ### Updates
