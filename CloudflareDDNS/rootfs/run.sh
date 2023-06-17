@@ -34,6 +34,7 @@ CREATE_COUNTER=0
 N="\e[0m" #normal
 I="\e[3m" #italic
 S="\e[9m" #strikethrough
+U="\e[4m" #underline
 
 # colors
 RG="\e[0;32m" #regular green
@@ -62,7 +63,7 @@ function show_pip {
 
 function cloud {
     local PROXIED="$1"
-    if [[ ${PROXIED} == true ]]; then echo -e "${RY}[☁]${N}"; else echo "${GR}[☁]${N}"; fi
+    if [[ ${PROXIED} == true ]]; then echo -e "${RY}${U}[☁]${N}"; else echo "${GR}${U}[☁]${N}"; fi
 }
 
 function domain_lookup {
