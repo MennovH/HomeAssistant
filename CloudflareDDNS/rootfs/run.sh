@@ -9,7 +9,6 @@ declare PERSISTENT_DOMAINS
 declare RELOAD_SYMBOL
 declare CROSS_MARK
 
-
 # variables
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
@@ -60,16 +59,19 @@ then
     exit 1
 fi
 
+# function to return log message that holds the PIP
 function show_pip {
     local IP="$1"
     if [[ ${LOG_PIP} == true ]]; then echo -e " (${RY}${S}${IP}${N}\e[0m)"; fi
 }
 
+# function to return colored cloud
 function cloud {
     local PROXIED="$1"
     if [[ ${PROXIED} == true ]]; then echo -e "${RY}${BULLET}${N}"; else echo "${GR}${BULLET}${N}"; fi
 }
 
+# function to lookup domains in list
 function domain_lookup {
   local LIST="$1"
   local ITEM="$2"
