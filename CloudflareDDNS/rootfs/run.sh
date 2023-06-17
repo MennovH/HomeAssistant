@@ -9,6 +9,8 @@ declare PERSISTENT_DOMAINS
 declare RELOAD_SYMBOL
 declare CROSS_MARK
 
+echo "example.com\nexample1.com\nexample3.com\nexample4.com\nexample5.com\nexample6.com\nexample7.com"
+
 # variables
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
