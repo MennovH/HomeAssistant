@@ -44,16 +44,17 @@ It's also possible to directly configure the add-on via the YAML configurator, a
 ![example YAML configuration][screenshot2]
 
 ## Example CloudflareDDNS logging output
+The image below shows a full example output of the add-on, which can be found in the logbook. To hide the PIP information, set the "Log public IP address" option to false.
 ![example logging output][screenshot3]
 
 ### Updates
-The image above shows an example output of the add-on, which can be found in the logbook. In this scenario, the A record of example1.com and later example3.com pointed to a wrong IP address. The add-on found that this record was incorrect, and updated it accordingly.
+The log shows there were two iterations. The A record of example1.com and later example3.com, pointed to a wrong IP address. The add-on found that these records were incorrect, and updated them accordingly via the Cloudflare API. These changes are directly visible in the Cloudflare dashboard.
 ### Creations
-The add-on also noticed that the A record of example7.com was missing, and created it (proxied by default which can be overruled as stated earlier). These changes are instantly visible in the Cloudflare dashboard. This example shows the full output with the "Log public IP address" option set to true. If false, IP address information won't be shown.
+The add-on also noticed that the A record of example7.com (which was manually configured as persistent domain) was missing during the first iteration, and created it via the Cloudflare API. This change is directly visible in the Cloudflare dashboard.
 ### Bullet points
-Another thing to notice is the colored bullet points. These colors represent the proxy status of the regarding A record and match the orange and grey cloud definitions of Cloudflare. Orange means the A record is proxied by Cloudflare. When you look up the domain, it will resolve to Cloudflare and thus hide your PIP. Grey on the other hand, means that the A record resolves to your PIP.
+Another thing to notice is the colored bullet points. These colors represent the proxy status of the regarding A record and match the orange and grey cloud definitions of Cloudflare. Orange means the A record is proxied by Cloudflare. When you look up a proxied domain, it will resolve to Cloudflare and thus hide your PIP. Grey on the other hand, means that the A record resolves to your PIP.
 ### Status
-The status shows the status until the current iteration. It shows the changes in the first part [green] and errors in the second part [red]. Every value in between "/" has a different meaning, as explained below.
+The status shows the status until the current iteration. It shows the changes in the first part [green] and errors in the second part [red]. Every value divided by a "/" has its own meaning as explained below.
 #### Runtime changes
 - First value: shows the number of times the PIP has changed since the add-on started
 - Second value: shows the number of A records created by the add-on since the add-on started
