@@ -22,7 +22,8 @@
 - Changed configuration parameter "hide_public_ip" to "log_pip"
   - Old configuration "hide_public_ip" can be removed as the double negative was confusing
   - New configuration "log_pip" has default value of "true"
-- Updated documentation
+- Removed unnecessary code
+- Updated documentation and images
 
 # v1.3.7
 - Added error counters to logs.
