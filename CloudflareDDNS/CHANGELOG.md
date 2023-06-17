@@ -1,5 +1,5 @@
 # v2.0.0 - soon to be released
-- Public IP (PIP) retrieval issues
+- Fixed public IP (PIP) retrieval issues
   - Added infinite while loop with delay to assure the iteration only starts when the current PIP is known
   - Added secondary API for redundancy to retrieve the PIP
 - Fixed startup error message by removing deprecated parameters
