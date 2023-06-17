@@ -160,8 +160,11 @@ do
     SUCCESS=0
     SECONDS=0
     ISSUE=0
-    echo -e "Runtime errors: ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
-    echo -e "Runtime changes: ${NEW_PIP_COUNTER}/${CREATE_COUNTER}/${UPDATE_COUNTER}"
+
+    
+    echo -e "Status: [${RG}${NEW_PIP_COUNTER}/${CREATE_COUNTER}/${UPDATE_COUNTER}${N}] [${RR}${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}${N}]"
+    # echo -e "Runtime errors: ${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}"
+    # echo -e "Runtime changes: ${NEW_PIP_COUNTER}/${CREATE_COUNTER}/${UPDATE_COUNTER}"
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
     PIP_FETCH_START=`date +%s`
     
