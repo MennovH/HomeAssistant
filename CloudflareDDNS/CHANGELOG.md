@@ -1,13 +1,23 @@
-# v1.3.8 - soon to be released
+# v2.0.0 - soon to be released
 - Public IP (PIP) retrieval issues
   - Added infinite while loop with delay to assure the iteration only starts when the current PIP is known
   - Added secondary API for redundancy to retrieve the PIP
-  - Added log message to see which API was used (shown only when "Hide public IP address in log" configuration is set to false)
 - Fixed startup error message by removing deprecated parameters
 - Improved logging
   - Added error handling in case the current PIP could not be fetched
-  - Improved error logging
-  - Added icons to show proxy status (orange cloud=proxied versus grey cloud=not proxied)
+  - Added log message that shows how many domains (returned by API and persistent config) need to be iterated
+  - Added log message to see which API was used (shown only when "Hide public IP address in log" configuration is set to false)
+  - Added status counters which shows changes in the first part and errors in the second: [a/b/c] [d/e/f/g]
+    - a: times the PIP has changed
+    - b: times A records have been created
+    - c: times A records have been updated
+    - d: times the PIP could not be retrieved by APIs
+    - e: times A records could not be created
+    - f: times A records could not be updated
+    - g: times iterations failed
+  - Added icons to show proxy status to match Cloudflare's definitions (orange cloud=proxied versus grey cloud=not proxied)
+  - Replaced "created" log messsage with plus sign
+  - Replaced "updated" log message with reload symbol
 - Changed configuration parameter "hide_public_ip" to "log_pip"
   - Old configuration "hide_public_ip" can be removed as the double negative was confusing
   - New configuration "log_pip" has default value of "true"
