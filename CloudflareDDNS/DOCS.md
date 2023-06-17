@@ -47,7 +47,7 @@ It's also possible to directly configure the add-on via the YAML configurator, a
 ![example logging output][screenshot3]
 
 ### Updates
-The following image shows an example output of the add-on, which can be found in the logbook. In this scenario, the A record of example1.com and later example3.com pointed to a wrong IP address. The add-on found that this record was incorrect, and updated it accordingly.
+The image above shows an example output of the add-on, which can be found in the logbook. In this scenario, the A record of example1.com and later example3.com pointed to a wrong IP address. The add-on found that this record was incorrect, and updated it accordingly.
 ### Creations
 The add-on also noticed that the A record of example7.com was missing, and created it (proxied by default which can be overruled as stated earlier). These changes are instantly visible in the Cloudflare dashboard. This example shows the full output with the "Log public IP address" option set to true. If false, IP address information won't be shown.
 ### Bullet points
