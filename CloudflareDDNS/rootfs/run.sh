@@ -174,7 +174,7 @@ do
     do
     
         # try different APIs to get current PIP
-        for API in "ipify2.org" "my-ip.io/ip"
+        for API in "ipify.org" "my-ip.io/ip"
         do PUBLIC_IP=$(curl -s --connect-timeout 5 https://api.$API || echo 0)
             if [[ $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
             then
