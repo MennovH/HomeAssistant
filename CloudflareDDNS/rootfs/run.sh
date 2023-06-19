@@ -22,7 +22,7 @@ RELOAD_SYMBOL="\u21bb"
 PREVIOUS_PIP=""
 
 # counters
-ITERATION=7
+ITERATION=0
 CREATION_ERRORS=0
 ITERATION_ERRORS=0
 UPDATE_ERRORS=0 
@@ -201,11 +201,6 @@ do
         sleep 10s
     done
 
-    #remove
-    ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
-
-
-    
     # calculate next run time
     PIP_FETCH_TIME=$((`date +%s`-PIP_FETCH_START))
     if [[ ! $PIP_FETCH_TIME -ge $INTERVAL ]]; then PIP_FETCH_TIME=0; fi
