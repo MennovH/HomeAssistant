@@ -29,7 +29,7 @@ UPDATE_ERRORS=0
 PIP_ERRORS=0
 NEW_PIP_COUNTER=0
 UPDATE_COUNTER=0
-CREATE_COUNTER=0
+CREATION_COUNTER=0
 
 # font
 N="\e[0m" #normal
@@ -118,7 +118,7 @@ function cfapi {
         else
         
             # creation successful (no need to mention current PIP (again))
-            CREATE_COUNTER=$(($CREATE_COUNTER + 1))
+            CREATION_COUNTER=$(($CREATION_COUNTER + 1))
             echo -e " $(cloud ${PROXY}) ${BG}${PLUS}${N} ${DOMAIN}"
         fi
     fi
@@ -168,7 +168,7 @@ do
     SECONDS=0
     ISSUE=0
     
-    echo -e "Status: [${RG}${NEW_PIP_COUNTER}/${CREATE_COUNTER}/${UPDATE_COUNTER}${N}] [${RR}${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}${N}]"
+    echo -e "Status: [${RG}${NEW_PIP_COUNTER}/$(echo (${ITERATION}-${ITERATION_ERRORS}))/${CREATION_COUNTER}/${UPDATE_COUNTER}${N}] [${RR}${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}${N}]"
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
     PIP_FETCH_START=`date +%s`
     
