@@ -22,7 +22,7 @@ RELOAD_SYMBOL="\u21bb"
 PREVIOUS_PIP=""
 
 # counters
-ITERATION=0
+ITERATION=7
 CREATION_ERRORS=0
 ITERATION_ERRORS=0
 UPDATE_ERRORS=0 
@@ -200,6 +200,11 @@ do
         echo -e "${RR}Failed to get current public IP address. Retrying in 10 seconds...${N}"
         sleep 10s
     done
+
+    #remove
+    ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
+
+
     
     # calculate next run time
     PIP_FETCH_TIME=$((`date +%s`-PIP_FETCH_START))
