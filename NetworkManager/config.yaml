@@ -6,6 +6,7 @@ version: "1.0.0"
 slug: "networkmanager"
 ingress: false
 apparmor: true
+full_access: true
 init: false
 arch:
   - aarch64
