@@ -1,4 +1,4 @@
-# CloudflareDDNS Home Assistant add-on
+# NetworkManager Home Assistant add-on
 Home Assistant add-on to troubleshoot NetworkManager.
 
 ## Prerequisites
