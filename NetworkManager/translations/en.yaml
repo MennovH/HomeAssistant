@@ -1,0 +1,10 @@
+configuration:
+  command:
+    name: Command
+    description: >-
+      Enter a command you wish to execute.
+
+  restart: 
+    name: Restart NetworkManager service
+    description: >-
+      Restart NetworkManager service.

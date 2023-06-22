@@ -1,0 +1,24 @@
+name: "NetworkManager"
+url: https://github.com/MennovH/HomeAssistant/tree/main/NetworkManager
+description: "Network Manager add-on for Home Assistant"
+#codenotary: mennovh_@hotmail.com
+version: "1.0.0"
+slug: "networkmanager"
+ingress: false
+apparmor: true
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: system
+journald: true
+panel_icon: mdi:network
+options:
+  command: null
+  restart_networkmanager: false
+schema:
+  command: str?
+  restart_networkmanager: bool
