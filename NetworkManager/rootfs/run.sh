@@ -43,12 +43,13 @@ echo -e "Initializing add-on"
 #    exit 1
 #fi
 
+
 if [[ ${#CMD} != 0 ]];
 then
 	echo -e "$CMD"
 fi
 
-if [[ ${RESTART} ]]
+if [[ ${RESTART} == true ]]
 then
 	echo -e $(systemctl restart NetworkManager)
 fi
