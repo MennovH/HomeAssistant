@@ -7,15 +7,14 @@
 - Improved logging
   - Added log message that shows how many domains (returned by API and persistent config) need to be iterated
   - Added log message to see which API was used (shown only when "Log public IP address" configuration is set to true)
-  - Added status counters which shows changes [a/b/c/d] in green and errors [e/f/g/h] in red:
+  - Added status counters which shows changes [a/b/c] in green and errors [d/e/f/g] in red:
     - a: number of times PIP has changed
-    - b: succesvol iterations
-    - c: successful A record creations
-    - d: successful A record updates
-    - e: failed attempts retrieving PIP by APIs
-    - f: failed iterations
-    - g: failed A record creations 
-    - h: failed A record updates
+    - b: successful A record creations
+    - c: successful A record updates
+    - d: failed attempts retrieving PIP by APIs
+    - e: failed iterations
+    - f: failed A record creations 
+    - g: failed A record updates
   - Added colored bullets to represent the proxy status that match Cloudflare's definitions (orange cloud = proxied, grey cloud = not proxied)
     - At this moment the cloud icon colors only seem to be visible in the Desktop app. For this reason these icons are not (yet) used as bullets.
   - Replaced "created" log messsage with plus sign
