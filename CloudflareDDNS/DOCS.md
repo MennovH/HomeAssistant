@@ -58,8 +58,7 @@ The colors of the bullet points represent the proxy status of the regarding A re
 The status shows the past changes [0/0/0] in green and errors [0/0/0/0] in red. Every value divided by a "/" has its own meaning as explained below.
 #### Runtime changes
 - First value: shows the number of times the PIP has changed since the add-on started
-- Second value: shows the number of successful iterations
-- Third value: shows the number of A records created by the add-on since the add-on started
+- Second value: shows the number of A records created by the add-on since the add-on started
 - Last value: shows the number of A records updated by the add-on since the add-on started
 #### Runtime errors
 - First value: counter for failing to get the current public IP address (possible causes: API failure, network issues)
