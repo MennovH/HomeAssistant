@@ -46,7 +46,7 @@ echo -e "Initializing add-on"
 
 if [[ ${#CMD} != 0 ]];
 then
-	echo -e "$CMD"
+	echo -e $($CMD)
 fi
 
 if [[ ${RESTART} == true ]]
