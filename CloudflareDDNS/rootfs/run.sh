@@ -93,7 +93,7 @@ function cfapi {
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json")
         
-    if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
+    if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]];
     then
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
@@ -108,7 +108,7 @@ function cfapi {
             -H "Content-Type: application/json" \
             --data ${DATA})
 
-        if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
+        if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]];
         then
         
             # creation failed
@@ -139,7 +139,7 @@ function cfapi {
                 -H "Content-Type: application/json" \
                 --data ${DATA})
 
-            if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
+            if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]] ;
             then
             
                 # update failed
