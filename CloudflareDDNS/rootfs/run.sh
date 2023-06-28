@@ -256,8 +256,12 @@ do
         echo -e "${RR}Outer domain list iteration failed. Restarting iteration in 60 seconds...${N}"
         ISSUE=1
     fi
-    
+    echo "sleep test"
+    sleep 2m
+    echo "sleep test over"
     # set sleep time and wait until next iteration
+    echo -e "$(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60)))"
+    
     sleep $(if [[ $ISSUE == 1 ]]; then echo 60; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
     echo -e "\n "
 done
