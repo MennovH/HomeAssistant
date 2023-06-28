@@ -214,7 +214,7 @@ do
     # fetch existing A records
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
         -H "Authorization: Bearer ${TOKEN}" \
-        -H "Content-Type: application/json" | jq -r '.result[].name?')
+        -H "Content-Type: application/json" | jq -r '.result[].name?' || echo $null)
     
     if [[ ! -z "$DOMAINS" ]];
     then
