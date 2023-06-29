@@ -214,9 +214,9 @@ do
     # fetch existing A records
     DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
         -H "Authorization: Bearer ${TOKEN}" \
-        -H "Content-Type: application/json" | jq -r '.result[].name?' || echo $null)
+        -H "Content-Type: application/json" | jq -r '.result[].name?' || echo 0)
     
-    if [[ ! -z "$DOMAINS" ]];
+    if [[ ! -z "$DOMAINS" ]] && [[ $DOMAINS != 0 ]];
     then
         count=$(wc -w <<< $PERSISTENT_DOMAINS)
         TMP_PERSISTENT_DOMAINS=$PERSISTENT_DOMAINS
