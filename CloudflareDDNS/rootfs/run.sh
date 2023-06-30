@@ -92,8 +92,6 @@ function cfapi {
     API_RESPONSE=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json")
-
-    echo -e "1: $API_RESPONSE"
     
     if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]];
     then
@@ -110,8 +108,6 @@ function cfapi {
             -H "Content-Type: application/json" \
             --data ${DATA})
 
-        
-        echo -e "2: $API_RESPONSE"
         if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]];
         then
         
