@@ -84,6 +84,10 @@ function cfapi {
     ERROR=0
     DOMAIN=$1
     PROXY=true
+
+    # remove
+    echo -e "$DOMAIN"
+    
     if [[ ${DOMAIN} == *"_no_proxy"* ]];
     then
         DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
@@ -97,6 +101,10 @@ function cfapi {
     then
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
+    else
+
+        # remove
+        echo -e "$API_RESPONSE"
     fi
     
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
