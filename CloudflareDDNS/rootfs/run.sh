@@ -103,17 +103,18 @@ function cfapi {
 
     echo -e "$API_RESPONSE"
     
-    if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]];
+    if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]] && [[ ${API_RESPONSE} != 0 ]];
     then
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
-    #else
-
+   
+    else if [[ ${API_RESPONSE} == 0 ]];
+    then
         # test
-   #     ITERATION=$(($ITERATION + 1))
-  #      echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to retrieve domain${N}"
+        ITERATION=$(($ITERATION + 1))
+        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to retrieve domain${N}"
 
-   #     return
+        return
         # remove
        # echo -e "$API_RESPONSE"
     fi
