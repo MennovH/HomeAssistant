@@ -107,16 +107,17 @@ function cfapi {
     then
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
-   
-    else if [[ ${API_RESPONSE} == 0 ]];
+        # remove
+       # echo -e "$API_RESPONSE"
+    fi
+
+    if [[ ${API_RESPONSE} == 0 ]];
     then
         # test
         ITERATION=$(($ITERATION + 1))
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to retrieve domain${N}"
 
         return
-        # remove
-       # echo -e "$API_RESPONSE"
     fi
     
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
