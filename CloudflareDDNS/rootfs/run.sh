@@ -95,9 +95,13 @@ function cfapi {
     fi
     API_RESPONSE=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
         -H "Authorization: Bearer ${TOKEN}" \
-        -H "Content-Type: application/json") || echo 0
+        -H "Content-Type: application/json")
+
+    # remove
+
+    echo -e "$API_RESPONSE"
     
-    if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]] && [[ ${API_RESPONSE} != 0 ]];
+    if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]];
     then
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
