@@ -101,7 +101,7 @@ function cfapi {
     
     # remove
 
-    echo -e "$API_RESPONSE"
+    #echo -e "$API_RESPONSE"
     
     if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]] && [[ ${API_RESPONSE} != 0 ]];
     then
