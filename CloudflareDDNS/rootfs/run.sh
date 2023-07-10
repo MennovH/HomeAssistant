@@ -279,6 +279,6 @@ do
     fi
     
     # set sleep time and wait until next iteration
-    sleep $(if [[ $ISSUE == 1 ]]; then echo 60; else if [[ $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))) <= 1 ]]; echo -e $INTERVAL; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
+    sleep $(if [[ $ISSUE == 1 ]]; then echo 60; else if [[ $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))) -le 1 ]]; echo -e $INTERVAL; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
     echo -e "\n "
 done
