@@ -100,10 +100,12 @@ then
 	echo -e "${__BASHIO_COLORS_YELLOW}TokenRemover will run only once due to invalid recurrence configuration${__BASHIO_COLORS_DEFAULT}"
 	
 	# Get current addon name
+ 	echo 1
 	ADDON=$(curl -X GET --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons)
 	ADDON=$(python3 run.py 2 ${ADDON})
 	run
-	
+
+ 	echo 2
 	# Permanently stop this addon from running
 	$(curl -X POST --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons/${ADDON}/stop > /dev/null 2>&1)
 	
