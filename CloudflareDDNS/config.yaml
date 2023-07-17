@@ -13,6 +13,8 @@ arch:
   - armhf
   - armv7
   - i386
+ports:
+  80/tcp: 80
 startup: system
 journald: true
 panel_icon: mdi:cloud-check
