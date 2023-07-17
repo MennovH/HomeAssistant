@@ -4,7 +4,7 @@ description: "Cloudflare DDNS add-on for Home Assistant"
 codenotary: mennovh_@hotmail.com
 version: "2.0.0"
 slug: "cloudflareddns"
-ingress: false
+ingress: true
 apparmor: false
 init: false
 arch:
