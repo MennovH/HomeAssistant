@@ -5,7 +5,7 @@ codenotary: mennovh_@hotmail.com
 version: "2.0.0"
 slug: "cloudflareddns"
 ingress: false
-apparmor: true
+apparmor: false
 init: false
 arch:
   - aarch64
