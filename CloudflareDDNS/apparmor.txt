@@ -6,6 +6,7 @@ profile cloudflareddns flags=(attach_disconnected,mediate_deleted) {
   # Capabilities
   file,
   signal (send) set=(kill,term,int,hup,cont),
+  capability net_bind_service,
 
   # S6-Overlay
   /init ix,
@@ -33,6 +34,4 @@ profile cloudflareddns flags=(attach_disconnected,mediate_deleted) {
   /bin/echo ix,
   /etc/passwd r,
   /dev/tty rw,
-  network unix,
-  /usr/bin/curl m,
 }
