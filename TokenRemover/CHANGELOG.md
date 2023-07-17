@@ -1,3 +1,6 @@
+#v1.0.4
+Disabled AppArmor (temporarily?) due to issues connecting with the Supervisor.
+
 #v1.0.3
 - The following options have been added:
   - `keep_active`: If enabled, TokenRemover won't remove tokens which have been activated within the number of `activation_days`.
