@@ -6,6 +6,7 @@ version: "2.0.0"
 slug: "cloudflareddns"
 ingress: false
 apparmor: false
+auth_api: true
 init: false
 arch:
   - aarch64
