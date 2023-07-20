@@ -97,13 +97,18 @@ function cfapi {
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json") || echo 0
 
-
+    if [[ ${API_RESPONSE} == 0 ]];
+    then
+        ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
+        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to retrieve domain${N}"
+        return
+    fi
     
     # remove
 
     #echo -e "$API_RESPONSE"
     
-    if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]] && [[ ${API_RESPONSE} != 0 ]];
+    if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]];
     then
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
@@ -111,15 +116,6 @@ function cfapi {
        # echo -e "$API_RESPONSE"
     fi
 
-    if [[ ${API_RESPONSE} == 0 ]];
-    then
-        # test
-        ITERATION=$(($ITERATION + 1))
-        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to retrieve domain${N}"
-
-        return
-    fi
-    
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
         ERROR=1
@@ -127,9 +123,16 @@ function cfapi {
         API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
             -H "Authorization: Bearer ${TOKEN}" \
             -H "Content-Type: application/json" \
-            --data ${DATA})
+            --data ${DATA} || echo 0)
 
-        if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]];
+        if [[ ${API_RESPONSE} == 0 ]];
+        then
+            CREATION_ERRORS=$(($CREATION_ERRORS + 1))
+            echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to retrieve domain${N}"
+            return
+        fi
+    
+        if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
         then
         
             # creation failed
@@ -158,9 +161,16 @@ function cfapi {
             API_RESPONSE=$(curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
                 -H "Authorization: Bearer ${TOKEN}" \
                 -H "Content-Type: application/json" \
-                --data ${DATA})
+                --data ${DATA} || echo 0)
 
-            if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]] ;
+            if [[ ${API_RESPONSE} == 0 ]];
+            then
+                UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
+                echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to retrieve domain${N}"
+                return
+            fi
+
+            if [[ ${API_RESPONSE} == *"\"success\":false"* ]] ;
             then
             
                 # update failed
