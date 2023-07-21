@@ -46,7 +46,7 @@ BB="\e[1;34m" #bold blue
 BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
-echo -e "${RY}☁${N} Initializing add-on ☁"
+echo -e "\e[0;36m${RY}☁${N} Initializing add-on ☁"
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
