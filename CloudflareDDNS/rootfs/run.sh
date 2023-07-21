@@ -93,9 +93,9 @@ function cfapi {
         DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
         PROXY=false
     fi
-    API_RESPONSE=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
+    API_RESPONSE=$((curl -s -X GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A&name=${DOMAIN}&page=1&per_page=100&match=all" \
         -H "Authorization: Bearer ${TOKEN}" \
-        -H "Content-Type: application/json") || echo 0
+        -H "Content-Type: application/json") || echo 0)
 
     if [[ ${API_RESPONSE} == 0 ]];
     then
@@ -120,10 +120,10 @@ function cfapi {
     then
         ERROR=1
         DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
-        API_RESPONSE=$(curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+        API_RESPONSE=$((curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
             -H "Authorization: Bearer ${TOKEN}" \
             -H "Content-Type: application/json" \
-            --data ${DATA} || echo 0)
+            --data ${DATA}) || echo 0)
 
         if [[ ${API_RESPONSE} == 0 ]];
         then
@@ -158,10 +158,10 @@ function cfapi {
         
             # domain needs to be updated
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
-            API_RESPONSE=$(curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
+            API_RESPONSE=$((curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
                 -H "Authorization: Bearer ${TOKEN}" \
                 -H "Content-Type: application/json" \
-                --data ${DATA} || echo 0)
+                --data ${DATA}) || echo 0)
 
             if [[ ${API_RESPONSE} == 0 ]];
             then
@@ -210,7 +210,7 @@ do
     
         # try different APIs to get current PIP
         for API in "ipify.org" "my-ip.io/ip"
-        do PUBLIC_IP=$(curl -s --connect-timeout 5 https://api.$API || echo 0)
+        do PUBLIC_IP=$((curl -s --connect-timeout 5 https://api.$API) || echo 0)
             if [[ $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
             then
                 SUCCESS=1
@@ -243,9 +243,9 @@ do
     if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} by $(echo ${API} | cut -d '/' -f 1)"; fi
     
     # fetch existing A records
-    DOMAINS=$(curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
+    DOMAINS=$((curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
         -H "Authorization: Bearer ${TOKEN}" \
-        -H "Content-Type: application/json" | jq -r '.result[].name?' || echo 0)
+        -H "Content-Type: application/json" | jq -r '.result[].name?') || echo 0)
     
     if [[ ! -z "$DOMAINS" ]] && [[ $DOMAINS != 0 ]];
     then
