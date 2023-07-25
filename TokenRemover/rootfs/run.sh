@@ -52,7 +52,7 @@ done
 
 run () {
 
-    echo -e " \nRun time: $(date '+%Y-%m-%d %H:%M:%S')\n"	
+    echo -e " \nTime: $(date '+%Y-%m-%d %H:%M:%S')"	
 	
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 	
@@ -72,19 +72,19 @@ run () {
 		
 		echo -e -n " -> Running checks..."
 		sleep 120
-		echo -e "\r Done\n"
+		echo -e "\r Done"
 			
 		if [ -f "${BAN_FILE}" ];
 		then
 			TMP_BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
 			if ! [[ ${BAN_LINE_COUNT} == ${TMP_BAN_LINE_COUNT} ]];
 			then
-				echo -e "${__BASHIO_COLORS_YELLOW} -> Detected new IP bans.${__BASHIO_COLORS_DEFAULT}\n    Restoring ip_bans.yaml file.\n"
+				echo -e "${__BASHIO_COLORS_YELLOW} -> Detected new IP bans${__BASHIO_COLORS_DEFAULT}\n    Restoring ip_bans.yaml file"
 				cp "${TMP_BAN_FILE}" "${BAN_FILE}" && rm "${TMP_BAN_FILE}"
 				
 				bashio::core.restart
 				
-				echo -e "${__BASHIO_COLORS_GREEN} -> Restored ip_bans.yaml file.${__BASHIO_COLORS_DEFAULT}\n"
+				echo -e "${__BASHIO_COLORS_GREEN} -> Restored ip_bans.yaml file${__BASHIO_COLORS_DEFAULT}"
 			else
 				rm "${TMP_BAN_FILE}";
 			fi
@@ -92,7 +92,7 @@ run () {
 	else
 		echo -e "${RESULT}"
 	fi
-	echo -e " -> Finished TokenRemover execution\n "
+	echo -e " -> Finished TokenRemover execution"
 }
 
 if [ "${AUTO}" == "Once" ];
@@ -100,12 +100,12 @@ then
 	echo -e "${__BASHIO_COLORS_YELLOW}TokenRemover will run only once due to invalid recurrence configuration${__BASHIO_COLORS_DEFAULT}"
 	
 	# Get current addon name
- 	echo 1
+ 	#echo 1
 	ADDON=$(curl -X GET --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons)
 	ADDON=$(python3 run.py 2 ${ADDON})
 	run
 
- 	echo 2
+ 	#echo 2
 	# Permanently stop this addon from running
 	$(curl -X POST --silent -H "Authorization: Bearer $SUPERVISOR_TOKEN" http://supervisor/addons/${ADDON}/stop > /dev/null 2>&1)
 	
