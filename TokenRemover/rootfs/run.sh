@@ -92,7 +92,7 @@ run () {
 	else
 		echo -e "${RESULT}"
 	fi
-	echo -e " -> Finished TokenRemover execution"
+	echo -e " -> Finished TokenRemover execution\n "
 }
 
 if [ "${AUTO}" == "Once" ];
