@@ -63,14 +63,14 @@ run () {
 			cp "${BAN_FILE}" "${TMP_BAN_FILE}"
 			BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
 		fi
-		echo -e "${RESULT}"
+		echo -e -n "${RESULT}"
 		
 		sleep 0.75
 		
 		# restart Home Assistant Core
 		bashio::core.restart
 		
-		echo -e -n " -> Running checks..."
+		#echo -e -n " -> Running checks..."
 		sleep 120
 		echo -e "\r Done"
 			
