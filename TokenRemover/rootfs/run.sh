@@ -52,7 +52,7 @@ done
 
 run () {
 
-    echo -e " \nTime: $(date '+%Y-%m-%d %H:%M:%S')"	
+    echo -e " Time: $(date '+%Y-%m-%d %H:%M:%S')"	
 	
 	RESULT=$(python3 run.py 1 ${RETENTION_DAYS} ${ACTIVATION_DAYS})
 	
