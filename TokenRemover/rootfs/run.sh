@@ -72,7 +72,7 @@ run () {
 		
 		#echo -e -n " -> Running checks..."
 		sleep 120
-		echo -e "\r Done"
+		#echo -e "\r Done"
 			
 		if [ -f "${BAN_FILE}" ];
 		then
