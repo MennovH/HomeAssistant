@@ -42,13 +42,13 @@ def recurrence(am_pm, automation_time, weekdays):
             for _ in range(2):
                 if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt, second=0):
                     later = datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt)
-                    return f"Next: {later}\n{(later - datetime.now()).total_seconds()}"
+                    return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
                 h = 12 if h == 0 else hr + 12
                     
         else:
             if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
                 later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
-                return f"Next: {later}\n{(later - datetime.now()).total_seconds()}"
+                return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
 
 
 def tokenremover(retention_days, active_days):
