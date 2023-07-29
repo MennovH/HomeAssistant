@@ -246,10 +246,10 @@ do
     DOMAINS=$((curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name?') || echo 0)
-    
-    if ([[ ! -z "$DOMAINS" ]] && [[ $DOMAINS != 0 ]]) || [[ ${#PERSISTENT_DOMAINS[@]} > 0 ]];
+
+    count=$(wc -w <<< $PERSISTENT_DOMAINS)
+    if ([[ ! -z "$DOMAINS" ]] && [[ $DOMAINS != 0 ]]) || [[ $count > 0 ]];
     then
-        count=$(wc -w <<< $PERSISTENT_DOMAINS)
         TMP_PERSISTENT_DOMAINS=$PERSISTENT_DOMAINS
         if [[ $count > 0 ]];
         then
