@@ -84,13 +84,7 @@ function cfapi {
     ERROR=0
     DOMAIN=$1
     PROXY=true
-
-    if [[ ${DOMAIN} == "0" ]];
-    then
-        # domain retrieval issue
-        ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
-        return
-    fi
+    
     # remove
     #echo -e "$DOMAIN"
     
@@ -256,6 +250,11 @@ do
     count=$(wc -w <<< $PERSISTENT_DOMAINS)
     if ([[ ! -z "$DOMAINS" ]] && [[ $DOMAINS != 0 ]]) || [[ $count > 0 ]];
     then
+        if [[ ${DOMAIN} == "0" ]] || [[ -z "$DOMAINS" ]];
+        then
+            # domain retrieval issue
+            ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
+        fi
         TMP_PERSISTENT_DOMAINS=$PERSISTENT_DOMAINS
         if [[ $count > 0 ]];
         then
