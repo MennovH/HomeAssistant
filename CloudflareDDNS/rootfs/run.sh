@@ -247,7 +247,7 @@ do
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name?') || echo 0)
     
-    if ([[ ! -z "$DOMAINS" ]] && [[ $DOMAINS != 0 ]]) || [[ ${#DOMAIN_LIST[@]} > 0 ]];
+    if ([[ ! -z "$DOMAINS" ]] && [[ $DOMAINS != 0 ]]) || [[ ${#PERSISTENT_DOMAINS[@]} > 0 ]];
     then
         count=$(wc -w <<< $PERSISTENT_DOMAINS)
         TMP_PERSISTENT_DOMAINS=$PERSISTENT_DOMAINS
