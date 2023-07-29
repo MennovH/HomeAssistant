@@ -250,7 +250,7 @@ do
     count=$(wc -w <<< $PERSISTENT_DOMAINS)
     if ([[ ! -z "$DOMAINS" ]] && [[ $DOMAINS != 0 ]]) || [[ $count > 0 ]];
     then
-        if [[ ${DOMAIN} == "0" ]] || [[ -z "$DOMAINS" ]];
+        if [[ ${DOMAINS} == "0" ]] || [[ -z "$DOMAINS" ]];
         then
             # domain retrieval issue
             ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
