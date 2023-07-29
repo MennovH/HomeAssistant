@@ -268,9 +268,12 @@ do
                 if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`; then DOMAINS+=("$DOMAIN"); fi
             done
         fi
+
+        # remove zeroes
+        
         
         # sort domain list alphabetically
-        DOMAIN_LIST=($(for DOMAIN in "${DOMAINS[@]}"; do echo "${DOMAIN}"; done | sort -u))
+        DOMAIN_LIST=($(for DOMAIN in "${DOMAINS[@]}"; do if [[ "$DOMAIN" != 0 ]]; then echo "${DOMAIN}"; fi; done | sort -u))
         if [[ ! -z "$DOMAIN_LIST" ]];
         then
         
