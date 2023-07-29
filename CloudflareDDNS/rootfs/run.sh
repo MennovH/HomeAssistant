@@ -85,6 +85,12 @@ function cfapi {
     DOMAIN=$1
     PROXY=true
 
+    if [[ ${DOMAIN} == "0" ]];
+    then
+        # domain retrieval issue
+        ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
+        return
+    fi
     # remove
     #echo -e "$DOMAIN"
     
