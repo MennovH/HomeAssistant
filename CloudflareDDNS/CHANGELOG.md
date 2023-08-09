@@ -1,3 +1,9 @@
+# v2.0.1
+- Fixed issue in which the add-on would crash when no A record can be retrieved from Cloudflare (either due to missing A records, or API retrieval issue)
+- Updated error handling
+- Currently disabled AppArmor to prevent curl issues from occurring
+- Added auth parameter which has no meaning for the add-on other than increasing the security rating :)
+
 # v2.0.0
 - Fixed public IP (PIP) retrieval issues
   - Added secondary API for redundancy to retrieve the PIP
