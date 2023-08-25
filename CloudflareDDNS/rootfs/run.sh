@@ -100,24 +100,19 @@ function cfapi {
     if [[ ${API_RESPONSE} == 0 ]];
     then
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
-        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to retrieve domain${N}"
+        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to vrrify domain${N}"
         return
     fi
-    
-    # remove
-
-    #echo -e "$API_RESPONSE"
     
     if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]];
     then
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
-        # remove
-       # echo -e "$API_RESPONSE"
     fi
 
     if [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
+        # create
         ERROR=1
         DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
         API_RESPONSE=$((curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
@@ -128,7 +123,7 @@ function cfapi {
         if [[ ${API_RESPONSE} == 0 ]];
         then
             CREATION_ERRORS=$(($CREATION_ERRORS + 1))
-            echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to retrieve domain${N}"
+            echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to create domain${N}"
             return
         fi
     
@@ -153,7 +148,7 @@ function cfapi {
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
 
-        if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]];
+        if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]] && [[ ! -z ${DOMAIN_IP} ]];
         then
         
             # domain needs to be updated
@@ -166,7 +161,7 @@ function cfapi {
             if [[ ${API_RESPONSE} == 0 ]];
             then
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
-                echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to retrieve domain${N}"
+                echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to update domain${N}"
                 return
             fi
 
