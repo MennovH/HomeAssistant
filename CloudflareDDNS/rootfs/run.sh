@@ -152,14 +152,14 @@ function cfapi {
         
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]] && [[ ! -z ${DOMAIN_IP} ]];
         then
-            DERROR1=${DOMAIN_IP}
+            DERROR1=$(echo ${DOMAIN_IP})
             # domain needs to be updated
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
             API_RESPONSE=$((curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
                 -H "Authorization: Bearer ${TOKEN}" \
                 -H "Content-Type: application/json" \
                 --data ${DATA}) || echo 0)
-            DERROR2=$API_RESPONSE
+            DERROR2=$(echo ${API_RESPONSE})
             if [[ ${API_RESPONSE} == 0 ]];
             then
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
