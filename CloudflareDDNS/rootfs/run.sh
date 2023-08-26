@@ -85,9 +85,6 @@ function cfapi {
     DOMAIN=$1
     PROXY=true
     
-    # remove
-    #echo -e "$DOMAIN"
-    
     if [[ ${DOMAIN} == *"_no_proxy"* ]];
     then
         DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
@@ -102,17 +99,19 @@ function cfapi {
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to verify domain${N}"
         return
-    fi
+    #fi
     
-    if [[ ${API_RESPONSE} == *"\"success\":false"* ]] && [[ ${API_RESPONSE} != *"\"success\":true"* ]];
+    elif [[ ${API_RESPONSE} == *"\"success\":false"* ]];
     then
+        ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
-    fi
+        return
+    #fi
 
-    if [[ "${API_RESPONSE}" == *'"count":0'* ]];
+    elif [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
-        # create
+        # create domain
         ERROR=1
         DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
         API_RESPONSE=$((curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
@@ -125,9 +124,9 @@ function cfapi {
             CREATION_ERRORS=$(($CREATION_ERRORS + 1))
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to create domain${N}"
             return
-        fi
+        #fi
     
-        if [[ ${API_RESPONSE} == *"\"success\":false"* ]];
+        elif [[ ${API_RESPONSE} == *"\"success\":false"* ]];
         then
         
             # creation failed
@@ -164,9 +163,9 @@ function cfapi {
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
                 echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to update domain${N}"
                 return
-            fi
+            #fi
 
-            if [[ ${API_RESPONSE} == *"\"success\":false"* ]] ;
+            elif [[ ${API_RESPONSE} == *"\"success\":false"* ]] ;
             then
             
                 # update failed
