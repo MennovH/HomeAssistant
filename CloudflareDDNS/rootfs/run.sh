@@ -8,7 +8,8 @@ declare DOMAINS
 declare PERSISTENT_DOMAINS
 declare RELOAD_SYMBOL
 declare CROSS_MARK
-DERROR=""
+
+DERROR1=""
 DERROR2=""
 # variables
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
