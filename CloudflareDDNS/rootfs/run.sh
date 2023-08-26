@@ -8,7 +8,8 @@ declare DOMAINS
 declare PERSISTENT_DOMAINS
 declare RELOAD_SYMBOL
 declare CROSS_MARK
-
+DERROR=""
+DERROR2=""
 # variables
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
@@ -147,17 +148,17 @@ function cfapi {
         DOMAIN_ID=$(echo ${API_RESPONSE} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
-
+        
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]] && [[ ! -z ${DOMAIN_IP} ]];
         then
-        
+            DERROR1=${DOMAIN_IP}
             # domain needs to be updated
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
             API_RESPONSE=$((curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
                 -H "Authorization: Bearer ${TOKEN}" \
                 -H "Content-Type: application/json" \
                 --data ${DATA}) || echo 0)
-
+            DERROR2=$API_RESPONSE
             if [[ ${API_RESPONSE} == 0 ]];
             then
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
@@ -290,7 +291,7 @@ do
         echo -e "${RR}Outer domain list iteration failed. Restarting iteration in 60 seconds...${N}"
         ISSUE=1
     fi
-    
+    echo -e "$DERROR1 - $DERROR2"
     # set sleep time and wait until next iteration
     sleep $(if [[ $ISSUE == 1 ]]; then echo 60; elif [[ $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))) -le 1 ]]; then echo -e $INTERVAL; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
     echo -e "\n "
