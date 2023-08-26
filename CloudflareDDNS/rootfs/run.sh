@@ -100,7 +100,7 @@ function cfapi {
     if [[ ${API_RESPONSE} == 0 ]];
     then
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
-        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to vrrify domain${N}"
+        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to verify domain${N}"
         return
     fi
     
@@ -140,10 +140,11 @@ function cfapi {
             CREATION_COUNTER=$(($CREATION_COUNTER + 1))
             echo -e " $(cloud ${PROXY}) ${BG}${PLUS}${N} ${DOMAIN}"
         fi
-    fi
+    #fi
+    else
     
-    if [[ ${ERROR} == 0 ]];
-    then
+    #if [[ ${ERROR} == 0 ]];
+    #then
         DOMAIN_ID=$(echo ${API_RESPONSE} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
