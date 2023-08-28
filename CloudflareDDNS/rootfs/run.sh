@@ -94,13 +94,12 @@ function cfapi {
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json") || echo 0)
 
-    if [[ ${API_RESPONSE} == 0 ]]; then
+    if [[ ${API_RESPONSE} == 0 ]];
     then
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to verify domain${N}"
     #fi
-
-
+    
     elif [[ ${API_RESPONSE} == *"Bad Gateway"* ]];
     then
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
