@@ -94,19 +94,23 @@ function cfapi {
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json") || echo 0)
 
-    if [[ ${API_RESPONSE} == 0 ]];
+    if [[ ${API_RESPONSE} == 0 ]]; then
     then
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to verify domain${N}"
-        return
     #fi
+
+
+    elif [[ ${API_RESPONSE} == *"Bad Gateway"* ]];
+    then
+        ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
+        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to verify domain; Bad Gateway${N}\n"
     
     elif [[ ${API_RESPONSE} == *"\"success\":false"* ]];
     then
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
-        return
     #fi
 
     elif [[ "${API_RESPONSE}" == *'"count":0'* ]];
@@ -123,8 +127,13 @@ function cfapi {
         then
             CREATION_ERRORS=$(($CREATION_ERRORS + 1))
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to create domain${N}"
-            return
         #fi
+
+
+        elif [[ ${API_RESPONSE} == *"Bad Gateway"* ]];
+        then
+            CREATION_ERRORS=$(($CREATION_ERRORS + 1))
+            echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to create domain; Bad Gateway${N}\n"
     
         elif [[ ${API_RESPONSE} == *"\"success\":false"* ]];
         then
@@ -162,9 +171,14 @@ function cfapi {
             then
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
                 echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to update domain${N}"
-                return
             #fi
 
+
+            elif [[ ${API_RESPONSE} == *"Bad Gateway"* ]];
+            then
+                UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
+                echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to update domain; Bad Gateway${N}\n"
+    
             elif [[ ${API_RESPONSE} == *"\"success\":false"* ]] ;
             then
             
