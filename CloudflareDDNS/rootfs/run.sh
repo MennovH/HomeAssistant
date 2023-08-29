@@ -47,7 +47,7 @@ BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
 echo -e "${RY}☁${N} Initializing add-on ☁"
-UDE=""
+UDE="-"
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
