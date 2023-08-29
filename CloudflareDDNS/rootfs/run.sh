@@ -47,6 +47,7 @@ BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
 echo -e "${RY}☁${N} Initializing add-on ☁"
+UDE=""
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
@@ -158,7 +159,7 @@ function cfapi {
         
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]] && [[ ! -z ${DOMAIN_IP} ]];
         then
-            
+            UDE = "Update: ${PUBLIC_IP} != ${DOMAIN_IP}"
             # domain needs to be updated
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
             API_RESPONSE=$((curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
@@ -297,7 +298,8 @@ do
             ISSUE=1
         fi
     else
-    
+
+        echo -e "$UDE"
         # iteration failed
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         echo -e "${RR}Outer domain list iteration failed. Restarting iteration in 60 seconds...${N}"
