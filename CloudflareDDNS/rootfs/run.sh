@@ -31,8 +31,6 @@ NEW_PIP_COUNTER=0
 UPDATE_COUNTER=0
 CREATION_COUNTER=0
 
-UDE=""
-
 # font
 N="\e[0m" #normal
 I="\e[3m" #italic
@@ -49,7 +47,7 @@ BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
 echo -e "${RY}☁${N} Initializing add-on ☁"
-# UDE="-"
+UDE=" -"
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
@@ -161,7 +159,7 @@ function cfapi {
         
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]] && [[ ! -z ${DOMAIN_IP} ]];
         then
-            UDE="Update: ${PUBLIC_IP} != ${DOMAIN_IP}"
+            UDE=" - Update: ${PUBLIC_IP} != ${DOMAIN_IP}"
             # domain needs to be updated
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
             API_RESPONSE=$((curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
