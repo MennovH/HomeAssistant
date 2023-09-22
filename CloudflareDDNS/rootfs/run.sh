@@ -80,6 +80,10 @@ function domain_lookup {
   if [[ $LIST =~ (^|[[:space:]])"$ITEM"($|[[:space:]]) ]] ; then return 1; else return 0; fi
 }
 
+function response {
+  echo "test"
+}
+
 # Cloudflare API function (get/update/create)
 function cfapi {
     ERROR=0
@@ -95,24 +99,24 @@ function cfapi {
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json") || echo 0)
 
+    response()
+
     if [[ ${API_RESPONSE} == 0 ]];
     then
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to verify domain${N}"
-    #fi
-    
     elif [[ ${API_RESPONSE} == *"Bad Gateway"* ]];
     then
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
-        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to verify domain; Bad Gateway${N}\n"
-    
+    elif [[ ${API_RESPONSE} == *"timeout"* ]];
+    then
+        ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
+        echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to verify domain; Time out occurred${N}\n"
     elif [[ ${API_RESPONSE} == *"\"success\":false"* ]];
     then
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         ERROR=$(echo ${API_RESPONSE} | awk '{ sub(/.*"message":"/, ""); sub(/".*/, ""); print }')
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
-    #fi
-
     elif [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
         # create domain
@@ -127,14 +131,15 @@ function cfapi {
         then
             CREATION_ERRORS=$(($CREATION_ERRORS + 1))
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to create domain${N}"
-        #fi
-
-
         elif [[ ${API_RESPONSE} == *"Bad Gateway"* ]];
         then
             CREATION_ERRORS=$(($CREATION_ERRORS + 1))
             echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to create domain; Bad Gateway${N}\n"
-    
+        elif [[ ${API_RESPONSE} == *"timeout"* ]];
+        then
+            CREATION_ERRORS=$(($CREATION_ERRORS + 1))
+            echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to create domain; Time out occurred${N}\n"
+
         elif [[ ${API_RESPONSE} == *"\"success\":false"* ]];
         then
         
@@ -150,9 +155,6 @@ function cfapi {
         fi
     #fi
     else
-    
-    #if [[ ${ERROR} == 0 ]];
-    #then
         DOMAIN_ID=$(echo ${API_RESPONSE} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
@@ -171,14 +173,14 @@ function cfapi {
             then
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
                 echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to update domain${N}"
-            #fi
-
-
             elif [[ ${API_RESPONSE} == *"Bad Gateway"* ]];
             then
                 UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
                 echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to update domain; Bad Gateway${N}\n"
-    
+            elif [[ ${API_RESPONSE} == *"timeout"* ]];
+            then
+                UPDATE_ERRORS=$(($UPDATE_ERRORS + 1))
+                echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}Failed to update domain; Time out occurred${N}\n"
             elif [[ ${API_RESPONSE} == *"\"success\":false"* ]] ;
             then
             
