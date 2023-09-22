@@ -102,8 +102,8 @@ function cfapi {
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json") || echo 0)
 
-    RESP=$(response "1" "$API_RESPONSE")
-    echo $?
+    response "1" "$API_RESPONSE"
+    echo -e "$?"
     if [[ ${API_RESPONSE} == 0 ]];
     then
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
