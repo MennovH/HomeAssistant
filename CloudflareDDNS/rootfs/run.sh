@@ -80,13 +80,6 @@ function domain_lookup {
   if [[ $LIST =~ (^|[[:space:]])"$ITEM"($|[[:space:]]) ]] ; then return 1; else return 0; fi
 }
 
-function response {
-  local TYPE="$1"
-  local RESP="$2"
-  echo "test"
-  return 99
-}
-
 # Cloudflare API function (get/update/create)
 function cfapi {
     ERROR=0
@@ -102,8 +95,6 @@ function cfapi {
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json") || echo 0)
 
-    r=$(`response "1" "$API_RESPONSE"`)
-    echo -e "$r"
     if [[ ${API_RESPONSE} == 0 ]];
     then
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
