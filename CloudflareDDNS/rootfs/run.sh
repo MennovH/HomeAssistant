@@ -47,7 +47,6 @@ BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
 echo -e "${RY}☁${N} Initializing add-on ☁"
-# UDE=" -"
 
 # checks on configuration
 if [[ ${#ZONE} == 0 ]];
@@ -113,6 +112,7 @@ function cfapi {
         echo -e " ${CROSS_MARK} ${DOMAIN} => ${R}${ERROR}${N}\n"
     elif [[ "${API_RESPONSE}" == *'"count":0'* ]];
     then
+    
         # create domain
         ERROR=1
         DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
@@ -147,15 +147,16 @@ function cfapi {
             CREATION_COUNTER=$(($CREATION_COUNTER + 1))
             echo -e " $(cloud ${PROXY}) ${BG}${PLUS}${N} ${DOMAIN}"
         fi
-    #fi
     else
+    
+        # update domain
         DOMAIN_ID=$(echo ${API_RESPONSE} | awk '{ sub(/.*"id":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_IP=$(echo ${API_RESPONSE} | awk '{ sub(/.*"content":"/, ""); sub(/",.*/, ""); print }')
         DOMAIN_PROXIED=$(echo ${API_RESPONSE} | awk '{ sub(/.*"proxied":/, ""); sub(/,.*/, ""); print }')
         
         if [[ ${PUBLIC_IP} != ${DOMAIN_IP} ]] && [[ ! -z ${DOMAIN_IP} ]];
         then
-            # UDE=" - Update: ${PUBLIC_IP} != ${DOMAIN_IP}"
+
             # domain needs to be updated
             DATA=$(printf '{"type":"A","name":"%s","content":"%s","proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${DOMAIN_PROXIED}")
             API_RESPONSE=$((curl -sX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${DOMAIN_ID}" \
@@ -273,9 +274,6 @@ do
             done
         fi
 
-        # remove zeroes
-        
-        
         # sort domain list alphabetically
         DOMAIN_LIST=($(for DOMAIN in "${DOMAINS[@]}"; do if [[ "$DOMAIN" != 0 ]]; then echo "${DOMAIN}"; fi; done | sort -u))
         if [[ ! -z "$DOMAIN_LIST" ]];
@@ -301,7 +299,6 @@ do
         ISSUE=1
     fi
     
-    # echo -e "$UDE"
     # set sleep time and wait until next iteration
     sleep $(if [[ $ISSUE == 1 ]]; then echo 60; elif [[ $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))) -le 1 ]]; then echo -e $INTERVAL; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
     echo -e "\n "
