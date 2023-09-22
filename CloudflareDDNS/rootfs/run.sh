@@ -102,7 +102,7 @@ function cfapi {
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json") || echo 0)
 
-    r=$(response "1" "$API_RESPONSE")
+    r=$(`response "1" "$API_RESPONSE"`)
     echo -e "$r"
     if [[ ${API_RESPONSE} == 0 ]];
     then
