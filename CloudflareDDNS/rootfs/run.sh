@@ -217,8 +217,8 @@ do
         # PUBLIC_IP=$(wget -O - -q -t 1 https://api.ipify.org 2>/dev/null || wget -O - -q -t 1 https://api.my-ip.io/ip 2>/dev/null || echo 0)
         # try different APIs to get current PIP
         for API in "ipify.org" "my-ip.io/ip"
-        # do PUBLIC_IP=$((curl -s --connect-timeout 5 https://api.$API) || echo 0)
-        do PUBLIC_IP=$((wget -O - -q -t 1 https://api.$API) || echo 0)
+        do PUBLIC_IP=$(wget -O - -q -t 1 https://api.$API 2>/dev/null || echo 0)
+            # do PUBLIC_IP=$((curl -s --connect-timeout 5 https://api.$API) || echo 0)
             if [[ $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
             then
                 SUCCESS=1
