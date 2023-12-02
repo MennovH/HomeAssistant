@@ -276,13 +276,18 @@ do
                 DOMAINS=( "${DOMAINS[@]/$DOMAIN/}" )
                 if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`; then DOMAINS+=("$DOMAIN"); fi
             done
+
             
-            # remove excluded domains from obtained record list
-            for DOMAIN in ${TMP_EXCLUDED_DOMAINS[@]};
-            do
-                TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
-                if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`; then DOMAINS-=("$DOMAIN"); fi
-            done
+            count2=$(wc -w <<< $PERSISTENT_DOMAINS)
+            if ([[ ! -z "$DOMAINS" ]] && [[ $DOMAINS != 0 ]]) || [[ $count > 0 ]];
+            then
+                    # remove excluded domains from obtained record list
+                    for DOMAIN in ${TMP_EXCLUDED_DOMAINS[@]};
+                    do
+                        TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
+                        if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`; then DOMAINS-=("$DOMAIN"); fi
+                    done
+            fi
         fi
 
         # sort domain list alphabetically
