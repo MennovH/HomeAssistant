@@ -1,5 +1,5 @@
 # v2.0.2
-- Updated command to fetch public IP, to reduce errors from occurring.
+- Updated command to fetch public IP to reduce errors from occurring.
 - Added ```excluded_domains``` option to exclude specific domains from being updated by the CloudflareDDNS add-on.
 
 # v2.0.1
