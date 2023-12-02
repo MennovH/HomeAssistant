@@ -255,7 +255,6 @@ do
     DOMAINS=$((curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
         -H "Authorization: Bearer ${TOKEN}" \
         -H "Content-Type: application/json" | jq -r '.result[].name?') || echo 0)
-
     count=$(wc -w <<< $PERSISTENT_DOMAINS)
     if ([[ ! -z "$DOMAINS" ]] && [[ $DOMAINS != 0 ]]) || [[ $count > 0 ]];
     then
@@ -265,7 +264,7 @@ do
             ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         fi
         TMP_PERSISTENT_DOMAINS=$PERSISTENT_DOMAINS
-        TMP_EXCLUDED_DOMAINS=$EXCLUDED_DOMAINS
+        
         if [[ $count > 0 ]];
         then
         
@@ -274,7 +273,9 @@ do
             do
                 TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
                 DOMAINS=( "${DOMAINS[@]/$DOMAIN/}" )
+         
                 if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`; then DOMAINS+=("$DOMAIN"); fi
+                
             done
         fi
 
@@ -287,7 +288,7 @@ do
             ITERATION=$(($ITERATION + 1))
             if [[ ${#DOMAIN_LIST[@]} == 1 ]]; then DOMAIN_COUNT="${#DOMAIN_LIST[@]} domain"; else DOMAIN_COUNT="${#DOMAIN_LIST[@]} domains"; fi
             echo "Iteration ${ITERATION}, ${DOMAIN_COUNT}:"
-            for DOMAIN in ${DOMAIN_LIST[@]}; do cfapi ${DOMAIN}; done
+            for DOMAIN in ${DOMAIN_LIST[@]}; if !`domain_lookup "$EXCLUDED_DOMAINS" "$DOMAIN"`; then do cfapi ${DOMAIN}; fi; done
         else
         
             # iteration failed
