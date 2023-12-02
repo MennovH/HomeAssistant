@@ -290,7 +290,7 @@ do
         if [[ ! -z "$DOMAIN_LIST" ]];
         then
         
-            # iterate through listed domains
+            # iterate through listed domains but skip excluded domains
             ITERATION=$(($ITERATION + 1))
             if [[ ${#DOMAIN_LIST[@]} == 1 ]]; then DOMAIN_COUNT="${#DOMAIN_LIST[@]} domain"; else DOMAIN_COUNT="${#DOMAIN_LIST[@]} domains"; fi
             echo "Iteration ${ITERATION}, ${DOMAIN_COUNT}:"
