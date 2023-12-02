@@ -278,7 +278,7 @@ do
             done
 
             
-            count2=$(wc -w <<< $PERSISTENT_DOMAINS)
+            count2=$(wc -w <<< $EXCLUDED_DOMAINS)
             if [[ $count2 > 0 ]];
             then
                     # remove excluded domains from obtained record list
