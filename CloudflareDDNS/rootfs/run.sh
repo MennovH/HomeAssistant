@@ -294,7 +294,7 @@ do
             ITERATION=$(($ITERATION + 1))
             if [[ ${#DOMAIN_LIST[@]} == 1 ]]; then DOMAIN_COUNT="${#DOMAIN_LIST[@]} domain"; else DOMAIN_COUNT="${#DOMAIN_LIST[@]} domains"; fi
             echo "Iteration ${ITERATION}, ${DOMAIN_COUNT}:"
-            for DOMAIN in ${DOMAIN_LIST[@]}; do if `not_domain_lookup "$EXCLUDED_DOMAINS" "$DOMAIN"`; then cfapi ${DOMAIN}; fi; done
+            for DOMAIN in ${DOMAIN_LIST[@]}; do if `domain_lookup "$EXCLUDED_DOMAINS" "$DOMAIN"`; then else cfapi ${DOMAIN}; fi; done
         else
         
             # iteration failed
