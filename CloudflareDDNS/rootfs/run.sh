@@ -80,6 +80,12 @@ function domain_lookup {
   if [[ $LIST =~ (^|[[:space:]])"$ITEM"($|[[:space:]]) ]] ; then return 1; else return 0; fi
 }
 
+function not_domain_lookup {
+  local LIST="$1"
+  local ITEM="$2"
+  if [[ $LIST =~ (^|[[:space:]])"$ITEM"($|[[:space:]]) ]] ; then return 0; else return 1; fi
+}
+
 # Cloudflare API function (get/update/create)
 function cfapi {
     ERROR=0
@@ -288,7 +294,7 @@ do
             ITERATION=$(($ITERATION + 1))
             if [[ ${#DOMAIN_LIST[@]} == 1 ]]; then DOMAIN_COUNT="${#DOMAIN_LIST[@]} domain"; else DOMAIN_COUNT="${#DOMAIN_LIST[@]} domains"; fi
             echo "Iteration ${ITERATION}, ${DOMAIN_COUNT}:"
-            for DOMAIN in ${DOMAIN_LIST[@]}; if !`domain_lookup "$EXCLUDED_DOMAINS" "$DOMAIN"`; then do cfapi ${DOMAIN}; fi; done
+            for DOMAIN in ${DOMAIN_LIST[@]}; if `not_domain_lookup "$EXCLUDED_DOMAINS" "$DOMAIN"`; then do cfapi ${DOMAIN}; fi; done
         else
         
             # iteration failed
