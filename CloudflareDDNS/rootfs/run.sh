@@ -264,7 +264,7 @@ do
             # domain retrieval issue
             ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         fi
-        TMP_PERSISTENT_DOMAINS=$PERSISTENT_DOMAINSfi
+        TMP_PERSISTENT_DOMAINS=$PERSISTENT_DOMAINS
         TMP_EXCLUDED_DOMAINS=$EXCLUDED_DOMAINS
         if [[ $count > 0 ]];
         then
