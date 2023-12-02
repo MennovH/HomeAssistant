@@ -1,3 +1,7 @@
+# v2.0.2
+- Replaced curl command for wget to fetch public IP, as it appears to be more stable.
+- Added ```excluded_domains``` option to exclude specific domains from being updated by the CloudflareDDNS add-on.
+
 # v2.0.1
 - Fixed issue in which the add-on would crash when no A record can be retrieved from Cloudflare (either due to missing A records, or API retrieval issue)
 - Updated error handling
