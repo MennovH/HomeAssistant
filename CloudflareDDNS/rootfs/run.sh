@@ -15,6 +15,7 @@ ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 LOG_PIP=$(bashio::config 'log_pip')
 PERSISTENT_DOMAINS=$(bashio::config "domains")
+EXCLUDED_DOMAINS=$(bashio::config "excluded_domains")
 CROSS_MARK="\u274c"
 PLUS="\uff0b"
 BULLET="\u2022"
@@ -263,7 +264,8 @@ do
             # domain retrieval issue
             ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         fi
-        TMP_PERSISTENT_DOMAINS=$PERSISTENT_DOMAINS
+        TMP_PERSISTENT_DOMAINS=$PERSISTENT_DOMAINSfi
+        TMP_EXCLUDED_DOMAINS=$EXCLUDED_DOMAINS
         if [[ $count > 0 ]];
         then
         
@@ -273,6 +275,14 @@ do
                 TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
                 DOMAINS=( "${DOMAINS[@]/$DOMAIN/}" )
                 if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`; then DOMAINS+=("$DOMAIN"); fi
+            done
+            
+            # remove excluded domains from obtained record list
+            for DOMAIN in ${TMP_EXCLUDED_DOMAINS[@]};
+            do
+                TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
+                DOMAINS=( "${DOMAINS[@]/$DOMAIN/}" )
+                if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`; then DOMAINS-=("$DOMAIN"); fi
             done
         fi
 
