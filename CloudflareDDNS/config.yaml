@@ -23,10 +23,13 @@ options:
   interval: 10
   log_pip: true
   domains: []
+  excluded_domains: []
 schema:
   cloudflare_zone_id: password
   cloudflare_api_token: password
   interval: int(1,1440)
   log_pip: bool
   domains:
+    - "str?"
+  excluded_domains:
     - "str?"
