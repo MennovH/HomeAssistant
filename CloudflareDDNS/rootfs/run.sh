@@ -285,7 +285,7 @@ do
                     for DOMAIN in ${TMP_EXCLUDED_DOMAINS[@]};
                     do
                         TMP_DOMAIN=$(sed "s/_no_proxy/""/" <<< "$DOMAIN")
-                        if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`; then DOMAINS-=("$DOMAIN"); fi
+                        if `domain_lookup "$DOMAINS" "$TMP_DOMAIN"`; then $DOMAINS-=("$DOMAIN"); fi
                     done
             fi
         fi
