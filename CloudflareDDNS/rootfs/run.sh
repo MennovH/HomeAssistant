@@ -279,7 +279,7 @@ do
 
             
             count2=$(wc -w <<< $PERSISTENT_DOMAINS)
-            if ([[ ! -z "$DOMAINS" ]] && [[ $DOMAINS != 0 ]]) || [[ $count > 0 ]];
+            if ([[ $count2 > 0 ]];
             then
                     # remove excluded domains from obtained record list
                     for DOMAIN in ${TMP_EXCLUDED_DOMAINS[@]};
