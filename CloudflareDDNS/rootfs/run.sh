@@ -31,6 +31,8 @@ PIP_ERRORS=0
 NEW_PIP_COUNTER=0
 UPDATE_COUNTER=0
 CREATION_COUNTER=0
+API1=0
+API2=0
 
 # font
 N="\e[0m" #normal
@@ -78,12 +80,6 @@ function domain_lookup {
   local LIST="$1"
   local ITEM="$2"
   if [[ $LIST =~ (^|[[:space:]])"$ITEM"($|[[:space:]]) ]] ; then return 1; else return 0; fi
-}
-
-function not_domain_lookup {
-  local LIST="$1"
-  local ITEM="$2"
-  if [[ $LIST =~ (^|[[:space:]])"$ITEM"($|[[:space:]]) ]] ; then return 0; else return 1; fi
 }
 
 # Cloudflare API function (get/update/create)
@@ -212,8 +208,7 @@ do
     SECONDS=0
     ISSUE=0
 
-    #$(($ITERATION-$ITERATION_ERRORS)) <- successful iterations
-    echo -e "Status: [${RG}${NEW_PIP_COUNTER}/${CREATION_COUNTER}/${UPDATE_COUNTER}${N}] [${RR}${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}${N}]"
+    echo -e "Status: [${RG}${NEW_PIP_COUNTER}/${CREATION_COUNTER}/${UPDATE_COUNTER}${N}] [${RR}${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}${N}] [${API1}/${API2}]"
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
     PIP_FETCH_START=`date +%s`
     
@@ -228,6 +223,12 @@ do
             if [[ $PUBLIC_IP =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]
             then
                 SUCCESS=1
+                if [[ $API == 'ipify.org' ]];
+                then
+                    API1=$(($API1 + 1));
+                else
+                    API2=$(($API2 + 1));
+                fi
                 break
             fi
         done
