@@ -258,11 +258,11 @@ do
     
     if [[ $API == 'ipify.org' ]];
     then
-        API_USAGE=$(bc -l <<< "scale=2; $API1/($ITERATION+1)");
+        API_USAGE=$(bc -l <<< "scale=2; ($API1/($ITERATION+1)*100)");
     else
-        API_USAGE=$(bc -l <<< "scale=2; $API2/($ITERATION+1)");
+        API_USAGE=$(bc -l <<< "scale=2; ($API2/($ITERATION+1)*100)");
     fi
-    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} by $(echo ${API} | cut -d '/' -f 1) ($(echo ${API_USAGE}))"; fi
+    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} by $(echo ${API} | cut -d '/' -f 1) ($(echo ${API_USAGE})%)"; fi
     
     # fetch existing A records
     DOMAINS=$((curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
