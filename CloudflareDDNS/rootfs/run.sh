@@ -208,7 +208,7 @@ do
     SECONDS=0
     ISSUE=0
 
-    echo -e "Status: [${RG}${NEW_PIP_COUNTER}/${CREATION_COUNTER}/${UPDATE_COUNTER}${N}] [${RR}${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}${N}] [${API1}/${API2}]"
+    echo -e "Status: [${RG}${NEW_PIP_COUNTER}/${CREATION_COUNTER}/${UPDATE_COUNTER}${N}] [${RR}${PIP_ERRORS}/${ITERATION_ERRORS}/${CREATION_ERRORS}/${UPDATE_ERRORS}${N}]"
     echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
     PIP_FETCH_START=`date +%s`
     
@@ -255,7 +255,14 @@ do
     echo -e "Next: ${NEXT}"
 
     # print current PIP
-    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} by $(echo ${API} | cut -d '/' -f 1)"; fi
+    
+    if [[ $API == 'ipify.org' ]];
+    then
+        API_USAGE=$(bc -l <<< "scale=2; $API1/$ITERATION");
+    else
+        API_USAGE=$(bc -l <<< "scale=2; $API2/$ITERATION");
+    fi
+    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} by $(echo ${API} | cut -d '/' -f 1)" ($(echo ${API_USAGE})); fi
     
     # fetch existing A records
     DOMAINS=$((curl -sX GET "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records?type=A" \
