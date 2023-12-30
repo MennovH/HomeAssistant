@@ -261,7 +261,7 @@ do
     # else
     #     API_USAGE=$(bc -l <<< "scale=1; ($API2/($ITERATION+1)*100)");
     # fi
-    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} ($(echo ${API} | cut -d '/' -f 1)"; fi
+    if [[ ${LOG_PIP} == true ]]; then echo -e "PIP: ${BB}${PUBLIC_IP}${N} by $(echo ${API} | cut -d '/' -f 1)"; fi
     # $(echo ${API_USAGE})%
     
     # fetch existing A records
