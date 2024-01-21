@@ -68,6 +68,9 @@ def tokenremover(retention_days, active_days):
             continue
         
         if int(active_days) < 999:
+            if token["last_used_at"] is None:
+                continue
+
             date_str = token["last_used_at"]
             yr, mnth, d, hr, mnt, scnd = date_str[:date_str.index(".")].translate(date_str.maketrans("T:.", "---")).split("-")
             last_used_date = datetime(int(yr), int(mnth), int(d), int(hr), int(mnt))
