@@ -70,7 +70,7 @@ run () {
 		# restart Home Assistant Core
 		bashio::core.restart
 		
-		#echo -e -n " -> Running checks..."
+		#echo -e -n "  > Running checks..."
 		sleep 120
 		#echo -e "\r Done"
 			
@@ -79,12 +79,12 @@ run () {
 			TMP_BAN_LINE_COUNT=$(wc -l "${BAN_FILE}")
 			if ! [[ ${BAN_LINE_COUNT} == ${TMP_BAN_LINE_COUNT} ]];
 			then
-				echo -e "${__BASHIO_COLORS_YELLOW} -> Detected new IP bans${__BASHIO_COLORS_DEFAULT}\n    Restoring ip_bans.yaml file"
+				echo -e "${__BASHIO_COLORS_YELLOW}  > Detected new IP bans${__BASHIO_COLORS_DEFAULT}\n    Restoring ip_bans.yaml file"
 				cp "${TMP_BAN_FILE}" "${BAN_FILE}" && rm "${TMP_BAN_FILE}"
 				
 				bashio::core.restart
 				
-				echo -e "${__BASHIO_COLORS_GREEN} -> Restored ip_bans.yaml file${__BASHIO_COLORS_DEFAULT}"
+				echo -e "${__BASHIO_COLORS_GREEN}  > Restored ip_bans.yaml file${__BASHIO_COLORS_DEFAULT}"
 			else
 				rm "${TMP_BAN_FILE}";
 			fi
@@ -92,7 +92,7 @@ run () {
 	else
 		echo -e "${RESULT}"
 	fi
-	echo -e " -> Finished TokenRemover execution\n "
+	echo -e "  > Finished TokenRemover execution\n "
 }
 
 if [ "${AUTO}" == "Once" ];
