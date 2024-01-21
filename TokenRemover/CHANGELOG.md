@@ -1,3 +1,6 @@
+#v1.0.5
+Additional code by @nbetcher to prevent crash on missing last_used_at info
+
 #v1.0.4
 Disabled AppArmor (temporarily?) due to issues connecting with the Supervisor.
 
