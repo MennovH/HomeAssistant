@@ -20,3 +20,6 @@ init: false
 #   message: "Hello world..."
 # schema:
 #   message: "str?"
+
+ports:
+  8000/tcp: 8500
