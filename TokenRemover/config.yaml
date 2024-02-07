@@ -7,9 +7,8 @@ slug: "tokenremover"
 hassio_api: true
 auth_api: true
 hassio_role: manager
-# apparmor: false
-# ingress: false
-host_network: true
+apparmor: false
+ingress: false
 boot: manual
 init: false
 arch:
