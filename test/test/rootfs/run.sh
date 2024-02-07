@@ -2,4 +2,4 @@
 
 echo "Hello world!"
 
-python3 -m http.server 8500 -d html.index
+python3 -m http.server 8500
