@@ -4,21 +4,17 @@ FROM $BUILD_FROM
 # Install requirements for add-on
 RUN \
   apk add --no-cache \
-    python3 \
-  && apk --no-cache add \
-    nginx \
-  \
-  && mkdir -p /run/nginx
+    python3
 
 # Python 3 HTTP Server serves the current working dir
 # So let's set it to our add-on persistent data directory.
 WORKDIR /data
 
-#Copy our conf into the nginx http.d folder.
-COPY ingress.conf /etc/nginx/http.d/
+# #Copy our conf into the nginx http.d folder.
+# COPY ingress.conf /etc/nginx/http.d/
 
-#Launch nginx with debug options.
-CMD [ "nginx","-g","daemon off;error_log /dev/stdout debug;" ]
+# #Launch nginx with debug options.
+# CMD [ "nginx","-g","daemon off;error_log /dev/stdout debug;" ]
 
 # Copy data for add-on
 COPY run.sh /
