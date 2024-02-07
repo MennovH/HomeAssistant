@@ -19,7 +19,7 @@ FROM $BUILD_FROM
 RUN \
   apk add --no-cache \
     python3 \
-  apk --no-cache add \
+  && apk --no-cache add \
     nginx \
   \
   && mkdir -p /run/nginx
