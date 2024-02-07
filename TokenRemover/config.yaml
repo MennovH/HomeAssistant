@@ -11,6 +11,7 @@ hassio_role: manager
 # ingress: false
 ingress: true
 ingress_port: 0
+ingress_stream: true
 boot: manual
 init: false
 # ports:
