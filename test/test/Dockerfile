@@ -17,6 +17,8 @@ FROM $BUILD_FROM
 
 #Add nginx and create the run folder for nginx.
 RUN \
+  apk add --no-cache \
+    python3 \
   apk --no-cache add \
     nginx \
   \
@@ -27,3 +29,5 @@ COPY ingress.conf /etc/nginx/http.d/
 
 #Launch nginx with debug options.
 CMD [ "nginx","-g","daemon off;error_log /dev/stdout debug;" ]
+
+CMD [ "/run.sh" ]
