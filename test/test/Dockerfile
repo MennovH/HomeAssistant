@@ -17,7 +17,7 @@ WORKDIR /data
 # CMD [ "nginx","-g","daemon off;error_log /dev/stdout debug;" ]
 
 # Copy data for add-on
-COPY /rootfs
+COPY /rootfs /
 RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]
