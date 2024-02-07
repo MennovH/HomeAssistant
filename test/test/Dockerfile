@@ -21,6 +21,5 @@ COPY /rootfs /
 RUN chmod a+x /run.sh
 RUN chmod a+x /html.index
 
-# CMD [ "/run.sh" ]
+CMD [ "/run.sh" ]
 
-CMD [ "python3 -m http.server 8500 -d /hmtl.index" ]
