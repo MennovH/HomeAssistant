@@ -8,7 +8,7 @@ RUN \
 
 # Python 3 HTTP Server serves the current working dir
 # So let's set it to our add-on persistent data directory.
-WORKDIR /data/html.index
+WORKDIR /data
 
 # #Copy our conf into the nginx http.d folder.
 # COPY ingress.conf /etc/nginx/http.d/
