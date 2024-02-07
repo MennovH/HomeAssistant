@@ -6,7 +6,7 @@ description: Test
 url: "https://github.com/home-assistant/addons-example/tree/main/example"
 ingress: true
 ingress_port: 8500
-app-armor: false
+apparmor: false
 arch:
   - armhf
   - armv7
