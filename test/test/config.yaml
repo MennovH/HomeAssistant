@@ -5,7 +5,7 @@ slug: test
 description: Test
 url: "https://github.com/home-assistant/addons-example/tree/main/example"
 ingress: true
-ingress_port: 8500
+# ingress_port: 8500
 apparmor: false
 arch:
   - armhf
