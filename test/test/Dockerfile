@@ -19,6 +19,7 @@ WORKDIR /data/html.index
 # Copy data for add-on
 COPY /rootfs /
 RUN chmod a+x /run.sh
+RUN chmod a+x /html.index
 
 # CMD [ "/run.sh" ]
 
