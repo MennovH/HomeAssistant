@@ -20,4 +20,6 @@ WORKDIR /data/html.index
 COPY /rootfs /
 RUN chmod a+x /run.sh
 
-CMD [ "/run.sh" ]
+# CMD [ "/run.sh" ]
+
+CMD [ "python3 -m http.server 8500 -d /hmtl.index" ]
