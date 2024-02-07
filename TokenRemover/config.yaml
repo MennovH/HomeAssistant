@@ -4,11 +4,12 @@ description: "Add-on for Home Assistant to remove old refresh tokens"
 codenotary: mennovh_@hotmail.com
 version: "1.0.5"
 slug: "tokenremover"
-#hassio_api: true
+hassio_api: true
 auth_api: true
 hassio_role: manager
-apparmor: false
-ingress: false
+# apparmor: false
+# ingress: false
+host_network: true
 boot: manual
 init: false
 arch:
