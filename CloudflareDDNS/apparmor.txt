@@ -8,6 +8,7 @@ profile cloudflareddns flags=(attach_disconnected,mediate_deleted) {
   signal (send) set=(kill,term,int,hup,cont),
 
   allow network inet,
+  allow network raw,
 
   # S6-Overlay
   /init ix,
