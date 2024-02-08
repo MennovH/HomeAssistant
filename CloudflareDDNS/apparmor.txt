@@ -32,7 +32,7 @@ profile 29d6050e_cloudflareddns flags=(attach_disconnected,mediate_deleted,compl
   # Start new profile for service
   /usr/bin/myprogram cx -> myprogram,
 
-  profile myprogram flags=(attach_disconnected,mediate_deleted) {
+  profile myprogram flags=(attach_disconnected,mediate_deleted,complain) {
     #include <abstractions/base>
 
     # Receive signals from S6-Overlay
