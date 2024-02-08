@@ -7,8 +7,7 @@ profile cloudflareddns flags=(attach_disconnected,mediate_deleted,complain) {
   file,
   signal (send) set=(kill,term,int,hup,cont),
 
-  network inet tcp,
-  network inet udp,
+  network inet,
 
   # S6-Overlay
   /init ix,
