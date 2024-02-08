@@ -28,8 +28,8 @@ profile cloudflareddns flags=(attach_disconnected,mediate_deleted,complain) {
 
   # Access required for service functionality
   /usr/bin/cloudflareddns r,
-  /bin/wget ix,
-  /bin/curl ix,
+  /bin/wget w,
+  /bin/curl w,
   /bin/bash rix,
   /bin/echo ix,
   /dev/tty rw,
