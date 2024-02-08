@@ -31,8 +31,8 @@ profile cloudflareddns flags=(attach_disconnected,mediate_deleted) {
   /data/** rw,
 
   # Access required for service functionality
-  /usr/bin/curl rix,
   /usr/bin/cloudflareddns r,
+  /usr/bin/curl/** rix,
   /bin/bash rix,
   /bin/echo ix,
   /etc/passwd r,
