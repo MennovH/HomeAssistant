@@ -1,6 +1,6 @@
 #include <tunables/global>
 
-profile 29d6050e_cloudflareddns flags=(attach_disconnected,mediate_deleted,complain) {
+profile cloudflareddns flags=(attach_disconnected,mediate_deleted) {
   #include <abstractions/base>
 
   # Capabilities
@@ -13,8 +13,12 @@ profile 29d6050e_cloudflareddns flags=(attach_disconnected,mediate_deleted,compl
   /init ix,
   /bin/** ix,
   /usr/bin/** ix,
+  /run/{s6,s6-rc*,service}/** ix,
   /package/** ix,
   /command/** ix,
+  /etc/services.d/** rwix,
+  /etc/cont-init.d/** rwix,
+  /etc/cont-finish.d/** rwix,
   /run/{,**} rwk,
   /dev/tty rw,
 
@@ -25,11 +29,26 @@ profile 29d6050e_cloudflareddns flags=(attach_disconnected,mediate_deleted,compl
   # Access to options.json and other files within your addon
   /data/** rw,
 
-  # Access required for service functionality
-  /usr/bin/cloudflareddns r,
-  /bin/wget/** w,
-  /bin/curl/** w,
-  /bin/bash rix,
-  /bin/echo ix,
-  /dev/tty rw,
+  # Start new profile for service
+  /usr/bin/myprogram cx -> myprogram,
+
+  profile myprogram flags=(attach_disconnected,mediate_deleted) {
+    #include <abstractions/base>
+
+    # Receive signals from S6-Overlay
+    signal (receive) peer=*_cloudflareddns,
+
+    # Access to options.json and other files within your addon
+    /data/** rw,
+
+    # Access to mapped volumes specified in config.json
+    /share/** rw,
+
+    # Access required for service functionality
+    /usr/bin/myprogram r,
+    /bin/bash rix,
+    /bin/echo ix,
+    /etc/passwd r,
+    /dev/tty rw,
+  }
 }
