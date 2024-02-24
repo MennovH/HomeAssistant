@@ -5,6 +5,9 @@ declare ZONE
 declare INTERVAL
 declare LOG_PIP
 declare DOMAINS
+declare RULESET
+declare RULE_ID
+declare UPDATE_WAF
 declare PERSISTENT_DOMAINS
 declare RELOAD_SYMBOL
 declare CROSS_MARK
