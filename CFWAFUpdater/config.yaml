@@ -1,7 +1,7 @@
 name: "CFWAFUpdater"
 url: https://github.com/MennovH/HomeAssistant/tree/main/CFWAFUpdater
 description: "Cloudflare WAF rule updater add-on for Home Assistant"
-codenotary: mennovh_@hotmail.com
+#codenotary: mennovh_@hotmail.com
 version: "0.0.1"
 slug: "CFWAFUpdater"
 ingress: false
