@@ -23,6 +23,7 @@ EXCLUDED_DOMAINS=$(bashio::config "excluded_domains")
 EXPRESSION=$(bashio::config "waf_expression")
 RULE_SET=$(bashio::config "waf_rule_set")
 RULE_ID=$(bashio::config "waf_rule_id")
+WAF_TOKEN=$(bashio::config "waf_token")
 CROSS_MARK="\u274c"
 PLUS="\uff0b"
 BULLET="\u2022"
@@ -327,7 +328,7 @@ do
         set string=$EXPRESSION
         TMP_EXPRESSION=%string:XXXX=$PUBLIC_IP%
 
-        $(curl --request PATCH https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID} --header "Authorization: Bearer ${TOKEN}" --header "Content-Type: application/json" --data '{
+        $(curl --request PATCH https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID} --header "Authorization: Bearer ${WAF_TOKEN}" --header "Content-Type: application/json" --data '{
           "action": "skip",
           "expression": "' + ${TMP_EXPRESSION} + '",
           "description": "No mTLS",
