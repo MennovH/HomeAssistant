@@ -8,6 +8,7 @@ declare DOMAINS
 declare RULESET
 declare RULE_ID
 declare UPDATE_WAF
+declare EXPRESSION
 declare PERSISTENT_DOMAINS
 declare RELOAD_SYMBOL
 declare CROSS_MARK
