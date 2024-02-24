@@ -10,9 +10,9 @@ declare CROSS_MARK
 # variables
 TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
-EXPRESSION=$(bashio::config "expression")
-RULESET=$(bashio::config "ruleset")
-RULE_ID=$(bashio::config "ruleid")
+EXPRESSION=$(bashio::config "waf_expression")
+RULESET=$(bashio::config "waf_rule_set")
+RULE_ID=$(bashio::config "waf_rule_id")
 INTERVAL=$(bashio::config 'interval')
 LOG_PIP=$(bashio::config 'log_pip')
 
