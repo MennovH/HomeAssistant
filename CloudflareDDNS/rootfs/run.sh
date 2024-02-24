@@ -338,7 +338,7 @@ do
         #     --data ${DATA}) || echo 0)
 
         
-        API_RESPONSE=$((curl --request PATCH "https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID}" \
+        API_RESPONSE=$((curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID}" \
             -H "Authorization: Bearer ${WAF_TOKEN}" \
             -H "Content-Type: application/json" \
             --data ${DATA}) || echo 0)
