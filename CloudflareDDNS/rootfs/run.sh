@@ -327,18 +327,23 @@ do
         set string=$EXPRESSION
         TMP_EXPRESSION=%string:XXXX=$PUBLIC_IP%
 
-        $(curl --request PATCH https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID} --header "Authorization: Bearer ${TOKEN}" --header "Content-Type: application/json" --data '{
+        $((curl --request PATCH https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID} --header "Authorization: Bearer ${TOKEN}" --header "Content-Type: application/json" --data '{
           "action": "skip",
-          "expression": "' + ${TMP_EXPRESSION} + ')",
-          "action_parameters": {
-            "ruleset": "current",
-            "phases": [
-              "http_ratelimit",
-              "http_request_firewall_managed",
-              "http_request_sbfm"
-            ]
-          }
-        }')
+          "expression": "' + ${TMP_EXPRESSION} + '",
+          "description": "No mTLS",
+                "action_parameters": {
+                  "ruleset": "current",
+                  "phases": [
+                    "http_ratelimit",
+                    "http_request_firewall_managed",
+                    "http_request_sbfm"
+                  ]
+                }
+        
+        }'))
+
+
+        
     fi
     
     # set sleep time and wait until next iteration
