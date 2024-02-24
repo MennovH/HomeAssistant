@@ -325,7 +325,7 @@ do
     if [[ ${UPDATE_WAF} == true ]]; then 
 
         set string=$EXPRESSION
-        set TMP_EXPRESSION=%string:XXXX=$PUBLIC_IP%
+        TMP_EXPRESSION=%string:XXXX=$PUBLIC_IP%
 
         $(curl --request PATCH https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID} --header "Authorization: Bearer ${TOKEN}" --header "Content-Type: application/json" --data '{
           "action": "skip",
