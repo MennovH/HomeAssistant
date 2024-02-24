@@ -22,6 +22,7 @@ options:
   cloudflare_api_token: null
   waf_rule_set: ""
   waf_rule_id: ""
+  waf_token: ""
   waf_rule_expression: ""
   interval: 10
   log_pip: true
@@ -33,6 +34,7 @@ schema:
   cloudflare_api_token: password
   waf_rule_set: password?
   waf_rule_id: password?
+  waf_token: password?
   waf_rule_expression: str?
   update_waf: bool
   interval: int(1,1440)
