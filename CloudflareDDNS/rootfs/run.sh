@@ -323,11 +323,13 @@ do
     fi
     
     if [[ ${UPDATE_WAF} == true ]]; then 
-        set TMP_EXPRESSION=%$EXPRESSION:XXX.XXX.XXX.XXX=$PUBLIC_IP%
-    
+
+        set string=$EXPRESSION
+        set TMP_EXPRESSION=%string:XXXX=$PUBLIC_IP%
+
         $(curl --request PATCH https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID} --header "Authorization: Bearer ${TOKEN}" --header "Content-Type: application/json" --data '{
           "action": "skip",
-          "expression": "' + $TMP_EXPRESSION + ')",
+          "expression": "' + ${TMP_EXPRESSION} + ')",
           "action_parameters": {
             "ruleset": "current",
             "phases": [
