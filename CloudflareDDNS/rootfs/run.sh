@@ -5,10 +5,6 @@ declare ZONE
 declare INTERVAL
 declare LOG_PIP
 declare DOMAINS
-declare RULESET
-declare RULE_ID
-declare UPDATE_WAF
-declare EXPRESSION
 declare PERSISTENT_DOMAINS
 declare RELOAD_SYMBOL
 declare CROSS_MARK
@@ -18,13 +14,8 @@ TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 LOG_PIP=$(bashio::config 'log_pip')
-UPDATE_WAF=$(bashio::config 'update_waf')
 PERSISTENT_DOMAINS=$(bashio::config "domains")
 EXCLUDED_DOMAINS=$(bashio::config "excluded_domains")
-EXPRESSION=$(bashio::config "waf_rule_expression")
-RULE_SET=$(bashio::config "waf_rule_set")
-RULE_ID=$(bashio::config "waf_rule_id")
-WAF_TOKEN=$(bashio::config "waf_token")
 CROSS_MARK="\u274c"
 PLUS="\uff0b"
 BULLET="\u2022"
@@ -324,36 +315,7 @@ do
         echo -e "${RR}Outer domain list iteration failed. Awaiting next iteration...${N}"
     fi
     
-    if [[ ${UPDATE_WAF} == true ]]; then 
-        
-        TMP_EXPRESSION=$(sed "s/XXXX/$PUBLIC_IP/" <<< "$EXPRESSION")
-
-        DATA=$(printf '{"action": "skip","expression": "%s","description": "CFWAFUpdater", "action_parameters": {"ruleset": "current","phases": ["http_ratelimit","http_request_firewall_managed","http_request_sbfm"]}}' "${TMP_EXPRESSION}")
-        echo -e "${DATA}"
-
-        # DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
-        # API_RESPONSE=$((curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
-        #     -H "Authorization: Bearer ${TOKEN}" \
-        #     -H "Content-Type: application/json" \
-        #     --data ${DATA}) || echo 0)
-
-        
-        API_RESPONSE=$((curl -X PATCH "https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID}" \
-            -H "Authorization: Bearer ${WAF_TOKEN}" \
-            -H "Content-Type: application/json" \
-            --data ${DATA}) || echo 0)
-
-        #DATA=$(printf '{"action":"skip","expression":"%s","description":"No mTLS","action_parameters":{"ruleset":"current","phases":["http_ratelimit","http_request_firewall_managed","http_request_sbfm"]}}' "${TMP_EXPRESSION}")
-        # API_RESPONSE=$((curl --request PATCH "https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID}" \
-        #     -H "Authorization: Bearer ${WAF_TOKEN}" \
-        #     -H "Content-Type: application/json" \
-        #     --data ${DATA}) || echo 0)
-
-        echo -e "${API_RESPONSE}"
-    fi
-    
     # set sleep time and wait until next iteration
-    #sleep $(if [[ $ISSUE == 1 ]]; then echo 60; elif [[ $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))) -le 1 ]]; then echo -e $INTERVAL; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
     sleep $(if [[ $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))) -le 1 ]]; then echo -e $INTERVAL; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
     echo -e "\n "
 done
