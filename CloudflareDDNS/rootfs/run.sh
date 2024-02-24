@@ -327,8 +327,9 @@ do
     if [[ ${UPDATE_WAF} == true ]]; then 
         
         TMP_EXPRESSION=$(sed "s/XXXX/$PUBLIC_IP/" <<< "$EXPRESSION")
+        DATA=$(printf '{"action":"skip","expression":"%s","description":"No mTLS","action_parameters":\{"ruleset":"current","phases":["http_ratelimit","http_request_firewall_managed","http_request_sbfm"]\}}' "${TMP_EXPRESSION}")
 
-        DATA=$(printf '{"action":"skip","expression":"%s","description":"No mTLS","action_parameters":{"ruleset":"current","phases":["http_ratelimit","http_request_firewall_managed","http_request_sbfm"]}}' "${TMP_EXPRESSION}")
+        #DATA=$(printf '{"action":"skip","expression":"%s","description":"No mTLS","action_parameters":{"ruleset":"current","phases":["http_ratelimit","http_request_firewall_managed","http_request_sbfm"]}}' "${TMP_EXPRESSION}")
         API_RESPONSE=$((curl --request PATCH "https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID}" \
             -H "Authorization: Bearer ${WAF_TOKEN}" \
             -H "Content-Type: application/json" \
