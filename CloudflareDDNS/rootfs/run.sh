@@ -14,8 +14,12 @@ TOKEN=$(bashio::config 'cloudflare_api_token'| xargs echo -n)
 ZONE=$(bashio::config 'cloudflare_zone_id'| xargs echo -n)
 INTERVAL=$(bashio::config 'interval')
 LOG_PIP=$(bashio::config 'log_pip')
+UPDATE_WAF=$(bashio::config 'update_waf')
 PERSISTENT_DOMAINS=$(bashio::config "domains")
 EXCLUDED_DOMAINS=$(bashio::config "excluded_domains")
+EXPRESSION=$(bashio::config "waf_expression")
+RULESET=$(bashio::config "waf_rule_set")
+RULE_ID=$(bashio::config "waf_rule_id")
 CROSS_MARK="\u274c"
 PLUS="\uff0b"
 BULLET="\u2022"
@@ -313,6 +317,23 @@ do
         # iteration failed
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
         echo -e "${RR}Outer domain list iteration failed. Awaiting next iteration...${N}"
+    fi
+    
+    if [[ ${UPDATE_WAF} == true ]]; then 
+        set TMP_EXPRESSION=%$EXPRESSION:XXX.XXX.XXX.XXX=$PUBLIC_IP%
+    
+        $(curl --request PATCH https://api.cloudflare.com/client/v4/zones/$ZONE/rulesets/$RULE_SET/rules/$RULE_ID --header "Authorization: Bearer $TOKEN" --header "Content-Type: application/json" --data '{
+          "action": "skip",
+          "expression": "' + $TMP_EXPRESSION + ')",
+          "action_parameters": {
+            "ruleset": "current",
+            "phases": [
+              "http_ratelimit",
+              "http_request_firewall_managed",
+              "http_request_sbfm"
+            ]
+          }
+        }')
     fi
     
     # set sleep time and wait until next iteration
