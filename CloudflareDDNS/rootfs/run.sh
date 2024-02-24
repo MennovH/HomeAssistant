@@ -326,7 +326,7 @@ do
     if [[ ${UPDATE_WAF} == true ]]; then 
 
         set string=$EXPRESSION
-        TMP_EXPRESSION=%string:XXXX=$PUBLIC_IP%
+        TMP_EXPRESSION=$(%string:XXXX=$PUBLIC_IP%)
 
         echo -e "${TMP_EXPRESSION}"
 
