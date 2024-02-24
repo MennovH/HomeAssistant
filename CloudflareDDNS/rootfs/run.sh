@@ -330,8 +330,18 @@ do
 
         DATA=$(printf '{"action": "skip","expression": "%s","description": "CFWAFUpdater", "action_parameters": {"ruleset": "current","phases": ["http_ratelimit","http_request_firewall_managed","http_request_sbfm"]}}' "${TMP_EXPRESSION}")
         echo -e "${DATA}"
+
+        # DATA=$(printf '{"type":"A","name":"%s","content":"%s","ttl":1,"proxied":%s}' "${DOMAIN}" "${PUBLIC_IP}" "${PROXY}")
+        # API_RESPONSE=$((curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+        #     -H "Authorization: Bearer ${TOKEN}" \
+        #     -H "Content-Type: application/json" \
+        #     --data ${DATA}) || echo 0)
+
         
-        API_RESPONSE=$((curl --request PATCH https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID} --header "Authorization: Bearer ${WAF_TOKEN}" --header "Content-Type: application/json" --data ${DATA}) || echo 0)
+        API_RESPONSE=$((curl --request PATCH "https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID}" \
+            -H "Authorization: Bearer ${WAF_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data ${DATA}) || echo 0)
 
         #DATA=$(printf '{"action":"skip","expression":"%s","description":"No mTLS","action_parameters":{"ruleset":"current","phases":["http_ratelimit","http_request_firewall_managed","http_request_sbfm"]}}' "${TMP_EXPRESSION}")
         # API_RESPONSE=$((curl --request PATCH "https://api.cloudflare.com/client/v4/zones/${ZONE}/rulesets/${RULE_SET}/rules/${RULE_ID}" \
