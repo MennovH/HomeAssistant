@@ -306,18 +306,21 @@ do
         
             # iteration failed
             ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
-            echo -e "${RR}Inner domain list iteration failed. Restarting iteration in 60 seconds...${N}"
-            ISSUE=1
+            echo -e "${RR}Inner domain list iteration failed. Awaiting next iteration${N}"
+            # ISSUE=1
         fi
     else
 
         # iteration failed
         ITERATION_ERRORS=$(($ITERATION_ERRORS + 1))
-        echo -e "${RR}Outer domain list iteration failed. Restarting iteration in 60 seconds...${N}"
-        ISSUE=1
+        echo -e "${RR}Outer domain list iteration failed. Awaiting next iteration${N}"
+        # ISSUE=1
     fi
+
+    # if pip update ruleset if enabled
     
     # set sleep time and wait until next iteration
-    sleep $(if [[ $ISSUE == 1 ]]; then echo 60; elif [[ $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))) -le 1 ]]; then echo -e $INTERVAL; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
+    #sleep $(if [[ $ISSUE == 1 ]]; then echo 60; elif [[ $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))) -le 1 ]]; then echo -e $INTERVAL; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
+    sleep $(if [[ $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))) -le 1 ]]; then echo -e $INTERVAL; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
     echo -e "\n "
 done
