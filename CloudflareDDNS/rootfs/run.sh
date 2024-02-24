@@ -326,6 +326,9 @@ do
     
     if [[ ${UPDATE_WAF} == true ]]; then 
 
+
+        echo -e "${EXPRESSION}"
+        
         TMP_EXPRESSION=$(sed "s/XXXX/$PUBLIC_IP/" <<< "$EXPRESSION")
 
         echo -e "${TMP_EXPRESSION}"
