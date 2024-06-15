@@ -17,14 +17,10 @@ configuration:
     name: Select Night, Day, or Both
     description: >-
       TokenRemover will run at night, during daytime, or both
-  hours:
-    name: Select hour
+  automation_time:
+    name: Select time
     description: >-
-      Select the hour on which TokenRemover should run
-  minutes:
-    name: Select minute
-    description: >-
-      Select the minutes on which TokenRemover should run
+      Select the time on which TokenRemover should run
   mon:
     name: Run every Monday
   tue:
