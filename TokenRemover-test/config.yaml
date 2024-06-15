@@ -29,7 +29,7 @@ options:
   keep_active: true
   activation_days: 7
   am_pm: "Night"
-  automation_time: "03:00 \/ 15:00"
+  automation_time: "03:00 and/or 15:00"
   mon: true
   tue: true
   wed: true
