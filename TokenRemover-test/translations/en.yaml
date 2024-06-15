@@ -20,7 +20,7 @@ configuration:
   automation_time:
     name: Select time
     description: >-
-      Select the time on which TokenRemover should run
+      Select the time on which TokenRemover should run (Note: time selection depends on the night/day/both switches)
   mon:
     name: Run every Monday
   tue:

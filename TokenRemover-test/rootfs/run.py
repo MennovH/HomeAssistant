@@ -28,6 +28,8 @@ def recurrence(am_pm, automation_time, weekdays):
     print(automation_time)
     hr, mnt = int(automation_time[0]), int(automation_time[1])
 
+    print(hr)
+    print(mnt)
     if hr == 12 and am_pm == 'Night':
         hr = 0
     elif hr != 12 and am_pm == 'Day':
@@ -36,8 +38,10 @@ def recurrence(am_pm, automation_time, weekdays):
     for date_value in sorted([date_calc(f'{datetime.now().date()}', day) for day in weekdays]):
         date_list = date_value.split('-')
         yr, mnth, d = int(date_list[0]), int(date_list[1]), int(date_list[2])
-        
-        
+        print(yr)
+        print(mnth)
+        print(d)
+
         if am_pm == 'Both':
             h = hr if hr < 12 else 0
             for _ in range(2):
@@ -47,6 +51,7 @@ def recurrence(am_pm, automation_time, weekdays):
                 h = 12 if h == 0 else hr + 12
                     
         else:
+
             if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
                 later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
                 return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
