@@ -104,14 +104,18 @@ def tokenremover(retention_days, active_days):
     return f"  > Removed {removed_tokens} token{'' if removed_tokens == 1 else 's'}" + "\n" + f"{'  > Restarting...' if removed_tokens >0 else ''}"
     
 
-if __name__ == '__main__':    
+if __name__ == '__main__':
+
+
+    #['run.py', '0', 'Day', '3:45', '/', '15:45', 'true', 'true', 'true', 'true', 'true', 'true', 'true']
+
     if sys.argv[1] == '0':
         # Check recurrence
         print(sys.argv)
-        weekdays = [day-1 for day in range(len(sys.argv[3:])) if sys.argv[3:][day] == 'true']
+        weekdays = [day-1 for day in range(len(sys.argv[6:])) if sys.argv[6:][day] == 'true']
         result = recurrence(sys.argv[2], sys.argv[3].split(':'), weekdays)
     elif sys.argv[1] == '1':
-        # Run tokenremover       
+        # Run tokenremover
         result = tokenremover(sys.argv[2], sys.argv[3])
     else:
         result = addon("".join(sys.argv[2:]))
