@@ -115,15 +115,21 @@ if __name__ == '__main__':
     if sys.argv[1] == '0':
         # Check recurrence
         print(sys.argv)
+        print(1)
         weekdays = [day-1 for day in range(len(sys.argv[3:])) if sys.argv[3:][day] == 'true']
+        print(2)
+        print(weekdays)
         result = recurrence(sys.argv[2], sys.argv[3].split(':'), weekdays)
         print('?')
     elif sys.argv[1] == '1':
         # Run tokenremover
+        print('???')
         result = tokenremover(sys.argv[2], sys.argv[3])
     else:
+        print('????')
         result = addon("".join(sys.argv[2:]))
 
+    print('exit')
     print(result)
     sys.exit(0)
     
