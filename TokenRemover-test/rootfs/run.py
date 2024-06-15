@@ -25,14 +25,8 @@ def date_calc(date, weekday):
 
 def recurrence(am_pm, automation_time, weekdays):
     # Calculate next run time
-    print(1)
-    print(automation_time)
-    print(2)
     hr, mnt = int(automation_time[0]), int(automation_time[1])
-    print(3)
-    print(hr)
-    print(mnt)
-    print(4)
+
     if hr == 12 and am_pm == 'Night':
         hr = 0
     elif hr != 12 and am_pm == 'Day':
@@ -41,10 +35,8 @@ def recurrence(am_pm, automation_time, weekdays):
     for date_value in sorted([date_calc(f'{datetime.now().date()}', day) for day in weekdays]):
         date_list = date_value.split('-')
         yr, mnth, d = int(date_list[0]), int(date_list[1]), int(date_list[2])
-        print(yr)
-        print(mnth)
-        print(d)
-
+        
+        
         if am_pm == 'Both':
             h = hr if hr < 12 else 0
             for _ in range(2):
@@ -54,7 +46,6 @@ def recurrence(am_pm, automation_time, weekdays):
                 h = 12 if h == 0 else hr + 12
                     
         else:
-
             if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
                 later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
                 return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
@@ -115,20 +106,14 @@ def tokenremover(retention_days, active_days):
 
 if __name__ == '__main__':    
     if sys.argv[1] == '0':
-        print(5)
         # Check recurrence
-        print(sys.argv[3])
         print(sys.argv)
         weekdays = [day-1 for day in range(len(sys.argv[3:])) if sys.argv[3:][day] == 'true']
-        #['run.py', '0', 'Night', '3:30', '/', '15:30', 'true', 'true', 'true', 'true', 'true', 'true', 'true']
         result = recurrence(sys.argv[2], sys.argv[3].split(':'), weekdays)
-        print(6)
     elif sys.argv[1] == '1':
-        # Run tokenremover
-        print(7)
+        # Run tokenremover       
         result = tokenremover(sys.argv[2], sys.argv[3])
     else:
-        print(8)
         result = addon("".join(sys.argv[2:]))
 
     print(result)
