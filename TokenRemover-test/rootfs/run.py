@@ -25,8 +25,10 @@ def date_calc(date, weekday):
 
 def recurrence(am_pm, automation_time, weekdays):
     # Calculate next run time
+    print(automation_time)
     hr, mnt = int(automation_time[0]), int(automation_time[1])
-
+    print(hr)
+    print(mnt)
     if hr == 12 and am_pm == 'Night':
         hr = 0
     elif hr != 12 and am_pm == 'Day':
@@ -114,6 +116,7 @@ if __name__ == '__main__':
         print(sys.argv)
         weekdays = [day-1 for day in range(len(sys.argv[6:])) if sys.argv[6:][day] == 'true']
         result = recurrence(sys.argv[2], sys.argv[3].split(':'), weekdays)
+        print('?')
     elif sys.argv[1] == '1':
         # Run tokenremover
         result = tokenremover(sys.argv[2], sys.argv[3])
