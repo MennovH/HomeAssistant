@@ -117,6 +117,7 @@ if __name__ == '__main__':
     if sys.argv[1] == '0':
         print(5)
         # Check recurrence
+        print(sys.argv[3])
         print(sys.argv)
         weekdays = [day-1 for day in range(len(sys.argv[3:])) if sys.argv[3:][day] == 'true']
         #['run.py', '0', 'Night', '3:30', '/', '15:30', 'true', 'true', 'true', 'true', 'true', 'true', 'true']

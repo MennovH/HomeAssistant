@@ -1,5 +1,5 @@
 name: "TokenRemover-test"
-url: https://github.com/MennovH/HomeAssistant/tree/main/TokenRemover
+url: https://github.com/MennovH/HomeAssistant/tree/main/TokenRemover-test
 description: "Add-on for Home Assistant to remove old refresh tokens"
 codenotary: mennovh_@hotmail.com
 version: "1.0.5"
@@ -28,8 +28,8 @@ options:
   retention_days: 7
   keep_active: true
   activation_days: 7
-  am_pm: "AM"
-  automation_time: "03:00"
+  am_pm: "Night"
+  automation_time: "03:00 / 15:00"
   mon: true
   tue: true
   wed: true
