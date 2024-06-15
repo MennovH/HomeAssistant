@@ -25,10 +25,12 @@ def date_calc(date, weekday):
 
 def recurrence(am_pm, automation_time, weekdays):
     # Calculate next run time
-    print(automation_time)
+    print(am_pm)
+
     hr, mnt = int(automation_time[0]), int(automation_time[1])
     print(hr)
     print(mnt)
+
     if hr == 12 and am_pm == 'Night':
         hr = 0
     elif hr != 12 and am_pm == 'Day':
@@ -37,7 +39,6 @@ def recurrence(am_pm, automation_time, weekdays):
     for date_value in sorted([date_calc(f'{datetime.now().date()}', day) for day in weekdays]):
         date_list = date_value.split('-')
         yr, mnth, d = int(date_list[0]), int(date_list[1]), int(date_list[2])
-        
         
         if am_pm == 'Both':
             h = hr if hr < 12 else 0

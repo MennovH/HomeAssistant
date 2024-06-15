@@ -25,7 +25,7 @@ RETENTION_DAYS=$(bashio::config 'retention_days' | xargs echo -n)
 KEEP_ACTIVE=$(bashio::config 'keep_active' | xargs echo -n)
 ACTIVATION_DAYS=$(bashio::config 'activation_days' | xargs echo -n)
 AM_PM=$(bashio::config 'am_pm' | xargs echo -n)
-AUTOMATION_TIME=$(bashio::config 'automation_time' | xargs echo -n |  sed 's/ .*//')
+AUTOMATION_TIME=$(bashio::config 'automation_time' |  sed 's/ .*//' | xargs echo -n)
 MON=$(bashio::config 'mon' | xargs echo -n)
 TUE=$(bashio::config 'tue' | xargs echo -n)
 WED=$(bashio::config 'wed' | xargs echo -n)
@@ -34,7 +34,7 @@ FRI=$(bashio::config 'fri' | xargs echo -n)
 SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
-echo -e "${AUTOMATION_TIME}"
+echo -e "x${AUTOMATION_TIME}x"
 
 if [ "${KEEP_ACTIVE}" == false ];
 then
@@ -115,7 +115,6 @@ else
 	echo -e "${__BASHIO_COLORS_GREEN}TokenRemover will run at set times${__BASHIO_COLORS_DEFAULT}\n "
 	while :
 	do
-		
 		RESULT=$(python3 run.py 0 ${AM_PM} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 		echo -e $(echo -e "${RESULT}" | head -n1)
 		sleep $(echo -e "${RESULT}" | tail -n1)
