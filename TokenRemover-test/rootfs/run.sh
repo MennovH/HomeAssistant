@@ -34,6 +34,8 @@ FRI=$(bashio::config 'fri' | xargs echo -n)
 SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
 
+echo -e "${AUTOMATION_TIME}"
+
 if [ "${KEEP_ACTIVE}" == false ];
 then
     echo -e "${__BASHIO_COLORS_YELLOW}Note: You may get locked out for one minute after restart, as TokenRemover doesn't know which token belongs to whom. TokenRemover will restore the current ip_bans.yaml file when it detects newly banned IP addresses within one minute after execution. Home Assistant Core will then again be restarted to make this change permanent, after which you should be able to log in again.\n${__BASHIO_COLORS_DEFAULT}"
@@ -113,6 +115,7 @@ else
 	echo -e "${__BASHIO_COLORS_GREEN}TokenRemover will run at set times${__BASHIO_COLORS_DEFAULT}\n "
 	while :
 	do
+		
 		RESULT=$(python3 run.py 0 ${AM_PM} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 		echo -e $(echo -e "${RESULT}" | head -n1)
 		sleep $(echo -e "${RESULT}" | tail -n1)
