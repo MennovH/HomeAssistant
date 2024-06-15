@@ -1,0 +1,41 @@
+configuration:
+  # day
+  retention_days:
+    name: Number of retention days
+    description: >-
+      Enter an integer value between 0 and 365 days. Older refresh tokens, of type "normal", will be removed.
+  #last_used
+  keep_active: 
+    name: Keep active tokens
+    description: >-
+      If enabled, TokenRemover won't remove tokens which have been activated within the number of days set below.
+  activation_days: 
+    name: Number of activation days
+    description: >-
+      Enter an integer value between 1 and 365 days. Refresh tokens activated within this number of days, won't be removed.
+  am_pm:
+    name: Select Night, Day, or Both
+    description: >-
+      TokenRemover will run at night, during daytime, or both
+  hours:
+    name: Select hour
+    description: >-
+      Select the hour on which TokenRemover should run
+  minutes:
+    name: Select minute
+    description: >-
+      Select the minutes on which TokenRemover should run
+  mon:
+    name: Run every Monday
+  tue:
+    name: Run every Tuesday
+  wed:
+    name: Run every Wednesday
+  thu:
+    name: Run every Thursday
+  fri:
+    name: Run every Friday
+  sat:
+    name: Run every Saturday
+  sun:
+    name: Run every Sunday
