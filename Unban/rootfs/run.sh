@@ -35,6 +35,7 @@ fi
 unban () {
     ERROR=0
     IP=$1
+    echo -e "${IP}"
     if [ -f "${BAN_FILE}" ];
     then
         if [ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) > 0 ];
