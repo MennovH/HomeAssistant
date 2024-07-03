@@ -25,7 +25,7 @@ BB="\e[1;34m" #bold blue
 BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
-echo -e "🔓 Initializing add-on 🔓\n "
+echo -e "🔓 Initializing add-on 🔓"
 
 # checks on configuration
 if [[ ${#IPS} == 0 ]];
@@ -33,6 +33,8 @@ then
     echo -e "${RR}Failed to run due to missing IPs${N}"
     exit 1
 fi
+
+if [[ ${INTERVAL} == 1 ]]; then echo -e "${RG}Iterating every minute${N}\n "; else echo -e "${RG}Iterating every ${INTERVAL} minutes${N}\n "; fi
 
 function unban () {
     local IP=$1
@@ -48,8 +50,6 @@ function unban () {
         fi
     fi
 }
-
-if [[ ${INTERVAL} == 1 ]]; then echo -e "${RG}Iterating every minute${N}\n "; else echo -e "${RG}Iterating every ${INTERVAL} minutes${N}\n "; fi
 
 while :
 do
