@@ -37,10 +37,10 @@ function unban () {
     local IP=$1
     if [ -f "${BAN_FILE}" ];
     then
-        if [[ $((grep -o "${IP}" "${BAN_FILE}" | wc -l)) > 0 ]];
+        if [[ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) > 0 ]];
         then
             $(sed -e "/${IP}:/{N;N;d;}" "${BAN_FILE}" > "${BAN_FILE}");
-            if [[ $((grep -o "${IP}" "${BAN_FILE}" | wc -l)) == 0 ]];
+            if [[ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) == 0 ]];
             then
                 echo -e "  > Removed ${IP} from ban file\n "
                 RESULT=1
