@@ -45,7 +45,7 @@ function unban () {
             $(sed -e "/${IP}:/{N;N;d;}" "${BAN_FILE}" > "${BAN_FILE}");
             if [[ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) == 0 ]];
             then
-                echo -e "  > Removed ${IP} from ban file"
+                echo -e "  > Unbanned IP ${IP}"
             fi
         fi
     fi
@@ -77,7 +77,7 @@ do
             echo -e "${__BASHIO_COLORS_GREEN}  > No IPs required removal${N}"
         fi
     else
-        echo -e "${BAN_FILE} not found"
+        echo -e "File ${BAN_FILE} not found"
     fi
     
     echo -e "Next: ${NEXT}"
