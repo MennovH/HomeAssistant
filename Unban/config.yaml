@@ -20,7 +20,7 @@ map:
   - config:rw
 startup: application
 journald: true
-panel_icon: mdi:cloud-check
+panel_icon: mdi:account-lock-open
 options:
   interval: 5
   ip: []
