@@ -19,6 +19,7 @@ unban () {
         then
             $(sed -e "/${IP}:/{N;N;d;}" "${BAN_FILE}" > "${BAN_FILE}");
             if [ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) == 0 ];
+            then
                 echo -e "  > Removed ${IP} from ban file\n "
             fi
         fi
