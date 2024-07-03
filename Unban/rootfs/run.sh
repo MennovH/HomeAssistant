@@ -61,7 +61,6 @@ do
     _TIME=$((`date +%s`-_START))
     if [[ ! $_TIME -ge $INTERVAL ]]; then _TIME=0; fi
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+(${INTERVAL}*60)-$_TIME ))" "+%Y-%m-%d %H:%M:%S")
-    echo -e "Next: ${NEXT}"
 
     # check ban file exists
     if [ -f "${BAN_FILE}" ];
