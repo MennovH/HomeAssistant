@@ -9,6 +9,7 @@ declare INTERVAL
 BAN_FILE="/config/ip_bans.yaml"
 INTERVAL=$(bashio::config 'interval')
 IPS=$(bashio::config "ip")
+RESULT=0
 
 # font
 N="\e[0m" #normal
@@ -32,9 +33,8 @@ then
     exit 1
 fi
 
-unban () {
-    ERROR=0
-    IP=$1
+function unban () {
+    local IP=$1
     echo -e "${IP}"
     if [ -f "${BAN_FILE}" ];
     then
@@ -44,6 +44,7 @@ unban () {
             if [ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) == 0 ];
             then
                 echo -e "  > Removed ${IP} from ban file\n "
+                RESULT=1
             fi
         fi
     fi
@@ -64,22 +65,20 @@ do
     NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+(${INTERVAL}*60)-$_TIME ))" "+%Y-%m-%d %H:%M:%S")
     echo -e "Next: ${NEXT}"
 
-    echo "check ban file exists"
-    if [ -f "/config/ip_bans.yaml" ];
-    then
-        echo "ban file present"
-        BAN_LINE_COUNT_BEFORE=$(wc -l "${BAN_FILE}")
-        for IP in ${IPS[@]}; do unban ${IP}; done
-        BAN_LINE_COUNT_AFTER=$(wc -l "${BAN_FILE}")
-        if ! [[ ${BAN_LINE_COUNT_BEFORE} != ${BAN_LINE_COUNT_AFTER} ]];
-        then
-            echo -e "${__BASHIO_COLORS_YELLOW}  > Removed trusted IPs from ip_bans.yaml file, restarting..${__BASHIO_COLORS_DEFAULT}\n"
-            
-            bashio::core.restart
-            
-            echo -e "${__BASHIO_COLORS_GREEN}  > Restarted${__BASHIO_COLORS_DEFAULT}"
+    # echo "check ban file exists"
 
-        fi
+    # BAN_LINE_COUNT_BEFORE=$(wc -l "${BAN_FILE}")
+    for IP in ${IPS[@]}; do unban ${IP}; done
+    # BAN_LINE_COUNT_AFTER=$(wc -l "${BAN_FILE}")
+    # if ! [[ ${BAN_LINE_COUNT_BEFORE} == ${BAN_LINE_COUNT_AFTER} ]];
+    if [[ ${RESULT} == 1 ]];
+    then
+        echo -e "${__BASHIO_COLORS_YELLOW}  > Removed trusted IPs from ip_bans.yaml file, restarting..${__BASHIO_COLORS_DEFAULT}\n"
+        
+        bashio::core.restart
+        
+        echo -e "${__BASHIO_COLORS_GREEN}  > Restarted${__BASHIO_COLORS_DEFAULT}"
+
     fi
     
     # set sleep time and wait until next iteration
