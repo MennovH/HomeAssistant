@@ -35,13 +35,12 @@ fi
 
 function unban () {
     local IP=$1
-    echo -e "${IP}"
     if [ -f "${BAN_FILE}" ];
     then
-        if [ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) > 0 ];
+        if [[ $((grep -o "${IP}" "${BAN_FILE}" | wc -l)) > 0 ]];
         then
             $(sed -e "/${IP}:/{N;N;d;}" "${BAN_FILE}" > "${BAN_FILE}");
-            if [ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) == 0 ];
+            if [[ $((grep -o "${IP}" "${BAN_FILE}" | wc -l)) == 0 ]];
             then
                 echo -e "  > Removed ${IP} from ban file\n "
                 RESULT=1
@@ -73,7 +72,7 @@ do
     # if ! [[ ${BAN_LINE_COUNT_BEFORE} == ${BAN_LINE_COUNT_AFTER} ]];
     if [[ ${RESULT} == 1 ]];
     then
-        echo -e "${__BASHIO_COLORS_YELLOW}  > Removed trusted IPs from ip_bans.yaml file, restarting..${__BASHIO_COLORS_DEFAULT}\n"
+        echo -e "${__BASHIO_COLORS_YELLOW}  > Restarting..${__BASHIO_COLORS_DEFAULT}"
         
         bashio::core.restart
         
