@@ -75,10 +75,10 @@ do
             bashio::core.restart
             echo -e "${__BASHIO_COLORS_GREEN}  > Restarted${__BASHIO_COLORS_DEFAULT}"
         else
-            echo -e "${__BASHIO_COLORS_GREEN}  > No IPs required removal\n "
+            echo -e "${__BASHIO_COLORS_GREEN}  > No IPs required removal${N}"
         fi
     else
-        echo -e "${BAN_FILE} not found\n "
+        echo -e "${BAN_FILE} not found"
     fi
     
     # set sleep time and wait until next iteration
