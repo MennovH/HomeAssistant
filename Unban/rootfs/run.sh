@@ -25,7 +25,7 @@ BB="\e[1;34m" #bold blue
 BG="\e[1;32m" #bold green
 R="\e[1;31m" #bold red (error)
 
-echo -e "🔓 Initializing add-on 🔓"
+echo -e "🔓 Initializing add-on 🔓\n "
 
 # checks on configuration
 if [[ ${#IPS} == 0 ]];
@@ -75,10 +75,10 @@ do
             bashio::core.restart
             echo -e "${__BASHIO_COLORS_GREEN}  > Restarted${__BASHIO_COLORS_DEFAULT}"
         else
-            echo -e "${__BASHIO_COLORS_GREEN}  > No IPs required removal"
+            echo -e "${__BASHIO_COLORS_GREEN}  > No IPs required removal\n "
         fi
     else
-        echo -e "${BAN_FILE} not found"
+        echo -e "${BAN_FILE} not found\n "
     fi
     
     # set sleep time and wait until next iteration

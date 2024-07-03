@@ -16,6 +16,6 @@ This add-on runs at set intervals to prevent yourself from being locked out from
 
 When installed, navigate to the configuration tab of the add-on. Fill in the empty input fields according the instructions below.
 1. `ips` (required) Enter the IPs that must be removed from ip_bans.yaml file.
-2. `interval` (required) Enter an integer value between 1 and 1440 (default: 10). This is the interval in minutes in which the (sub)domains will be updated.
+2. `interval` (required) Enter an integer value between 1 and 1440 (default: 5). This is the interval in minutes in which the (sub)domains will be updated.
 3. When ready, start the add-on. The logging will show its results. Don't forget to enable "Start at startup" and "Watchdog", to ensure the add-on is running.
 
