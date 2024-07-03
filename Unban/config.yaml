@@ -7,6 +7,7 @@ slug: "unban"
 ingress: false
 auth_api: true
 apparmor: false
+hassio_role: manager
 init: false
 arch:
   - aarch64
