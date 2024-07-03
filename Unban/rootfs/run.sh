@@ -76,7 +76,7 @@ do
             bashio::core.restart
             echo -e "${__BASHIO_COLORS_GREEN}  > Restarted${__BASHIO_COLORS_DEFAULT}"
         else
-            echo "No IPs required removal"
+            echo -e "${__BASHIO_COLORS_GREEN}  > No IPs required removal"
         fi
     else
         echo -e "${BAN_FILE} not found"
