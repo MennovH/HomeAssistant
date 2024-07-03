@@ -16,6 +16,8 @@ arch:
   - armhf
   - armv7
   - i386
+map:
+  - config:rw
 startup: application
 journald: true
 panel_icon: mdi:cloud-check
