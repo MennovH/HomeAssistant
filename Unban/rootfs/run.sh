@@ -65,7 +65,7 @@ do
     echo -e "Next: ${NEXT}"
 
     echo "check ban file exists"
-    if [ -f "${BAN_FILE}" ];
+    if [ -f "/config/ip_bans.yaml" ];
     then
         echo "ban file present"
         BAN_LINE_COUNT_BEFORE=$(wc -l "${BAN_FILE}")
