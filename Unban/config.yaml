@@ -22,5 +22,4 @@ options:
   ip: []
 schema:
   interval: int(1,1440)
-  ip:
-    - "str"
+  ip: "str"
