@@ -10,6 +10,21 @@ BAN_FILE="/config/ip_bans.yaml"
 INTERVAL=$(bashio::config 'interval')
 IPS=$(bashio::config "ip")
 
+# font
+N="\e[0m" #normal
+I="\e[3m" #italic
+S="\e[9m" #strikethrough
+U="\e[4m" #underline
+
+# colors
+RG="\e[0;32m" #regular green
+RR="\e[0;31m" #regular red
+RY="\e[0;33m" #regular yellow
+GR="\e[1;30m" #grey
+BB="\e[1;34m" #bold blue
+BG="\e[1;32m" #bold green
+R="\e[1;31m" #bold red (error)
+
 unban () {
     ERROR=0
     IP=$1
