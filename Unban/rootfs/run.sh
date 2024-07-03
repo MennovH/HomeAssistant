@@ -81,6 +81,7 @@ do
         echo -e "${BAN_FILE} not found"
     fi
     
+    echo -e "Next: ${NEXT}"
     # set sleep time and wait until next iteration
     sleep $(if [[ $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))) -le 1 ]]; then echo -e $INTERVAL; else echo -e $(((($INTERVAL*60)-($SECONDS/60))-($SECONDS%60))); fi)s
     echo -e "\n "
