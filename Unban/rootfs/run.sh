@@ -48,9 +48,12 @@ while :
 do
 
     # calculate next run time
-    START_TIME=$((`date +%s`-PIP_FETCH_START))
-    if [[ ! $START_TIME -ge $INTERVAL ]]; then START_TIME=0; fi
-    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+(${INTERVAL}*60)-$START_TIME ))" "+%Y-%m-%d %H:%M:%S")
+    echo -e "Time: $(date '+%Y-%m-%d %H:%M:%S')"
+    _START=`date +%s`
+
+    _TIME=$((`date +%s`-_START))
+    if [[ ! $_TIME -ge $INTERVAL ]]; then _TIME=0; fi
+    NEXT=$(echo | busybox date -d@"$(( `busybox date +%s`+(${INTERVAL}*60)-$_TIME ))" "+%Y-%m-%d %H:%M:%S")
     echo -e "Next: ${NEXT}"
 
     if [ -f "${BAN_FILE}" ];
