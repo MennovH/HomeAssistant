@@ -1,0 +1,26 @@
+name: "Unban"
+url: https://github.com/MennovH/HomeAssistant/tree/main/Unban
+description: "Unban add-on for Home Assistant"
+codenotary: mennovh_@hotmail.com
+version: "1.0.0"
+slug: "unban"
+ingress: false
+auth_api: true
+apparmor: false
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: system
+journald: true
+panel_icon: mdi:cloud-check
+options:
+  interval: 5
+  ip: []
+schema:
+  interval: int(1,1440)
+  ip:
+    - "str"

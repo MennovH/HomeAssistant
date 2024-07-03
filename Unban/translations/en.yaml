@@ -1,0 +1,10 @@
+configuration:
+  interval: 
+    name: Time interval (minutes)
+    description: >-
+      Enter an integer value between 1 and 1440. Default value is 5.
+  domains:
+    name: IP
+    description: >-
+      Enter the regarding IPs that must be unbanned.
+
