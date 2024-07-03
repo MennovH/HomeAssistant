@@ -4,10 +4,11 @@ description: "Unban add-on for Home Assistant"
 codenotary: mennovh_@hotmail.com
 version: "1.0.0"
 slug: "unban"
-ingress: false
+hassio_api: true
 auth_api: true
-apparmor: false
 hassio_role: manager
+apparmor: false
+ingress: false
 init: false
 arch:
   - aarch64
@@ -15,7 +16,7 @@ arch:
   - armhf
   - armv7
   - i386
-startup: system
+startup: application
 journald: true
 panel_icon: mdi:cloud-check
 options:
