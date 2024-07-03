@@ -66,6 +66,7 @@ do
 
     if [ -f "${BAN_FILE}" ];
     then
+        echo "ban file present"
         BAN_LINE_COUNT_BEFORE=$(wc -l "${BAN_FILE}")
         for IP in ${IPS[@]}; do unban ${IP}; done
         BAN_LINE_COUNT_AFTER=$(wc -l "${BAN_FILE}")
