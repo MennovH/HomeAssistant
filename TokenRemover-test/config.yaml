@@ -2,7 +2,7 @@ name: "TokenRemover-test"
 url: https://github.com/MennovH/HomeAssistant/tree/main/TokenRemover-test
 description: "Add-on for Home Assistant to remove old refresh tokens"
 codenotary: mennovh_@hotmail.com
-version: "1.0.5"
+version: "1.0.6"
 slug: "tokenremover-test"
 hassio_api: true
 auth_api: true
