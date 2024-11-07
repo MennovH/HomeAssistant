@@ -1,3 +1,6 @@
+# v1.0.6
+Spanish translation added by @sheaur
+
 # v1.0.5
 Additional code by @nbetcher to prevent crash on missing last_used_at info
 
