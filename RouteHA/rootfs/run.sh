@@ -27,9 +27,9 @@ R="\e[1;31m" #bold red (error)
 echo -e "Initializing add-on"
 
 # checks on configuration
-if [[ ${#DEFAULT} == 0 ]];
+if [[ ${#GATEWAY} == 0 ]];
 then
-    echo -e "${RR}Failed to run due to missing default route${N}"
+    echo -e "${RR}Failed to run due to missing gateway${N}"
     exit 1
 fi
 
