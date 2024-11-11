@@ -1,0 +1,13 @@
+configuration:
+  gateway:
+    name: Gateway
+    description: >-
+      Enter the gateway the Home Assistant instance should use.
+  static_routes:
+    name: Static routes (optional)
+    description: >-
+      Enter the static routes that should be known.
+  interval: 
+    name: Time interval (minutes)
+    description: >-
+      Enter an integer value between 1 and 1440. Default value is 10.
