@@ -42,7 +42,8 @@ function unban () {
     then
         if [[ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) > 0 ]];
         then
-            $(sed -e "/${IP}:/{N;N;d;}" "${BAN_FILE}" > "${BAN_FILE}");
+            #$(sed -e "/${IP}:/{N;N;d;}" "${BAN_FILE}" > "${BAN_FILE}");
+            $(sed -i "/${IP}:/{N;N;d;}" "${BAN_FILE}");
             if [[ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) == 0 ]];
             then
                 echo -e "  > Unbanned IP ${IP}"
