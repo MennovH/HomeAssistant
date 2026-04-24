@@ -6,12 +6,19 @@ WORKDIR /
 RUN apk add --no-cache \
     python3 \
     py3-pip \
-    tzdata \
-  && pip3 install --no-cache-dir websockets
+    py3-virtualenv \
+    tzdata
 
-ADD rootfs/run.py  /
-ADD rootfs/revoke.py  /
+# Maak virtualenv
+RUN python3 -m venv /opt/venv
 
-COPY /rootfs /app
+# Activeer venv en installeer packages
+RUN /opt/venv/bin/pip install --no-cache-dir websockets
+
+# Zorg dat venv standaard gebruikt wordt
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY rootfs /app
 RUN chmod a+x /app/run.sh
+
 ENTRYPOINT ["/app/run.sh"]
