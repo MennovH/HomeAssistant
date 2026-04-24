@@ -25,7 +25,7 @@ map:
 journald: true
 panel_icon: mdi:update
 options:
-  long_lived_token: null
+  long_lived_token: ""
   retention_days: 7
   keep_active: true
   activation_days: 7
