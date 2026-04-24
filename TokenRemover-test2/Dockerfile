@@ -3,10 +3,11 @@ FROM $BUILD_FROM
 
 WORKDIR /
 
-RUN \
-  apk add --no-cache \
+RUN apk add --no-cache \
     python3 \
-    tzdata
+    py3-pip \
+    tzdata \
+  && pip3 install --no-cache-dir websockets
 
 ADD rootfs/run.py  /
 ADD rootfs/revoke.py  /
