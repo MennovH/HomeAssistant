@@ -5,7 +5,7 @@ from datetime import timedelta, datetime
 import json
 import sys
 import asyncio
-from .revoke import revoke_tokens
+import revoke
 
 # Defining the auth file which will be updated if needed
 AUTH_FILE = "/config/.storage/auth"
@@ -114,7 +114,7 @@ def tokenremover(long_lived_token, retention_days, active_days):
             async def process_revocation():
                 # tokens = build_tokens_to_revoke()
 
-                results = await revoke_tokens(long_lived_token, rem_tokens)
+                results = await revoke.revoke_tokens(long_lived_token, rem_tokens)
 
                 for r in results:
                     print(r) #nodig?
