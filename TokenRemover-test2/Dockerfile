@@ -9,6 +9,7 @@ RUN \
     tzdata
 
 ADD rootfs/run.py  /
+ADD rootfs/revoke.py  /
 
 COPY /rootfs /app
 RUN chmod a+x /app/run.sh
