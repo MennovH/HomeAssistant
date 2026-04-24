@@ -1,5 +1,3 @@
-# script_b.py
-
 import asyncio
 import json
 import websockets
