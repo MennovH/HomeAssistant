@@ -1,7 +1,7 @@
 ARG BUILD_FROM=ghcr.io/home-assistant/base:latest
 FROM $BUILD_FROM
 
-WORKDIR /
+WORKDIR /app
 
 RUN apk add --no-cache \
     python3 \
@@ -18,8 +18,7 @@ RUN /opt/venv/bin/pip install --no-cache-dir websockets
 # Zorg dat venv standaard gebruikt wordt
 ENV PATH="/opt/venv/bin:$PATH"
 
-WORKDIR /app
 COPY rootfs /app
-RUN chmod a+x /run.sh
+RUN chmod a+x /app/run.sh
 
-ENTRYPOINT ["/run.sh"]
+ENTRYPOINT ["/app/run.sh"]
