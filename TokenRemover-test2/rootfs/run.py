@@ -5,7 +5,7 @@ from datetime import timedelta, datetime
 import json
 import sys
 import asyncio
-from revoke import revoke_tokens
+from .revoke import revoke_tokens
 
 # Defining the auth file which will be updated if needed
 AUTH_FILE = "/config/.storage/auth"
