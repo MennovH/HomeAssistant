@@ -1,0 +1,37 @@
+configuration:
+  # day
+  retention_days:
+    name: Número de retención de dias
+    description: >-
+      Introduzca un valor entero entre 0 y 365 días. Se eliminarán los tokens de actualización más antiguos, de tipo "normal".
+  #last_used
+  keep_active: 
+    name: Mantener tokens activos
+    description: >-
+      Si está habilitado, TokenRemover no eliminará los tokens que se hayan activado dentro del número de días establecido a continuación.
+  activation_days: 
+    name: Número de días de activación
+    description: >-
+      Introduzca un valor entero entre 1 y 365 días. Los tokens de actualización activados dentro de este número de días no se eliminarán.
+  am_pm:
+    name: Selecione AM, PM, or Both (Ambas)
+    description: >-
+      TokenRemover mañana (AM), tarde (PM), o antes y después del mediodía (Both)
+  automation_time:
+    name: Seleccionar hora
+    description: >-
+      Seleccione la hora en la que debe ejecutarse TokenRemover
+  mon:
+    name: Todos los Lunes
+  tue:
+    name: Todos los Martes
+  wed:
+    name: Todos los Miércoles
+  thu:
+    name: Todos los Jueves
+  fri:
+    name: Todos los Viernes
+  sat:
+    name: Todos los Sábados
+  sun:
+    name: Todos los Domingos
