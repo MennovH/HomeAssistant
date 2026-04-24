@@ -1,4 +1,4 @@
-name: "TokenRemover-test2"
+name: "TokenRemover-test2-donotuse"
 url: https://github.com/MennovH/HomeAssistant/tree/main/TokenRemover-test2
 description: "Add-on for Home Assistant to remove old refresh tokens"
 version: "1.0.6"
