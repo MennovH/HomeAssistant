@@ -18,7 +18,8 @@ RUN /opt/venv/bin/pip install --no-cache-dir websockets
 # Zorg dat venv standaard gebruikt wordt
 ENV PATH="/opt/venv/bin:$PATH"
 
+WORKDIR /app
 COPY rootfs /app
-RUN chmod a+x /app/run.sh
+RUN chmod a+x /run.sh
 
-ENTRYPOINT ["/app/run.sh"]
+ENTRYPOINT ["/run.sh"]
