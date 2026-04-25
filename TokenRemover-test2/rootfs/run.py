@@ -144,7 +144,7 @@ def tokenremover(long_lived_token, retention_days, active_days):
         rem_tokens.append(token["id"])
 
 
-    if long_lived_token in [None,"None",""]:
+    if long_lived_token in [None,"None","","not_defined"]:
         # Detect differences
         removed_tokens = len(data["data"]["refresh_tokens"]) - len(keep_list)
         if removed_tokens > 0:    
