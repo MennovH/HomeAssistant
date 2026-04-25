@@ -98,7 +98,8 @@ def recurrence(days_enabled, automation_time, am_pm):
                 # return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
 
                 # return "Scheduled: ", candidate.strftime("%Y-%m-%d %H:%M")
-                return candidate
+                return (candidate - datetime.now()).total_seconds()
+                # return candidate
 
     return "Scheduled: never"
 
