@@ -127,13 +127,13 @@ if __name__ == '__main__':
     if sys.argv[1] == '0':
         # Check recurrence
         weekdays = [day-1 for day in range(len(sys.argv[4:])) if sys.argv[4:][day] == 'true']
-        result = recurrence(sys.argv[2], sys.argv[3], sys.argv[4].split(':'), weekdays)
+        result = recurrence(sys.argv[3], sys.argv[4].split(':'), weekdays)
     elif sys.argv[1] == '1':
         # Run tokenremover       
         result = tokenremover(sys.argv[2], sys.argv[3], sys.argv[4])
     else:
         result = addon("".join(sys.argv[2:])) #change to 3
 
-    print(result)
+    # print(result)
     sys.exit(0)
     
