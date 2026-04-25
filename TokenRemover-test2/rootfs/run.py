@@ -127,8 +127,7 @@ if __name__ == '__main__':
     if sys.argv[1] == '0':
         # Check recurrence
         weekdays = [day-1 for day in range(len(sys.argv[5:])) if sys.argv[5:][day] == 'true']
-        print(weekdays)
-        print(sys.argv[3:])
+        print(sys.argv[2:])
 
         result = recurrence(sys.argv[3], sys.argv[4].split(':'), weekdays)
     elif sys.argv[1] == '1':
