@@ -44,6 +44,7 @@ def recurrence(am_pm, automation_time, weekdays):
             for _ in range(2):
                 if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt, second=0):
                     later = datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt)
+                    print(later)
                     return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
                 h = 12 if h == 0 else hr + 12
                     
@@ -127,7 +128,7 @@ if __name__ == '__main__':
     if sys.argv[1] == '0':
         # Check recurrence
         weekdays = [day-1 for day in range(len(sys.argv[5:])) if sys.argv[5:][day] == 'true']
-        print(sys.argv[2:])
+        # print(sys.argv[2:])
 
         result = recurrence(sys.argv[3], sys.argv[4].split(':'), weekdays)
     elif sys.argv[1] == '1':
