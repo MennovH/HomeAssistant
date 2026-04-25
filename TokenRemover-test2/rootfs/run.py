@@ -194,6 +194,6 @@ if __name__ == '__main__':
     else:
         result = addon("".join(sys.argv[2:])) #change to 3
 
-    # print(result)
+    print(result)
     sys.exit(0)
     
