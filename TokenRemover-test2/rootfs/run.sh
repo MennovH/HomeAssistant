@@ -12,13 +12,14 @@ declare RETENTION_DAYS
 declare RESULT
 declare AUTO
 declare ADDON
-declare MON
-declare TUE
-declare WED
-declare THU
-declare FRI
-declare SAT
-declare SUN
+# declare MON
+# declare TUE
+# declare WED
+# declare THU
+# declare FRI
+# declare SAT
+# declare SUN
+declare WEEKDAYS
 
 BAN_FILE="/config/ip_bans.yaml"
 TMP_BAN_FILE="/config/tmp_ip_bans.yaml"
@@ -28,13 +29,32 @@ KEEP_ACTIVE=$(bashio::config 'keep_active' | xargs echo -n)
 ACTIVATION_DAYS=$(bashio::config 'activation_days' | xargs echo -n)
 AM_PM=$(bashio::config 'am_pm' | xargs echo -n)
 AUTOMATION_TIME=$(bashio::config 'automation_time' | xargs echo -n)
-MON=$(bashio::config 'mon' | xargs echo -n)
-TUE=$(bashio::config 'tue' | xargs echo -n)
-WED=$(bashio::config 'wed' | xargs echo -n)
-THU=$(bashio::config 'thu' | xargs echo -n)
-FRI=$(bashio::config 'fri' | xargs echo -n)
-SAT=$(bashio::config 'sat' | xargs echo -n)
-SUN=$(bashio::config 'sun' | xargs echo -n)
+# MON=$(bashio::config 'mon' | xargs echo -n)
+# TUE=$(bashio::config 'tue' | xargs echo -n)
+# WED=$(bashio::config 'wed' | xargs echo -n)
+# THU=$(bashio::config 'thu' | xargs echo -n)
+# FRI=$(bashio::config 'fri' | xargs echo -n)
+# SAT=$(bashio::config 'sat' | xargs echo -n)
+# SUN=$(bashio::config 'sun' | xargs echo -n)
+
+WEEKDAYS=$(jq -n \
+  --arg mon "$(bashio::config 'mon')" \
+  --arg tue "$(bashio::config 'tue')" \
+  --arg wed "$(bashio::config 'wed')" \
+  --arg thu "$(bashio::config 'thu')" \
+  --arg fri "$(bashio::config 'fri')" \
+  --arg sat "$(bashio::config 'sat')" \
+  --arg sun "$(bashio::config 'sun')" \
+  '{
+    mon: ($mon == "true"),
+    tue: ($tue == "true"),
+    wed: ($wed == "true"),
+    thu: ($thu == "true"),
+    fri: ($fri == "true"),
+    sat: ($sat == "true"),
+    sun: ($sun == "true")
+  }'
+)
 LONG_LIVED_TOKEN=$(bashio::config 'long_lived_token')
 LONG_LIVED_TOKEN=${LONG_LIVED_TOKEN:-not_defined}
 
@@ -44,15 +64,17 @@ then
 	ACTIVATION_DAYS=999
 fi
 
+# AUTO="Once"
+# for day in "${MON}" "${TUE}" "${WED}" "${THU}" "${FRI}" "${SAT}" "${SUN}";
+# do
+# 	if [ "${day}" == true ];
+# 	then
+# 		AUTO="Defined"
+# 		break
+# 	fi
+# done
 AUTO="Once"
-for day in "${MON}" "${TUE}" "${WED}" "${THU}" "${FRI}" "${SAT}" "${SUN}";
-do
-	if [ "${day}" == true ];
-	then
-		AUTO="Defined"
-		break
-	fi
-done
+echo "$WEEKDAYS" | jq -e 'any(.[]; .)' > /dev/null && AUTO="Defined"
 
 run () {
 
@@ -117,7 +139,8 @@ else
 	echo -e "${__BASHIO_COLORS_GREEN}TokenRemover will run at set times${__BASHIO_COLORS_DEFAULT}\n "
 	while :
 	do
-		RESULT=$(python3 run.py 0 ${LONG_LIVED_TOKEN} ${AM_PM} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
+		#RESULT=$(python3 run.py 0 ${LONG_LIVED_TOKEN} ${AM_PM} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
+		RESULT=$(python3 run.py 0 ${AM_PM} ${AUTOMATION_TIME} ${WEEKDAYS})
 		echo -e $(echo -e "${RESULT}" | head -n1)
 		sleep $(echo -e "${RESULT}" | tail -n1)
 		
