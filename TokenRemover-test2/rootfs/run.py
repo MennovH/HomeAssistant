@@ -181,7 +181,7 @@ if __name__ == '__main__':
         automation_time = sys.argv[3]  # bv "08:45"
         days_enabled = json.loads(sys.argv[4])
 
-        print(sys.argv[1:])
+        # print(sys.argv[1:])
         # ---- berekening ----
         result = recurrence(days_enabled, automation_time, am_pm)
 
