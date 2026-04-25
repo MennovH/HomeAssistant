@@ -180,7 +180,7 @@ if __name__ == '__main__':
         am_pm = sys.argv[2]
         automation_time = sys.argv[3]  # bv "08:45"
 
-
+        print(sys.argv[1:])
         # ---- berekening ----
         result = recurrence(days_enabled, automation_time, am_pm)
 
