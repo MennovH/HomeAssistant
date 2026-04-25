@@ -166,10 +166,10 @@ def tokenremover(long_lived_token, retention_days, active_days):
 
                 results = await revoke.revoke_tokens(long_lived_token, rem_tokens)
 
-                for r in results:
-                    print(r) #nodig?
+                # for r in results:
+                #     print(r) #nodig?
 
-            return f"  > Removed {len(rem_tokens)} token{'' if len(rem_tokens) == 1 else 's'}" + "\n" + f"{'  > Restarting...' if len(rem_tokens) > 0 else ''}"
+            return f"  > Removed {len(rem_tokens)} token{'' if len(rem_tokens) == 1 else 's'}" + "\n" + f"{rem_tokens}"
 
 
 if __name__ == '__main__':
