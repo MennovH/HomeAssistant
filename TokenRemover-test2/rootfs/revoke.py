@@ -2,7 +2,7 @@ import asyncio
 import json
 import websockets
 
-HA_WS_URL = "ws://homeassistant:8123/api/websocket"
+HA_WS_URL = "ws://127.0.0.1:8123/api/websocket"
 
 
 async def revoke_tokens(long_lived_token, token_ids):
