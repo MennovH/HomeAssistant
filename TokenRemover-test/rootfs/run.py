@@ -52,9 +52,9 @@ def date_calc(date, weekday):
 
 
 def to_24h(hour, ampm):
-    if ampm == "AM":
+    if ampm == "Night":
         return 0 if hour == 12 else hour
-    elif ampm == "PM":
+    elif ampm == "Day":
         return 12 if hour == 12 else hour + 12
 
 
@@ -63,10 +63,10 @@ def recurrence(days_enabled, automation_time, am_pm):
     hour_12, minute = map(int, automation_time.split(":"))
 
     candidate_hours = []
-    if am_pm in ("AM", "Both"):
-        candidate_hours.append(to_24h(hour_12, "AM"))
-    if am_pm in ("PM", "Both"):
-        candidate_hours.append(to_24h(hour_12, "PM"))
+    if am_pm in ("Night", "Both"):
+        candidate_hours.append(to_24h(hour_12, "Night"))
+    if am_pm in ("Day", "Both"):
+        candidate_hours.append(to_24h(hour_12, "Day"))
 
     day_map = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
@@ -137,7 +137,7 @@ def tokenremover(retention_days, active_days):
             json.dump(data, f, indent=4)
         
         # "send" return value to bash, so it will run the "ha core restart" command hereafter. The restart is
-        # necessary to implement the changes, otherwise the updated file will be restored by Home Assistant RAM.
+        # necessary to implement the changes, otherwise the updated file will be restored by client sessions.
     
     return f"  > Removed {removed_tokens} token{'' if removed_tokens == 1 else 's'}" + "\n" + f"{'  > Restarting...' if removed_tokens >0 else ''}"
     
