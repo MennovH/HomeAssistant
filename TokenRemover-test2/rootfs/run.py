@@ -92,10 +92,10 @@ def recurrence(days_enabled, automation_time, am_pm):
             )
 
             if candidate > now:
-                return "Next run:", candidate.strftime("%Y-%m-%d %H:%M")
+                return "Scheduled: ", candidate.strftime("%Y-%m-%d %H:%M")
                 # return candidate
 
-    return "Next run: not scheduled"
+    return "Scheduled: never"
 
 
 def tokenremover(long_lived_token, retention_days, active_days):
