@@ -1,7 +1,6 @@
 name: "TokenRemover"
 url: https://github.com/MennovH/HomeAssistant/tree/main/TokenRemover
 description: "Add-on for Home Assistant to remove old refresh tokens"
-codenotary: mennovh_@hotmail.com
 version: "1.0.6"
 slug: "tokenremover"
 hassio_api: true
@@ -17,9 +16,6 @@ init: false
 arch:
   - aarch64
   - amd64
-  - armhf
-  - armv7
-  - i386
 map:
   - config:rw
 journald: true
