@@ -59,16 +59,16 @@ def date_calc(date, weekday):
 import sys
 import json
 from datetime import datetime, time, timedelta
+def to_24h(hour, ampm):
+    if ampm == "AM":
+        return 0 if hour == 12 else hour
+    elif ampm == "PM":
+        return 12 if hour == 12 else hour + 12
+
 
 def recurrence(days_enabled, automation_time, am_pm):
     now = datetime.now()
     hour_12, minute = map(int, automation_time.split(":"))
-
-    def to_24h(hour, ampm):
-        if ampm == "AM":
-            return 0 if hour == 12 else hour
-        elif ampm == "PM":
-            return 12 if hour == 12 else hour + 12
 
     candidate_hours = []
     if am_pm in ("AM", "Both"):
@@ -175,27 +175,17 @@ def tokenremover(long_lived_token, retention_days, active_days):
 if __name__ == '__main__':
 
     if sys.argv[1] == '0':
-        # Check recurrence
-        # weekdays = [day-1 for day in range(len(sys.argv[5:])) if sys.argv[5:][day] == 'true']
-        # print(sys.argv[2:])
-
-        # result = recurrence(sys.argv[3], sys.argv[4].split(':'), weekdays)
         # ---- input parsing ----
-        days_enabled = json.loads(sys.argv[4])
         am_pm = sys.argv[2]
         automation_time = sys.argv[3]  # bv "08:45"
+        days_enabled = json.loads(sys.argv[4])
 
         print(sys.argv[1:])
         # ---- berekening ----
         result = recurrence(days_enabled, automation_time, am_pm)
 
-        # ---- output ----
-        # if next_run_dt:
-            
-        # else:
-        #     print("Next run: not scheduled")
-
-
+        # weekdays = [day-1 for day in range(len(sys.argv[3:])) if sys.argv[3:][day] == 'true']
+        # result = recurrence(sys.argv[2], sys.argv[3].split(':'), weekdays)
 
 
     elif sys.argv[1] == '1':
