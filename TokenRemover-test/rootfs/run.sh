@@ -127,7 +127,9 @@ else
 	echo -e "${__BASHIO_COLORS_GREEN}TokenRemover will run at set times${__BASHIO_COLORS_DEFAULT}\n "
 	while :
 	do
-		RESULT=$(python3 run.py 0 ${AM_PM} ${AUTOMATION_TIME} ${WEEKDAYS})
+		# RESULT=$(python3 run.py 0 ${AM_PM} ${AUTOMATION_TIME} ${WEEKDAYS})
+		RESULT=$(python3 run.py 0 "${AM_PM}" "${AUTOMATION_TIME}" "${WEEKDAYS}")
+
 		echo -e $(echo -e "${RESULT}" | head -n1)
 		sleep $(echo -e "${RESULT}" | tail -n1)
 		
