@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 # Import needed modules
-from datetime import timedelta, datetime, time
+import time
+import datetime as dt
 import json
 import sys
 
@@ -18,8 +19,8 @@ def addon(info):
 
 
 def date_calc(date, weekday):
-    d = datetime.strptime(date, '%Y-%m-%d')
-    t = timedelta((7 + weekday - d.weekday()) % 7)
+    d = dt.datetime.strptime(date, '%Y-%m-%d')
+    t = dt.timedelta((7 + weekday - d.weekday()) % 7)
     return (d + t).strftime('%Y-%m-%d')
 
 
@@ -32,22 +33,22 @@ def date_calc(date, weekday):
 #     elif hr != 12 and am_pm == 'Day':
 #         hr += 12
     
-#     for date_value in sorted([date_calc(f'{datetime.now().date()}', day) for day in weekdays]):
+#     for date_value in sorted([date_calc(f'{dt.datetime.now().date()}', day) for day in weekdays]):
 #         date_list = date_value.split('-')
 #         yr, mnth, d = int(date_list[0]), int(date_list[1]), int(date_list[2])
         
 #         if am_pm == 'Both':
 #             h = hr if hr < 12 else 0
 #             for _ in range(2):
-#                 if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt, second=0):
-#                     later = datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt)
-#                     return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
+#                 if dt.datetime.now() < dt.datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt, second=0):
+#                     later = dt.datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt)
+#                     return f"Scheduled: {later}\n{(later - dt.datetime.now()).total_seconds()}"
 #                 h = 12 if h == 0 else hr + 12
                     
 #         else:
-#             if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
-#                 later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
-#                 return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
+#             if dt.datetime.now() < dt.datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
+#                 later = dt.datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
+#                 return f"Scheduled: {later}\n{(later - dt.datetime.now()).total_seconds()}"
 
 
 
@@ -59,7 +60,7 @@ def to_24h(hour, ampm):
 
 
 def recurrence(days_enabled, automation_time, am_pm):
-    now = datetime.now()
+    now = dt.datetime.now()
     hour_12, minute = map(int, automation_time.split(":"))
 
     candidate_hours = []
@@ -71,20 +72,20 @@ def recurrence(days_enabled, automation_time, am_pm):
     day_map = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
     for offset in range(8):
-        check_date = now + timedelta(days=offset)
+        check_date = now + dt.timedelta(days=offset)
         day_key = day_map[check_date.weekday()]
 
         if not days_enabled.get(day_key, False):
             continue
 
         for hour in sorted(candidate_hours):
-            candidate = datetime.combine(
+            candidate = dt.datetime.combine(
                 check_date.date(),
-                time(hour=hour, minute=minute)
+                dt.time(hour=hour, minute=minute)
             )
 
             if candidate > now:
-                return f"Scheduled: {candidate.strftime("%Y-%m-%d %H:%M")}\n{(candidate - datetime.now()).total_seconds()}"
+                return f"Scheduled: {candidate.strftime("%Y-%m-%d %H:%M")}\n{(candidate - dt.datetime.now()).total_seconds()}"
 
     return "Scheduled: never"
 
@@ -112,20 +113,20 @@ def tokenremover(retention_days, active_days):
 
             date_str = token["last_used_at"]
             yr, mnth, d, hr, mnt, scnd = date_str[:date_str.index(".")].translate(date_str.maketrans("T:.", "---")).split("-")
-            last_used_date = datetime(int(yr), int(mnth), int(d), int(hr), int(mnt))
+            last_used_date = dt.datetime(int(yr), int(mnth), int(d), int(hr), int(mnt))
         
-            if last_used_date >= (datetime.now() + timedelta(minutes=30) - timedelta(days=int(active_days))):
+            if last_used_date >= (dt.datetime.now() + dt.timedelta(minutes=30) - dt.timedelta(days=int(active_days))):
                 keep_list.append(token)
                 continue
 
         # Get creation date, and parse to a comparable format
         date_str = token["created_at"]
         yr, mnth, d, hr, mnt, scnd = date_str[:date_str.index(".")].translate(date_str.maketrans("T:.", "---")).split("-")
-        creation_date = datetime(int(yr), int(mnth), int(d), int(hr), int(mnt))
+        creation_date = dt.datetime(int(yr), int(mnth), int(d), int(hr), int(mnt))
         
         # Compare the creation date with the exact date time of x days ago
         # add 30 minutes to creation date, to prevent on boot execution (if enabled) to trigger hereafter
-        if creation_date >= (datetime.now() + timedelta(minutes=30) - timedelta(days=int(retention_days))):
+        if creation_date >= (dt.datetime.now() + dt.timedelta(minutes=30) - dt.timedelta(days=int(retention_days))):
             keep_list.append(token)
             continue
         rem_token.append(token['id'])
@@ -144,7 +145,7 @@ def tokenremover(retention_days, active_days):
         # Overwrite refresh_token list in auth file
         with open(AUTH_FILE, "w") as f:
             json.dump(data, f, indent=4)
-            
+
         time.sleep(0.75)
         subprocess.run([
             "bash",
