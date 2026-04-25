@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # Import needed modules
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, time
 import json
 import sys
 
@@ -23,31 +23,70 @@ def date_calc(date, weekday):
     return (d + t).strftime('%Y-%m-%d')
 
 
-def recurrence(am_pm, automation_time, weekdays):
-    # Calculate next run time
-    hr, mnt = int(automation_time[0]), int(automation_time[1])
+# def recurrence(am_pm, automation_time, weekdays):
+#     # Calculate next run time
+#     hr, mnt = int(automation_time[0]), int(automation_time[1])
 
-    if hr == 12 and am_pm == 'Night':
-        hr = 0
-    elif hr != 12 and am_pm == 'Day':
-        hr += 12
+#     if hr == 12 and am_pm == 'Night':
+#         hr = 0
+#     elif hr != 12 and am_pm == 'Day':
+#         hr += 12
     
-    for date_value in sorted([date_calc(f'{datetime.now().date()}', day) for day in weekdays]):
-        date_list = date_value.split('-')
-        yr, mnth, d = int(date_list[0]), int(date_list[1]), int(date_list[2])
+#     for date_value in sorted([date_calc(f'{datetime.now().date()}', day) for day in weekdays]):
+#         date_list = date_value.split('-')
+#         yr, mnth, d = int(date_list[0]), int(date_list[1]), int(date_list[2])
         
-        if am_pm == 'Both':
-            h = hr if hr < 12 else 0
-            for _ in range(2):
-                if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt, second=0):
-                    later = datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt)
-                    return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
-                h = 12 if h == 0 else hr + 12
+#         if am_pm == 'Both':
+#             h = hr if hr < 12 else 0
+#             for _ in range(2):
+#                 if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt, second=0):
+#                     later = datetime(year=yr, month=mnth, day=d, hour=h, minute=mnt)
+#                     return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
+#                 h = 12 if h == 0 else hr + 12
                     
-        else:
-            if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
-                later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
-                return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
+#         else:
+#             if datetime.now() < datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt, second=0):
+#                 later = datetime(year=yr, month=mnth, day=d, hour=hr, minute=mnt)
+#                 return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
+
+
+
+def to_24h(hour, ampm):
+    if ampm == "AM":
+        return 0 if hour == 12 else hour
+    elif ampm == "PM":
+        return 12 if hour == 12 else hour + 12
+
+
+def recurrence(days_enabled, automation_time, am_pm):
+    now = datetime.now()
+    hour_12, minute = map(int, automation_time.split(":"))
+
+    candidate_hours = []
+    if am_pm in ("AM", "Both"):
+        candidate_hours.append(to_24h(hour_12, "AM"))
+    if am_pm in ("PM", "Both"):
+        candidate_hours.append(to_24h(hour_12, "PM"))
+
+    day_map = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
+
+    for offset in range(8):
+        check_date = now + timedelta(days=offset)
+        day_key = day_map[check_date.weekday()]
+
+        if not days_enabled.get(day_key, False):
+            continue
+
+        for hour in sorted(candidate_hours):
+            candidate = datetime.combine(
+                check_date.date(),
+                time(hour=hour, minute=minute)
+            )
+
+            if candidate > now:
+                return f"Scheduled: {candidate.strftime("%Y-%m-%d %H:%M")}\n{(candidate - datetime.now()).total_seconds()}"
+
+    return "Scheduled: never"
 
 
 def tokenremover(retention_days, active_days):
@@ -104,14 +143,17 @@ def tokenremover(retention_days, active_days):
     
 
 if __name__ == '__main__':
-
-
-    #['run.py', '0', 'Day', '3:45', '/', '15:45', 'true', 'true', 'true', 'true', 'true', 'true', 'true']
-
     if sys.argv[1] == '0':
         # Check recurrence
-        weekdays = [day-1 for day in range(len(sys.argv[3:])) if sys.argv[3:][day] == 'true']
-        result = recurrence(sys.argv[2], sys.argv[3].split(':'), weekdays)
+
+        am_pm = sys.argv[2]
+        automation_time = sys.argv[3]
+        days_enabled = json.loads(sys.argv[4])
+
+        result = recurrence(days_enabled, automation_time, am_pm)
+
+        # weekdays = [day-1 for day in range(len(sys.argv[3:])) if sys.argv[3:][day] == 'true']
+        # result = recurrence(sys.argv[2], sys.argv[3].split(':'), weekdays)
     elif sys.argv[1] == '1':
         # Run tokenremover
         result = tokenremover(sys.argv[2], sys.argv[3])
