@@ -96,6 +96,7 @@ def tokenremover(retention_days, active_days):
 
     # Create empty list, this is where the "valid" tokens will be stored temporarily
     keep_list = []
+    rem_token = []
 
     # loop through existing refresh tokens to filter the ones that need to be removed
     for token in data["data"]["refresh_tokens"]:
@@ -126,10 +127,12 @@ def tokenremover(retention_days, active_days):
         # add 30 minutes to creation date, to prevent on boot execution (if enabled) to trigger hereafter
         if creation_date >= (datetime.now() + timedelta(minutes=30) - timedelta(days=int(retention_days))):
             keep_list.append(token)
+            continue
+        rem_token.append(token['id'])
 
     # Detect differences
     removed_tokens = len(data["data"]["refresh_tokens"]) - len(keep_list)
-    if removed_tokens > 0:    
+    if removed_tokens > 0:
         data["data"]["refresh_tokens"] = keep_list
         
         # Overwrite refresh_token list in auth file
@@ -139,7 +142,7 @@ def tokenremover(retention_days, active_days):
         # "send" return value to bash, so it will run the "ha core restart" command hereafter. The restart is
         # necessary to implement the changes, otherwise the updated file will be restored by client sessions.
     
-    return f"  > Removed {removed_tokens} token{'' if removed_tokens == 1 else 's'}" + "\n" + f"{'  > Restarting...' if removed_tokens >0 else ''}"
+    return f"  > Removed {removed_tokens} token{'' if removed_tokens == 1 else 's'}" + f" ({','.join(rem_token)})" + "\n" + f"{'  > Restarting...' if removed_tokens > 0 else ''}"
     
 
 if __name__ == '__main__':
