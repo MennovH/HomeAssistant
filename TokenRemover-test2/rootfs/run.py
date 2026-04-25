@@ -69,7 +69,7 @@ def tokenremover(long_lived_token, retention_days, active_days):
     for token in data["data"]["refresh_tokens"]:
         # Only focus on "normal" tokens, and keep other tokens, e.g. "system" and "long lived"
         if token["token_type"] != "normal":
-            keep_list.append(token.id)
+            keep_list.append(token["id"])
             continue
         
         if int(active_days) < 999:
@@ -81,7 +81,7 @@ def tokenremover(long_lived_token, retention_days, active_days):
             last_used_date = datetime(int(yr), int(mnth), int(d), int(hr), int(mnt))
         
             if last_used_date >= (datetime.now() + timedelta(minutes=30) - timedelta(days=int(active_days))):
-                keep_list.append(token.id)
+                keep_list.append(token["id"])
                 continue
 
         # Get creation date, and parse to a comparable format
@@ -92,9 +92,9 @@ def tokenremover(long_lived_token, retention_days, active_days):
         # Compare the creation date with the exact date time of x days ago
         # add 30 minutes to creation date, to prevent on boot execution (if enabled) to trigger hereafter
         if creation_date >= (datetime.now() + timedelta(minutes=30) - timedelta(days=int(retention_days))):
-            keep_list.append(token.id)
+            keep_list.append(token["id"])
             continue
-        rem_tokens.append(token.id)
+        rem_tokens.append(token["id"])
 
 
     if long_lived_token in [None,"None",""]:
