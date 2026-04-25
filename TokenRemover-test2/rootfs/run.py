@@ -27,6 +27,9 @@ def date_calc(date, weekday):
 
 def recurrence(am_pm, automation_time, weekdays):
     # Calculate next run time
+    print(am_pm)
+    print(automation_time)
+    print(weekdays)
     hr, mnt = int(automation_time[0]), int(automation_time[1])
 
     if hr == 12 and am_pm == 'AM':
