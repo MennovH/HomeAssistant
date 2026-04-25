@@ -55,6 +55,9 @@ WEEKDAYS=$(jq -n \
     sun: ($sun == "true")
   }'
 )
+
+echo -e "${WEEKDAYS}"
+
 LONG_LIVED_TOKEN=$(bashio::config 'long_lived_token')
 LONG_LIVED_TOKEN=${LONG_LIVED_TOKEN:-not_defined}
 
