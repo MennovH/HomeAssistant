@@ -22,7 +22,7 @@ declare SUN
 
 BAN_FILE="/config/ip_bans.yaml"
 TMP_BAN_FILE="/config/tmp_ip_bans.yaml"
-LONG_LIVED_TOKEN=$(bashio::config 'long_lived_token' | xargs echo -n)
+# LONG_LIVED_TOKEN=$(bashio::config 'long_lived_token' | xargs echo -n)
 RETENTION_DAYS=$(bashio::config 'retention_days' | xargs echo -n)
 KEEP_ACTIVE=$(bashio::config 'keep_active' | xargs echo -n)
 ACTIVATION_DAYS=$(bashio::config 'activation_days' | xargs echo -n)
@@ -35,12 +35,8 @@ THU=$(bashio::config 'thu' | xargs echo -n)
 FRI=$(bashio::config 'fri' | xargs echo -n)
 SAT=$(bashio::config 'sat' | xargs echo -n)
 SUN=$(bashio::config 'sun' | xargs echo -n)
-
-	
-if [[ "${LONG_LIVED_TOKEN}" == "" ]];
-	then
-	LONG_LIVED_TOKEN="not_defined"
-fi
+LONG_LIVED_TOKEN=$(bashio::config 'long_lived_token')
+LONG_LIVED_TOKEN=${LONG_LIVED_TOKEN:-not_defined}
 
 if [ "${KEEP_ACTIVE}" == false ];
 then
