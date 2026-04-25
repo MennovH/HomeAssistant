@@ -71,9 +71,9 @@ def recurrence(days_enabled, automation_time, am_pm):
             return 12 if hour == 12 else hour + 12
 
     candidate_hours = []
-    if am_pm in ("AM", "BOTH"):
+    if am_pm in ("AM", "Both"):
         candidate_hours.append(to_24h(hour_12, "AM"))
-    if am_pm in ("PM", "BOTH"):
+    if am_pm in ("PM", "Both"):
         candidate_hours.append(to_24h(hour_12, "PM"))
 
     day_map = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
