@@ -169,7 +169,7 @@ def tokenremover(long_lived_token, retention_days, active_days):
                 # for r in results:
                 #     print(r) #nodig?
 
-            return f"  > Removed {len(rem_tokens)} token{'' if len(rem_tokens) == 1 else 's'}" + "\n" + f"{rem_tokens}"
+                return f"  > Removed {len(rem_tokens)} token{'' if len(rem_tokens) == 1 else 's'}" + "\n" + f"{rem_tokens} - {results}"
 
 
 if __name__ == '__main__':
