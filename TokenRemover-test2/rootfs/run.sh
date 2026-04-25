@@ -145,7 +145,8 @@ else
 		#RESULT=$(python3 run.py 0 ${LONG_LIVED_TOKEN} ${AM_PM} ${AUTOMATION_TIME} ${MON} ${TUE} ${WED} ${THU} ${FRI} ${SAT} ${SUN})
 		RESULT=$(python3 run.py 0 "${AM_PM}" "${AUTOMATION_TIME}" "${WEEKDAYS}")
 		echo -e $(echo -e "${RESULT}" | head -n1)
-		echo -e $(echo -e "${RESULT}")
+		echo -e $(echo -e "${RESULT}" | tail -n1)
+		# echo -e $(echo -e "${RESULT}")
 		sleep $(echo -e "${RESULT}" | tail -n1)
 		
 		run
