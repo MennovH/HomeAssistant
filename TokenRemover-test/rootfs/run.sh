@@ -4,20 +4,13 @@ declare BAN_FILE
 declare TMP_BAN_FILE
 declare BAN_LINE_COUNT
 declare TMP_BAN_LINE_COUNT
-
 declare ACTIVATION_DAYS
 declare KEEP_ACTIVE
 declare RETENTION_DAYS
 declare RESULT
 declare AUTO
 declare ADDON
-declare MON
-declare TUE
-declare WED
-declare THU
-declare FRI
-declare SAT
-declare SUN
+declare WEEKDAYS
 
 BAN_FILE="/config/ip_bans.yaml"
 TMP_BAN_FILE="/config/tmp_ip_bans.yaml"
@@ -47,22 +40,11 @@ WEEKDAYS=$(jq -n \
 AUTO="Once"
 echo "$WEEKDAYS" | jq -e 'any(.[]; .)' > /dev/null && AUTO="Defined"
 
-
 if [ "${KEEP_ACTIVE}" == false ];
 then
     echo -e "${__BASHIO_COLORS_YELLOW}Note: You may get locked out for one minute after restart, as TokenRemover doesn't know which token belongs to whom. TokenRemover will restore the current ip_bans.yaml file when it detects newly banned IP addresses within one minute after execution. Home Assistant Core will then again be restarted to make this change permanent, after which you should be able to log in again.\n${__BASHIO_COLORS_DEFAULT}"
 	ACTIVATION_DAYS = 999
 fi
-
-# AUTO="Once"
-# for day in "${MON}" "${TUE}" "${WED}" "${THU}" "${FRI}" "${SAT}" "${SUN}";
-# do
-# 	if [ "${day}" == true ];
-# 	then
-# 		AUTO="Defined"
-# 		break
-# 	fi
-# done
 
 run () {
 
@@ -84,9 +66,7 @@ run () {
 		# restart Home Assistant Core
 		bashio::core.restart
 		
-		#echo -e -n "  > Running checks..."
 		sleep 120
-		#echo -e "\r Done"
 			
 		if [ -f "${BAN_FILE}" ];
 		then
