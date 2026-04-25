@@ -92,7 +92,12 @@ def recurrence(days_enabled, automation_time, am_pm):
             )
 
             if candidate > now:
-                return "Scheduled: ", candidate.strftime("%Y-%m-%d %H:%M")
+                later = datetime(year=candidate.year, month=candidate.month, day=candidate.day, hour=candidate.hour, minute=candidate.minute)
+
+                return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
+                # return f"Scheduled: {later}\n{(later - datetime.now()).total_seconds()}"
+
+                # return "Scheduled: ", candidate.strftime("%Y-%m-%d %H:%M")
                 # return candidate
 
     return "Scheduled: never"
