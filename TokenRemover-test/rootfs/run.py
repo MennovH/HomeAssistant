@@ -140,7 +140,7 @@ def tokenremover(retention_days, active_days):
         subprocess.run([
             "bash",
             "-c",
-            "bashio::core.stop"
+            "ha core stop"
         ])
         # Overwrite refresh_token list in auth file
         with open(AUTH_FILE, "w") as f:
@@ -150,7 +150,7 @@ def tokenremover(retention_days, active_days):
         subprocess.run([
             "bash",
             "-c",
-            "bashio::core.start"
+            "ha core start"
         ])
         # "send" return value to bash, so it will run the "ha core restart" command hereafter. The restart is
         # necessary to implement the changes, otherwise the updated file will be restored by client sessions.

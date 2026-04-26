@@ -61,10 +61,10 @@ run () {
 		fi
 		echo -e -n "${RESULT}"
 		
-		sleep 0.75
+		# sleep 0.75
 		
 		# restart Home Assistant Core
-		bashio::core.restart
+		# bashio::core.restart
 		
 		sleep 120
 			
