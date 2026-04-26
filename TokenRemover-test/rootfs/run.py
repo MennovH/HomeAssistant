@@ -142,8 +142,8 @@ def tokenremover(retention_days, active_days):
 
         # "send" return value to bash, so it will run the "ha core restart" command hereafter. The restart is
         # necessary to implement the changes, otherwise the updated file will be restored by client sessions.
-    
-    return f"  > Removed {removed_tokens} token{'' if removed_tokens == 1 else 's'}" + f" ({','.join(rem_token)})" + "\n" + f"{'  > Restarting...' if removed_tokens > 0 else ''}"
+    tokens = "\n -" + f"{'\n-'.join(rem_token)}" if removed_tokens > 0 else ""
+    return f"  > Removed {removed_tokens} token{'' if removed_tokens == 1 else 's'}" + tokens + "\n" + f"{'  > Restarting...' if removed_tokens > 0 else ''}"
     
 
 if __name__ == '__main__':
