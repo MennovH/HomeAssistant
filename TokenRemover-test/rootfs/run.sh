@@ -12,6 +12,7 @@ declare AUTO
 declare ADDON
 declare WEEKDAYS
 
+AUTH_FILE="/config/.storage/auth"
 BAN_FILE="/config/ip_bans.yaml"
 TMP_BAN_FILE="/config/tmp_ip_bans.yaml"
 RETENTION_DAYS=$(bashio::config 'retention_days' | xargs echo -n)
@@ -61,7 +62,12 @@ run () {
 		fi
 		echo -e -n "${RESULT}"
 		
-		# sleep 0.75
+		bashio::core.stop
+
+		mv -f "/config/.storage/auth-new" "/config/.storage/auth"
+
+		sleep 0.75
+		bashio::core.start
 		
 		# restart Home Assistant Core
 		# bashio::core.restart
