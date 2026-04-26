@@ -137,21 +137,13 @@ def tokenremover(retention_days, active_days):
         data["data"]["refresh_tokens"] = keep_list
         import subprocess
 
-        subprocess.run([
-            "bash",
-            "-c",
-            "ha core stop"
-        ])
+        subprocess.check_output("ha core stop",shell=True)
         # Overwrite refresh_token list in auth file
         with open(AUTH_FILE, "w") as f:
             json.dump(data, f, indent=4)
 
         time.sleep(0.75)
-        subprocess.run([
-            "bash",
-            "-c",
-            "ha core start"
-        ])
+        subprocess.check_output("ha core start",shell=True)
         # "send" return value to bash, so it will run the "ha core restart" command hereafter. The restart is
         # necessary to implement the changes, otherwise the updated file will be restored by client sessions.
     
