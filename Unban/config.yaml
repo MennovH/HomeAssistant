@@ -1,7 +1,6 @@
 name: "Unban"
 url: https://github.com/MennovH/HomeAssistant/tree/main/Unban
 description: "Unban add-on for Home Assistant"
-codenotary: mennovh_@hotmail.com
 version: "1.0.1"
 slug: "unban"
 hassio_api: true
@@ -13,9 +12,6 @@ init: false
 arch:
   - aarch64
   - amd64
-  - armhf
-  - armv7
-  - i386
 map:
   - config:rw
 startup: application
