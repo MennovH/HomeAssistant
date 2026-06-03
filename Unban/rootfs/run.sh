@@ -56,12 +56,10 @@ function unban () {
 
     if [ -f "${BAN_FILE}" ]; then
 
-        # Wildcard omzetten naar regex
         REGEX="^${IP//./\\.}$"
         REGEX="${REGEX//\*/[0-9]+}"
 
-        # Alle overeenkomende IP's verzamelen
-        MATCHES=$(grep -E "${REGEX}:" "${BAN_FILE}" | sed 's/:$//')
+        MATCHES=$(grep -E "$REGEX:" "$BAN_FILE" | sed 's/:$//')
 
         if [[ -n "$MATCHES" ]]; then
 
