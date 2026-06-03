@@ -66,11 +66,11 @@ function unban () {
         if [[ -n "$MATCHES" ]]; then
 
             # Verwijderen
-            sed -i "/${REGEX}:/,+1d" "${BAN_FILE}"
+            $(sed -i "/${REGEX}:/,+1d" "${BAN_FILE}");
 
             # Feedback geven
             while IFS= read -r ip; do
-                echo "  > Unbanned IP ${ip}"
+                echo -e "  > Unbanned IP ${ip}"
             done <<< "$MATCHES"
 
         fi
