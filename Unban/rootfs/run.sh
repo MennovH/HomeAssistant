@@ -38,44 +38,18 @@ if [[ ${INTERVAL} == 1 ]]; then echo -e "${RG}Iterating every minute${N}\n "; el
 
 function unban () {
     local IP=$1
-    # if [ -f "${BAN_FILE}" ];
-    # then
-    #     if [[ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) > 0 ]];
-    #     then
-    #         # $(sed -i "/${IP}:/{N;N;d;}" "${BAN_FILE}");
-    #         $(sed -i "/^${IP}:$/,+1d" "${BAN_FILE}");
-    #         if [[ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) == 0 ]];
-    #         then
-    #             echo -e "  > Unbanned IP ${IP}"
-    #         fi
-    #     fi
-    # fi
-
-
-
-
-    if [ -f "${BAN_FILE}" ]; then
-
-        REGEX="^${IP//./\\.}$"
-        REGEX="${REGEX//\*/[0-9]+}"
-
-        MATCHES=$(grep -E "$REGEX:" "$BAN_FILE" | sed 's/:$//')
-
-        if [[ -n "$MATCHES" ]]; then
-
-            # Verwijderen
-            $(sed -i "/${REGEX}:/,+1d" "${BAN_FILE}");
-
-            # Feedback geven
-            while IFS= read -r ip; do
-                echo -e "  > Unbanned IP ${ip}"
-            done <<< "$MATCHES"
-
+    if [ -f "${BAN_FILE}" ];
+    then
+        if [[ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) > 0 ]];
+        then
+            # $(sed -i "/${IP}:/{N;N;d;}" "${BAN_FILE}");
+            $(sed -i "/^${IP}:$/,+1d" "${BAN_FILE}");
+            if [[ $(grep -o "${IP}" "${BAN_FILE}" | wc -l) == 0 ]];
+            then
+                echo -e "  > Unbanned IP ${IP}"
+            fi
         fi
-
     fi
-
-
 }
 
 while :
